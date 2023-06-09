@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: alb
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: aws-load-balancer-controller
+  namespace: alb
+  annotations:
+    eks.amazonaws.com/role-arn: ALB_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alb-controller
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    chart: aws-load-balancer-controller
+    repoURL: https://aws.github.io/eks-charts
+    targetRevision: 1.4.5
+    helm:
+      releaseName: aws-load-balancer-controller
+      parameters:
+        - name: clusterName
+          value: CLUSTER_NAME
+        - name: serviceAccount.create
+          value: "false"
+        - name: serviceAccount.name
+          value: "aws-load-balancer-controller"
+        - name: resources.limits.memory
+          value: "128Mi"
+        - name: resources.requests.cpu
+          value: "100m"
+        - name: resources.requests.memory
+          value: "128Mi"
+        - name: watchNamespace
+          value: "ingress-nginx"
+  destination:
+    namespace: alb
+    name: in-cluster
+  syncPolicy:
+    automated: {}

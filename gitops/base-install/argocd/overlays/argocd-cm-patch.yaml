@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
+  url: https://ARGOCD_SERVER_HOST

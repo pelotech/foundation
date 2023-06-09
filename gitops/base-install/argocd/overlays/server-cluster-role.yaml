@@ -1,0 +1,3 @@
+---
+- {op: add, path: /rules/3/verbs/-, value: create}
+- {op: add, path: /rules/3/verbs/-, value: update}

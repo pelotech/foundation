@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ./argocd
+  - ./cert-manager/install.yaml
+  - ./ebs-csi-driver/install.yaml
+  - ./external-dns/install.yaml
+  - ./image-updater/install.yaml
+  - ./ingress-controller
+  - ./reloader/install.yaml
+  - ./tailscale/install.yaml # TODO include an Application

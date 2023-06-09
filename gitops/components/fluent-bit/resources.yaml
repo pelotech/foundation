@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fluent-bit
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluent-bit
+  namespace: fluent-bit
+  annotations:
+    eks.amazonaws.com/role-arn: FLUENT_BIT_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluent-bit
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  destination:
+    namespace: fluent-bit
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+  source:
+    chart: fluent-bit
+    repoURL: https://fluent.github.io/helm-charts
+    targetRevision: 0.25.0
+    helm:
+      releaseName: fluent-bit
+      values: |
+        serviceAccount:
+          create: false
+          name: fluent-bit

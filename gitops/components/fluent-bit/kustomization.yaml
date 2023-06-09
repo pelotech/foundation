@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://fluent.github.io/helm-charts
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: fluent-bit
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.FLUENT_BIT_ROLE_ARN
+    targets:
+      - select:
+          version: v1
+          kind: ServiceAccount
+          name: fluent-bit
+        fieldPaths:
+          - metadata.annotations.eks\.amazonaws\.com/role-arn

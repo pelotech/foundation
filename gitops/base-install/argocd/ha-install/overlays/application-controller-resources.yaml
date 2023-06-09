@@ -1,0 +1,10 @@
+# CPU avg 1.2% of 4vCPU  = .048 ~= 50m
+# Memory max 256 megs
+- op: add
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      memory: 500Mi
+    requests:
+      cpu: 50m
+      memory: 500Mi

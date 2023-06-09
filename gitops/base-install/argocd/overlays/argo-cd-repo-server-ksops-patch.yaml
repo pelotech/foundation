@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+spec:
+  template:
+    spec:
+      # 1. Define an emptyDir volume which will hold the custom binaries
+      volumes:
+        - name: custom-tools
+          emptyDir: {}
+        - name: gnupg-home
+          emptyDir: { }
+        - name: sops-gpg
+          secret:
+            secretName: sops-gpg
+      # 2. Use an init container to download/copy custom binaries into the emptyDir
+      initContainers:
+        - name: install-ksops
+          image: viaductoss/ksops:v4.1.1
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Installing KSOPS...";
+              mv ksops /custom-tools/;
+              mv $GOPATH/bin/kustomize /custom-tools/;
+              echo "Done.";
+          volumeMounts:
+            - mountPath: /custom-tools
+              name: custom-tools
+         # Import the private gpg key from the secret into argocd
+        - name: import-gpg-key
+          image: argoproj/argocd:v2.5.0
+          command: [ "gpg", "--import","/sops-gpg/sops.asc" ]
+          env:
+            - name: GNUPGHOME
+              value: /gnupg-home/.gnupg
+          volumeMounts:
+            - mountPath: /sops-gpg
+              name: sops-gpg
+            - mountPath: /gnupg-home
+              name: gnupg-home
+      # 3. Volume mount the custom binary to the bin directory (overriding the existing version)
+      containers:
+        - name: argocd-repo-server
+          volumeMounts:
+            - mountPath: /usr/local/bin/kustomize
+              name: custom-tools
+              subPath: kustomize
+            - mountPath: /home/argocd/.gnupg
+              name: gnupg-home
+              subPath: .gnupg
+            - mountPath: /usr/local/bin/ksops
+              name: custom-tools
+              subPath: ksops

@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonAnnotations:
+  owner: quantum-interface
+
+resources:
+- https://raw.githubusercontent.com/argoproj/argo-cd/v2.6.7/manifests/install.yaml
+
+
+namespace: argocd
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/instance: argocd
+patches:
+- path: overlays/application-controller-resources.yaml
+  target:
+    group: apps
+    kind: StatefulSet
+    name: argocd-application-controller
+    version: v1
+- path: overlays/redis-resources.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-redis
+    version: v1

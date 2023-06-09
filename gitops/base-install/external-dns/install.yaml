@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-dns
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: external-dns-controller
+  namespace: external-dns
+  annotations:
+    eks.amazonaws.com/role-arn: EXTERNAL_DNS_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    chart: external-dns
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 6.10.2
+    helm:
+      releaseName: external-dns
+      parameters:
+        - name: txtOwnerId
+          value: CLUSTER_NAME
+      values: |
+        serviceAccount:
+          create: false
+          name: external-dns-controller
+        provider: aws
+        policy: sync
+        registry: txt
+        txtPrefix: xdns-
+        resources:
+          limits:
+            memory: 105M
+          requests:
+            cpu: 50m
+            memory: 105M
+  destination:
+    namespace: external-dns
+    name: in-cluster
+  syncPolicy:
+    automated: {}

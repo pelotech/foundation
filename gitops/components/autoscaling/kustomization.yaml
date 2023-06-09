@@ -1,0 +1,64 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://kubernetes-sigs.github.io/metrics-server
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://kubernetes.github.io/autoscaler
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: kube-system
+          server: https://kubernetes.default.svc
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AUTOSCALER_ROLE_ARN
+    targets:
+      - select:
+          version: v1
+          kind: ServiceAccount
+          name: cluster-autoscaler
+        fieldPaths:
+          - metadata.annotations.eks\.amazonaws\.com/role-arn
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.CLUSTER_NAME
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.parameters.[name=autoDiscovery.clusterName].value
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AWS_REGION
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.parameters.[name=awsRegion].value

@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    chart: cert-manager
+    repoURL: https://charts.jetstack.io
+    targetRevision: 1.10.1
+    helm:
+      releaseName: cert-manager
+      parameters:
+        - name: installCRDs
+          value: "true"
+        - name: resources.limits.memory
+          value: "105M"
+        - name: resources.requests.cpu
+          value: "15m"
+        - name: resources.requests.memory
+          value: "105M"
+        - name: webhook.resources.limits.memory
+          value: "105M"
+        - name: webhook.resources.requests.cpu
+          value: "15m"
+        - name: webhook.resources.requests.memory
+          value: "105M"
+        - name: cainjector.resources.limits.memory
+          value: "105M"
+        - name: cainjector.resources.requests.cpu
+          value: "15m"
+        - name: cainjector.resources.requests.memory
+          value: "105M"
+  destination:
+    namespace: cert-manager
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: create-issuer
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    repoURL: 'git@github.com:quantum-interface/infrastructure'
+    path: shared/gitops/base-install/cert-manager/create-issuer
+    helm:
+      releaseName: create-issuer
+      parameters:
+        - name: acmeIssuerEmail
+          value: ACME_ISSUER_EMAIL
+    targetRevision: main
+  destination:
+    namespace: cert-manager
+    name: in-cluster
+  syncPolicy:
+    automated: {}

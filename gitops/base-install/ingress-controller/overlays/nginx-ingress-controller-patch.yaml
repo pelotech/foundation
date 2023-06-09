@@ -1,0 +1,4 @@
+---
+- {op: add, path: /spec/template/spec/containers/0/args/-, value: --enable-ssl-passthrough}
+- {op: replace, path: /spec/template/spec/containers/0/resources/requests/memory, value: 110M}
+#- {op: add, path: /spec/template/spec/containers/0/resources/limits/memory, value: 110M}

@@ -1,0 +1,64 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+- ./cluster-install
+- ./resources.yaml
+
+patches:
+- path: overlays/server-deploy-command.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-server
+    version: v1
+- path: overlays/argo-cd-repo-server-ksops-patch.yaml
+  target:
+    kind: Deployment
+    name: argocd-repo-server
+- path: overlays/argocd-cm-patch.yaml
+  target:
+    kind: ConfigMap
+    name: argocd-cm
+- path: overlays/argocd-rbac-cm-patch.yaml
+  target:
+    kind: ConfigMap
+    name: argocd-rbac-cm
+- path: overlays/server-cluster-role.yaml
+  target:
+    group: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: argocd-server
+    version: v1
+- path: overlays/server-resources.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-server
+    version: v1
+- path: overlays/applicationset-controller-resources.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-applicationset-controller
+    version: v1
+- path: overlays/dex-server-resources.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-dex-server
+    version: v1
+- path: overlays/notifications-controller-resources.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-notifications-controller
+    version: v1
+- path: overlays/repo-server-resources.yaml
+  target:
+    group: apps
+    kind: Deployment
+    name: argocd-repo-server
+    version: v1

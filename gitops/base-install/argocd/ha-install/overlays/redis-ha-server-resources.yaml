@@ -1,0 +1,26 @@
+# CPU avg 6.5% of 4vCPU  = .26 ~= 260m / 3 containers ~= 87m each
+# Memory max 50MiB
+- op: add
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      memory: 50Mi
+    requests:
+      cpu: 87m
+      memory: 50Mi
+- op: add
+  path: /spec/template/spec/containers/1/resources
+  value:
+    limits:
+      memory: 50Mi
+    requests:
+      cpu: 87m
+      memory: 50Mi
+- op: add
+  path: /spec/template/spec/containers/2/resources
+  value:
+    limits:
+      memory: 50Mi
+    requests:
+      cpu: 87m
+      memory: 50Mi

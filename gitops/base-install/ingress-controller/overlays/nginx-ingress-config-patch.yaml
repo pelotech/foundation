@@ -1,0 +1,3 @@
+---
+- {op: add, path: /data/enable-real-ip,  value: "true"}
+- {op: add, path: /data/forwarded-for-header,  value: "proxy_protocol"} # https://github.com/kubernetes/ingress-nginx/issues/8052

@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: reloader
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: reloader
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  destination:
+    namespace: reloader
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+  source:
+    repoURL: https://stakater.github.io/stakater-charts
+    chart: reloader
+    targetRevision: v1.0.24
+    helm:
+      releaseName: reloader
+      values: |
+        reloader:
+          deployment:
+            resources:
+              limits:
+                memory: 105M
+              requests:
+                cpu: 15m
+                memory: 105M

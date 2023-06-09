@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argocd
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ARGOCD_SERVER_HOST
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: https
+  tls:
+    - secretName: argocd-secret # do not change, this is provided by Argo CD
+      hosts:
+        - ARGOCD_SERVER_HOST
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: admins
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  sourceRepos:
+    - https://argoproj.github.io/argo-helm
+    - https://aws.github.io/eks-charts
+    - https://charts.bitnami.com/bitnami
+    - https://charts.jetstack.io
+    - https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+    - https://stakater.github.io/stakater-charts
+  destinations:
+    - namespace: alb
+      server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+    - namespace: cert-manager
+      server: https://kubernetes.default.svc
+    - namespace: external-dns
+      server: https://kubernetes.default.svc
+    - namespace: ingress-nginx
+      server: https://kubernetes.default.svc
+    - namespace: reloader
+      server: https://kubernetes.default.svc
+    - namespace: tailscale
+      server: https://kubernetes.default.svc
+  sourceNamespaces:
+    - argocd
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
