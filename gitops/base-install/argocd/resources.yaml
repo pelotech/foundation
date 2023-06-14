@@ -56,8 +56,6 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: reloader
       server: https://kubernetes.default.svc
-    - namespace: tailscale
-      server: https://kubernetes.default.svc
   sourceNamespaces:
     - argocd
   clusterResourceWhitelist:

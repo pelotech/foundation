@@ -9,4 +9,3 @@ resources:
   - ./image-updater/install.yaml
   - ./ingress-controller
   - ./reloader/install.yaml
-  - ./tailscale/install.yaml # TODO include an Application
