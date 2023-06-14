@@ -56,8 +56,8 @@ metadata:
 spec:
   project: admins
   source:
-    repoURL: 'git@github.com:quantum-interface/infrastructure'
-    path: shared/gitops/base-install/cert-manager/create-issuer
+    repoURL: 'git@github.com:pelotech/foundation'
+    path: gitops/base-install/cert-manager/create-issuer
     helm:
       releaseName: create-issuer
       parameters:
