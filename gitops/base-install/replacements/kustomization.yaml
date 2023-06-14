@@ -114,16 +114,3 @@ replacements:
           - metadata.annotations.eks\.amazonaws\.com/role-arn
         options:
           create: true
-
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.VPC_CIDR_BLOCK
-    targets:
-      - select:
-          version: v1
-          kind: Deployment
-          name: tailscale
-        fieldPaths:
-          - spec.template.spec.containers.[name=tailscale].env.[name=TS_ROUTES].value
