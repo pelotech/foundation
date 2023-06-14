@@ -44,6 +44,8 @@ spec:
     - https://kubernetes-sigs.github.io/aws-ebs-csi-driver
     - https://stakater.github.io/stakater-charts
   destinations:
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
     - namespace: alb
       server: https://kubernetes.default.svc
     - namespace: argocd
