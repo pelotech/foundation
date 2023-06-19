@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: loki
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: loki
+  namespace: loki
+  annotations:
+    eks.amazonaws.com/role-arn: LOKI_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    chart: loki
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 5.8.0
+  destination:
+    namespace: loki
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+    helm:
+      releaseName: loki
+      parameters:
+        - name: storage.s3.region
+          value: AWS_REGION
+        - name: storage.bucketNames.chunks
+          value: LOKI_S3_BUCKET
+        - name: storage.bucketNames.ruler
+          value: LOKI_S3_BUCKET
+        - name: storage.bucketNames.admin
+          value: LOKI_S3_BUCKET
+      values: |
+        serviceAccount:
+          create: false
+          name: loki
+      valueFiles:
+        - ./values/single-binary-mode-s3.yaml

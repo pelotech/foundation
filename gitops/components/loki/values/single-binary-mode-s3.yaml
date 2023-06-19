@@ -1,0 +1,55 @@
+singleBinary:
+  replicas: 2
+  persistence:
+    enabled: false
+    enableStatefulSetAutoDeletePVC: false
+  # https://github.com/grafana/loki/issues/6370
+  extraArgs:
+    - -config.expand-env=true
+  extraEnv:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+write:
+  replicas: 0
+read:
+  replicas: 0
+backend:
+  replicas: 0
+loki:
+  extraMemberlistConfig:
+    bind_addr:
+      - ${MY_POD_IP}
+  auth_enabled: false
+  commonConfig:
+    path_prefix: /tmp/loki
+    replication_factor: 2
+  storage_config:
+    boltdb_shipper:
+      shared_store: s3
+  compactor:
+    retention_enabled: true
+    shared_store: s3
+  limits_config:
+    retention_period: 720h
+gateway:
+  enabled: false
+ingress:
+  enabled: false
+monitoring:
+  selfMonitoring:
+    enabled: false
+    grafanaAgent:
+      installOperator: false
+  serviceMonitor:
+    enabled: false
+  dashboards:
+    enabled: false
+  rules:
+    enabled: false
+  lokiCanary:
+    enabled: false
+test:
+  # Depends on selfMonitoring.enabled
+  enabled: false

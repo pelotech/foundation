@@ -41,9 +41,8 @@ spec:
               memory: 105M
             limits:
               memory: 105M
-      parameters:
-        - name: vpa.enabled
-          value: "true"
+        vpa:
+          enabled: true
   destination:
     namespace: goldilocks
     name: in-cluster
