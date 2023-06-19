@@ -34,13 +34,13 @@ spec:
     helm:
       releaseName: loki
       parameters:
-        - name: storage.s3.region
+        - name: loki.storage.s3.region
           value: AWS_REGION
-        - name: storage.bucketNames.chunks
+        - name: loki.storage.bucketNames.chunks
           value: LOKI_S3_BUCKET
-        - name: storage.bucketNames.ruler
+        - name: loki.storage.bucketNames.ruler
           value: LOKI_S3_BUCKET
-        - name: storage.bucketNames.admin
+        - name: loki.storage.bucketNames.admin
           value: LOKI_S3_BUCKET
       values: |
         serviceAccount:
