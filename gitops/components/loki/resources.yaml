@@ -22,15 +22,15 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: admins
-  source:
-    chart: loki
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 5.8.0
   destination:
     namespace: loki
     name: in-cluster
   syncPolicy:
     automated: {}
+  source:
+    chart: loki
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 5.8.0
     helm:
       releaseName: loki
       parameters:
