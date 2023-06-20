@@ -42,6 +42,10 @@ spec:
           value: LOKI_S3_BUCKET
         - name: loki.storage.bucketNames.admin
           value: LOKI_S3_BUCKET
+        - name: 'gateway.ingress.hosts[0].host'
+          value: LOKI_GATEWAY_HOST
+        - name: 'gateway.ingress.tls[0].hosts[0]'
+          value: LOKI_GATEWAY_HOST
       values: |
         serviceAccount:
           create: false
@@ -82,7 +86,24 @@ spec:
           limits_config:
             retention_period: 720h
         gateway:
-          enabled: false
+          enabled: true
+          ingress:
+            enabled: true
+            ingressClassName: "nginx"
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+              # TODO setup auth
+              # nginx.ingress.kubernetes.io/auth-type: basic
+              # nginx.ingress.kubernetes.io/auth-secret: loki-basic-auth
+            hosts:
+              - host: loki.example.com
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - hosts:
+                  - loki.example.com
+                secretName: loki-tls
         ingress:
           enabled: false
         monitoring:
