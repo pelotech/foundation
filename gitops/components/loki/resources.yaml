@@ -34,6 +34,10 @@ spec:
     helm:
       releaseName: loki
       parameters:
+        - name: 'gateway.ingress.hosts[0].host'
+          value: LOKI_GATEWAY_HOST
+        - name: 'gateway.ingress.tls[0].hosts[0]'
+          value: LOKI_GATEWAY_HOST
         - name: loki.storage.s3.region
           value: AWS_REGION
         - name: loki.storage.bucketNames.chunks
@@ -42,10 +46,6 @@ spec:
           value: LOKI_S3_BUCKET
         - name: loki.storage.bucketNames.admin
           value: LOKI_S3_BUCKET
-        - name: 'gateway.ingress.hosts[0].host'
-          value: LOKI_GATEWAY_HOST
-        - name: 'gateway.ingress.tls[0].hosts[0]'
-          value: LOKI_GATEWAY_HOST
       values: |
         serviceAccount:
           create: false

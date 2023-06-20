@@ -61,3 +61,17 @@ replacements:
           - spec.source.helm.parameters.[name=storage.bucketNames.chunks].value
           - spec.source.helm.parameters.[name=storage.bucketNames.ruler].value
           - spec.source.helm.parameters.[name=storage.bucketNames.admin].value
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.LOKI_GATEWAY_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: loki
+        fieldPaths:
+          - spec.source.helm.parameters.0.value
+          - spec.source.helm.parameters.1.value
