@@ -38,7 +38,7 @@ spec:
           value: CLUSTER_NAME
         - name: awsRegion
           value: AWS_REGION
-        - name: ampexporters.endpoint
+        - name: daemonSet.ampexporters.endpoint
           value: AMP_RW_ENDPOINT
             # https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-30b74c49-746c-4cc2-b93c-539f15d45259/api/v1/remote_write
       values: |
