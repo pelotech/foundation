@@ -22,6 +22,11 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: admins
+  destination:
+    namespace: adot
+    name: in-cluster
+  syncPolicy:
+    automated: {}
   source:
     chart: adot-exporter-for-eks-on-ec2
     repoURL: https://aws-observability.github.io/aws-otel-helm-charts
