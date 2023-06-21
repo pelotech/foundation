@@ -1,0 +1,116 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: adot
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: adot-collector
+  namespace: adot
+  annotations:
+    eks.amazonaws.com/role-arn: ADOT_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: adot-collector
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    chart: adot-exporter-for-eks-on-ec2
+    repoURL: https://aws-observability.github.io/aws-otel-helm-charts
+    targetRevision: 0.13.0
+    helm:
+      releaseName: adot-collector
+      parameters:
+        - name: clusterName
+          value: CLUSTER_NAME
+        - name: awsRegion
+          value: AWS_REGION
+        - name: ampexporters.endpoint
+          value: AMP_RW_ENDPOINT
+            # https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-30b74c49-746c-4cc2-b93c-539f15d45259/api/v1/remote_write
+      values: |
+        serviceAccount:
+          create: false
+          name: "adot-collector"
+        adotCollector:
+          daemonSet:
+            createNamespace: false
+            namespace: adot
+            serviceAccount:
+              create: false
+              name: "adot-collector"
+            resources:
+              limits:
+                memory: 200Mi
+              requests:
+                cpu: 200m
+                memory: 200Mi
+            ampreceivers:
+              scrapeInterval: 15s
+              scrapeTimeout: 10s
+              scrapeConfigs: |
+                - job_name: 'pod_metrics_scrape'
+                  sample_limit: 10000
+                  metrics_path: /metrics
+                  kubernetes_sd_configs:
+                    - role: pod
+                  relabel_configs:
+                    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+                      action: keep
+                      regex: true
+                    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+                      action: replace
+                      regex: (.+)
+                      target_label: __metrics_path__
+                    - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+                      action: replace
+                      regex: ([^:]+)(?::\d+)?;(\d+)
+                      replacement: $$1:$$2
+                      target_label: __address__
+                    - source_labels: [__meta_kubernetes_namespace]
+                      action: replace
+                      target_label: Namespace
+                    - source_labels: [__meta_kubernetes_pod_name]
+                      action: replace
+                      target_label: PodName
+                - job_name: 'kubelets-cadvisor-metrics'
+                  sample_limit: 10000
+                  scheme: https
+                  kubernetes_sd_configs:
+                  - role: node
+                  tls_config:
+                    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+                  relabel_configs:
+                    - action: labelmap
+                      regex: __meta_kubernetes_node_label_(.+)
+                      # Only for Kubernetes ^1.7.3.
+                      # See: https://github.com/prometheus/prometheus/issues/2916
+                    - target_label: __address__
+                      # Changes the address to Kube API server's default address and port
+                      replacement: kubernetes.default.svc:443
+                    - source_labels: [__meta_kubernetes_node_name]
+                      regex: (.+)
+                      target_label: __metrics_path__
+                      # Changes the default metrics path to kubelet's proxy cadvdisor metrics endpoint
+                      replacement: /api/v1/nodes/$${1}/proxy/metrics/cadvisor
+                  metric_relabel_configs:
+                    # extract readable container/pod name from id field
+                    - action: replace
+                      source_labels: [id]
+                      regex: '^/machine\.slice/machine-rkt\\x2d([^\\]+)\\.+/([^/]+)\.service$'
+                      target_label: rkt_container_name
+                      replacement: '$${2}-$${1}'
+                    - action: replace
+                      source_labels: [id]
+                      regex: '^/system\.slice/(.+)\.service$'
+                      target_label: systemd_service_name
+                      replacement: '$${1}'

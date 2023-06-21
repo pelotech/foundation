@@ -18,6 +18,7 @@ patches:
         path: /spec/destinations/-
         value:
           namespace: fluent-bit
+          server: https://kubernetes.default.svc
 
 replacements:
   - source:
