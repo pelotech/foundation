@@ -37,3 +37,12 @@ spec:
         serviceAccount:
           create: false
           name: fluent-bit
+        config:
+          outputs: |
+            [OUTPUT]
+                name                   loki
+                host                   loki.loki.svc.cluster.local
+                tenant_id              b87173c0-e9fc-4209-8896-a93dfd073adb
+                match                  *
+                labels                 job=fluentbit
+                auto_kubernetes_labels on
