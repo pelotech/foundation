@@ -92,9 +92,8 @@ spec:
             ingressClassName: "nginx"
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt
-              # TODO setup auth
-              # nginx.ingress.kubernetes.io/auth-type: basic
-              # nginx.ingress.kubernetes.io/auth-secret: loki-basic-auth
+              nginx.ingress.kubernetes.io/auth-type: basic
+              nginx.ingress.kubernetes.io/auth-secret: loki-basic-auth
             hosts:
               - host: loki.example.com
                 paths:
