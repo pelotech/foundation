@@ -1,1 +1,132 @@
-# foundation
+# Foundation - Manifests for Pelotech's GitOps cluster
+Foundation is our repository of base, reusable manifests for setting up GitOps k8s clusters, currently targeted for AWS EKS clusters. ArgoCD is installed as the GitOps agent in a self-managed fashion and is responsible for installing all the remaining components of the cluster.
+
+A Foundation cluster comes with the following components installed:
+* ArgoCD: GitOps agent installed using [declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/)
+* [external-dns](https://github.com/kubernetes-sigs/external-dns): automatic DNS record management
+* [cert-manager](https://cert-manager.io/): automatic TLS certificate management
+* [EBS CSI Driver](httpsgithub.com/kubernetes-sigs/aws-ebs-csi-driver): support persitent storage using AWS EBS volumes
+* [NGINX Ingress controller](https://kubernetes.github.io/ingress-nginx/): nginx as Ingress controller paired with AWS NLB
+* [Reloader: automatically reload](https://github.com/stakater/Reloader) deployments when secrets/configmaps change
+
+Additionally the following optional components can be installed:
+* [Amazon Distribution for Open](https://github.com/aws-observability/aws-otel-collector) Telemetry (ADOT): Collect and export metrics with Open Telemetry
+* [Fluent Bit: Lightweight](https://fluentbit.io/) log collecter and exporter for containerized solutions
+* [Loki: Open source](https://grafana.com/oss/loki/) log aggregator from Grafana Labs with S3 log persistence
+* [Cluster Autoscaler:](https://github.com/kubernetes/autoscaler) node scaling
+* [Goldilocks: Initial recommendations](https://goldilocks.docs.fairwinds.com/) for setting resource requests and limits
+* [Tailscale: VPN access](https://tailscale.com) within the cluster
+
+## Getting started
+Foundation is intended to serve as a reusable base of manifests to get your cluster up and running with minimal initial setup. The following directory structure should be all that's needed to get started:
+```
+./
+ | environment.yaml
+ | resources.yaml
+ | kustomization.yaml
+```
+
+1. In `environment.yaml`, define a `ConfigMap named `kustomize-environment`and set the following required variables for Foundation's manifests (powered by [Kustomize replacements](https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/replacements/)):
+```yaml
+# environment
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kustomize-environment
+  namespace: argocd
+data:
+  CLUSTER_NAME: # name of your EKS cluster
+  AWS_REGION: # AWS region of your EKS cluster
+  ARGOCD_SERVER_HOST: # hostname for cluster's ArgoCD web interace, e.g. argocd.example-cluster.com
+  ACME_ISSUER_EMAIL: # email used by cert-manager for ACME/letsencrypt requests
+  VPC_CIDR_BLOCK: # the CIDR block of your cluster's VPC i.e. '172.16.0.0/16'
+
+  # See the ./terraform/cluster_roles example module for setting up these roles and their policies
+  ALB_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/alb-role
+  AUTOSCALER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/autoscaler-role
+  EBS_CSI_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/ebs-csi-driver
+  EXTERNAL_DNS_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/external-dns-role
+  IMAGE_UPDATER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/image-updater-role
+
+  # Only required If using Loki
+  LOKI_GATEWAY_HOST: # hostname for Loki gateway i.e. for Grafana to Loki
+  LOKI_ROLE_ARN: arn:aws:iam::580386492357:role/loki-role
+  LOKI_S3_BUCKET: # name of S3 bucket where Loki will store logs
+
+  # Only required If using Fluent Bit
+  FLUENT_BIT_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/loki-role
+
+  # Only required If using ADOT
+  ADOT_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/adot-collector-role
+  AMP_RW_ENDPOINT: # Prometheus remote endpoint for ADOT (if exporting to Prometheus/Grafana)
+
+```
+
+2. Define a `resources.yaml`with the following:
+```yaml
+# Configure IAM access to your cluster.
+# This will be specific to your AWS account setup - see https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/my-node-role
+      username: system:node:{EC2PrivateDNSName}
+---
+# This is ArgoCD's entrypoint for managing itself - it will intsall the kustomization.yaml in this directory.'
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  project: admins
+  source:
+    repoURL: {YOUR_REPO_URL}
+    path: {PATH_TO_THIS_DIRECTORY}
+    targetRevision: main
+  destination:
+    namespace: argocd
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+```
+
+3. Tie it all together with `kustomization.yaml`:
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # Note: you can pick which version of Foundation's manifests to pull in
+  - https://github.com/pelotech/foundation//gitops/base-install?ref=v0.0.16
+  - ./environment.yaml
+  - ./resources.yaml
+
+components:
+  # This is required for setting variables from environemnt.yaml
+  - https://github.com/pelotech/foundation//gitops/base-install/replacements?ref=v0.0.16
+  # Add any optional components from foundation below
+  - https://github.com/pelotech/foundation//gitops/components/adot?ref=v0.0.16
+  - https://github.com/pelotech/foundation//gitops/components/fluent-bit?ref=v0.0.16
+  - https://github.com/pelotech/foundation//gitops/components/loki?ref=v0.0.16
+
+commonLabels:
+  app.kubernetes.io/managed-by: foundation-gitops
+
+With these 3 files defined, now all you need to do is bootstrap the cluster. Run the following in this directory:
+```bash
+# Install and wait for CRDs first
+$ kustomize build . | kfilt -i kind=CustomResourceDefinition > crds.yaml && kubectl apply -f crds.yaml
+$ kubectl wait --for condition=established --timeout=30s -f crds.yaml
+
+# Install the cluster
+$ kustomize build . -o install.yaml && kubectl apply -f install.yaml
+```
+These commands only need to be run as a one-off either from your machine or even better from a CI/CD pipeline. From there, ArgoCD will take over managing the manifests via GitOps.
