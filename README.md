@@ -28,7 +28,6 @@ Foundation is intended to serve as a reusable base of manifests to get your clus
 
 1. In `environment.yaml`, define a `ConfigMap` named `kustomize-environment`and set the following required variables for Foundation's manifests (powered by [Kustomize replacements](https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/replacements/)):
 ```yaml
-# environment
 apiVersion: v1
 kind: ConfigMap
 metadata:
