@@ -8,12 +8,6 @@ resources:
 - ./resources.yaml
 
 patches:
-- path: overlays/server-deploy-command.yaml
-  target:
-    group: apps
-    kind: Deployment
-    name: argocd-server
-    version: v1
 - path: overlays/argo-cd-repo-server-ksops-patch.yaml
   target:
     kind: Deployment
@@ -22,6 +16,10 @@ patches:
   target:
     kind: ConfigMap
     name: argocd-cm
+- path: overlays/argocd-cmd-params-cm-patch.yaml
+  target:
+    kind: ConfigMap
+    name: argocd-cmd-params-cm
 - path: overlays/argocd-rbac-cm-patch.yaml
   target:
     kind: ConfigMap
