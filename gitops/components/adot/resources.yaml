@@ -58,7 +58,7 @@ spec:
                 cpu: 200m
                 memory: 200Mi
             ampreceivers:
-              scrapeInterval: 15s
+              scrapeInterval: 60s
               scrapeTimeout: 10s
               scrapeConfigs: |
                 - job_name: 'pod_metrics_scrape'
@@ -85,6 +85,10 @@ spec:
                     - source_labels: [__meta_kubernetes_pod_name]
                       action: replace
                       target_label: PodName
+                  metric_relabel_configs:
+                    - source_labels: [__name__]
+                      regex: '(rest_client_request_latency_seconds_bucket|aws_api_call_retries_bucket|aws_api_request_duration_seconds_bucket|aws_api_call_duration_seconds_bucket)'
+                      action: drop
                 - job_name: 'kubelets-cadvisor-metrics'
                   sample_limit: 10000
                   scheme: https
