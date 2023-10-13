@@ -40,8 +40,9 @@ spec:
           value: "100m"
         - name: resources.requests.memory
           value: "128Mi"
-        - name: watchNamespace
-          value: "ingress-nginx"
+# NOTE: Currently disabled for Kafka Cluster testing with NLB provisioning in its own namespace.
+#        - name: watchNamespace
+#          value: "ingress-nginx"
   destination:
     namespace: alb
     name: in-cluster

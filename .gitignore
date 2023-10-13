@@ -1,3 +1,6 @@
+# JetBrains
+.idea
+
 # Local .terraform directories
 **/.terraform/*
 
