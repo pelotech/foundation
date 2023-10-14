@@ -15,3 +15,9 @@ spec:
       - http01:
           ingress:
             class: {{ .Values.ingressClassName }}
+      - dns01:
+          route53:
+            region: {{ .Values.awsRegion }}
+        selector:
+          matchLabels:
+            "use-dns01-solver": "true"

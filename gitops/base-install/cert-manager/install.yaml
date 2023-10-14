@@ -4,6 +4,15 @@ kind: Namespace
 metadata:
   name: cert-manager
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+  annotations:
+    eks.amazonaws.com/role-arn: CERT_MANAGER_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -22,6 +31,12 @@ spec:
       parameters:
         - name: installCRDs
           value: "true"
+        - name: serviceAccount.create
+          value: "false"
+        - name: serviceAccount.name
+          value: "cert-manager"
+        - name: securityContext.fsGroup
+          value: "1001"
         - name: resources.limits.memory
           value: "105M"
         - name: resources.requests.cpu
@@ -63,6 +78,9 @@ spec:
       parameters:
         - name: acmeIssuerEmail
           value: ACME_ISSUER_EMAIL
+        - name: awsRegion
+          value: AWS_REGION
+
     targetRevision: main
   destination:
     namespace: cert-manager

@@ -45,6 +45,7 @@ data:
   AUTOSCALER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/autoscaler-role
   EBS_CSI_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/ebs-csi-driver
   EXTERNAL_DNS_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/external-dns-role
+  CERT_MANAGER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/cert-manager-role
   IMAGE_UPDATER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/image-updater-role
 
   # Only required if using Loki
