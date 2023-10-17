@@ -40,8 +40,15 @@ spec:
           value: "100m"
         - name: resources.requests.memory
           value: "128Mi"
-        - name: watchNamespace
-          value: "ingress-nginx"
+# NOTE: Currently disabled however may need to bring back to limit aws lb controller.
+#        - name: watchNamespace
+#          value: "ingress-nginx"
+  ignoreDifferences:
+    - kind: Secret
+      name: aws-load-balancer-tls
+      jqPathExpressions:
+        - .data
+
   destination:
     namespace: alb
     name: in-cluster

@@ -4,4 +4,10 @@ metadata:
   name: argocd-cm
 data:
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
-  url: https://ARGOCD_SERVER_HOST
+  url: "https://ARGOCD_SERVER_HOST"
+  resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
+    jqPathExpressions:
+    - '.webhooks[]?.clientConfig.caBundle'
+  resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration: |
+    jqPathExpressions:
+    - '.webhooks[]?.clientConfig.caBundle'
