@@ -39,7 +39,7 @@ replacements:
           name: create-issuer
         fieldPaths:
           - spec.source.helm.parameters.[name=acmeIssuerEmail].value
-          -
+
   - source:
       version: v1
       kind: ConfigMap
