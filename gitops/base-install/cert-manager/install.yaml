@@ -71,7 +71,7 @@ metadata:
 spec:
   project: admins
   source:
-    repoURL: 'git@github.com:pelotech/foundation'
+    repoURL: 'https://github.com/pelotech/foundation'
     path: gitops/base-install/cert-manager/create-issuer
     helm:
       releaseName: create-issuer

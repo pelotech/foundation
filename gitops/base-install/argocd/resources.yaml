@@ -37,7 +37,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   sourceRepos:
-    - git@github.com:pelotech/foundation
+    - https://github.com/pelotech/foundation
     - https://argoproj.github.io/argo-helm
     - https://aws.github.io/eks-charts
     - https://charts.bitnami.com/bitnami
