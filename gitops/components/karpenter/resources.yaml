@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: karpenter
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: karpenter
+  namespace: karpenter
+  annotations:
+    eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: karpenter
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  destination:
+    namespace: karpenter
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+  source:
+    chart: karpenter
+    repoURL: oci://public.ecr.aws/karpenter/karpenter
+    targetRevision: v0.32.1
+    helm:
+      releaseName: karpenter
+      parameters:
+        - name: settings.clusterName
+          value: CLUSTER_NAME
+        - name: settings.clusterEndpoint
+          value: CLUSTER_ENDPOINT
+        - name: settings.interruptionQueue
+          value: CLUSTER_NAME
