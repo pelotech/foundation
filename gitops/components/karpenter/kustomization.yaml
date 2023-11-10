@@ -19,6 +19,11 @@ patches:
         value:
           namespace: karpenter
           server: https://kubernetes.default.svc
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: kube-node-lease
+          server: https://kubernetes.default.svc
 
 replacements:
   - source:
