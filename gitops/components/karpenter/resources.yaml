@@ -29,7 +29,7 @@ spec:
     automated: {}
   source:
     chart: karpenter
-    repoURL: oci://public.ecr.aws/karpenter/karpenter
+    repoURL: public.ecr.aws/karpenter
     targetRevision: v0.32.1
     helm:
       releaseName: karpenter

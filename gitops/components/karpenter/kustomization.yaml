@@ -13,7 +13,7 @@ patches:
     patch: |-
       - op: add
         path: /spec/sourceRepos/-
-        value: oci://public.ecr.aws/karpenter/karpenter
+        value: public.ecr.aws/karpenter
       - op: add
         path: /spec/destinations/-
         value:
