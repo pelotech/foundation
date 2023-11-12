@@ -37,6 +37,7 @@ spec:
         serviceAccount:
           create: false
           name: fluent-bit
+        priorityClassName: system-node-critical
         config:
           outputs: |
             [OUTPUT]
