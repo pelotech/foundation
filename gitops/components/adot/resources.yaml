@@ -30,7 +30,7 @@ spec:
   source:
     chart: adot-exporter-for-eks-on-ec2
     repoURL: https://aws-observability.github.io/aws-otel-helm-charts
-    targetRevision: 0.13.0
+    targetRevision: 0.15.5
     helm:
       releaseName: adot-collector
       parameters:
