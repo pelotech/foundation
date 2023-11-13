@@ -24,3 +24,8 @@
     requests:
       cpu: 87m
       memory: 50Mi
+- op: add
+  path: /spec/template/spec/tolerations
+  value:
+    - key: CriticalAddonsOnly
+      operator: Exists

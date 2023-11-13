@@ -6,3 +6,8 @@
     requests:
       cpu: 5m
       memory: 150Mi
+- op: add
+  path: /spec/template/spec/tolerations
+  value:
+    - key: CriticalAddonsOnly
+      operator: Exists
