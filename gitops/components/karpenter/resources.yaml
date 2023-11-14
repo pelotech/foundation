@@ -40,7 +40,5 @@ spec:
           value: "karpenter"
         - name: settings.clusterName
           value: CLUSTER_NAME
-        - name: settings.clusterEndpoint
-          value: CLUSTER_ENDPOINT
         - name: settings.interruptionQueue
           value: CLUSTER_NAME

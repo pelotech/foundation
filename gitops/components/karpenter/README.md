@@ -1,1 +1,3 @@
-# Amazon Distro for Open Telemetry (OTEL)
+# Karpenter
+
+TODO: add documentation for including in project
