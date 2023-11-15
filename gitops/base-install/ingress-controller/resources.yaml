@@ -40,6 +40,10 @@ spec:
           value: "100m"
         - name: resources.requests.memory
           value: "128Mi"
+        - name: 'tolerations[0].key'
+          value: CriticalAddonsOnly
+        - name: 'tolerations[0].operator'
+          value: Exists
 # NOTE: Currently disabled however may need to bring back to limit aws lb controller.
 #        - name: watchNamespace
 #          value: "ingress-nginx"
