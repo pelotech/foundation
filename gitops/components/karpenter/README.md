@@ -1,3 +1,5 @@
-# Karpenter
+# Karpenter cluster autoscaler
 
-TODO: add documentation for including in project
+## "Just-in-time Nodes for Any Kubernetes Cluster"
+
+https://karpenter.sh

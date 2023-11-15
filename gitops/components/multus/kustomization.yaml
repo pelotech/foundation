@@ -1,0 +1,67 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/multus/v3.9.2-eksbuild.1/aws-k8s-multus.yaml
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    path: ./overlays/multus-daemonset-patch.yaml
+
+#replacements:
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.KARPENTER_ROLE_ARN
+#    targets:
+#      - select:
+#          version: v1
+#          kind: ServiceAccount
+#          name: karpenter
+#        fieldPaths:
+#          - metadata.annotations.eks\.amazonaws\.com/role-arn
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.CLUSTER_NAME
+#    targets:
+#      - select:
+#          group: argoproj.io
+#          version: v1alpha1
+#          kind: Application
+#          name: karpenter
+#        fieldPaths:
+#          - spec.source.helm.parameters.[name=settings.clusterName].value
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.CLUSTER_ENDPOINT
+#    targets:
+#      - select:
+#          group: argoproj.io
+#          version: v1alpha1
+#          kind: Application
+#          name: karpenter
+#        fieldPaths:
+#          - spec.source.helm.parameters.[name=settings.clusterEndpoint].value # TODO: check if there's a better way to provide values to kustomize from terraform state output
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.CLUSTER_NAME
+#    targets:
+#      - select:
+#          group: argoproj.io
+#          version: v1alpha1
+#          kind: Application
+#          name: karpenter
+#        fieldPaths:
+#          - spec.source.helm.parameters.[name=settings.interruptionQueue].value
+
