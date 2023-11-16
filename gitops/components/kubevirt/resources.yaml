@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubevirt
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  source:
+    repoURL: 'https://github.com/pelotech/foundation'
+    path: gitops/components/kubevirt
+    targetRevision: main
+  destination:
+    namespace: kubevirt
+    name: in-cluster
+  syncPolicy:
+    automated: {}
