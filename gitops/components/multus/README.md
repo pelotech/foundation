@@ -25,7 +25,4 @@ sequenceDiagram
 ## Resources
 
 - [k8snetworkplumbingwg/multus-cni](https://github.com/k8snetworkplumbingwg/multus-cni)
-
-## Also includes `uswitch/nidhogg` to manage node taints
-
-https://github.com/uswitch/nidhogg
+- [includes `uswitch/nidhogg` to manage node taints](https://github.com/uswitch/nidhogg)
