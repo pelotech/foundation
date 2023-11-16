@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://helm.cilium.io
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: cilium
+          server: https://kubernetes.default.svc
+
+#replacements:
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.ADOT_ROLE_ARN
+#    targets:
+#      - select:
+#          version: v1
+#          kind: ServiceAccount
+#          name: adot-collector
+#        fieldPaths:
+#          - metadata.annotations.eks\.amazonaws\.com/role-arn

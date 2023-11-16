@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  destination:
+    namespace: cilium
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    chart: cilium
+    repoURL: https://helm.cilium.io
+    targetRevision: 1.14.4
+    helm:
+      releaseName: cilium
+      values: |-
+        cni:
+          exclusive: false
+          customConf: true
+        nodeinit:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: pelo.tech/multi-home-networking
+                        operator: Exists
+
