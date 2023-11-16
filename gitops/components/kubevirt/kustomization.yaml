@@ -6,6 +6,8 @@ resources:
   - https://github.com/kubevirt/kubevirt/releases/download/v1.1.0/kubevirt-operator.yaml
   - https://github.com/kubevirt/common-instancetypes/VirtualMachineClusterInstancetypes
   - https://github.com/kubevirt/common-instancetypes/VirtualMachineClusterPreferences
+  - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.57.0/cdi-cr.yaml
+  - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.57.0/cdi-operator.yaml
 
 patches:
   - target:
