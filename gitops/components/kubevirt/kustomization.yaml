@@ -14,6 +14,19 @@ patches:
         path: /spec/configuration/developerConfiguration/useEmulation
         value: true
     target:
-      kind: kubevirt
+      group: kubevirt.io
+      version: v1
+      kind: KubeVirt
       name: kubevirt
       namespace: kubevirt
+  - patch: |-
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: kubevirt
+          server: https://kubernetes.default.svc
+    target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
