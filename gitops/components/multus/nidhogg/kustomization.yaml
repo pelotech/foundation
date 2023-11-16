@@ -42,4 +42,4 @@ replacements:
           kind: StatefulSet
           name: controller-manager
         fieldPaths:
-          - spec.template.spec.containers.0.env.1.value
+          - spec.template.spec.containers.0.env.[name=SECRET_NAME].value
