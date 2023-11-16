@@ -21,6 +21,11 @@ patches:
         value:
           namespace: kubevirt
           server: https://kubernetes.default.svc
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: cdi
+          server: https://kubernetes.default.svc
   - target:
       group: kubevirt.io
       version: v1
