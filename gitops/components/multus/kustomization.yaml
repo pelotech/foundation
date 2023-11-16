@@ -3,6 +3,7 @@ kind: Component
 
 resources:
   - https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/multus/v3.9.2-eksbuild.1/aws-k8s-multus.yaml
+  - ./nidhogg
 
 patches:
   - target:
