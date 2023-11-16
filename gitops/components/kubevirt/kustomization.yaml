@@ -2,31 +2,31 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- https://github.com/kubevirt/kubevirt/releases/download/v1.1.0/kubevirt-cr.yaml
-- https://github.com/kubevirt/kubevirt/releases/download/v1.1.0/kubevirt-operator.yaml
-- https://github.com/kubevirt/common-instancetypes/VirtualMachineClusterInstancetypes
-- https://github.com/kubevirt/common-instancetypes/VirtualMachineClusterPreferences
-- ./resources.yaml
+  - https://github.com/kubevirt/kubevirt/releases/download/v1.1.0/kubevirt-cr.yaml
+  - https://github.com/kubevirt/kubevirt/releases/download/v1.1.0/kubevirt-operator.yaml
+  - https://github.com/kubevirt/common-instancetypes/VirtualMachineClusterInstancetypes
+  - https://github.com/kubevirt/common-instancetypes/VirtualMachineClusterPreferences
 
 patches:
-  - patch: |-
-      - op: add
-        path: /spec/configuration/developerConfiguration/useEmulation
-        value: true
-    target:
-      group: kubevirt.io
-      version: v1
-      kind: KubeVirt
-      name: kubevirt
-      namespace: kubevirt
-  - patch: |-
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
+    patch: |-
       - op: add
         path: /spec/destinations/-
         value:
           namespace: kubevirt
           server: https://kubernetes.default.svc
-    target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: AppProject
-      name: admins
+  - target:
+      group: kubevirt.io
+      version: v1
+      kind: KubeVirt
+      name: kubevirt
+      namespace: kubevirt
+    patch: |-
+      - op: add
+        path: /spec/configuration/developerConfiguration/useEmulation
+        value: true
+
