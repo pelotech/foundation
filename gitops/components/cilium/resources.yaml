@@ -25,12 +25,5 @@ spec:
         cni:
           exclusive: false
           customConf: true
-        nodeinit:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: pelo.tech/multi-home-networking
-                        operator: Exists
-
+        nodeSelector:
+          pelo.tech/multi-home-networking: "true"
