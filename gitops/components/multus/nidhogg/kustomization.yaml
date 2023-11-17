@@ -18,6 +18,7 @@ resources:
   - ./leader-election-rbac.yaml
 
 #patches:
+# Expose the prometheus metrics on default port
 #  - target:
 #      group: apps
 #      version: v1
