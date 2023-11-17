@@ -27,4 +27,4 @@ spec:
         - name: cni.customConf
           value: "true"
         - name: nodeSelector
-          value: 'pelo.tech/multi-home-networking: "true"'
+          value: '{"pelo.tech/multi-home-networking": "true"}'
