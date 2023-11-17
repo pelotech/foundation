@@ -21,7 +21,7 @@ spec:
     targetRevision: 1.14.4
     helm:
       releaseName: cilium
-      values: |-
+      values: |
         cni:
           exclusive: false
           customConf: true
