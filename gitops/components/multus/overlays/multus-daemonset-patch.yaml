@@ -1,11 +1,6 @@
 - op: add
   path: /spec/template/spec/tolerations/-
   value:
-    key: multus
-    operator: Exists
-- op: add
-  path: /spec/template/spec/tolerations/-
-  value:
     key: nidhogg.uswitch.com/kube-system.multus
     operator: Exists
 - op: add
