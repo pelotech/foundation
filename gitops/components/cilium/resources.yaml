@@ -21,9 +21,10 @@ spec:
     targetRevision: 1.14.4
     helm:
       releaseName: cilium
-      values: |
-        cni:
-          exclusive: false
-          customConf: true
-        nodeSelector:
-          pelo.tech/multi-home-networking: "true"
+      parameters:
+        - name: cni.exclusive
+          value: "false"
+        - name: cni.customConf
+          value: "true"
+        - name: nodeSelector
+          value: 'pelo.tech/multi-home-networking: "true"'
