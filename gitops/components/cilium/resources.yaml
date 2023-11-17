@@ -22,9 +22,24 @@ spec:
     helm:
       releaseName: cilium
       parameters:
-        - name: cni.exclusive
-          value: "false"
-        - name: cni.customConf
-          value: "true"
-        - name: nodeSelector
-          value: '{"pelo.tech/multi-home-networking": "true"}'
+        - name: clusterName
+          value: CLUSTER_NAME
+        - name: awsRegion
+          value: AWS_REGION
+        # - name: serviceAccounts.cilium.annotations
+        #   value: AMP_RW_ENDPOINT
+        # TODO: how to express a map with multiple dot-separated keys as a value here?
+        # eks.amazonaws.com/role-arn: CILIUM_ROLE_ARN
+        # eks.amazonaws.com/sts-regional-endpoints: "true"
+      values: |
+        cni:
+          exclusive: "false"
+          customConf: "true"
+        nodeSelector:
+          kubernetes.io/os: linux
+          pelo.tech/multi-home-networking: "true"
+#        serviceAccounts:
+#          cilium:
+#            annotations:
+#              eks.amazonaws.com/role-arn: CILIUM_ROLE_ARN
+#              eks.amazonaws.com/sts-regional-endpoints: "true"
