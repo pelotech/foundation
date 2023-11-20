@@ -1,3 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 # Adds namespace to all resources.
 namespace: nidhogg-system
 
@@ -8,21 +11,11 @@ namespace: nidhogg-system
 # field above.
 namePrefix: nidhogg-
 
-# Labels to add to all resources and selectors.
-#commonLabels:
-#  someName: someValue
-
 resources:
   - ./resources.yaml
   - ./rbac.yaml
   - ./leader-election-rbac.yaml
 
-#patches:
-#  - target:
-#      group: apps
-#      version: v1
-#      kind: StatefulSet
-#    path: ./overlays/nidhogg-statefulset-prometheus-patch.yaml
 
 images:
   - name: controller
