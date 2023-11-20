@@ -9,7 +9,7 @@
     key: pelo.tech/uki-labs
     operator: Exists
 - op: add
-  path: /spec/template/spec/nodeSelector
+  path: /spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution/nodeSelectorTerms/0/matchExpressions/-
   value:
     key: pelo.tech/multi-home-networking
     operator: Exists
