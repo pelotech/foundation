@@ -21,5 +21,23 @@ patches:
         value:
           namespace: cdi
           server: https://kubernetes.default.svc
-
-
+  - target:
+      group: kubevirt.io
+      version: v1
+      kind: KubeVirt
+      name: kubevirt
+      namespace: kubevirt
+    patch: |-
+      - op: add
+        path: /spec/configuration/developerConfiguration/useEmulation
+        value: true
+      - op: add
+        path: /spec/workloads/nodePlacement/tolerations/-
+        value:
+          key: pelo.tech/multi-home-networking
+          operator: Exists
+      - op: add
+        path: /spec/workloads/nodePlacement/tolerations/-
+        value:
+          key: pelo.tech/uki-labs
+          operator: Exists
