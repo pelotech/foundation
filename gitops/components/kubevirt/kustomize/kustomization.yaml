@@ -9,7 +9,6 @@ resources:
   - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.57.0/cdi-operator.yaml
   - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.57.0/cdi-cr.yaml
 
-
 patches:
   - target:
       group: kubevirt.io
@@ -21,3 +20,13 @@ patches:
       - op: add
         path: /spec/configuration/developerConfiguration/useEmulation
         value: true
+      - op: add
+        path: /spec/workloads/nodePlacement/tolerations/-
+        value:
+          key: pelo.tech/multi-home-networking
+          operator: Exists
+      - op: add
+        path: /spec/workloads/nodePlacement/tolerations/-
+        value:
+          key: pelo.tech/uki-labs
+          operator: Exists
