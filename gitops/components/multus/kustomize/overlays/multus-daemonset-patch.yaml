@@ -13,3 +13,8 @@
   value:
     key: pelo.tech/multi-home-networking
     operator: Exists
+# TODO: use `nodeSelector` instead of `nodeAffinity`
+#- op: add
+#  path: /spec/template/spec/nodeSelector
+#  value:
+#    pelo.tech/multi-home-networking: "true"
