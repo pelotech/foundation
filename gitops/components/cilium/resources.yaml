@@ -31,6 +31,8 @@ spec:
         cni:
           exclusive: "false"
           customConf: "true"
+          tunnelProtocol: ""
+          routingMode: native
         nodeSelector:
           kubernetes.io/os: linux
           pelo.tech/multi-home-networking: "true"
