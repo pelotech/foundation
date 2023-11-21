@@ -21,12 +21,12 @@ patches:
         path: /spec/configuration/developerConfiguration/useEmulation
         value: true
       - op: add
-        path: /spec/workloads/nodePlacement/tolerations/-
+        path: /spec/workloads
         value:
-          key: pelo.tech/multi-home-networking
-          operator: Exists
-      - op: add
-        path: /spec/workloads/nodePlacement/tolerations/-
-        value:
-          key: pelo.tech/uki-labs
-          operator: Exists
+          nodePlacement:
+            tolerations:
+              - key: pelo.tech/multi-home-networking
+                operator: Exists
+              - key: pelo.tech/uki-labs
+                operator: Exists
+
