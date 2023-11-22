@@ -1,4 +1,4 @@
-apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1  # TODO: need to cleanup: this is overbroad
 kind: ClusterRole
 metadata:
   creationTimestamp: null
@@ -69,6 +69,18 @@ rules:
       - ""
     resources:
       - services
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - leases
     verbs:
       - get
       - list
