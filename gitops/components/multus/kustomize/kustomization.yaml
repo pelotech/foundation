@@ -21,7 +21,7 @@ patches:
     patch: |-
       - op: add
         path: /spec/template/spec/containers/0/args/-
-        value: --readiness-indicator-file=/host/etc/cni/net.d/10-aws.conflist
+        value: --readiness-indicator-file=/etc/cni/net.d/10-aws.conflist
       - op: add
         path: /spec/template/spec/containers/0/args/-
         value: --multus-log-level=debug
