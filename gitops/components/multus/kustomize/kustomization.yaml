@@ -20,5 +20,5 @@ patches:
     patch: |-
       - op: add
         path: /spec/template/spec/containers/0/args/-
-        value: --readiness-indicator-file=/etc/cni/net.d/multus.d/multus.kubeconfig
+        value: --readiness-indicator-file=/host/etc/cni/net.d/multus.d/multus.kubeconfig
 
