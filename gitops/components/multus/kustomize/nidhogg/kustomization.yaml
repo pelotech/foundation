@@ -26,8 +26,8 @@ resources:
 
 images:
   - name: controller
-    newName: quay.io/uswitch/nidhogg
-    newTag: v0.4.0
+    newName: chomatdam/nidhogg
+    newTag: 1.0.0
 
 replacements:
   - source:

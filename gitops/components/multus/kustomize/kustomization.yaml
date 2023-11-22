@@ -12,14 +12,16 @@ patches:
       kind: DaemonSet
       name: kube-multus-ds
     path: ./overlays/multus-daemonset-patch.yaml
-## Tried this out, but looks like it's for before starting the multus daemonset not stop it from being healthy till later
-#  - target:
-#      group: apps
-#      version: v1
-#      kind: DaemonSet
-#      name: kube-multus-ds
-#    patch: |-
-#      - op: add
-#        path: /spec/template/spec/containers/0/args/-
-#        value: --readiness-indicator-file=/etc/cni/net.d/10-aws.conflist
-
+  # Tried this out, but looks like it's for before starting the multus daemonset not stop it from being healthy till later
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --readiness-indicator-file=/host/etc/cni/net.d/10-aws.conflist
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --multus-log-level=debug
