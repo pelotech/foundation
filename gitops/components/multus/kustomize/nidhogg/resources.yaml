@@ -102,6 +102,8 @@ metadata:
 data:
   config.json: |
     {
+      "taintNamePrefix": "nidhogg.uswitch.com",
+      "taintRemovalDelayInSeconds": 5,
       "nodeSelector": [
         "pelo.tech/multi-home-networking"
       ],
