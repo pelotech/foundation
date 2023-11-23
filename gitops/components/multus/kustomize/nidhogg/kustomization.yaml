@@ -27,7 +27,7 @@ resources:
 images:
   - name: controller
     newName: chomatdam/nidhogg
-    newTag: 1.0.0
+    newTag: latest
 
 replacements:
   - source:
