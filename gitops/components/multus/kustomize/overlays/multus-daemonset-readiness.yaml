@@ -7,9 +7,8 @@ spec:
     spec:
       containers:
         - name: kube-multus
-          readinessProbe:
-            initialDelaySeconds: 1
-            periodSeconds: 10
-            httpGet:
-              path: /healthz
-              port: 80
+          startupProbe:
+            exec:
+              command:
+                - cat
+                - /etc/cni/net.d/10-aws.conflist
