@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+spec:
+  template:
+    spec:
+      containers:
+        - name: kube-multus
+          readinessProbe:
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            httpGet:
+              path: /healthz
+              port: 80

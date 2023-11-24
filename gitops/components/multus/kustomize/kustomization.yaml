@@ -12,7 +12,12 @@ patches:
       kind: DaemonSet
       name: kube-multus-ds
     path: ./overlays/multus-daemonset-patch.yaml
-  # Tried this out, but looks like it's for before starting the multus daemonset not stop it from being healthy till later
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    path: ./overlays/multus-daemonset-readiness.yaml
   - target:
       group: apps
       version: v1
