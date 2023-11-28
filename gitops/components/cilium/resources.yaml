@@ -30,7 +30,6 @@ spec:
       values: |
         cni:
           exclusive: "false"
-          customConf: "true"
           # tunnelProtocol: ""
           tunnelProtocol: geneve
           # routingMode: native
