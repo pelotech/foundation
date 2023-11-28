@@ -31,11 +31,14 @@ spec:
         cni:
           exclusive: "false"
           customConf: "true"
-          tunnelProtocol: ""
-          routingMode: native
+          # tunnelProtocol: ""
+          tunnelProtocol: geneve
+          # routingMode: native
+          routingMode: tunnel
         nodeSelector:
           kubernetes.io/os: linux
           pelo.tech/multi-home-networking: "true"
+          pelo.tech/uki-labs: "lab3"
 #        serviceAccounts:
 #          cilium:
 #            annotations:
