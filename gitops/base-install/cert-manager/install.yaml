@@ -33,9 +33,9 @@ spec:
           value: "true"
         - name: serviceAccount.create
           value: "false"
-        - name: extraEnv.0.name
+        - name: extraEnv[0].name
           value: "AWS_REGION"
-        - name: extraEnv.0.value
+        - name: extraEnv[0].value
           value: "us-east-1"
         - name: serviceAccount.name
           value: "cert-manager"
