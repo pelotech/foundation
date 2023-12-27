@@ -10,7 +10,7 @@ resources:
 
 images:
   - name: quay.io/kubevirt/virt-operator:v1.1.0
-    newName: chomatdam/kubevirt/virt-operator
+    newName: ghcr.io/chomatdam/kubevirt/virt-operator
     newTag: 1.1-modified
 
 patches:
@@ -41,4 +41,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/env/0/value
-        value: chomatdam/kubevirt/virt-operator:1.1-modified
+        value: ghcr.io/chomatdam/kubevirt/virt-operator:1.1-modified
