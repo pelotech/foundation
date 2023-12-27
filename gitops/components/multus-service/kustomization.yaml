@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: multus-service-controller
+    path: ./overlays/multus-tolerations.yaml
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: multus-proxy-ds-amd64
+    path: ./overlays/multus-tolerations.yaml

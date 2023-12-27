@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+spec:
+  template:
+    spec:
+      tolerations:
+        - operator: Exists
+          effect: NoSchedule
+        - key: nidhogg.uswitch.com/kube-system.kube-multus-ds
+          operator: Exists
+        - key: pelo.tech/uki-labs
+          operator: Exists
+      nodeSelector:
+        pelo.tech/multi-home-networking: "true"
