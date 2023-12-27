@@ -1,0 +1,12 @@
+resources:
+  - https://github.com/kubernetes-csi/external-snapshotter/client/config/crd?ref=v6.3.3
+  - https://github.com/kubernetes-csi/external-snapshotter/deploy/kubernetes/snapshot-controller?ref=v6.3.3
+  - ./resources.yaml
+
+patches: []
+#  - path: overlays/ingress-class-nginx-patch.yaml
+#    target:
+#      group: appls
+#      version: v1
+#      kind: Deployment
+#      name: nginx
