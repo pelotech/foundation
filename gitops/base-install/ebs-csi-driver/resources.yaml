@@ -46,20 +46,23 @@ spec:
           value: "128Mi"
         - name: storageClasses.0.name
           value: "gp3"
-        - name: storageClasses.0.annotations["storageclass.kubernetes.io/is-default-class"]
-          value: "true"
+        # TODO: This seems syntactically correct (appears in ArgoCD UI), but doesn't work
+        # - name: storageClasses.0.annotations.storageclass\.kubernetes\.io/is-default-class
+        #   value: "true"
         - name: storageClasses.0.parameters.type
           value: "gp3"
-#        - name: storageClasses.0.parameters.encrypted
-#          value: "true"
+        # TODO: Encrypting volumes by default seems desirable, but may have unintended consequences
+        # - name: storageClasses.0.parameters.encrypted
+        #   value: "true"
         - name: storageClasses.0.reclaimPolicy
           value: "Delete"
         - name: storageClasses.0.volumeBindingMode
           value: "WaitForFirstConsumer"
         - name: volumeSnapshotClasses.0.name
           value: "gp3"
-        - name: volumeSnapshotClasses.0.annotations["storageclass.kubernetes.io/is-default-class"]
-          value: "true"
+        # TODO: This seems syntactically correct (appears in ArgoCD UI), but doesn't work
+        # - name: volumeSnapshotClasses.0.annotations.storageclass\.kubernetes\.io/is-default-class
+        #   value: "true"
         - name: volumeSnapshotClasses.0.deletionPolicy
           value: "Delete"
   destination:
