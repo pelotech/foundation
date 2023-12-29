@@ -95,11 +95,12 @@ replacements:
       fieldPath: data.EBS_CSI_ROLE_ARN
     targets:
       - select:
-          version: v1
-          kind: ServiceAccount
-          name: ebs-csi-driver
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: ebs-csi
         fieldPaths:
-          - metadata.annotations.eks\.amazonaws\.com/role-arn
+          - spec.sources.[chart=aws-ebs-csi-driver].helm.parameters.0.value # TODO: is there a way to use the [name=controller.serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
 
   - source:
       version: v1

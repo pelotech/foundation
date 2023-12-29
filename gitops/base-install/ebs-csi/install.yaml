@@ -1,0 +1,75 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ebs-csi
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  sources:
+  - repoURL: 'https://github.com/pelotech/foundation'
+    path: 'gitops/base-install/ebs-csi-driver/snapshot-controller'
+    targetRevision: main
+  - chart: aws-ebs-csi-driver
+    repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+    targetRevision: 2.26.0
+    helm:
+      releaseName: aws-ebs-csi-driver
+      parameters:
+        - name: controller.serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: EBS_CSI_ROLE_ARN
+        - name: controller.serviceAccount.create
+          value: "true"
+        - name: controller.serviceAccount.name
+          value: "ebs-csi-driver"
+        - name: controller.serviceAccount.annotations.eks\.amazonaws\.com/sts-regional-endpoints
+          value: "true"
+          forceString: true
+        - name: controller.resources.limits.memory
+          value: "128Mi"
+        - name: controller.resources.requests.cpu
+          value: "100m"
+        - name: controller.resources.requests.memory
+          value: "128Mi"
+        - name: node.serviceAccount.create
+          value: "false"
+        - name: node.serviceAccount.name
+          value: "ebs-csi-driver"
+        - name: node.resources.limits.memory
+          value: "128Mi"
+        - name: node.resources.requests.cpu
+          value: "100m"
+        - name: node.resources.requests.memory
+          value: "128Mi"
+        - name: storageClasses.0.name
+          value: gp3
+        - name: storageClasses.0.parameters.type
+          value: gp3
+# TODO: Encrypting volumes by default seems desirable, but may have unintended consequences
+#        - name: storageClasses.0.parameters.encrypted
+#          value: "true"
+        - name: >-
+            storageClasses.1.annotations.snapshot\.storage\.kubernetes\.io/is-default-class
+          value: 'true'
+          forceString: true
+        - name: storageClasses.1.name
+          value: gp2
+        - name: storageClasses.1.parameters.type
+          value: gp2
+# TODO: Encrypting volumes by default seems desirable, but may have unintended consequences
+#        - name: storageClasses.1.parameters.encrypted
+#          value: "true"
+        - name: volumeSnapshotClasses.0.annotations.snapshot\.storage\.kubernetes\.io/is-default-class
+          value: "true"
+          forceString: true
+        - name: volumeSnapshotClasses.0.name
+          value: ebs-snapshot
+        - name: volumeSnapshotClasses.0.deletionPolicy
+          value: Delete
+  destination:
+    namespace: kube-system
+    name: in-cluster
+  syncPolicy:
+    automated: {}
