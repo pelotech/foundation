@@ -3,15 +3,6 @@ kind: Namespace
 metadata:
   name: alb
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: aws-load-balancer-controller
-  namespace: alb
-  annotations:
-    eks.amazonaws.com/role-arn: ALB_ROLE_ARN
-    eks.amazonaws.com/sts-regional-endpoints: "true"
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -28,12 +19,17 @@ spec:
     helm:
       releaseName: aws-load-balancer-controller
       parameters:
-        - name: clusterName
-          value: CLUSTER_NAME
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: ALB_ROLE_ARN
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/sts-regional-endpoints
+          value: "true"
+          forceString: true
         - name: serviceAccount.create
-          value: "false"
+          value: "true"
         - name: serviceAccount.name
           value: "aws-load-balancer-controller"
+        - name: clusterName
+          value: CLUSTER_NAME
         - name: resources.limits.memory
           value: "128Mi"
         - name: resources.requests.cpu

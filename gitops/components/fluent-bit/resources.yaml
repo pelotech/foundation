@@ -4,15 +4,6 @@ kind: Namespace
 metadata:
   name: fluent-bit
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: fluent-bit
-  namespace: fluent-bit
-  annotations:
-    eks.amazonaws.com/role-arn: FLUENT_BIT_ROLE_ARN
-    eks.amazonaws.com/sts-regional-endpoints: "true"
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -33,10 +24,15 @@ spec:
     targetRevision: 0.39.1
     helm:
       releaseName: fluent-bit
+      parameters:
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: FLUENT_BIT_ROLE_ARN
       values: |
         serviceAccount:
-          create: false
+          create: true
           name: fluent-bit
+          annotations:
+            eks.amazonaws.com/sts-regional-endpoints: "true"
         priorityClassName: system-node-critical
         config:
           outputs: |

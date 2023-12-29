@@ -4,15 +4,6 @@ kind: Namespace
 metadata:
   name: adot
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: adot-collector
-  namespace: adot
-  annotations:
-    eks.amazonaws.com/role-arn: ADOT_ROLE_ARN
-    eks.amazonaws.com/sts-regional-endpoints: "true"
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -34,6 +25,8 @@ spec:
     helm:
       releaseName: adot-collector
       parameters:
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: ADOT_ROLE_ARN
         - name: clusterName
           value: CLUSTER_NAME
         - name: awsRegion
@@ -42,8 +35,10 @@ spec:
           value: AMP_RW_ENDPOINT
       values: |
         serviceAccount:
-          create: false
+          create: true
           name: "adot-collector"
+          annotations:
+            eks.amazonaws.com/sts-regional-endpoints: "true"
         adotCollector:
           daemonSet:
             createNamespace: false

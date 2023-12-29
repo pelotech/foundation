@@ -4,15 +4,6 @@ kind: Namespace
 metadata:
   name: cert-manager
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: cert-manager
-  namespace: cert-manager
-  annotations:
-    eks.amazonaws.com/role-arn: CERT_MANAGER_ROLE_ARN
-    eks.amazonaws.com/sts-regional-endpoints: "true"
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -29,10 +20,15 @@ spec:
     helm:
       releaseName: cert-manager
       parameters:
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: CERT_MANAGER_ROLE_ARN
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/sts-regional-endpoints
+          value: "true"
+          forceString: true
         - name: installCRDs
           value: "true"
         - name: serviceAccount.create
-          value: "false"
+          value: "true"
         - name: extraEnv[0].name
           value: "AWS_REGION"
         - name: extraEnv[0].value

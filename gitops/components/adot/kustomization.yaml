@@ -28,11 +28,13 @@ replacements:
       fieldPath: data.ADOT_ROLE_ARN
     targets:
       - select:
-          version: v1
-          kind: ServiceAccount
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
           name: adot-collector
         fieldPaths:
-          - metadata.annotations.eks\.amazonaws\.com/role-arn
+          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+
   - source:
       version: v1
       kind: ConfigMap
