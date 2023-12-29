@@ -82,11 +82,13 @@ replacements:
       fieldPath: data.ALB_ROLE_ARN
     targets:
       - select:
-          version: v1
-          kind: ServiceAccount
-          name: aws-load-balancer-controller
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: alb-controller
         fieldPaths:
-          - metadata.annotations.eks\.amazonaws\.com/role-arn
+          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+
 
   - source:
       version: v1
@@ -109,11 +111,13 @@ replacements:
       fieldPath: data.EXTERNAL_DNS_ROLE_ARN
     targets:
       - select:
-          version: v1
-          kind: ServiceAccount
-          name: external-dns-controller
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: external-dns
         fieldPaths:
-          - metadata.annotations.eks\.amazonaws\.com/role-arn
+          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+
 
   - source:
       version: v1
@@ -122,11 +126,13 @@ replacements:
       fieldPath: data.CERT_MANAGER_ROLE_ARN
     targets:
       - select:
-          version: v1
-          kind: ServiceAccount
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
           name: cert-manager
         fieldPaths:
-          - metadata.annotations.eks\.amazonaws\.com/role-arn
+          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+
 
   - source:
       version: v1
@@ -135,10 +141,10 @@ replacements:
       fieldPath: data.IMAGE_UPDATER_ROLE_ARN
     targets:
       - select:
-          version: v1
-          kind: ServiceAccount
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
           name: argocd-image-updater
         fieldPaths:
-          - metadata.annotations.eks\.amazonaws\.com/role-arn
-        options:
-          create: true
+          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+
