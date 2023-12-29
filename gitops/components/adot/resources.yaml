@@ -25,7 +25,7 @@ spec:
     helm:
       releaseName: adot-collector
       parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+        - name: adotCollector.daemonSet.serviceAccount.annotations.eks\.amazonaws\.com/role-arn
           value: ADOT_ROLE_ARN
         - name: clusterName
           value: CLUSTER_NAME
@@ -33,19 +33,16 @@ spec:
           value: AWS_REGION
         - name: adotCollector.daemonSet.ampexporters.endpoint
           value: AMP_RW_ENDPOINT
-      values: |
-        serviceAccount:
-          create: true
-          name: "adot-collector"
-          annotations:
-            eks.amazonaws.com/sts-regional-endpoints: "true"
+      values: |          
         adotCollector:
           daemonSet:
             createNamespace: false
             namespace: adot
             serviceAccount:
-              create: false
+              create: true
               name: "adot-collector"
+              annotations:
+                eks.amazonaws.com/sts-regional-endpoints: "true"
             resources:
               limits:
                 memory: 200Mi
