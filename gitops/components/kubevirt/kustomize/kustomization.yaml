@@ -8,6 +8,11 @@ resources:
   - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.58.0/cdi-cr.yaml
   - ../operators-crds
 
+images:
+  - name: quay.io/kubevirt/virt-operator:v1.1.1
+    newName: ghcr.io/chomatdam/kubevirt/virt-operator
+    newTag: 1.1-modified
+
 patches:
   - target:
       group: kubevirt.io
@@ -17,6 +22,12 @@ patches:
       namespace: kubevirt
     patch: |-
       - op: add
+        path: /spec/configuration/developerConfiguration/useEmulation
+        value: false
+      - op: add
+        path: /spec/configuration/developerConfiguration/featureGates
+        value: ["NUMA", "CPUManager", "Sidecar"]
+      - op: add
         path: /spec/workloads
         value:
           nodePlacement:
@@ -25,4 +36,12 @@ patches:
                 operator: Exists
               - key: pelo.tech/uki-labs
                 operator: Exists
-
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: virt-operator
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: ghcr.io/chomatdam/kubevirt/virt-operator:1.1-modified
