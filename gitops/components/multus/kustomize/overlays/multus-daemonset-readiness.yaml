@@ -12,4 +12,3 @@ spec:
               command:
                 - cat
                 - /host/etc/cni/net.d/10-aws.conflist
-

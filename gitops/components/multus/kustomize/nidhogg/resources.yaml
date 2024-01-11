@@ -49,10 +49,10 @@ spec:
         imagePullPolicy: Always
         name: manager
         args:
-         - --config-file=/config/config.json
-         - --leader-election
-         - --leader-namespace=nidhogg-system
-         - --leader-configmap=nidhogg-election
+          - --config-file=/config/config.json
+          - --leader-election
+          - --leader-namespace=nidhogg-system
+          - --leader-configmap=nidhogg-election
         env:
           - name: POD_NAMESPACE
             valueFrom:

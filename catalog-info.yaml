@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: foundation
+  description: Foundation is the opinionated approach to k8s cluster setup
+  tags:
+    - kustomize
+    - helm
+    - terraform
+    - k8s
+  annotations:
+    github.com/project-slug: pelotech/foundation
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: infrastructure
+  lifecycle: production
+  owner: leads
