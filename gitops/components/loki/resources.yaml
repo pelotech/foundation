@@ -24,27 +24,13 @@ spec:
     targetRevision: 5.36.3
     helm:
       releaseName: loki
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: LOKI_ROLE_ARN
-        - name: 'gateway.ingress.hosts[0].host'
-          value: LOKI_GATEWAY_HOST
-        - name: 'gateway.ingress.tls[0].hosts[0]'
-          value: LOKI_GATEWAY_HOST
-        - name: loki.storage.s3.region
-          value: AWS_REGION
-        - name: loki.storage.bucketNames.chunks
-          value: LOKI_S3_BUCKET
-        - name: loki.storage.bucketNames.ruler
-          value: LOKI_S3_BUCKET
-        - name: loki.storage.bucketNames.admin
-          value: LOKI_S3_BUCKET
-      values: |
+      valuesObject:
         serviceAccount:
           create: true
           name: loki
           annotations:
             eks.amazonaws.com/sts-regional-endpoints: "true"
+            eks.amazonaws.com/role-arn: LOKI_ROLE_ARN
         singleBinary:
           replicas: 2
           persistence:
@@ -65,6 +51,13 @@ spec:
         backend:
           replicas: 0
         loki:
+          storage:
+            s3:
+              region: AWS_REGION
+            bucketNames:
+              chunks: LOKI_S3_BUCKET
+              ruler: LOKI_S3_BUCKET
+              admin: LOKI_S3_BUCKET
           extraMemberlistConfig:
             bind_addr:
               - ${MY_POD_IP}
@@ -90,13 +83,13 @@ spec:
               nginx.ingress.kubernetes.io/auth-type: basic
               nginx.ingress.kubernetes.io/auth-secret: loki-basic-auth
             hosts:
-              - host: loki.example.com
+              - host: LOKI_GATEWAY_HOST
                 paths:
                   - path: /
                     pathType: Prefix
             tls:
               - hosts:
-                  - loki.example.com
+                  - LOKI_GATEWAY_HOST
                 secretName: loki-tls
         ingress:
           enabled: false

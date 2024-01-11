@@ -18,37 +18,30 @@ spec:
     targetRevision: 1.6.2
     helm:
       releaseName: aws-load-balancer-controller
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: ALB_ROLE_ARN
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/sts-regional-endpoints
-          value: "true"
-          forceString: true
-        - name: serviceAccount.create
-          value: "true"
-        - name: serviceAccount.name
-          value: "aws-load-balancer-controller"
-        - name: clusterName
-          value: CLUSTER_NAME
-        - name: resources.limits.memory
-          value: "128Mi"
-        - name: resources.requests.cpu
-          value: "100m"
-        - name: resources.requests.memory
-          value: "128Mi"
-        - name: 'tolerations[0].key'
-          value: CriticalAddonsOnly
-        - name: 'tolerations[0].operator'
-          value: Exists
-# NOTE: Currently disabled however may need to bring back to limit aws lb controller.
-#        - name: watchNamespace
-#          value: "ingress-nginx"
+      valuesObject:
+        serviceAccount:
+          create: "true"
+          name: "aws-load-balancer-controller"
+          annotations:
+            eks.amazonaws.com/role-arn: ALB_ROLE_ARN
+            eks.amazonaws.com/sts-regional-endpoints: "true"
+        clusterName: CLUSTER_NAME
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+        tolerations:
+          - key: CriticalAddonsOnly
+            operator: Exists
+#        watchNamespace: ingress-nginx # NOTE: Currently disabled however may need to bring back to limit aws lb controller.
   ignoreDifferences:
     - kind: Secret
       name: aws-load-balancer-tls
       jqPathExpressions:
         - .data
-
   destination:
     namespace: alb
     name: in-cluster

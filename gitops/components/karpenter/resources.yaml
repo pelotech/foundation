@@ -24,17 +24,13 @@ spec:
     targetRevision: v0.32.1
     helm:
       releaseName: karpenter
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: KARPENTER_ROLE_ARN
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/sts-regional-endpoints
-          value: "true"
-          forceString: true
-        - name: serviceAccount.create
-          value: "true"
-        - name: serviceAccount.name
-          value: "karpenter"
-        - name: settings.clusterName
-          value: CLUSTER_NAME
-        - name: settings.interruptionQueue
-          value: CLUSTER_NAME
+      valuesObject:
+        serviceAccount:
+          create: "true"
+          name: "karpenter"
+          annotations:
+            eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
+            eks.amazonaws.com/sts-regional-endpoints: "true"
+        settings:
+          clusterName: CLUSTER_NAME
+          interruptionQueue: CLUSTER_NAME

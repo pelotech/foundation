@@ -24,15 +24,13 @@ spec:
     targetRevision: 0.39.1
     helm:
       releaseName: fluent-bit
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: FLUENT_BIT_ROLE_ARN
-      values: |
+      valuesObject:
         serviceAccount:
           create: true
           name: fluent-bit
           annotations:
             eks.amazonaws.com/sts-regional-endpoints: "true"
+            eks.amazonaws.com/role-arn: FLUENT_BIT_ROLE_ARN
         priorityClassName: system-node-critical
         config:
           outputs: |

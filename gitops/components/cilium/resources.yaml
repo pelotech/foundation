@@ -21,13 +21,7 @@ spec:
     targetRevision: 1.14.4
     helm:
       releaseName: cilium
-#      parameters:
-#         - name: serviceAccounts.cilium.annotations
-#           value: AMP_RW_ENDPOINT
-#         TODO: how to express a map with multiple dot-separated keys as a value here?
-#         eks.amazonaws.com/role-arn: CILIUM_ROLE_ARN
-#         eks.amazonaws.com/sts-regional-endpoints: "true"
-      values: |
+      valuesObject:
         cni:
           exclusive: "false"
           # tunnelProtocol: ""
@@ -38,8 +32,3 @@ spec:
           kubernetes.io/os: linux
           pelo.tech/multi-home-networking: "true"
           pelo.tech/uki-labs: "lab3"
-#        serviceAccounts:
-#          cilium:
-#            annotations:
-#              eks.amazonaws.com/role-arn: CILIUM_ROLE_ARN
-#              eks.amazonaws.com/sts-regional-endpoints: "true"

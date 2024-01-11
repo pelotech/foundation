@@ -38,8 +38,7 @@ replacements:
           kind: Application
           name: karpenter
         fieldPaths:
-          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
-
+          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
   - source:
       version: v1
       kind: ConfigMap
@@ -52,7 +51,7 @@ replacements:
           kind: Application
           name: karpenter
         fieldPaths:
-          - spec.source.helm.parameters.[name=settings.clusterName].value
+          - spec.source.helm.valuesObject.settings.clusterName
   - source:
       version: v1
       kind: ConfigMap
@@ -65,5 +64,4 @@ replacements:
           kind: Application
           name: karpenter
         fieldPaths:
-          - spec.source.helm.parameters.[name=settings.interruptionQueue].value
-
+          - spec.source.helm.valuesObject.settings.interruptionQueue

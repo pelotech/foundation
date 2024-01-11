@@ -24,7 +24,7 @@ spec:
     targetRevision: v1.0.51
     helm:
       releaseName: reloader
-      values: |
+      valuesObject:
         reloader:
           deployment:
             resources:

@@ -24,7 +24,7 @@ spec:
     targetRevision: 6.8.0
     helm:
       releaseName: goldilocks
-      values: |
+      valuesObject:
         controller:
           flags:
             on-by-default: true

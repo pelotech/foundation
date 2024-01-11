@@ -33,7 +33,7 @@ replacements:
           kind: Application
           name: loki
         fieldPaths:
-          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
 
   - source:
       version: v1
@@ -47,7 +47,7 @@ replacements:
           kind: Application
           name: loki
         fieldPaths:
-          - spec.source.helm.parameters.[name=storage.s3.region].value
+          - spec.source.helm.valuesObject.storage.s3.region
   - source:
       version: v1
       kind: ConfigMap
@@ -60,9 +60,9 @@ replacements:
           kind: Application
           name: loki
         fieldPaths:
-          - spec.source.helm.parameters.[name=storage.bucketNames.chunks].value
-          - spec.source.helm.parameters.[name=storage.bucketNames.ruler].value
-          - spec.source.helm.parameters.[name=storage.bucketNames.admin].value
+          - spec.source.helm.valuesObject.storage.bucketNames.chunks
+          - spec.source.helm.valuesObject.storage.bucketNames.ruler
+          - spec.source.helm.valuesObject.storage.bucketNames.admin
   - source:
       version: v1
       kind: ConfigMap
@@ -75,5 +75,5 @@ replacements:
           kind: Application
           name: loki
         fieldPaths:
-          - spec.source.helm.parameters.1.value
-          - spec.source.helm.parameters.2.value
+          - spec.source.helm.valuesObject.gateway.ingress.hosts[host=LOKI_GATEWAY_HOST].host
+          - spec.source.helm.valuesObject.gateway.ingress.tls[secretName=loki-tls].hosts[0]

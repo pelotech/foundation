@@ -33,7 +33,7 @@ replacements:
           kind: Application
           name: adot-collector
         fieldPaths:
-          - spec.source.helm.parameters.0.value # TODO: is there a way to use the [name=serviceAccount.annotations.eks\.amazonaws\.com/role-arn] escapes don't work
+          - spec.source.helm.valuesObject.adotCollector.daemonSet.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
 
   - source:
       version: v1
@@ -47,7 +47,7 @@ replacements:
           kind: Application
           name: adot-collector
         fieldPaths:
-          - spec.source.helm.parameters.[name=clusterName].value
+          - spec.source.helm.valuesObject.clusterName
   - source:
       version: v1
       kind: ConfigMap
@@ -60,7 +60,7 @@ replacements:
           kind: Application
           name: adot-collector
         fieldPaths:
-          - spec.source.helm.parameters.[name=awsRegion].value
+          - spec.source.helm.valuesObject.awsRegion
   - source:
       version: v1
       kind: ConfigMap
@@ -73,4 +73,4 @@ replacements:
           kind: Application
           name: adot-collector
         fieldPaths:
-          - spec.source.helm.parameters.[name=ampexporters.endpoint].value
+          - spec.source.helm.valuesObject.adotCollector.daemonSet.ampexporters.endpoint
