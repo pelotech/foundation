@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: karpenter
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -17,6 +12,8 @@ spec:
     namespace: karpenter
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}
   source:
     chart: karpenter

@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: adot
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -17,6 +12,8 @@ spec:
     namespace: adot
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}
   source:
     chart: adot-exporter-for-eks-on-ec2

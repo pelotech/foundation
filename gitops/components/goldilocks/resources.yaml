@@ -1,14 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: kube-system
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: goldilocks
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -47,4 +37,6 @@ spec:
     namespace: goldilocks
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}

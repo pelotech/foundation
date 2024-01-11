@@ -12,6 +12,8 @@ spec:
     namespace: kubevirt
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}
   source:
     repoURL: 'https://github.com/pelotech/foundation'

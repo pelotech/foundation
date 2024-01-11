@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: external-dns
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -41,4 +36,6 @@ spec:
     namespace: external-dns
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}
