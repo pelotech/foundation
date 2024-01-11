@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: external-dns
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -19,16 +14,13 @@ spec:
     targetRevision: 6.28.4
     helm:
       releaseName: external-dns
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: EXTERNAL_DNS_ROLE_ARN
-        - name: txtOwnerId
-          value: CLUSTER_NAME
-      values: |
+      valuesObject:
+        txtOwnerId: CLUSTER_NAME
         serviceAccount:
           create: true
           name: external-dns-controller
           annotations:
+            eks.amazonaws.com/role-arn: EXTERNAL_DNS_ROLE_ARN
             eks.amazonaws.com/sts-regional-endpoints: "true"
         provider: aws
         policy: sync
@@ -44,4 +36,6 @@ spec:
     namespace: external-dns
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}

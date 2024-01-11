@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cert-manager
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -19,46 +14,48 @@ spec:
     targetRevision: 1.13.2
     helm:
       releaseName: cert-manager
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: CERT_MANAGER_ROLE_ARN
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/sts-regional-endpoints
-          value: "true"
-          forceString: true
-        - name: installCRDs
-          value: "true"
-        - name: serviceAccount.create
-          value: "true"
-        - name: extraEnv[0].name
-          value: "AWS_REGION"
-        - name: extraEnv[0].value
-          value: "us-east-1"
-        - name: serviceAccount.name
-          value: "cert-manager"
-        - name: securityContext.fsGroup
-          value: "1001"
-        - name: resources.limits.memory
-          value: "105M"
-        - name: resources.requests.cpu
-          value: "15m"
-        - name: resources.requests.memory
-          value: "105M"
-        - name: webhook.resources.limits.memory
-          value: "105M"
-        - name: webhook.resources.requests.cpu
-          value: "15m"
-        - name: webhook.resources.requests.memory
-          value: "105M"
-        - name: cainjector.resources.limits.memory
-          value: "105M"
-        - name: cainjector.resources.requests.cpu
-          value: "15m"
-        - name: cainjector.resources.requests.memory
-          value: "105M"
+      valuesObject:
+        installCRDs: true
+        serviceAccount:
+          create: true
+          name: cert-manager
+          annotations:
+            eks.amazonaws.com/role-arn: CERT_MANAGER_ROLE_ARN
+            eks.amazonaws.com/sts-regional-endpoint: "true"
+        extraEnv:
+          - name: AWS_REGION
+            value: "us-east-1"
+        securityContext:
+          fsGroup: "1001"
+        resources:
+          requests:
+            cpu: "15m"
+            memory: "105M"
+          limits:
+            cpu: "15m"
+            memory: "105M"
+        webhook:
+          resources:
+            requests:
+              cpu: "15m"
+              memory: "105M"
+            limits:
+              cpu: "15m"
+              memory: "105M"
+        cainjector:
+          resources:
+            requests:
+              cpu: "15m"
+              memory: "105M"
+            limits:
+              cpu: "15m"
+              memory: "105M"
   destination:
     namespace: cert-manager
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -75,15 +72,14 @@ spec:
     path: gitops/base-install/cert-manager/create-issuer
     helm:
       releaseName: create-issuer
-      parameters:
-        - name: acmeIssuerEmail
-          value: ACME_ISSUER_EMAIL
-        - name: awsRegion
-          value: AWS_REGION
-
+      valuesObject:
+        acmeIssuerEmail: ACME_ISSUER_EMAIL
+        awsRegion: AWS_REGION
     targetRevision: main
   destination:
     namespace: cert-manager
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}

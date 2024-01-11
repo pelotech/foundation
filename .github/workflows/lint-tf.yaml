@@ -1,0 +1,17 @@
+name: Lint TF files
+on:
+  pull_request:
+    paths:
+      - '**.tf'
+    branches:
+      - main
+
+jobs:
+  lint-tf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: terraform-linters/setup-tflint@v2.0.1
+        with:
+          tflint_version: v0.45.0
+      - run: make lint-tf

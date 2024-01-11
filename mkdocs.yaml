@@ -1,0 +1,5 @@
+site_name: foundation
+site_description: foundation project documentation
+
+plugins:
+  - techdocs-core

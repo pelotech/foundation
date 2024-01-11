@@ -1,0 +1,12 @@
+extends: relaxed
+
+rules:
+  line-length: disable
+  commas: disable
+  indentation:
+    spaces: 2
+    indent-sequences: whatever
+
+ignore: |
+  *.terraform/
+  gitops/base-install/cert-manager/create-issuer/templates/create-issuer.yaml

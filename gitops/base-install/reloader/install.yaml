@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: reloader
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -17,6 +12,8 @@ spec:
     namespace: reloader
     name: in-cluster
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated: {}
   source:
     repoURL: https://stakater.github.io/stakater-charts
@@ -24,7 +21,7 @@ spec:
     targetRevision: v1.0.51
     helm:
       releaseName: reloader
-      values: |
+      valuesObject:
         reloader:
           deployment:
             resources:

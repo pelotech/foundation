@@ -1,0 +1,26 @@
+name: publish-kustomizations
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - gitops/**
+      - '!**/*.md'
+jobs:
+  publish-kustomizations:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    env:
+      IMAGE: "ghcr.io/pelotech/kustomizations/foundation:0.0.1"
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oras-project/setup-oras@v1
+      - name: publish
+        run: |
+          tar -cf foundation.tar gitops/
+          oras login ghcr.io -u $GITHUB_ACTOR -p $GITHUB_TOKEN
+          oras push ${IMAGE} foundation.tar

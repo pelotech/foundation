@@ -18,10 +18,7 @@ spec:
     chart: argocd-image-updater
     targetRevision: 0.9.1
     helm:
-      parameters:
-        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
-          value: IMAGE_UPDATER_ROLE_ARN
-      values: |
+      valuesObject:
         # guide: https://github.com/argoproj-labs/argocd-image-updater/issues/112#issuecomment-1058465942
         config:
           registries:
@@ -53,3 +50,4 @@ spec:
           name: argocd-image-updater
           annotations:
             eks.amazonaws.com/sts-regional-endpoints: "true"
+            eks.amazonaws.com/role-arn: IMAGE_UPDATER_ROLE_ARN
