@@ -12,6 +12,9 @@ patches:
       name: admins
     patch: |-
       - op: add
+        path: /spec/sourceRepos/-
+        value: registry-1.docker.io/bitnamicharts
+      - op: add
         path: /spec/destinations/-
         value:
           namespace: nidhogg-system
