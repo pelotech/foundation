@@ -26,8 +26,8 @@ spec:
             api_url: https://530052405138.dkr.ecr.us-gov-west-1.amazonaws.com
             prefix: 530052405138.dkr.ecr.us-gov-west-1.amazonaws.com
             default: true
-            ping: yes
-            insecure: no
+            ping: true
+            insecure: false
             credentials: ext:/scripts/ecr-login.sh
             credsexpire: 6h
         extraEnv:
