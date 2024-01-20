@@ -14,4 +14,4 @@ metadata:
 spec:
   type: infrastructure
   lifecycle: production
-  owner: leads
+  owner: group:pelotech/leads
