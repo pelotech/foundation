@@ -25,8 +25,7 @@ resources:
 #    path: ./overlays/nidhogg-statefulset-prometheus-patch.yaml
 
 images:
-  - name: controller
-    newName: chomatdam/nidhogg
+  - name: ghcr.io/pelotech/nidhogg:v0.5.0
     newTag: latest
 
 replacements:
