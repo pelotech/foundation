@@ -24,7 +24,7 @@ patches:
         value: false
       - op: add
         path: /spec/configuration/developerConfiguration/featureGates
-        value: ["NUMA", "CPUManager", "Sidecar", "CommonInstancetypesDeploymentGate"]
+        value: ["NUMA", "CPUManager", "Sidecar", "CommonInstancetypesDeploymentGate", "VMExport"]
       - op: add
         path: /spec/workloads
         value:
