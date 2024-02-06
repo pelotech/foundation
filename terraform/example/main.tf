@@ -26,7 +26,7 @@ resource "aws_ebs_encryption_by_default" "us_west_2" {
 }
 module "vpc_core" {
   source                 = "terraform-aws-modules/vpc/aws"
-  version                = "4.0.2"
+  version                = "5.5.1"
   name                   = "${var.environment}-core"
   enable_dns_hostnames   = "true"
   enable_dns_support     = "true"
