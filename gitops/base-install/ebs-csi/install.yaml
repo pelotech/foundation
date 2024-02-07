@@ -9,9 +9,6 @@ metadata:
 spec:
   project: admins
   sources:
-  - repoURL: 'https://github.com/pelotech/foundation'
-    path: 'gitops/base-install/ebs-csi/snapshot-controller'
-    targetRevision: main
   - chart: aws-ebs-csi-driver
     repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
     targetRevision: 2.27.0
@@ -59,6 +56,25 @@ spec:
             annotations:
               snapshot.storage.kubernetes.io/is-default-class
             deletionPolicy: Delete
+  destination:
+    namespace: kube-system
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ebs-csi-snapshot-controller
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  sources:
+    - repoURL: 'https://github.com/pelotech/foundation'
+      path: 'gitops/base-install/ebs-csi/snapshot-controller'
+      targetRevision: main
   destination:
     namespace: kube-system
     name: in-cluster
