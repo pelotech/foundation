@@ -10,7 +10,7 @@ jobs:
   lint-tf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: terraform-linters/setup-tflint@v4.0.0
         with:
           tflint_version: v0.45.0
