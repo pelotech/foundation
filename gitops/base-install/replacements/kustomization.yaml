@@ -131,16 +131,4 @@ replacements:
         fieldPaths:
           - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
 
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.IMAGE_UPDATER_ROLE_ARN
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: argocd-image-updater
-        fieldPaths:
-          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
+
