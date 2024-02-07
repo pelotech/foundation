@@ -16,11 +16,12 @@ spec:
     repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
     targetRevision: 2.27.0
     helm:
+      # TODO: figure out correct roles for controller vs node
       releaseName: aws-ebs-csi-driver
       valuesObject:
         controller:
           serviceAccount:
-            create: "true"
+            create: true
             name: ebs-csi-driver
             annotations:
               eks.amazonaws.com/role-arn: EBS_CSI_ROLE_ARN
@@ -34,7 +35,7 @@ spec:
               memory: "128Mi"
         node:
           serviceAccount:
-            create: "false"
+            create: false
             name: "ebs-csi-driver"
           resources:
             requests:
