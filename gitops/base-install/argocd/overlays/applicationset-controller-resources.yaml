@@ -2,10 +2,10 @@
   path: /spec/template/spec/containers/0/resources
   value:
     limits:
-      memory: 105M
+      memory: 512M
     requests:
-      cpu: 15m
-      memory: 105M
+      cpu: 250m
+      memory: 512M
 - op: add
   path: /spec/template/spec/tolerations
   value:
