@@ -36,10 +36,10 @@ spec:
                 eks.amazonaws.com/role-arn: ADOT_ROLE_ARN
             resources:
               limits:
-                memory: 200Mi
+                memory: 250Mi
               requests:
                 cpu: 200m
-                memory: 200Mi
+                memory: 250Mi
             ampexporters:
               endpoint: AMP_RW_ENDPOINT
             ampreceivers:
