@@ -31,3 +31,5 @@ spec:
         settings:
           clusterName: CLUSTER_NAME
           interruptionQueue: CLUSTER_NAME
+        webhook:
+          enabled: true
