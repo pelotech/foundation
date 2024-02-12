@@ -5,6 +5,7 @@ metadata:
 data:
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
   exec.enabled: "true"
+  application.resourceTrackingMethod: "annotation+label"
   url: "https://ARGOCD_SERVER_HOST"
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
     jqPathExpressions:
