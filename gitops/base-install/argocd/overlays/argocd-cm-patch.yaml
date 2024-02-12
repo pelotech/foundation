@@ -4,6 +4,7 @@ metadata:
   name: argocd-cm
 data:
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
+  exec.enabaled: "true"
   url: "https://ARGOCD_SERVER_HOST"
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
     jqPathExpressions:
