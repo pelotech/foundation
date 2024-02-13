@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://awslabs.github.io/mountpoint-s3-csi-driver
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: kube-system
+          server: https://kubernetes.default.svc
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.S3_CSI_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: s3-csi
+        fieldPaths:
+          - spec.source.helm.valuesObject.node.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
+

@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: s3-csi
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  destination:
+    namespace: kube-system
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
+  source:
+    chart: aws-mountpoint-s3-csi-driver
+    repoURL: https://awslabs.github.io/mountpoint-s3-csi-driver
+    targetRevision: v1.3.0
+    helm:
+      releaseName: aws-mountpoint-s3-csi-driver
+      valuesObject:
+        node:
+          serviceAccount:
+            name: "s3-csi-driver"
+            annotations:
+              eks.amazonaws.com/role-arn: S3_CSI_ROLE_ARN
+              eks.amazonaws.com/sts-regional-endpoints: "true"
+
