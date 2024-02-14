@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/v3.9.3/deployments/multus-daemonset.yml
-  - ./nidhogg
 
 images:
   - name: ghcr.io/k8snetworkplumbingwg/multus-cni
