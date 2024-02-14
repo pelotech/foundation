@@ -16,7 +16,7 @@ spec:
   source:
     chart: whereabouts
     repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 0.10.2
+    targetRevision: 0.10.1
     helm:
       releaseName: whereabouts
       valuesObject:
