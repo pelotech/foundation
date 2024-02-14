@@ -17,32 +17,3 @@ spec:
     repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/multus/kustomize'
     targetRevision: main
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: whereabouts
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: admins
-  destination:
-    namespace: kube-system
-    name: in-cluster
-  syncPolicy:
-    automated: {}
-  source:
-    chart: whereabouts
-    repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 0.5.11
-    helm:
-      releaseName: whereabouts
-      valuesObject:
-        tolerations:
-          - key: CriticalAddonsOnly
-            operator: Exists
-          - key: nidhogg.uswitch.com/kube-system.kube-multus-ds
-            operator: Exists
-          - key: pelo.tech/uki-labs
-            operator: Exists

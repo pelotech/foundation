@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: admins
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: registry-1.docker.io/bitnamicharts
+
