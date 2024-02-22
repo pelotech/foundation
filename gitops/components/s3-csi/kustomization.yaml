@@ -34,4 +34,3 @@ replacements:
           name: s3-csi
         fieldPaths:
           - spec.source.helm.valuesObject.node.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
-

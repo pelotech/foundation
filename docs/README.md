@@ -1,5 +1,4 @@
-![TF Lint](https://github.com/pelotech/foundation/actions/workflows/lint-tf.yaml/badge.svg)
-![YAML Lint](https://github.com/pelotech/foundation/actions/workflows/lint-yaml.yaml/badge.svg)
+![pre-commit](https://github.com/pelotech/foundation/actions/workflows/pre-commit.yaml/badge.svg)
 ![Publish-Kustomizations](https://github.com/pelotech/foundation/actions/workflows/publish-kustomizations.yaml/badge.svg)
 
 

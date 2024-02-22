@@ -28,4 +28,3 @@ spec:
             annotations:
               eks.amazonaws.com/role-arn: S3_CSI_ROLE_ARN
               eks.amazonaws.com/sts-regional-endpoints: "true"
-

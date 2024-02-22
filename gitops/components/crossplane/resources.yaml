@@ -21,4 +21,3 @@ spec:
     targetRevision: 1.14.5
     helm:
       releaseName: crossplane
-
