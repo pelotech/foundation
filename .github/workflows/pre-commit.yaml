@@ -20,7 +20,7 @@ jobs:
           curl -sSLo ./hcledit.tar.gz https://github.com/minamijoyo/hcledit/releases/download/v0.2.10/hcledit_0.2.10_linux_amd64.tar.gz
           tar -xzf hcledit.tar.gz
           chmod +x hcledit
-          mv terraform-docs /usr/local/bin/hcledit
+          mv hcledit /usr/local/bin/hcledit
 
       - name: install tf-lint
         run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
