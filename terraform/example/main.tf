@@ -73,7 +73,7 @@ module "vpc_core" {
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "20.2.1"
+  version         = "20.4.0"
   cluster_name    = local.core_cluster_name
   cluster_version = "1.28"
   create          = local.create_cluster
@@ -153,7 +153,7 @@ module "eks" {
 module "karpenter" {
   count   = local.create_cluster ? 1 : 0
   source  = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version = "20.2.1"
+  version = "20.4.0"
 
   cluster_name                    = module.eks.cluster_name
   enable_irsa                     = true
