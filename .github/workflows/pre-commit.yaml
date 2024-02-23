@@ -15,6 +15,11 @@ jobs:
       - name: install pre-commit
         run: pip install pre-commit
 
+      - name: Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.5.7"
+
       - name: install hcledit
         run: |
           curl -sSLo ./hcledit.tar.gz https://github.com/minamijoyo/hcledit/releases/download/v0.2.10/hcledit_0.2.10_linux_amd64.tar.gz
