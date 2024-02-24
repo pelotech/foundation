@@ -21,9 +21,6 @@ provider "aws" {
   region = "us-west-2"
 }
 data "aws_caller_identity" "current" {}
-output "account_id" {
-  value = data.aws_caller_identity.current.account_id
-}
 resource "aws_ebs_encryption_by_default" "us_west_2" {
   enabled = true
 }
@@ -163,7 +160,7 @@ module "karpenter" {
   node_iam_role_additional_policies = {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   }
-  // TODO: get a better naming conventions for roles
+  # TODO: get a better naming conventions for roles
   node_iam_role_name            = "KarpenterNodeRole-${local.core_cluster_name}"
   iam_role_name                 = "${local.core_cluster_name}-karpenter-role"
   iam_role_use_name_prefix      = false

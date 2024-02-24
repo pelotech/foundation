@@ -14,5 +14,28 @@ jobs:
       - uses: actions/checkout@v4
       - name: install pre-commit
         run: pip install pre-commit
+
+      - name: Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.5.7"
+
+      - name: install hcledit
+        run: |
+          curl -sSLo ./hcledit.tar.gz https://github.com/minamijoyo/hcledit/releases/download/v0.2.10/hcledit_0.2.10_linux_amd64.tar.gz
+          tar -xzf hcledit.tar.gz
+          chmod +x hcledit
+          mv hcledit /usr/local/bin/hcledit
+
+      - name: install tf-lint
+        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      - name: install tf-docs
+        run: |
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.17.0/terraform-docs-v0.17.0-linux-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          mv terraform-docs /usr/local/bin/terraform-docs
+
       - name: pre-commit
         run: pre-commit run --all-files --show-diff-on-failure

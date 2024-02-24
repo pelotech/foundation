@@ -1,8 +1,10 @@
 variable "owner" {
-  default = "pelotech"
-  type    = string
+  description = "owner tags which get added to the resources"
+  default     = "pelotech"
+  type        = string
 }
 variable "environment" {
-  default = "production"
-  type    = string
+  description = "environment tags which get added to the resources"
+  default     = "production"
+  type        = string
 }
