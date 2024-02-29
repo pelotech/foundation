@@ -25,43 +25,43 @@ patches:
           namespace: kube-node-lease
           server: https://kubernetes.default.svc
 
-replacements:
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.KARPENTER_ROLE_ARN
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: karpenter
-        fieldPaths:
-          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.CLUSTER_NAME
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: karpenter
-        fieldPaths:
-          - spec.source.helm.valuesObject.settings.clusterName
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.CLUSTER_NAME
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: karpenter
-        fieldPaths:
-          - spec.source.helm.valuesObject.settings.interruptionQueue
+#replacements:
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.KARPENTER_ROLE_ARN
+#    targets:
+#      - select:
+#          group: argoproj.io
+#          version: v1alpha1
+#          kind: Application
+#          name: karpenter
+#        fieldPaths:
+#          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.CLUSTER_NAME
+#    targets:
+#      - select:
+#          group: argoproj.io
+#          version: v1alpha1
+#          kind: Application
+#          name: karpenter
+#        fieldPaths:
+#          - spec.source.helm.valuesObject.settings.clusterName
+#  - source:
+#      version: v1
+#      kind: ConfigMap
+#      name: kustomize-environment
+#      fieldPath: data.CLUSTER_NAME
+#    targets:
+#      - select:
+#          group: argoproj.io
+#          version: v1alpha1
+#          kind: Application
+#          name: karpenter
+#        fieldPaths:
+#          - spec.source.helm.valuesObject.settings.interruptionQueue
