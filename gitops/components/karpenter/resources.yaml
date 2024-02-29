@@ -23,9 +23,10 @@ spec:
       releaseName: karpenter
       valuesObject:
         controller:
-          image: ghcr.io/pelotech/karpenter
-          tag: v0.34.1-modified
-          digest: sha256:feb63abd6dbc2461ce5b7906cb6fe8e18a09f78aa8ed61cfd1f35df4db748cfe
+          image:
+            repository: ghcr.io/pelotech/karpenter
+            tag: v0.34.1-modified
+            digest: sha256:feb63abd6dbc2461ce5b7906cb6fe8e18a09f78aa8ed61cfd1f35df4db748cfe
         env:
           - name: IGNORED_RESOURCE_REQUESTS
             value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
