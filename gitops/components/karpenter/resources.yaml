@@ -22,6 +22,12 @@ spec:
     helm:
       releaseName: karpenter
       valuesObject:
+        controller:
+          image: ghcr.io/pelotech/karpenter
+          tag: v0.34.1-modified
+        env:
+          - name: IGNORED_RESOURCE_REQUESTS
+            value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
         serviceAccount:
           create: "true"
           name: "karpenter"
