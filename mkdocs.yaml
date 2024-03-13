@@ -1,5 +1,10 @@
 site_name: foundation
 site_description: foundation project documentation
+nav:
+  - Home: README.md
+  - Getting started: GETTING-STARTED.md
+  - Architecture: ARCHITECTURE.md
+  - Tools: TOOLS.md
 
 plugins:
   - techdocs-core
