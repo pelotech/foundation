@@ -1,0 +1,32 @@
+{
+  "name": "foundation",
+  "dockerFile": "Dockerfile",
+//  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/sops:1": {},
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "1.5.7"
+    },
+    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+  },
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "settings": {
+      "remote.containers.copyGitConfig": true
+    },
+    // Configure properties specific to VS Code.
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+  "workspaceFolder": "/workspace",
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "24gb",
+    "storage": "32gb"
+  }
+}
