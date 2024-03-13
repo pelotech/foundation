@@ -37,4 +37,3 @@ This is a list of all required tools and optional suggested tools.
 1. **Github Actions (with devcontainer)**: Using devcontainers as the build primitive you can move the build from CI system to CI system with little effort. All the dependencies are defined in a portable way.
 
 1. **MkDocs**: MkDocs is a static site generator that allows you to create beautiful documentation sites for your projects. It uses Markdown files as the source content and generates HTML-based documentation with a clean and user-friendly interface. MkDocs simplifies the process of documenting your codebase, making it easier for developers to understand and contribute to your project.
-
