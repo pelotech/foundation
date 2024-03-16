@@ -63,13 +63,16 @@ spec:
               memory: 105M
         - args:
             - -c
-            - apt-get update && apt-get install -y curl gpg dnsutils iproute2 && curl
-              -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor
-              -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg && echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg]
-              https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
-              && apt-get update && apt-get install -y kubectl && while true; do kubectl
-              get services -n tailscale tailscale -o jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}'
-              | while read DOMAIN; do dig $DOMAIN A +short | while read IP; do ip address
+            - apt-get update && apt-get install -y curl gpg dnsutils iproute2 &&
+              curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key |  gpg
+              --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && echo
+              'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg]
+              https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' |  tee
+              /etc/apt/sources.list.d/kubernetes.list && apt-get update && apt-get
+              install -y kubectl && while true; do kubectl get services -n tailscale
+              tailscale -o
+              jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}' | while
+              read DOMAIN; do dig $DOMAIN A +short | while read IP; do ip address
               add $IP/24 dev eth0; done ; done ; sleep 300; done
           command:
             - /bin/sh
