@@ -78,6 +78,11 @@ spec:
           name: config
           readOnly: true
       terminationGracePeriodSeconds: 10
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - key: CriticalAddonsOnly
+          operator: Exists
       volumes:
       - name: cert
         secret:
