@@ -6,11 +6,6 @@ resources:
   - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.58.1/cdi-cr.yaml
   - ../operators-crds
 
-images:
-  - name: quay.io/kubevirt/virt-operator:v1.2.0
-    newName: ghcr.io/chomatdam/kubevirt/virt-operator
-    newTag: 1.2.0-modified
-
 patches:
   - target:
       group: kubevirt.io
@@ -29,17 +24,10 @@ patches:
         path: /spec/workloads
         value:
           nodePlacement:
+            nodeSelector:
+              pelo.tech/kvm: true
             tolerations:
               - key: pelo.tech/multi-home-networking
                 operator: Exists
               - key: pelo.tech/uki-labs
                 operator: Exists
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: virt-operator
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/containers/0/env/0/value
-        value: ghcr.io/chomatdam/kubevirt/virt-operator:1.2.0-modified
