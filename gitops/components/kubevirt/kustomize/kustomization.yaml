@@ -25,7 +25,7 @@ patches:
         value:
           nodePlacement:
             nodeSelector:
-              pelo.tech/kvm: true
+              pelo.tech/kvm: "true"
             tolerations:
               - key: pelo.tech/multi-home-networking
                 operator: Exists
