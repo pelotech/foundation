@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/template/spec/tolerations
+  value:
+    - effect: NoSchedule
+      operator: Exists
+    - key: CriticalAddonsOnly
+      operator: Exists

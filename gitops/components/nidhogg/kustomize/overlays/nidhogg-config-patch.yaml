@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  config.json: |
+    {
+      "taintNamePrefix": "nidhogg.uswitch.com",
+      "taintRemovalDelayInSeconds": 10,
+      "nodeSelector": [
+        "pelo.tech/multi-home-networking"
+      ],
+      "daemonsets": [
+        {
+          "name": "kube-multus-ds",
+          "namespace": "kube-system"
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: nidhogg-config
+  namespace: nidhogg-system
