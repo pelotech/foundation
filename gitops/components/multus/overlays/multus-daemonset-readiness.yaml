@@ -11,4 +11,4 @@ spec:
             exec:
               command:
                 - cat
-                - /host/etc/cni/net.d/10-aws.conflist
+                - /host/etc/cni/net.d/01-kube-ovn.conflist

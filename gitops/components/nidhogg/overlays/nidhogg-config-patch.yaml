@@ -5,7 +5,7 @@ data:
       "taintNamePrefix": "nidhogg.uswitch.com",
       "taintRemovalDelayInSeconds": 10,
       "nodeSelector": [
-        "pelo.tech/multi-home-networking"
+        "kubernetes.io/os=linux"
       ],
       "daemonsets": [
         {

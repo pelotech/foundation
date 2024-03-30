@@ -2,9 +2,19 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
-  - ./resources.yaml
+  - https://github.com/pelotech/nidhogg//kustomize?ref=v0.5.1
 
 patches:
+  - path: overlays/nidhogg-controller-manager.yaml
+    target:
+      group: apps
+      kind: StatefulSet
+      name: nidhogg-controller-manager
+      version: v1
+  - path: overlays/nidhogg-config-patch.yaml
+    target:
+      kind: ConfigMap
+      name: nidhogg-config
   - target:
       group: argoproj.io
       version: v1alpha1
