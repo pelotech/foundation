@@ -6,9 +6,7 @@ spec:
   template:
     spec:
       tolerations:
-        - key: nidhogg.uswitch.com/kube-system.kube-multus-ds
+        - effect: NoSchedule
           operator: Exists
-        - key: pelo.tech/uki-labs
+        - effect: NoExecute
           operator: Exists
-      nodeSelector:
-        pelo.tech/multi-home-networking: "true"

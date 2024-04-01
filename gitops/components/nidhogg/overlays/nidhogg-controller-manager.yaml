@@ -5,3 +5,6 @@
       operator: Exists
     - key: CriticalAddonsOnly
       operator: Exists
+- op: add
+  path: /spec/template/spec/hostNetwork
+  value: true

@@ -2,9 +2,31 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
-  - ./resources.yaml
+  - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/v4.0.2/deployments/multus-daemonset.yml
+
+images:
+  - name: ghcr.io/k8snetworkplumbingwg/multus-cni
+    newTag: v4.0.2
 
 patches:
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    path: ./overlays/multus-daemonset-tolerations.yaml
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    path: ./overlays/multus-daemonset-readiness.yaml
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    path: ./overlays/multus-daemonset-container-args.yaml
   - target:
       group: argoproj.io
       version: v1alpha1
@@ -14,8 +36,3 @@ patches:
       - op: add
         path: /spec/sourceRepos/-
         value: registry-1.docker.io/bitnamicharts
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: nidhogg-system
-          server: https://kubernetes.default.svc
