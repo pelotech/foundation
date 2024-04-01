@@ -1,6 +1,6 @@
 resources:
   - ./resources.yaml
-  - https://raw.githubusercontent.com/kubernetes/ingress-nginx/helm-chart-4.8.3/deploy/static/provider/aws/deploy.yaml
+  - https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/aws/deploy.yaml
 
 patches:
   - path: overlays/ingress-class-nginx-patch.yaml

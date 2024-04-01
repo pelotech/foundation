@@ -6,7 +6,7 @@ helmCharts:
     includeCRDs: true
     valuesInline:
       MASTER_NODES: "172.16.0.48,172.16.1.10" # sample options - do not use this except for future example
-      replicaCount: "2"
+      replicaCount: "2" # sample options - do not use this except for future example
     releaseName: kube-ovn
     version: v1.12.11
     repo: https://kubeovn.github.io/kube-ovn

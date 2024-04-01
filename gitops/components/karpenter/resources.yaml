@@ -18,10 +18,11 @@ spec:
   source:
     chart: karpenter
     repoURL: public.ecr.aws/karpenter
-    targetRevision: v0.34.0
+    targetRevision: v0.35.2
     helm:
       releaseName: karpenter
       valuesObject:
+        hostNetwork: true
         controller:
           image:
             repository: ghcr.io/pelotech/karpenter
