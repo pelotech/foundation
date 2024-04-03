@@ -23,11 +23,10 @@ data:
 
   # See the ./terraform/cluster_roles example module for setting up these roles and their policies
   ALB_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/alb-role
-  AUTOSCALER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/autoscaler-role
+  KARPENTER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/karpenter-role
   EBS_CSI_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/ebs-csi-driver
   EXTERNAL_DNS_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/external-dns-role
   CERT_MANAGER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/cert-manager-role
-  IMAGE_UPDATER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/image-updater-role
 
   # Only required if using Loki
   LOKI_GATEWAY_HOST: # hostname for Loki gateway i.e. for Grafana to Loki

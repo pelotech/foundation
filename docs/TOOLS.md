@@ -37,3 +37,7 @@ This is a list of all required tools and optional suggested tools.
 1. **Github Actions (with devcontainer)**: Using devcontainers as the build primitive you can move the build from CI system to CI system with little effort. All the dependencies are defined in a portable way.
 
 1. **MkDocs**: MkDocs is a static site generator that allows you to create beautiful documentation sites for your projects. It uses Markdown files as the source content and generates HTML-based documentation with a clean and user-friendly interface. MkDocs simplifies the process of documenting your codebase, making it easier for developers to understand and contribute to your project.
+
+1. **[aws-sso](https://github.com/synfinatic/aws-sso-cli)**: simplify aws config cli tool management across organizations
+
+1. **[kube-switch](https://github.com/danielfoehrKn/kubeswitch)**: is the single pane of glass for all of your kubeconfig files. incl. things like auto discovery of clusters in aws accounts
