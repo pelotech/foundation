@@ -16,7 +16,7 @@ spec:
       releaseName: aws-load-balancer-controller
       valuesObject:
         hostNetwork: true
-        metricsBindAddr: \"8085\"
+        metricsBindAddr: ':8085'
         serviceAccount:
           create: "true"
           name: "aws-load-balancer-controller"
