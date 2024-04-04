@@ -51,10 +51,6 @@ spec:
 #              encrypted: "true" #TODO: Encrypting volumes by default seems desirable, check side effects
             annotations:
               storageclass.kubernetes.io/is-default-class: "true"
-          - name: gp2
-            parameters:
-              type: gp2
-#              encrypted: "true" #TODO: Encrypting volumes by default seems desirable, check side effects
         volumeSnapshotClasses:
           - name: ebs-snapshot
             annotations:
