@@ -36,6 +36,7 @@ spec:
             memory: "105M"
         webhook:
           hostNetwork: true
+          securePort: \"10251\"
           resources:
             requests:
               cpu: "15m"
