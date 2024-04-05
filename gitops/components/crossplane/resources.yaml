@@ -18,6 +18,6 @@ spec:
   source:
     chart: crossplane
     repoURL: https://charts.crossplane.io/stable
-    targetRevision: 1.14.5
+    targetRevision: 1.15.1
     helm:
       releaseName: crossplane
