@@ -2,32 +2,25 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - https://github.com/kubevirt/kubevirt/releases/download/v1.2.0/kubevirt-cr.yaml
-  - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.58.1/cdi-cr.yaml
-  - ../operators-crds
+  - ./operators
+  - ./resources.yaml
 
 patches:
   - target:
-      group: kubevirt.io
+      group: apps
       version: v1
-      kind: KubeVirt
-      name: kubevirt
-      namespace: kubevirt
+      kind: Deployment
+      name: virt-operator
     patch: |-
       - op: add
-        path: /spec/configuration/developerConfiguration/useEmulation
-        value: false
+        path: /spec/template/spec/hostNetwork
+        value: true
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: cdi-operator
+    patch: |-
       - op: add
-        path: /spec/configuration/developerConfiguration/featureGates
-        value: ["NUMA", "CPUManager", "Sidecar", "CommonInstancetypesDeploymentGate", "VMExport"]
-      - op: add
-        path: /spec/workloads
-        value:
-          nodePlacement:
-            nodeSelector:
-              pelo.tech/kvm: "true"
-            tolerations:
-              - key: pelo.tech/multi-home-networking
-                operator: Exists
-              - key: pelo.tech/uki-labs
-                operator: Exists
+        path: /spec/template/spec/hostNetwork
+        value: true

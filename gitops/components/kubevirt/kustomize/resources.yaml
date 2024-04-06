@@ -1,0 +1,64 @@
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: CDI
+metadata:
+  name: cdi
+spec:
+  config:
+    featureGates:
+      - HonorWaitForFirstConsumer
+  customizeComponents:
+    patches:
+      - resourceType: Deployment
+        resourceName: cdi-apiserver
+        patch: '{"spec":{"template":{"spec": {"hostNetwork": true}}}}'
+        type: strategic
+      - resourceType: Deployment
+        resourceName: cdi-apiserver
+        patch: '[{"op": "add", "path": "/spec/template/spec/containers/0/ports/0/containerPort", "value": 8443}]'
+        type: json
+  imagePullPolicy: IfNotPresent
+  infra:
+    nodeSelector:
+      kubernetes.io/os: linux
+    tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+  workload:
+    nodeSelector:
+      kubernetes.io/os: linux
+---
+apiVersion: kubevirt.io/v1
+kind: KubeVirt
+metadata:
+  name: kubevirt
+  namespace: kubevirt
+spec:
+  certificateRotateStrategy: {}
+  configuration:
+    developerConfiguration:
+      useEmulation: false
+      featureGates: ["NUMA", "CPUManager", "Sidecar", "CommonInstancetypesDeploymentGate", "VMExport"]
+  customizeComponents:
+    patches:
+      - resourceType: Deployment
+        resourceName: virt-api
+        patch: '[{"op": "replace", "path": "/spec/template/spec/containers/0/args/1", "value": "8456"}, {"op": "replace", "path": "/spec/template/spec/containers/0/ports/0/containerPort", "value": 8456},{"op": "replace", "path": "/spec/template/spec/containers/0/readinessProbe/httpGet/port", "value": 8456},{"op": "replace", "path": "/spec/template/spec/containers/0/ports/1/containerPort", "value": 8457}]'
+        type: json
+      - resourceType: Service
+        resourceName: virt-api
+        patch: '[{"op": "replace", "path": "/spec/ports/0/targetPort", "value": 8456}]'
+        type: json
+      - resourceType: Deployment
+        resourceName: virt-api
+        patch: '{"spec":{"template":{"spec": {"hostNetwork": true}}}}'
+        type: strategic
+  imagePullPolicy: IfNotPresent
+  workloadUpdateStrategy: {}
+  workloads:
+    nodePlacement:
+      nodeSelector:
+        karpenter.k8s.aws/instance-size: metal
+      tolerations:
+        - key: pelo.tech/kvm
+          operator: Exists
