@@ -17,4 +17,5 @@ This is the location to be able to hunt down most of the various resources which
 ## EBS
 ### Volumes
 * Tags `ebs.csi.aws.com/cluster` = `true`
-* There's a couple new tags to be added that are generated with the k8sTagClusterId to map to cluster - TBD
+* Tags `kubernetes.io/cluster/{cluster-name}` = `owned`
+* Tags `KubernetesCluster` = `{cluster-name}`
