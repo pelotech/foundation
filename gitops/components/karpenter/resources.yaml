@@ -18,7 +18,7 @@ spec:
   source:
     chart: karpenter
     repoURL: public.ecr.aws/karpenter
-    targetRevision: v0.35.4
+    targetRevision: 0.35.4
     helm:
       releaseName: karpenter
       valuesObject:
