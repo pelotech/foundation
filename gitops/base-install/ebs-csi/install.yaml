@@ -20,6 +20,7 @@ spec:
       releaseName: aws-ebs-csi-driver
       valuesObject:
         controller:
+          k8sTagClusterId: CLUSTER_NAME
           serviceAccount:
             create: true
             name: ebs-csi-driver

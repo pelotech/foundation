@@ -107,6 +107,20 @@ replacements:
       version: v1
       kind: ConfigMap
       name: kustomize-environment
+      fieldPath: data.CLUSTER_NAME
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: ebs-csi
+        fieldPaths:
+          - spec.sources.[chart=aws-ebs-csi-driver].helm.valuesObject.controller.k8sTagClusterId
+
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
       fieldPath: data.EXTERNAL_DNS_ROLE_ARN
     targets:
       - select:

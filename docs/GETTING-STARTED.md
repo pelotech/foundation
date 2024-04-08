@@ -15,30 +15,31 @@ metadata:
   name: kustomize-environment
   namespace: argocd
 data:
-  CLUSTER_NAME: # name of your EKS cluster
-  AWS_REGION: # AWS region of your EKS cluster
-  ARGOCD_SERVER_HOST: # hostname for the cluster's ArgoCD web interace, e.g. argocd.example-cluster.com
-  ACME_ISSUER_EMAIL: # email used by cert-manager for ACME/letsencrypt requests
-  VPC_CIDR_BLOCK: # the CIDR block of your cluster's VPC i.e. '172.16.0.0/16'
+  CLUSTER_NAME: "# name of your EKS cluster"
+  AWS_REGION: "# AWS region of your EKS cluster"
+  ARGOCD_SERVER_HOST: "# hostname for the cluster's ArgoCD web interace, e.g. argocd.example-cluster.com"
+  ACME_ISSUER_EMAIL: "# email used by cert-manager for ACME/letsencrypt requests"
+  VPC_CIDR_BLOCK: "# the CIDR block of your cluster's VPC i.e. '172.16.0.0/16'"
 
   # See the ./terraform/cluster_roles example module for setting up these roles and their policies
-  ALB_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/alb-role
-  KARPENTER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/karpenter-role
-  EBS_CSI_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/ebs-csi-driver
-  EXTERNAL_DNS_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/external-dns-role
-  CERT_MANAGER_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/cert-manager-role
+  ALB_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/alb-role"
+  CERT_MANAGER_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/cert-manager-role"
+  EBS_CSI_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/ebs-csi-driver"
+  EXTERNAL_DNS_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/external-dns-role"
+  KARPENTER_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/karpenter-role"
+  S3_CSI_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/s3-csi-driver-role"
 
   # Only required if using Loki
-  LOKI_GATEWAY_HOST: # hostname for Loki gateway i.e. for Grafana to Loki
-  LOKI_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/loki-role
-  LOKI_S3_BUCKET: # name of S3 bucket where Loki will store logs
+  LOKI_GATEWAY_HOST: "# hostname for Loki gateway i.e. for Grafana to Loki"
+  LOKI_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/loki-role"
+  LOKI_S3_BUCKET: "# name of S3 bucket where Loki will store logs"
 
   # Only required if using Fluent Bit
-  FLUENT_BIT_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/loki-role
+  FLUENT_BIT_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/loki-role"
 
   # Only required if using ADOT
-  ADOT_ROLE_ARN: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/adot-collector-role
-  AMP_RW_ENDPOINT: # Prometheus remote endpoint for ADOT (if exporting to Prometheus/Grafana)
+  ADOT_ROLE_ARN: "arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/adot-collector-role"
+  AMP_RW_ENDPOINT: "# Prometheus remote endpoint for ADOT (if exporting to Prometheus/Grafana)"
 
 ```
 
