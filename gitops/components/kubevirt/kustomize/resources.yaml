@@ -36,9 +36,22 @@ metadata:
 spec:
   certificateRotateStrategy: {}
   configuration:
+    migrations:
+      parallelMigrationsPerCluster: 100
+      parallelOutboundMigrationsPerNode: 20   # a m5n.metal node has a 100Gbps network throughput
+      bandwidthPerMigration: 5Gi
+      completionTimeoutPerGiB: 60
+      progressTimeout: 60
+      allowAutoConverge: true
     developerConfiguration:
       useEmulation: false
-      featureGates: ["NUMA", "CPUManager", "Sidecar", "CommonInstancetypesDeploymentGate", "VMExport"]
+      featureGates:
+        - CPUManager
+        - NUMA
+        - Sidecar
+        - CommonInstancetypesDeploymentGate
+        - VMExport
+        - LiveMigration
   customizeComponents:
     patches:
       - resourceType: Deployment
