@@ -18,7 +18,7 @@ spec:
   source:
     chart: karpenter
     repoURL: public.ecr.aws/karpenter
-    targetRevision: 0.35.4
+    targetRevision: 0.36.0
     helm:
       releaseName: karpenter
       valuesObject:
@@ -26,8 +26,8 @@ spec:
         controller:
           image:
             repository: ghcr.io/pelotech/karpenter
-            tag: v0.35.4-modified
-            digest: sha256:2377914d771aee5f7499bfdc3fe1fcc87df419eaf56fa5b383f28bbef5b1fad4
+            tag: v0.36.0-modified
+            digest: sha256:397b56ebec888e3264baf029d615c3b8da0e3aff56843296b1d88bd21cf1b0be
           env:
             - name: IGNORED_RESOURCE_REQUESTS
               value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
