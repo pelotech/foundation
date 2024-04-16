@@ -192,7 +192,7 @@ module "ebs_csi_driver_irsa_role" {
 
 module "s3_csi" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "4.1.1"
+  version = "4.1.2"
   bucket  = "${var.stack_tags.Owner}-${var.stack_name}-csi-bucket"
 
   attach_deny_insecure_transport_policy = true
