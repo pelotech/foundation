@@ -1,0 +1,57 @@
+variable "stack_name" {
+  type        = string
+  default     = "foundation-stack"
+  description = "Name of the stack"
+}
+variable "stack_create" {
+  type        = bool
+  default     = true
+  description = "should resources be created"
+}
+variable "stack_tags" {
+  type = map(any)
+  default = {
+    Owner       = "pelotech"
+    Environment = "prod"
+  }
+  description = "tags to be added to the stack, should at least have Owner and Environment"
+}
+variable "stack_vpc_block" {
+  type = object({
+    cidr             = string
+    azs              = list(string)
+    private_subnets  = list(string)
+    public_subnets   = list(string)
+    database_subnets = list(string)
+  })
+  default = {
+    cidr             = "172.16.0.0/16"
+    azs              = ["us-west-2a", "us-west-2b", "us-west-2c"]
+    private_subnets  = ["172.16.0.0/24", "172.16.1.0/24", "172.16.2.0/24"]
+    public_subnets   = ["172.16.100.0/24", "172.16.101.0/24", "172.16.102.0/24"]
+    database_subnets = ["172.16.200.0/24", "172.16.201.0/24", "172.16.202.0/24"]
+  }
+  description = "Variables for defining the vpc for the stack"
+}
+variable "stack_ci_admin_arn" {
+  type        = string
+  description = "arn to the ci role"
+}
+
+# TODO: find a cleaner way for KMS access to be able to run plans on the module
+variable "stack_ci_ro_arn" {
+  type        = string
+  description = "arn to the ci role for planning on PRs"
+}
+
+variable "stack_admin_arns" {
+  type        = list(string)
+  default     = []
+  description = "arn to the roles for the cluster admins role"
+}
+
+variable "stack_ro_arns" {
+  type        = list(string)
+  default     = []
+  description = "arn to the roles for the cluster read only role"
+}

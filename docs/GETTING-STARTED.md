@@ -43,25 +43,8 @@ data:
 
 ```
 
-[//]: # (TODO: - This now uses aws APIs and docs need to be updated)
-
 2. Define a `resources.yaml`with the following:
 ```yaml
-# Configure IAM access to your cluster.
-# This will be specific to your AWS account setup - see https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: aws-auth
-  namespace: kube-system
-data:
-  mapRoles: |
-    - groups:
-      - system:bootstrappers
-      - system:nodes
-      rolearn: arn:aws:iam::{YOUR_AWS_ACCOUNT_ID}:role/my-node-role
-      username: system:node:{EC2PrivateDNSName}
----
 # This is ArgoCD's entrypoint for managing itself and the cluster - it will pick up the kustomization.yaml in this directory.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -88,17 +71,15 @@ kind: Kustomization
 
 resources:
   # Note: you can pick which version of Foundation's manifests to pull in
-  - https://github.com/pelotech/foundation//gitops/base-install?ref=v0.0.16
+  - https://github.com/pelotech/foundation//gitops/base-install?ref=v0.0.85
   - ./environment.yaml
   - ./resources.yaml
 
 components:
   # This is required for setting variables from environment.yaml
-  - https://github.com/pelotech/foundation//gitops/base-install/replacements?ref=v0.0.16
+  - https://github.com/pelotech/foundation//gitops/base-install/replacements?ref=v0.0.85
   # Add any optional components from foundation below
-  - https://github.com/pelotech/foundation//gitops/components/adot?ref=v0.0.16
-  - https://github.com/pelotech/foundation//gitops/components/fluent-bit?ref=v0.0.16
-  - https://github.com/pelotech/foundation//gitops/components/loki?ref=v0.0.16
+  - https://github.com/pelotech/foundation//gitops/components/karpenter?ref=v0.0.85
 
 commonLabels:
   app.kubernetes.io/managed-by: foundation-gitops

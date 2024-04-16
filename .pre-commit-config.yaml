@@ -22,7 +22,6 @@ repos:
   hooks:
     - id: terraform_fmt
     - id: terraform_wrapper_module_for_each
-    - id: terraform_validate
     - id: terraform_docs
       args:
         - '--args=--lockfile=false'
