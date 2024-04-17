@@ -5,7 +5,7 @@ metadata:
   namespace: ingress-nginx
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-    service.beta.kubernetes.io/aws-load-balancer-name: nginx-nlb
+    service.beta.kubernetes.io/aws-load-balancer-name: NLB_NAME
     service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
     service.beta.kubernetes.io/aws-load-balancer-type: "external"
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
