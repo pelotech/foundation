@@ -87,7 +87,7 @@ module "eks" {
   #    }]
   kms_key_administrators = concat(var.stack_admin_arns, [var.stack_ci_admin_arn, var.stack_ci_ro_arn])
   eks_managed_node_groups = {
-    initial = {
+    "initial-${var.stack_name}" = {
       iam_role_use_name_prefix = false
       instance_types           = ["t3a.medium"]
       min_size                 = 2
