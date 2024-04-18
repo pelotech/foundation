@@ -13,6 +13,7 @@ This is a list of all required tools and optional suggested tools.
 * **helm**: A package manager for Kubernetes
 * **kustomize**: A tool for customizing Kubernetes configurations.
 * **sops**: Secrets OPerationS and is a CLI tool used for the encryption, and decryption of files in YAML, JSON, BINARY, ENV, and INI formats using various backends, including PGP, age, AWS KMS, GCP KMS, Azure Key Vault and HashiCorp Vault. That makes it cloud-agnostic. Works on Windows, Linux, and macOS
+  * **age**: Prefered way to use sops - `age-keygen -o ~/.config/sops/age/keys.txt`($XDG_CONFIG_HOME/sops/age/keys.txt) and add the public key to the .sops.yaml file, and make sure to save and keep private the keys.txt file
 * **ksops (Kustomize with sops)**: is a kustomize KRM exec plugin for SOPS encrypted resources. KSOPS can be used to decrypt any Kubernetes resource, but is most commonly used to decrypt encrypted Kubernetes Secrets and ConfigMaps
 
 #### Suggested
