@@ -34,3 +34,8 @@ override.tf.json
 terraform.rc
 
 .idea/*
+
+# Devenv
+.devenv*
+devenv.local.nix
+.direnv
