@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.5/.schema/devbox.schema.json",
+  "packages": [
+    "terraform@1.5.7",
+    "pre-commit@latest",
+    "hcledit@latest",
+    "tflint@latest",
+    "terraform-docs@latest",
+    "kubernetes-helm@latest",
+    "kubectl@latest",
+    "kustomize@latest",
+    "kustomize-sops@latest",
+  ],
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!' > /dev/null"
+    ],
+    "scripts": {
+      "test": [
+        "echo \"Error: no test specified\" && exit 1"
+      ]
+    }
+  }
+}

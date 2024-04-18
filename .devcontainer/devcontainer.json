@@ -1,32 +1,16 @@
 {
-  "name": "foundation",
-  "dockerFile": "Dockerfile",
-//  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
-
-  "features": {
-    "ghcr.io/devcontainers-contrib/features/sops:1": {},
-    "ghcr.io/devcontainers/features/terraform:1": {
-      "version": "1.5.7"
-    },
-    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+  "name": "Devbox Remote Container",
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "context": ".."
   },
-
-  // Configure tool-specific properties.
   "customizations": {
-    "settings": {
-      "remote.containers.copyGitConfig": true
-    },
-    // Configure properties specific to VS Code.
     "vscode": {
+      "settings": {},
       "extensions": [
-        "streetsidesoftware.code-spell-checker"
+        "jetpack-io.devbox"
       ]
     }
   },
-  "workspaceFolder": "/workspace",
-  "hostRequirements": {
-    "cpus": 2,
-    "memory": "24gb",
-    "storage": "32gb"
-  }
+  "remoteUser": "devbox"
 }
