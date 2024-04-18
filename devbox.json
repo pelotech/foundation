@@ -9,7 +9,7 @@
     "kubernetes-helm@latest",
     "kubectl@latest",
     "kustomize@latest",
-    "kustomize-sops@latest",
+    "path:overlays#kustomize-sops"
   ],
   "shell": {
     "init_hook": [
