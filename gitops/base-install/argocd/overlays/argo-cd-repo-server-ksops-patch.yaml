@@ -42,6 +42,10 @@ spec:
       # 3. Volume mount the custom binary to the bin directory (overriding the existing version)
       containers:
         - name: argocd-repo-server
+          envFrom:
+            - secretRef:
+                name: "sops-age"
+                optional: true
           volumeMounts:
             - mountPath: /usr/local/bin/kustomize
               name: custom-tools
