@@ -30,7 +30,9 @@ spec:
          # Import the private gpg key from the secret into argocd
         - name: import-gpg-key
           image: argoproj/argocd:v2.5.0
-          command: [ "gpg", "--import","/sops-gpg/sops.asc" ]
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - "gpg --import /sops-gpg/sops.asc || true"
           env:
             - name: GNUPGHOME
               value: /gnupg-home/.gnupg
