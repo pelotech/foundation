@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-All developer utilities are managed via devbox. Follow the [Getting Started Guide]("https://www.jetify.com/devbox/docs/quickstart/") to install devbox then run
+All developer utilities are managed via [devbox](https://www.jetify.com/devbox). Follow the [Getting Started Guide](https://www.jetify.com/devbox/docs/quickstart/) to install devbox then run
 
 ```
 devbox shell
