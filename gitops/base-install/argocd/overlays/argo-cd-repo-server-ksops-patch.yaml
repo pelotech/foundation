@@ -14,6 +14,7 @@ spec:
         - name: sops-gpg
           secret:
             secretName: sops-gpg
+            optional: true
       # 2. Use an init container to download/copy custom binaries into the emptyDir
       initContainers:
         - name: install-ksops
@@ -30,7 +31,9 @@ spec:
          # Import the private gpg key from the secret into argocd
         - name: import-gpg-key
           image: argoproj/argocd:v2.5.0
-          command: [ "gpg", "--import","/sops-gpg/sops.asc" ]
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - "gpg --import /sops-gpg/sops.asc || true"
           env:
             - name: GNUPGHOME
               value: /gnupg-home/.gnupg
@@ -42,6 +45,10 @@ spec:
       # 3. Volume mount the custom binary to the bin directory (overriding the existing version)
       containers:
         - name: argocd-repo-server
+          envFrom:
+            - secretRef:
+                name: "sops-age"
+                optional: true
           volumeMounts:
             - mountPath: /usr/local/bin/kustomize
               name: custom-tools
