@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - "feat/UKI-140-devenv2"
   pull_request:
     branches:
       - main
