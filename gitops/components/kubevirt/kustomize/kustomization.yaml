@@ -5,6 +5,11 @@ resources:
   - ./operators
   - ./resources.yaml
 
+images:
+  - name: quay.io/kubevirt/virt-operator:v1.2.0
+    newName: ghcr.io/pelotech/kubevirt/virt-operator
+    newTag: main-modified
+
 patches:
   - target:
       group: apps
@@ -15,6 +20,15 @@ patches:
       - op: add
         path: /spec/template/spec/hostNetwork
         value: true
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: virt-operator
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: ghcr.io/pelotech/kubevirt/virt-operator:main-modified
   - target:
       group: apps
       version: v1
