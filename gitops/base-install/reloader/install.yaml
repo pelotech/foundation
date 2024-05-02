@@ -23,6 +23,7 @@ spec:
       releaseName: reloader
       valuesObject:
         reloader:
+          reloadStrategy: annotations
           deployment:
             resources:
               limits:
