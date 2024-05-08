@@ -90,14 +90,12 @@ module "eks" {
     "initial-${var.stack_name}" = {
       iam_role_use_name_prefix = false
       instance_types           = ["t3a.medium"]
-      min_size                 = 2
-      max_size                 = 6
-      desired_size             = 3
+      min_size                 = var.initial_node_min_size
+      max_size                 = var.initial_node_max_size
+      desired_size             = var.initial_nod_desired_size
       capacity_type            = "ON_DEMAND"
-      labels = {
-        "kube-ovn/role" = "master"
-      }
-      bootstrap_extra_args = "--use-max-pods false"
+      labels                   = var.initial_node_labels
+      bootstrap_extra_args     = "--use-max-pods false"
       block_device_mappings = {
         xvda = {
           device_name = "/dev/xvda"
@@ -109,18 +107,7 @@ module "eks" {
           }
         }
       }
-      taints = [
-        {
-          key    = "CriticalAddonsOnly"
-          value  = "true"
-          effect = "NO_SCHEDULE"
-        },
-        {
-          key    = "nidhogg.uswitch.com/kube-system.kube-multus-ds"
-          value  = "true"
-          effect = "NO_SCHEDULE"
-        }
-      ]
+      taints = var.initial_node_taints
     }
   }
   access_entries = merge(local.admin_access_entries, local.ro_access_entries)

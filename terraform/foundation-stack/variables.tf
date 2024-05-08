@@ -55,3 +55,45 @@ variable "stack_ro_arns" {
   default     = []
   description = "arn to the roles for the cluster read only role"
 }
+
+variable "initial_node_taints" {
+  type = list(object({ key = string, value = string, effect = string }))
+  default = [
+    {
+      key    = "CriticalAddonsOnly"
+      value  = "true"
+      effect = "NO_SCHEDULE"
+    },
+    {
+      key    = "nidhogg.uswitch.com/kube-system.kube-multus-ds"
+      value  = "true"
+      effect = "NO_SCHEDULE"
+    }
+  ]
+  description = "taints for the initial managed node group"
+}
+variable "initial_node_labels" {
+  type = map(string)
+  default = {
+    "kube-ovn/role" = "master"
+  }
+  description = "labels for the initial managed node group"
+}
+
+variable "initial_node_min_size" {
+  type        = number
+  default     = 2
+  description = "minimum size of the initial managed node group"
+}
+
+variable "initial_node_max_size" {
+  type        = number
+  default     = 6
+  description = "max size of the initial managed node group"
+}
+
+variable "initial_nod_desired_size" {
+  type        = number
+  default     = 3
+  description = "desired size of the initial managed node group"
+}
