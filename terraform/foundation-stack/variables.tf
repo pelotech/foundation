@@ -92,7 +92,7 @@ variable "initial_node_max_size" {
   description = "max size of the initial managed node group"
 }
 
-variable "initial_nod_desired_size" {
+variable "initial_node_desired_size" {
   type        = number
   default     = 3
   description = "desired size of the initial managed node group"

@@ -92,7 +92,7 @@ module "eks" {
       instance_types           = ["t3a.medium"]
       min_size                 = var.initial_node_min_size
       max_size                 = var.initial_node_max_size
-      desired_size             = var.initial_nod_desired_size
+      desired_size             = var.initial_node_desired_size
       capacity_type            = "ON_DEMAND"
       labels                   = var.initial_node_labels
       bootstrap_extra_args     = "--use-max-pods false"
