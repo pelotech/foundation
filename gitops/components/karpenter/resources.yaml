@@ -18,7 +18,7 @@ spec:
   source:
     chart: karpenter
     repoURL: public.ecr.aws/karpenter
-    targetRevision: 0.36.0
+    targetRevision: 0.37.0
     helm:
       releaseName: karpenter
       valuesObject:
@@ -26,7 +26,7 @@ spec:
         controller:
           image:
             repository: ghcr.io/pelotech/karpenter
-            tag: v0.36.0-modified
+            tag: v0.37.0-modified
             digest: sha256:397b56ebec888e3264baf029d615c3b8da0e3aff56843296b1d88bd21cf1b0be
           env:
             - name: IGNORED_RESOURCE_REQUESTS
