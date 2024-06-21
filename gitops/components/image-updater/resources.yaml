@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-image-updater
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: admins
+  destination:
+    namespace: argocd
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argocd-image-updater
+    targetRevision: 0.13.1
+    helm:
+      valuesObject:
+        # guide: https://github.com/argoproj-labs/argocd-image-updater/issues/112#issuecomment-1058465942
+        resources:
+          limits:
+            memory: 105M
+          requests:
+            cpu: 15m
+            memory: 105M
