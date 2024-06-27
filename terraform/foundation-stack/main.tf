@@ -68,7 +68,7 @@ module "vpc" {
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "20.8.5"
+  version         = "20.15.0"
   cluster_name    = var.stack_name
   cluster_version = "1.29"
   create          = var.stack_create
@@ -122,7 +122,7 @@ module "eks" {
 module "karpenter" {
   count                           = var.stack_create ? 1 : 0
   source                          = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version                         = "20.8.5"
+  version                         = "20.15.0"
   cluster_name                    = module.eks.cluster_name
   enable_irsa                     = true
   enable_pod_identity             = false # TODO: PR because it doesn't work in govcloud
