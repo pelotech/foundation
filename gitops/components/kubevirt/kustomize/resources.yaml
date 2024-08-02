@@ -46,9 +46,6 @@ spec:
     developerConfiguration:
       useEmulation: false
       featureGates:
-        - CPUManager
-        - NUMA
-        - Sidecar
         - CommonInstancetypesDeploymentGate
         - VMExport
         - LiveMigration
@@ -74,4 +71,9 @@ spec:
         karpenter.k8s.aws/instance-size: metal
       tolerations:
         - key: pelo.tech/kvm
+          operator: Exists
+  infra:
+    nodePlacement:
+      tolerations:
+        - key: CriticalAddonsOnly
           operator: Exists
