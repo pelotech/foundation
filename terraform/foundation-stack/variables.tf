@@ -97,3 +97,15 @@ variable "initial_node_desired_size" {
   default     = 3
   description = "desired size of the initial managed node group"
 }
+
+variable "s3_csi_driver_create_bucket" {
+  type        = bool
+  default     = true
+  description = "create a new bucket for use with the s3 CSI driver"
+}
+
+variable "s3_csi_driver_bucket_arns" {
+  type        = list(string)
+  default     = []
+  description = "existing buckets the s3 CSI driver should have access to"
+}

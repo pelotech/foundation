@@ -36,6 +36,7 @@ locals {
       }
     }
   }
+  s3_csi_arns = compact(concat([module.s3_csi.s3_bucket_arn], var.s3_csi_driver_bucket_arns))
 }
 
 module "vpc" {
@@ -182,6 +183,7 @@ module "s3_csi" {
   version = "4.1.2"
   bucket  = "${var.stack_tags.Owner}-${var.stack_name}-csi-bucket"
 
+  create_bucket                         = var.s3_csi_driver_create_bucket
   attach_deny_insecure_transport_policy = true
   attach_require_latest_tls_policy      = true
   block_public_acls                     = true
@@ -206,8 +208,8 @@ module "s3_driver_irsa_role" {
 
   role_name                       = "${var.stack_name}-s3-csi-driver-role"
   attach_mountpoint_s3_csi_policy = true
-  mountpoint_s3_csi_bucket_arns   = [module.s3_csi.s3_bucket_arn]
-  mountpoint_s3_csi_path_arns     = ["${module.s3_csi.s3_bucket_arn}/*"]
+  mountpoint_s3_csi_bucket_arns   = local.s3_csi_arns
+  mountpoint_s3_csi_path_arns     = [for arn in local.s3_csi_arns : "${arn}/*"]
   oidc_providers = {
     cluster = {
       provider_arn               = module.eks.oidc_provider_arn
