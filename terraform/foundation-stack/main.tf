@@ -23,6 +23,19 @@ locals {
       }
     }
   }
+  rw_access_entries = {
+    for index, item in var.stack_rw_arns : "rw_${index}" => {
+      principal_arn = item
+      policy_associations = {
+        cluster_admin = {
+          policy_arn = "arn:${data.aws_partition.current.partition}:eks::aws:cluster-access-policy/AmazonEKSEditPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
+  }
   ro_access_entries = {
     for index, item in concat(var.stack_ro_arns, [var.stack_ci_ro_arn]) : "ro_${index}" => {
       principal_arn = item
@@ -111,7 +124,7 @@ module "eks" {
       taints = var.initial_node_taints
     }
   }
-  access_entries = merge(local.admin_access_entries, local.ro_access_entries)
+  access_entries = merge(local.admin_access_entries, local.rw_access_entries, local.ro_access_entries)
   tags = merge(var.stack_tags, {
     # NOTE - if creating multiple security groups with this module, only tag the
     # security group that Karpenter should utilize with the following tag

@@ -50,6 +50,12 @@ variable "stack_admin_arns" {
   description = "arn to the roles for the cluster admins role"
 }
 
+variable "stack_rw_arns" {
+  type        = list(string)
+  default     = []
+  description = "arn to the roles for the cluster R/W role"
+}
+
 variable "stack_ro_arns" {
   type        = list(string)
   default     = []
