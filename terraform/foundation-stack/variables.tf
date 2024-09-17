@@ -33,6 +33,31 @@ variable "stack_vpc_block" {
   }
   description = "Variables for defining the vpc for the stack"
 }
+
+variable "extra_access_entries" {
+  type = list(object({
+    principal_arn           = string
+    policy_arn              = string
+    access_scope_type       = string
+    access_scope_namespaces = optional(list(string))
+  }))
+  description = "EKS access entries needed by IAM roles interacting with this cluster"
+
+  validation {
+    error_message = "Access scope type can only be 'namespace' or 'cluster'"
+    condition = alltrue([
+      for v in var.extra_access_entries : contains(["namespace", "cluster"], v.access_scope_type)
+    ])
+  }
+
+  validation {
+    error_message = "The access scope type 'namespace' requires 'access_scope_namespaces', namespaces can't be set otherwise."
+    condition = alltrue([
+      for v in var.extra_access_entries : ((v.access_scope_type == "namespace" && v.access_scope_namespaces != null) || (v.access_scope_type != "namespace" && v.access_scope_namespaces == null))
+    ])
+  }
+}
+
 variable "stack_ci_admin_arn" {
   type        = string
   description = "arn to the ci role"

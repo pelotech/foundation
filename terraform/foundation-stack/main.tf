@@ -36,6 +36,20 @@ locals {
       }
     }
   }
+  extra_access_entries = {
+    for index, item in var.extra_access_entries : "extra_${index}" => {
+      principal_arn = item.principal_arn
+      policy_associations = {
+        extra_association = {
+          policy_arn = item.policy_arn
+          access_scope = {
+            type       = item.access_scope_type
+            namespaces = item.access_scope_namespaces
+          }
+        }
+      }
+    }
+  }
   s3_csi_arns = compact(concat([module.s3_csi.s3_bucket_arn], var.s3_csi_driver_bucket_arns))
 }
 
@@ -111,7 +125,7 @@ module "eks" {
       taints = var.initial_node_taints
     }
   }
-  access_entries = merge(local.admin_access_entries, local.ro_access_entries)
+  access_entries = merge(local.admin_access_entries, local.ro_access_entries, local.extra_access_entries)
   tags = merge(var.stack_tags, {
     # NOTE - if creating multiple security groups with this module, only tag the
     # security group that Karpenter should utilize with the following tag
