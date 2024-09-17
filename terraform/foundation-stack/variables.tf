@@ -42,6 +42,7 @@ variable "extra_access_entries" {
     access_scope_namespaces = optional(list(string))
   }))
   description = "EKS access entries needed by IAM roles interacting with this cluster"
+  default     = []
 
   validation {
     error_message = "Access scope type can only be 'namespace' or 'cluster'"
