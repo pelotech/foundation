@@ -49,9 +49,9 @@ spec:
         - CPUManager
         - NUMA
         - Sidecar
-        - CommonInstancetypesDeploymentGate
         - VMExport
         - LiveMigration
+        # - CommonInstancetypesDeploymentGate # until we can migrate from 'bios' to 'uefi' for Windows
   customizeComponents:
     patches:
       - resourceType: Deployment
