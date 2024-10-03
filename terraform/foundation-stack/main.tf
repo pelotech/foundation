@@ -137,10 +137,9 @@ module "eks" {
 module "karpenter" {
   count                           = var.stack_create ? 1 : 0
   source                          = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version                         = "20.24.3"
+  version                         = "20.8.5"
   cluster_name                    = module.eks.cluster_name
   enable_irsa                     = true
-  enable_v1_permissions           = true
   enable_pod_identity             = false # TODO: PR because it doesn't work in govcloud
   queue_name                      = var.stack_name
   irsa_oidc_provider_arn          = module.eks.oidc_provider_arn
