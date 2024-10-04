@@ -156,7 +156,7 @@ module "karpenter" {
 # IAM roles and policies for the cluster
 module "load_balancer_controller_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.39.1"
+  version = "5.46.0"
 
   create_role = var.stack_create
 
@@ -175,7 +175,7 @@ module "load_balancer_controller_irsa_role" {
 
 module "ebs_csi_driver_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.39.1"
+  version = "5.46.0"
 
   create_role = var.stack_create
 
@@ -217,7 +217,7 @@ module "s3_csi" {
 module "s3_driver_irsa_role" {
   count       = var.stack_create ? 1 : 0
   source      = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version     = "5.39.1"
+  version     = "5.46.0"
   create_role = var.stack_create
 
   role_name                       = "${var.stack_name}-s3-csi-driver-role"
@@ -237,7 +237,7 @@ module "s3_driver_irsa_role" {
 module "external_dns_irsa_role" {
   count   = var.stack_create ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.39.1"
+  version = "5.46.0"
 
   create_role = var.stack_create
 
@@ -258,7 +258,7 @@ module "external_dns_irsa_role" {
 module "cert_manager_irsa_role" {
   count   = var.stack_create ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.39.1"
+  version = "5.46.0"
 
   create_role = var.stack_create
 
