@@ -15,30 +15,38 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated: {}
-  source:
-    chart: karpenter
-    repoURL: public.ecr.aws/karpenter
-    targetRevision: 0.37.5
-    helm:
-      releaseName: karpenter
-      valuesObject:
-        hostNetwork: true
-        controller:
-          image:
-            repository: ghcr.io/pelotech/karpenter
-            tag: v0.37.5-modified
-            digest: sha256:287efa1feef3fd60dc3d55846beb61bb8b7c65e79a92d1338d36844158c3eb97
-          env:
-            - name: IGNORED_RESOURCE_REQUESTS
-              value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net,scheduling.node.kubevirt.io/tsc-frequency-2999986000,scheduling.node.kubevirt.io/tsc-frequency-2999987000,scheduling.node.kubevirt.io/tsc-frequency-3000000000"
-        serviceAccount:
-          create: "true"
-          name: "karpenter"
-          annotations:
-            eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
-            eks.amazonaws.com/sts-regional-endpoints: "true"
-        settings:
-          clusterName: CLUSTER_NAME
-          interruptionQueue: CLUSTER_NAME
-        webhook:
-          enabled: true
+  sources:
+    - chart: karpenter-crd
+      repoURL: public.ecr.aws/karpenter
+      targetRevision: 0.37.5
+      helm:
+        valuesObject:
+          webhook:
+            serviceNamespace: karpenter
+    - chart: karpenter
+      repoURL: public.ecr.aws/karpenter
+      targetRevision: 0.37.5
+      helm:
+        releaseName: karpenter
+        skipCrds: true
+        valuesObject:
+          hostNetwork: true
+          controller:
+            image:
+              repository: ghcr.io/pelotech/karpenter
+              tag: v0.37.5-modified
+              digest: sha256:287efa1feef3fd60dc3d55846beb61bb8b7c65e79a92d1338d36844158c3eb97
+            env:
+              - name: IGNORED_RESOURCE_REQUESTS
+                value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net,scheduling.node.kubevirt.io/tsc-frequency-2999986000,scheduling.node.kubevirt.io/tsc-frequency-2999987000,scheduling.node.kubevirt.io/tsc-frequency-3000000000"
+          serviceAccount:
+            create: "true"
+            name: "karpenter"
+            annotations:
+              eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
+              eks.amazonaws.com/sts-regional-endpoints: "true"
+          settings:
+            clusterName: CLUSTER_NAME
+            interruptionQueue: CLUSTER_NAME
+          webhook:
+            enabled: true
