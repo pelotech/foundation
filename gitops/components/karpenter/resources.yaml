@@ -26,11 +26,11 @@ spec:
         controller:
           image:
             repository: ghcr.io/pelotech/karpenter
-            tag: v0.37.0-modified
-            digest: sha256:33fc346aede9002680b95a3c6273a138b2563720308221a6bb5d4659821ec181
+            tag: v0.37.5-modified
+            digest: sha256:287efa1feef3fd60dc3d55846beb61bb8b7c65e79a92d1338d36844158c3eb97
           env:
             - name: IGNORED_RESOURCE_REQUESTS
-              value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net,scheduling.node.kubevirt.io/tsc-frequency-2999987000,scheduling.node.kubevirt.io/tsc-frequency-3000000000"
+              value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net,scheduling.node.kubevirt.io/tsc-frequency-2999986000,scheduling.node.kubevirt.io/tsc-frequency-2999987000,scheduling.node.kubevirt.io/tsc-frequency-3000000000"
         serviceAccount:
           create: "true"
           name: "karpenter"
