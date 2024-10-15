@@ -49,9 +49,9 @@ spec:
         - CPUManager
         - NUMA
         - Sidecar
-        - CommonInstancetypesDeploymentGate
         - VMExport
         - LiveMigration
+        # - CommonInstancetypesDeploymentGate
   customizeComponents:
     patches:
       - resourceType: Deployment
@@ -74,4 +74,11 @@ spec:
         karpenter.k8s.aws/instance-size: metal
       tolerations:
         - key: pelo.tech/kvm
+          operator: Exists
+  infra:
+    nodePlacement:
+      nodeSelector:
+        kube-ovn/role: master
+      tolerations:
+        - key: CriticalAddonsOnly
           operator: Exists
