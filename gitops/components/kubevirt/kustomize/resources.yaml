@@ -51,7 +51,7 @@ spec:
         - Sidecar
         - VMExport
         - LiveMigration
-        # - CommonInstancetypesDeploymentGate # until we can migrate from 'bios' to 'uefi' for Windows
+        # - CommonInstancetypesDeploymentGate
   customizeComponents:
     patches:
       - resourceType: Deployment
