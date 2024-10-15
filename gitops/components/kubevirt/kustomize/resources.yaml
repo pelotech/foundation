@@ -49,9 +49,9 @@ spec:
         - CPUManager
         - NUMA
         - Sidecar
-        - CommonInstancetypesDeploymentGate
         - VMExport
         - LiveMigration
+#        - CommonInstancetypesDeploymentGate
   customizeComponents:
     patches:
       - resourceType: Deployment
