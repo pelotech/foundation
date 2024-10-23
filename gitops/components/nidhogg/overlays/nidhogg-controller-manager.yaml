@@ -8,3 +8,9 @@
 - op: add
   path: /spec/template/spec/hostNetwork
   value: true
+- op: add
+  path: /spec/template/spec/containers/0/args/-
+  value: --metrics-addr=8081
+- op: replace
+  path: /spec/template/spec/containers/0/ports/1/containerPort
+  value: 8081
