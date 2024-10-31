@@ -47,6 +47,7 @@ spec:
               memory: "128Mi"
         storageClasses:
           - name: gp3
+            allowVolumeExpansion: true
             parameters:
               type: gp3
 #              encrypted: "true" #TODO: Encrypting volumes by default seems desirable, check side effects
