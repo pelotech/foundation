@@ -51,7 +51,8 @@ spec:
         - Sidecar
         - VMExport
         - LiveMigration
-        # - CommonInstancetypesDeploymentGate
+        - ExpandDisks
+#        - CommonInstancetypesDeploymentGate
   customizeComponents:
     patches:
       - resourceType: Deployment

@@ -15,30 +15,38 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated: {}
-  source:
-    chart: karpenter
-    repoURL: public.ecr.aws/karpenter
-    targetRevision: 0.37.0
-    helm:
-      releaseName: karpenter
-      valuesObject:
-        hostNetwork: true
-        controller:
-          image:
-            repository: ghcr.io/pelotech/karpenter
-            tag: v0.37.0-modified
-            digest: sha256:33fc346aede9002680b95a3c6273a138b2563720308221a6bb5d4659821ec181
-          env:
-            - name: IGNORED_RESOURCE_REQUESTS
-              value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
-        serviceAccount:
-          create: "true"
-          name: "karpenter"
-          annotations:
-            eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
-            eks.amazonaws.com/sts-regional-endpoints: "true"
-        settings:
-          clusterName: CLUSTER_NAME
-          interruptionQueue: CLUSTER_NAME
-        webhook:
-          enabled: true
+  sources:
+    - chart: karpenter-crd
+      repoURL: public.ecr.aws/karpenter
+      targetRevision: 1.0.6
+      helm:
+        valuesObject:
+          webhook:
+            serviceNamespace: karpenter
+    - chart: karpenter
+      repoURL: public.ecr.aws/karpenter
+      targetRevision: 1.0.6
+      helm:
+        releaseName: karpenter
+        skipCrds: true
+        valuesObject:
+          hostNetwork: true
+          controller:
+            image:
+              repository: ghcr.io/pelotech/karpenter
+              tag: v1.0.6x
+              digest: sha256:14414c1b95c2018f978175361c257c19e26fa51965856e44b743bce0f18b3ae1
+            env:
+              - name: IGNORED_RESOURCE_REQUESTS
+                value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net,scheduling.node.kubevirt.io/tsc-frequency-*"
+          serviceAccount:
+            create: "true"
+            name: "karpenter"
+            annotations:
+              eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
+              eks.amazonaws.com/sts-regional-endpoints: "true"
+          settings:
+            clusterName: CLUSTER_NAME
+            interruptionQueue: CLUSTER_NAME
+          webhook:
+            enabled: true
