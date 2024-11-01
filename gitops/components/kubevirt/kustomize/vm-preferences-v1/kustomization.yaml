@@ -4,4 +4,4 @@ kind: Kustomization
 nameSuffix: -v1
 
 resources:
-  - https://github.com/kubevirt/common-instancetypes//VirtualMachineClusterPreferences?ref=v1.1.0
+  - https://github.com/kubevirt/common-instancetypes//VirtualMachineClusterPreferences?ref=v1.2.0
