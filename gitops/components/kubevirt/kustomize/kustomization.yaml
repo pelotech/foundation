@@ -8,9 +8,9 @@ resources:
   - ./vm-preferences-v1
 
 images:
-  - name: quay.io/kubevirt/virt-operator:v1.4.0-rc.0
+  - name: quay.io/kubevirt/virt-operator:v1.4.0
     newName: ghcr.io/pelotech/kubevirt/virt-operator
-    newTag: v1.4.0-rc.0x
+    newTag: v1.4.0x
 
 patches:
   - target:
@@ -39,4 +39,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/env/0/value
-        value: ghcr.io/pelotech/kubevirt/virt-operator:v1.4.0-rc.0x
+        value: ghcr.io/pelotech/kubevirt/virt-operator:v1.4.0x
