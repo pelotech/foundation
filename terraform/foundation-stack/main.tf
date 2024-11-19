@@ -38,7 +38,8 @@ locals {
   }
   extra_access_entries = {
     for index, item in var.extra_access_entries : "extra_${index}" => {
-      principal_arn = item.principal_arn
+      principal_arn     = item.principal_arn
+      kubernetes_groups = item.kubernetes_groups
       policy_associations = {
         extra_association = {
           policy_arn = item.policy_arn

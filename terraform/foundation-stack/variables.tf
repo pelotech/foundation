@@ -37,6 +37,7 @@ variable "stack_vpc_block" {
 variable "extra_access_entries" {
   type = list(object({
     principal_arn           = string
+    kubernetes_groups       = optional(list(string))
     policy_arn              = string
     access_scope_type       = string
     access_scope_namespaces = optional(list(string))
