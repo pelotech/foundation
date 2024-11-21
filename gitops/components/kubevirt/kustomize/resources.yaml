@@ -49,6 +49,7 @@ spec:
       useEmulation: false
       featureGates:
         - VMExport
+        - Snapshot
         - LiveMigration
         - ExpandDisks
   customizeComponents:
