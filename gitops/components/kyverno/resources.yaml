@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+  namespace: argocd
+spec:
+  destination:
+    namespace: kyverno
+    server: https://kubernetes.default.svc
+  project: admins
+  source:
+    chart: kyverno
+    repoURL: https://kyverno.github.io/kyverno
+    targetRevision: 3.3.3
+    helm:
+      valuesObject:
+        features:
+          backgroundScan:
+            backgroundScanInterval: 1h
+        admissionController:
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          webhookServer:
+            port: 9443
+          metricsService:
+            port: 9444
+          startupProbe:
+            httpGet:
+              port: 9443
+          livenessProbe:
+            httpGet:
+              port: 9443
+          readinessProbe:
+            httpGet:
+              port: 9443
+        backgroundController:
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          server:
+            port: 9445
+          metricsService:
+            port: 9446
+        cleanupController:
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          server:
+            port: 9447
+          webhookServer:
+            port: 9448
+          metricsService:
+            port: 9449
+          startupProbe:
+            httpGet:
+              port: 9447
+          livenessProbe:
+            httpGet:
+              port: 9447
+          readinessProbe:
+            httpGet:
+              port: 9447
+        reportsController:
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          server:
+            port: 9450
+          metricsService:
+            port: 9451
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
