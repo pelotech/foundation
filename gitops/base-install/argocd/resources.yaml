@@ -45,7 +45,6 @@ spec:
     - https://kubernetes-sigs.github.io/aws-ebs-csi-driver
     - https://stakater.github.io/stakater-charts
     - https://fluent.github.io/helm-charts
-    - https://kyverno.github.io/kyverno
   destinations:
     - namespace: kube-system
       server: https://kubernetes.default.svc
@@ -62,8 +61,6 @@ spec:
     - namespace: reloader
       server: https://kubernetes.default.svc
     - namespace: fluent-bit
-      server: https://kubernetes.default.svc
-    - namespace: kyverno
       server: https://kubernetes.default.svc
   sourceNamespaces:
     - argocd
