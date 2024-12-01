@@ -13,10 +13,6 @@ spec:
         resourceName: cdi-apiserver
         patch: '{"spec":{"template":{"spec": {"hostNetwork": true}}}}'
         type: strategic
-      - resourceType: Deployment
-        resourceName: cdi-apiserver
-        patch: '[{"op": "add", "path": "/spec/template/spec/containers/0/ports/0/containerPort", "value": 8443}]'
-        type: json
   imagePullPolicy: IfNotPresent
   infra:
     nodeSelector:
