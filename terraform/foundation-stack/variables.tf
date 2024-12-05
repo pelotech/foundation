@@ -107,6 +107,11 @@ variable "initial_node_labels" {
   description = "labels for the initial managed node group"
 }
 
+variable "initial_instance_types" {
+  type        = list(string)
+  description = "instance types of the initial managed node group"
+}
+
 variable "initial_node_min_size" {
   type        = number
   default     = 2
