@@ -18,14 +18,14 @@ spec:
   sources:
     - chart: karpenter-crd
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.0.8
+      targetRevision: 1.1.0
       helm:
         valuesObject:
           webhook:
             serviceNamespace: karpenter
     - chart: karpenter
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.0.8
+      targetRevision: 1.1.0
       helm:
         releaseName: karpenter
         skipCrds: true
@@ -34,11 +34,13 @@ spec:
           controller:
             image:
               repository: ghcr.io/pelotech/karpenter
-              tag: v1.0.8x
-              digest: sha256:795054cb7dbc6577bc534aa8a08c62c9fdd3857b050271792eafb082316a2795
+              tag: v1.1.0x
+              digest: sha256:527235377b9bb13fe54777dadff437cc9356cb8b068af7551753f18a436d00a7
             env:
               - name: IGNORED_RESOURCE_REQUESTS
-                value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net,scheduling.node.kubevirt.io/tsc-frequency-*"
+                value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
+              - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
+                value: "scheduling.node.kubevirt.io/tsc-frequency-*"
           serviceAccount:
             create: "true"
             name: "karpenter"
