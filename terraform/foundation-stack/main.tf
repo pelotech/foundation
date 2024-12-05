@@ -105,7 +105,7 @@ module "eks" {
   eks_managed_node_groups = {
     "initial-${var.stack_name}" = {
       iam_role_use_name_prefix = false
-      instance_types           = ["t3a.medium"]
+      instance_types           = ["t3a.xlarge"]
       min_size                 = var.initial_node_min_size
       max_size                 = var.initial_node_max_size
       desired_size             = var.initial_node_desired_size
