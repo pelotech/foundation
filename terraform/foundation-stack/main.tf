@@ -82,6 +82,16 @@ module "vpc" {
   })
 }
 
+data "aws_region" "current" {}
+
+# https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/using-govcloud-vpc-endpoints.html
+resource "aws_vpc_endpoint" "eks_vpc_endpoints" {
+  for_each     = var.vpc_endpoints
+  vpc_id       = module.vpc.vpc_id
+  service_name = "com.amazonaws.${data.aws_region.current.name}.${each.value}"
+  tags         = var.stack_tags
+}
+
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "20.24.3"

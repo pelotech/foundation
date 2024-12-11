@@ -141,3 +141,8 @@ variable "s3_csi_driver_bucket_arns" {
   default     = []
   description = "existing buckets the s3 CSI driver should have access to"
 }
+variable "vpc_endpoints" {
+  type        = list(string)
+  description = "vpc endpoints within the cluster vpc network"
+  default     = []
+}
