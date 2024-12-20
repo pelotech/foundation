@@ -50,5 +50,7 @@ spec:
           settings:
             clusterName: CLUSTER_NAME
             interruptionQueue: CLUSTER_NAME
+            featureGates:
+              spotToSpotConsolidation: true
           webhook:
             enabled: true
