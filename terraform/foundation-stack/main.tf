@@ -56,7 +56,7 @@ locals {
 
 module "vpc" {
   source                                 = "terraform-aws-modules/vpc/aws"
-  version                                = "5.13.0"
+  version                                = "5.17.0"
   name                                   = var.stack_name
   enable_dns_hostnames                   = "true"
   enable_dns_support                     = "true"
@@ -94,7 +94,7 @@ resource "aws_vpc_endpoint" "eks_vpc_endpoints" {
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "20.24.3"
+  version         = "20.31.6"
   cluster_name    = var.stack_name
   cluster_version = "1.29"
   create          = var.stack_create
@@ -148,7 +148,7 @@ module "eks" {
 module "karpenter" {
   count                           = var.stack_create ? 1 : 0
   source                          = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version                         = "20.24.3"
+  version                         = "20.31.6"
   cluster_name                    = module.eks.cluster_name
   enable_irsa                     = true
   enable_pod_identity             = false # TODO: PR because it doesn't work in govcloud (-> it works now since 8/24)
@@ -168,7 +168,7 @@ module "karpenter" {
 # IAM roles and policies for the cluster
 module "load_balancer_controller_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.46.0"
+  version = "5.51.0"
 
   create_role = var.stack_create
 
@@ -187,7 +187,7 @@ module "load_balancer_controller_irsa_role" {
 
 module "ebs_csi_driver_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.46.0"
+  version = "5.51.0"
 
   create_role = var.stack_create
 
@@ -206,7 +206,7 @@ module "ebs_csi_driver_irsa_role" {
 
 module "s3_csi" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "4.2.1"
+  version = "4.3.0"
   bucket  = "${var.stack_tags.Owner}-${var.stack_name}-csi-bucket"
 
   create_bucket                         = var.s3_csi_driver_create_bucket
@@ -229,7 +229,7 @@ module "s3_csi" {
 module "s3_driver_irsa_role" {
   count       = var.stack_create ? 1 : 0
   source      = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version     = "5.46.0"
+  version     = "5.51.0"
   create_role = var.stack_create
 
   role_name                       = "${var.stack_name}-s3-csi-driver-role"
@@ -249,7 +249,7 @@ module "s3_driver_irsa_role" {
 module "external_dns_irsa_role" {
   count   = var.stack_create ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.46.0"
+  version = "5.51.0"
 
   create_role = var.stack_create
 
@@ -270,7 +270,7 @@ module "external_dns_irsa_role" {
 module "cert_manager_irsa_role" {
   count   = var.stack_create ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.46.0"
+  version = "5.51.0"
 
   create_role = var.stack_create
 
