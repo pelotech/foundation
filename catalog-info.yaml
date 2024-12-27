@@ -6,7 +6,6 @@ metadata:
   tags:
     - kustomize
     - helm
-    - terraform
     - k8s
   annotations:
     github.com/project-slug: pelotech/foundation
