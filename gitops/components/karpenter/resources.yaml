@@ -34,7 +34,7 @@ spec:
           controller:
             image:
               repository: ghcr.io/pelotech/karpenter
-              tag: v1.1.0x
+              tag: v1.1.1x
               digest: sha256:527235377b9bb13fe54777dadff437cc9356cb8b068af7551753f18a436d00a7
             env:
               - name: IGNORED_RESOURCE_REQUESTS
@@ -52,5 +52,6 @@ spec:
             interruptionQueue: CLUSTER_NAME
             featureGates:
               spotToSpotConsolidation: true
+              nodeRepair: true
           webhook:
             enabled: true
