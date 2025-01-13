@@ -35,7 +35,7 @@ spec:
             image:
               repository: ghcr.io/pelotech/karpenter
               tag: v1.1.1x
-              digest: sha256:527235377b9bb13fe54777dadff437cc9356cb8b068af7551753f18a436d00a7
+              digest: sha256:0e4bb18b27460aa5d3ed53e77073cb53a480c1e0235ed41b7634c96b28ab6be3
             env:
               - name: IGNORED_RESOURCE_REQUESTS
                 value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
