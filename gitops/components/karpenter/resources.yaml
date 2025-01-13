@@ -18,14 +18,14 @@ spec:
   sources:
     - chart: karpenter-crd
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.1.0
+      targetRevision: 1.1.1
       helm:
         valuesObject:
           webhook:
             serviceNamespace: karpenter
     - chart: karpenter
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.1.0
+      targetRevision: 1.1.1
       helm:
         releaseName: karpenter
         skipCrds: true
