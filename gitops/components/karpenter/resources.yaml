@@ -55,5 +55,3 @@ spec:
               nodeRepair: true
           webhook:
             enabled: true
-          serviceMonitor:
-            enabled: true
