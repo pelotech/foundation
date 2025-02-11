@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "tag-separator": "/",
+  "release-type": "simple",
+  "extra-files": [
+    "gitops/base-install/ebs-csi/install.yaml",
+    "gitops/base-install/cert-manager/install.yaml",
+    "gitops/components/kubevirt/resources.yaml"
+  ],
+  "packages": {
+    ".": {}
+    }
+  }
