@@ -80,10 +80,3 @@ spec:
       tolerations:
         - key: pelo.tech/kvm
           operator: Exists
-  infra:
-    nodePlacement:
-      nodeSelector:
-        kube-ovn/role: master
-      tolerations:
-        - key: CriticalAddonsOnly
-          operator: Exists
