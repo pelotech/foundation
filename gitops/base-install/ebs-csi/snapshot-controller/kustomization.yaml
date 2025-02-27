@@ -3,8 +3,8 @@ kind: Kustomization
 namespace: kube-system
 
 resources:
-  - https://github.com/kubernetes-csi/external-snapshotter/client/config/crd?ref=v8.1.0
-  - https://github.com/kubernetes-csi/external-snapshotter/deploy/kubernetes/snapshot-controller?ref=v8.1.0
+  - https://github.com/kubernetes-csi/external-snapshotter/client/config/crd?ref=v8.2.1
+  - https://github.com/kubernetes-csi/external-snapshotter/deploy/kubernetes/snapshot-controller?ref=v8.2.1
 
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "-10"
