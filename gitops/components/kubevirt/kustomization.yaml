@@ -3,21 +3,3 @@ kind: Component
 
 resources:
   - ./resources.yaml
-
-patches:
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: AppProject
-      name: admins
-    patch: |-
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: kubevirt
-          server: https://kubernetes.default.svc
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: cdi
-          server: https://kubernetes.default.svc

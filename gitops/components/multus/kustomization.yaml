@@ -27,12 +27,3 @@ patches:
       kind: DaemonSet
       name: kube-multus-ds
     path: ./overlays/multus-daemonset-container-args.yaml
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: AppProject
-      name: admins
-    patch: |-
-      - op: add
-        path: /spec/sourceRepos/-
-        value: registry-1.docker.io/bitnamicharts

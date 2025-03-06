@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: admins
+  project: networking
   source:
     chart: aws-load-balancer-controller
     repoURL: https://aws.github.io/eks-charts

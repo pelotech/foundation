@@ -6,20 +6,6 @@ resources:
 
 patches:
   - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: AppProject
-      name: admins
-    patch: |-
-      - op: add
-        path: /spec/sourceRepos/-
-        value: https://charts.fairwinds.com/stable
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: goldilocks
-          server: https://kubernetes.default.svc
-  - target:
       kind: Namespace
     patch: |-
       - op: add

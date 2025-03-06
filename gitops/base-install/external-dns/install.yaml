@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: admins
+  project: networking
   source:
     chart: external-dns
     repoURL: https://charts.bitnami.com/bitnami
