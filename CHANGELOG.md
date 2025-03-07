@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/pelotech/foundation/compare/v0.3.2...v1.0.0) (2025-03-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* separate out the various app project by category ([#144](https://github.com/pelotech/foundation/issues/144))
+
+### Features
+
+* separate out the various app project by category ([#144](https://github.com/pelotech/foundation/issues/144)) ([d1362eb](https://github.com/pelotech/foundation/commit/d1362eb9de6812f2adb513132cf0dfe8286ccb47))
+
 ## [0.3.2](https://github.com/pelotech/foundation/compare/v0.3.1...v0.3.2) (2025-02-25)
 
 
