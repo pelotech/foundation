@@ -94,6 +94,7 @@ spec:
     - https://github.com/pelotech/foundation
     - https://kubernetes-sigs.github.io/aws-ebs-csi-driver
     - https://awslabs.github.io/mountpoint-s3-csi-driver
+    - https://backube.github.io/helm-charts
   destinations:
     - namespace: kube-system
       server: https://kubernetes.default.svc
