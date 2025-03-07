@@ -4,22 +4,6 @@ kind: Component
 resources:
   - ./resources.yaml
 
-patches:
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: AppProject
-      name: admins
-    patch: |-
-      - op: add
-        path: /spec/sourceRepos/-
-        value: https://grafana.github.io/helm-charts
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: loki
-          server: https://kubernetes.default.svc
-
 replacements:
   - source:
       version: v1

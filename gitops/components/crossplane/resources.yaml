@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: admins
+  project: utils
   destination:
     namespace: crossplane-system
     name: in-cluster

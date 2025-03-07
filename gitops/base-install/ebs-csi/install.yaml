@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: admins
+  project: storage
   sources:
   - repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/base-install/ebs-csi/snapshot-controller'

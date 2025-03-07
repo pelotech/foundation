@@ -4,27 +4,6 @@ kind: Component
 resources:
   - ./resources.yaml
 
-patches:
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: AppProject
-      name: admins
-    patch: |-
-      - op: add
-        path: /spec/sourceRepos/-
-        value: public.ecr.aws/karpenter
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: karpenter
-          server: https://kubernetes.default.svc
-      - op: add
-        path: /spec/destinations/-
-        value:
-          namespace: kube-node-lease
-          server: https://kubernetes.default.svc
-
 replacements:
   - source:
       version: v1
