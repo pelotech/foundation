@@ -140,6 +140,8 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: karpenter
       server: https://kubernetes.default.svc
+    - namespace: kube-system # karpenter-dns
+      server: https://kubernetes.default.svc
     - namespace: kube-node-lease
       server: https://kubernetes.default.svc
     - namespace: kubevirt
