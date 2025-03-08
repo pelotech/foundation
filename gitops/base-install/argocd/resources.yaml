@@ -31,25 +31,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: foundation
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  sourceRepos:
-    - https://argoproj.github.io/argo-helm
-  destinations:
-    - namespace: argocd
-      server: https://kubernetes.default.svc
-  sourceNamespaces:
-    - argocd
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
   name: networking
   namespace: argocd
   finalizers:

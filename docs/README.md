@@ -42,10 +42,17 @@ spec:
   sourceRepos:
     - https://github.com/pelotech/foundation
     - https://github.com/pelotech/infrastructure #changeme
+    - https://charts.bitnami.com/bitnami
   destinations:
+    - namespace: argocd
+      server: https://kubernetes.default.svc
     - namespace: tailscale # tailscale
       server: https://kubernetes.default.svc
     - namespace: kube-system # nidhogg, multus
+      server: https://kubernetes.default.svc
+    - namespace: nidhogg-system
+      server: https://kubernetes.default.svc
+    - namespace: ingress-nginx
       server: https://kubernetes.default.svc
   sourceNamespaces:
     - argocd
