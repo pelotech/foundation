@@ -106,8 +106,8 @@ spec:
               value: "true"
             - name: HELM_SECRETS_HELM_PATH
               value: /usr/local/bin/helm
-            - name: HELM_SECRETS_LOAD_GPG_KEYS
-              value: /sops-gpg/sops.asc
+#            - name: HELM_SECRETS_LOAD_GPG_KEYS
+#              value: /sops-gpg/sops.asc
           volumeMounts:
             - mountPath: /custom-tools
               name: custom-tools
