@@ -18,4 +18,4 @@ spec:
   source:
     repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/kubevirt/kustomize'
-    targetRevision: v1.1.3 # x-release-please-version
+    targetRevision: v1.1.4 # x-release-please-version
