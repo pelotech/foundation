@@ -1,0 +1,102 @@
+# https://kubeovn.github.io/docs/stable/en/vpc/vpc-internal-dns
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:vpc-dns
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+      - services
+      - pods
+      - namespaces
+    verbs:
+      - list
+      - watch
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs:
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: vpc-dns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:vpc-dns
+subjects:
+  - kind: ServiceAccount
+    name: vpc-dns
+    namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vpc-dns
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vpc-dns-corefile
+  namespace: kube-system
+data:
+  Corefile: |
+    .:53 {
+        errors
+        health {
+          lameduck 5s
+        }
+        ready
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+          pods insecure
+          fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        forward . /etc/resolv.conf {
+          prefer_udp
+        }
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+---
+# hardcoded to 'default' namespace: https://github.com/kubeovn/kube-ovn/blob/master/pkg/controller/vpc_dns.go#L413
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: ovn-nad
+  namespace: default
+spec:
+  config: '{
+      "cniVersion": "0.3.0",
+      "type": "kube-ovn",
+      "server_socket": "/run/openvswitch/kube-ovn-daemon.sock",
+      "provider": "ovn-nad.default.ovn"
+    }'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vpc-dns-config
+  namespace: kube-system
+data:
+  # Pelotech is on service CIDR: 10.100.0.0/16
+  coredns-vip: 10.100.0.3
+  enable-vpc-dns: "true"
+  nad-name: ovn-nad
+  nad-provider: ovn-nad.default.ovn
