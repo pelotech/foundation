@@ -5,6 +5,4 @@ resources:
   - ./argocd
   - ./cert-manager/install.yaml
   - ./ebs-csi/install.yaml
-  - ./external-dns/install.yaml
   - ./ingress-controller
-  - ./reloader/install.yaml
