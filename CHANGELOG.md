@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/pelotech/foundation/compare/v2.0.0...v2.0.1) (2025-03-29)
+
+
+### Bug Fixes
+
+* remove nidhogg time delay ([#166](https://github.com/pelotech/foundation/issues/166)) ([2351e69](https://github.com/pelotech/foundation/commit/2351e693b5a35ecf111461211a9be8c9557d81d9))
+
 ## [2.0.0](https://github.com/pelotech/foundation/compare/v1.2.0...v2.0.0) (2025-03-29)
 
 
