@@ -6,4 +6,3 @@ resources:
   - ./cert-manager/install.yaml
   - ./ebs-csi/install.yaml
   - ./ingress-controller
-  - ./reloader/install.yaml
