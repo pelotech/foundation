@@ -67,13 +67,6 @@ replacements:
           name: alb-controller
         fieldPaths:
           - spec.source.helm.valuesObject.clusterName
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: external-dns
-        fieldPaths:
-          - spec.source.helm.valuesObject.txtOwnerId
 
   - source:
       version: v1
@@ -129,20 +122,6 @@ replacements:
           name: ebs-csi
         fieldPaths:
           - spec.sources.[chart=aws-ebs-csi-driver].helm.valuesObject.controller.k8sTagClusterId
-
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.EXTERNAL_DNS_ROLE_ARN
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: external-dns
-        fieldPaths:
-          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
 
   - source:
       version: v1
