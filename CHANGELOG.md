@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/pelotech/foundation/compare/v1.2.0...v2.0.0) (2025-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* move external-dns to components ([#164](https://github.com/pelotech/foundation/issues/164))
+
+### Features
+
+* move external-dns to components ([#164](https://github.com/pelotech/foundation/issues/164)) ([c78694c](https://github.com/pelotech/foundation/commit/c78694c754863751a24a51bb7dfa81f7d7fc93fd))
+
 ## [1.2.0](https://github.com/pelotech/foundation/compare/v1.1.7...v1.2.0) (2025-03-29)
 
 
