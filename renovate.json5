@@ -1,4 +1,7 @@
 {
-  extends: ["config:recommended",],
+  extends: [
+    "config:recommended",
+    ":semanticCommitTypeAll(fix)",
+  ],
   dependencyDashboard: true,
 }
