@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/pelotech/foundation/compare/v2.0.1...v2.1.0) (2025-03-30)
+
+
+### Features
+
+* bump Karpenter to v1.3.3x ([#162](https://github.com/pelotech/foundation/issues/162)) ([eaa3ddb](https://github.com/pelotech/foundation/commit/eaa3ddbfe654cf992488c22fc83b7d87cf908601))
+
 ## [2.0.1](https://github.com/pelotech/foundation/compare/v2.0.0...v2.0.1) (2025-03-29)
 
 
