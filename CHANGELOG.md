@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.1](https://github.com/pelotech/foundation/compare/v2.1.0...v2.1.1) (2025-03-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency kubevirt/common-instancetypes to v0.4.1 ([#168](https://github.com/pelotech/foundation/issues/168)) ([7e79745](https://github.com/pelotech/foundation/commit/7e797453c3927c60fff0bcb47e23fc13238ec1f1))
+* **deps:** update dependency kubevirt/common-instancetypes to v1.3.1 ([#126](https://github.com/pelotech/foundation/issues/126)) ([a2aeb0b](https://github.com/pelotech/foundation/commit/a2aeb0b29396cf1ab5670c4ff6a7140092e6f2bc))
+
 ## [2.1.0](https://github.com/pelotech/foundation/compare/v2.0.1...v2.1.0) (2025-03-30)
 
 
