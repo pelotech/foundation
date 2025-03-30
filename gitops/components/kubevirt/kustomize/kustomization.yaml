@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./operators
   - ./resources.yaml
-  - https://github.com/kubevirt/common-instancetypes//VirtualMachineClusterPreferences?ref=v0.4.0
+  - https://github.com/kubevirt/common-instancetypes//VirtualMachineClusterPreferences?ref=v0.4.1
   - ./vm-preferences-v1
 
 patches:
