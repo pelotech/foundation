@@ -224,32 +224,32 @@ spec:
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-application-observability
         # Only useful if your applications emit otlp metrics
         applicationObservability:
-         enabled: false
-         receivers:
-           otlp:
-             grpc:
-               enabled: true
-               port: 4317
-             http:
-               enabled: true
-               port: 4318
-           zipkin:
-             enabled: true
-             port: 9411
+          enabled: false
+          receivers:
+            otlp:
+              grpc:
+                enabled: true
+                port: 4317
+              http:
+                enabled: true
+                port: 4318
+            zipkin:
+              enabled: true
+              port: 9411
         # Required for applicationObservability
         alloy-receiver:
-         enabled: true
-         alloy:
-           extraPorts:
-             - name: otlp-grpc
-               port: 4317
-               targetPort: 4317
-               protocol: TCP
-             - name: otlp-http
-               port: 4318
-               targetPort: 4318
-               protocol: TCP
-             - name: zipkin
-               port: 9411
-               targetPort: 9411
-               protocol: TCP
+          enabled: true
+          alloy:
+            extraPorts:
+              - name: otlp-grpc
+                port: 4317
+                targetPort: 4317
+                protocol: TCP
+              - name: otlp-http
+                port: 4318
+                targetPort: 4318
+                protocol: TCP
+              - name: zipkin
+                port: 9411
+                targetPort: 9411
+                protocol: TCP
