@@ -81,8 +81,8 @@ spec:
           kube-state-metrics:
             metricsTuning:
               excludeMetrics:
-                - kube_deployment_status_condition
                 - kube_deployment_metadata_generation
+                - kube_deployment_status_condition
                 - kube_job.*
                 - kube_node_labels
                 - kube_persistentvolume_status_phase
@@ -90,8 +90,8 @@ spec:
                 - kube_persistentvolumeclaim_status_phase
                 - kube_pod_container_status_restarts_total
                 - kube_pod_spec_volumes_persistentvolumeclaims_info
-                - kube_pod_status_reason
                 - kube_pod_start_time
+                - kube_pod_status_reason
                 - kube_replicaset_created
                 - kube_replicaset_metadata_generation
                 - kube_replicaset_spec_replicas
