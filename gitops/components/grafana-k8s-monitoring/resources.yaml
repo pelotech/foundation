@@ -1,0 +1,255 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-k8s-monitoring
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: observability
+  destination:
+    namespace: grafana-k8s-monitoring
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    automated: {}
+  source:
+    repoURL: 'https://grafana.github.io/helm-charts'
+    chart: k8s-monitoring
+    targetRevision: 2.0.23
+    helm:
+      releaseName: grafana-k8s-monitoring
+      valuesObject:
+        cluster:
+          name: CLUSTER_NAME
+        destinations:
+          - name: metricsService
+            type: prometheus
+            url: PROMETHEUS_ENDPOINT
+            auth:
+              type: basic
+            secret:
+              create: false
+              name: prometheus
+              namespace: grafana-k8s-monitoring
+          - name: logsService
+            type: loki
+            url: LOKI_ENDPOINT
+            auth:
+              type: basic
+            secret:
+              create: false
+              name: loki
+              namespace: grafana-k8s-monitoring
+          - name: tracesService
+            type: otlp
+            protocol: grpc
+            metrics:
+              enabled: false
+            logs:
+              enabled: false
+            traces:
+              enabled: true
+            url: TEMPO_ENDPOINT
+            auth:
+              type: basic
+            secret:
+              create: false
+              name: tempo
+              namespace: grafana-k8s-monitoring
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-pod-logs
+        podLogs:
+          enabled: true
+        # Required for podLogs
+        alloy-logs:
+          enabled: true
+
+        #######################################################################
+        # The below metrics tuning is based on getting down to minimal
+        # cost while having *most* dashboards and alerts still working.
+        #######################################################################
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-metrics#feature-cluster-metrics
+        clusterMetrics:
+          enabled: true
+          global:
+            scrapeInterval: 120s
+          kube-state-metrics:
+            metricsTuning:
+              excludeMetrics:
+                - kube_deployment_status_condition
+                - kube_deployment_metadata_generation
+                - kube_job.*
+                - kube_node_labels
+                - kube_persistentvolume_status_phase
+                - kube_persistentvolumeclaim_info
+                - kube_persistentvolumeclaim_status_phase
+                - kube_pod_container_status_restarts_total
+                - kube_pod_spec_volumes_persistentvolumeclaims_info
+                - kube_pod_status_reason
+                - kube_pod_start_time
+                - kube_replicaset_created
+                - kube_replicaset_metadata_generation
+                - kube_replicaset_spec_replicas
+                - kube_replicaset_status.*
+            extraMetricProcessingRules: |-
+              rule {
+                action = "labeldrop"
+                regex = "container_id"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "host_ip"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "id"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "image"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "image_id"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "image_spec"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "internal_ip"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "pod_ip"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "provider_id"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "system_uuid"
+              }
+              rule {
+                action = "labeldrop"
+                regex = "uid"
+              }
+          node-exporter:
+            metricsTuning:
+              excludeMetrics:
+                - node_cpu_scaling_governor
+                - node_cpu_seconds_total
+                - node_filesystem.*
+                - node_network.*
+          kubelet:
+            metricsTuning:
+              excludeMetrics:
+                - go.*
+                - kubelet_cgroup_manager_duration_seconds_bucket
+                - kubelet_pod_start_duration_seconds_bucket
+                - kubelet_pod_worker_duration_seconds_bucket
+                - kubelet_runtime_operations_errors_total
+                - kubelet_runtime_operations_total
+                - rest_client_requests_total
+                - storage_operation.*
+          cadvisor:
+            metricsTuning:
+              excludeMetrics:
+                - container_fs.*
+                - container_memory_cache
+                - container_memory_rss
+                - container_memory_swap
+                - container_network.*
+            extraMetricProcessingRules: |-
+              rule {
+                action = "labeldrop"
+                regex = "id"
+              }
+        # Required for clusterMetrics
+        alloy-metrics:
+          enabled: true
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-events
+        clusterEvents:
+          enabled: true
+        # Required for clusterEvents
+        alloy-singleton:
+          enabled: true
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-prometheus-operator-objects
+        # Only useful if you have ServiceMonitors/PodMonitors etc in your cluster for the operator to scrape
+        prometheusOperatorObjects:
+          enabled: false
+          global:
+            scrapeInterval: 120s
+          crds:
+            deploy: true
+          podMonitors:
+            metricsTuning:
+              excludeMetrics:
+                # metrics from commonly used libraries
+                - aws_sdk_go.*
+                - client_go.*
+                - controller_runtime.*
+                - workqueue.*
+          probes:
+            metricsTuning:
+              excludeMetrics:
+                # metrics from commonly used libraries
+                - aws_sdk_go.*
+                - client_go.*
+                - controller_runtime.*
+                - workqueue.*
+          serviceMonitors:
+            metricsTuning:
+              excludeMetrics:
+                # metrics from commonly used libraries
+                - aws_sdk_go.*
+                - client_go.*
+                - controller_runtime.*
+                - workqueue.*
+                # karpenter
+                - karpenter_cloudprovider.*
+                - karpenter_nodes.*
+                - karpenter_pods.*
+                - operator_node_.*
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-application-observability
+        # Only useful if your applications emit otlp metrics
+        applicationObservability:
+         enabled: false
+         receivers:
+           otlp:
+             grpc:
+               enabled: true
+               port: 4317
+             http:
+               enabled: true
+               port: 4318
+           zipkin:
+             enabled: true
+             port: 9411
+        # Required for applicationObservability
+        alloy-receiver:
+         enabled: true
+         alloy:
+           extraPorts:
+             - name: otlp-grpc
+               port: 4317
+               targetPort: 4317
+               protocol: TCP
+             - name: otlp-http
+               port: 4318
+               targetPort: 4318
+               protocol: TCP
+             - name: zipkin
+               port: 9411
+               targetPort: 9411
+               protocol: TCP

@@ -1,0 +1,230 @@
+cluster:
+  name: core-prod
+destinations:
+  - name: metricsService
+    type: prometheus
+    url: https://prometheus-prod-36-prod-us-west-0.grafana.net/api/prom/push
+    auth:
+      type: basic
+      usernameKey: 'username'
+      passwordKey: 'password'
+    secret:
+      create: false
+      name: prometheus-k8s-monitoring
+      namespace: grafana
+  - name: logsService
+    type: loki
+    url: https://logs-prod-021.grafana.net/loki/api/v1/push
+    auth:
+      type: basic
+      usernameKey: 'username'
+      passwordKey: 'password'
+    secret:
+      create: false
+      name: loki-k8s-monitoring
+      namespace: grafana
+  - name: tracesService
+    type: otlp
+    protocol: grpc
+    metrics:
+      enabled: false
+    logs:
+      enabled: false
+    traces:
+      enabled: true
+    url: https://tempo-prod-15-prod-us-west-0.grafana.net:443
+    auth:
+      type: basic
+      usernameKey: 'username'
+      passwordKey: 'password'
+    secret:
+      create: false
+      name: tempo-k8s-monitoring
+      namespace: grafana
+
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-pod-logs
+podLogs:
+  enabled: true
+# Required for podLogs
+alloy-logs:
+  enabled: true
+
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-metrics#feature-cluster-metrics
+# Metrics tuning sections are based on removing the most expensive metrics that were listed in the Grafana cardinality management dashboards
+clusterMetrics:
+  enabled: true
+  global:
+    scrapeInterval: 120s
+  kube-state-metrics:
+    metricsTuning:
+      excludeMetrics:
+        - kube_deployment_status_condition
+        - kube_deployment_metadata_generation
+        - kube_job.*
+        - kube_node_labels
+        - kube_persistentvolume_status_phase
+        - kube_persistentvolumeclaim_info
+        - kube_persistentvolumeclaim_status_phase
+        - kube_pod_container_status_restarts_total
+        - kube_pod_spec_volumes_persistentvolumeclaims_info
+        - kube_pod_status_reason
+        - kube_pod_start_time
+        - kube_replicaset_created
+        - kube_replicaset_metadata_generation
+        - kube_replicaset_spec_replicas
+        - kube_replicaset_status.*
+    extraMetricProcessingRules: |-
+      rule {
+        action = "labeldrop"
+        regex = "container_id"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "host_ip"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "id"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "image"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "image_id"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "image_spec"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "internal_ip"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "pod_ip"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "provider_id"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "system_uuid"
+      }
+      rule {
+        action = "labeldrop"
+        regex = "uid"
+      }
+  node-exporter:
+    metricsTuning:
+      excludeMetrics:
+        - node_cpu_scaling_governor
+        - node_cpu_seconds_total
+        - node_filesystem.*
+        - node_network.*
+  kubelet:
+    metricsTuning:
+      excludeMetrics:
+        - go.*
+        - kubelet_cgroup_manager_duration_seconds_bucket
+        - kubelet_pod_start_duration_seconds_bucket
+        - kubelet_pod_worker_duration_seconds_bucket
+        - kubelet_runtime_operations_errors_total
+        - kubelet_runtime_operations_total
+        - rest_client_requests_total
+        - storage_operation.*
+  cadvisor:
+    metricsTuning:
+      excludeMetrics:
+        - container_fs.*
+        - container_memory_cache
+        - container_memory_rss
+        - container_memory_swap
+        - container_network.*
+    extraMetricProcessingRules: |-
+      rule {
+        action = "labeldrop"
+        regex = "id"
+      }
+# Required for clusterMetrics
+alloy-metrics:
+  enabled: true
+
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-events
+clusterEvents:
+  enabled: true
+# Required for clusterEvents
+alloy-singleton:
+  enabled: true
+
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-prometheus-operator-objects
+prometheusOperatorObjects:
+  enabled: true
+  global:
+    scrapeInterval: 120s
+  crds:
+    deploy: true
+  podMonitors:
+    metricsTuning:
+      excludeMetrics:
+        # metrics from commonly used libraries
+        - aws_sdk_go.*
+        - client_go.*
+        - controller_runtime.*
+        - workqueue.*
+  probes:
+    metricsTuning:
+      excludeMetrics:
+        # metrics from commonly used libraries
+        - aws_sdk_go.*
+        - client_go.*
+        - controller_runtime.*
+        - workqueue.*
+  serviceMonitors:
+    metricsTuning:
+      excludeMetrics:
+        # metrics from commonly used libraries
+        - aws_sdk_go.*
+        - client_go.*
+        - controller_runtime.*
+        - workqueue.*
+        # karpenter
+        - karpenter_cloudprovider.*
+        - karpenter_nodes.*
+        - karpenter_pods.*
+        - operator_node_.*
+
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-application-observability
+# applicationObservability:
+#  enabled: true
+#  receivers:
+#    otlp:
+#      grpc:
+#        enabled: true
+#        port: 4317
+#      http:
+#        enabled: true
+#        port: 4318
+#    zipkin:
+#      enabled: true
+#      port: 9411
+# Required for applicationObservability
+# alloy-receiver:
+#  enabled: true
+#  alloy:
+#    extraPorts:
+#      - name: otlp-grpc
+#        port: 4317
+#        targetPort: 4317
+#        protocol: TCP
+#      - name: otlp-http
+#        port: 4318
+#        targetPort: 4318
+#        protocol: TCP
+#      - name: zipkin
+#        port: 9411
+#        targetPort: 9411
+#        protocol: TCP
