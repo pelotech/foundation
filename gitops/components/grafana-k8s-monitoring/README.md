@@ -45,4 +45,3 @@ The helm values in this component include metrics tuning that minimize metrics c
 dashboards and alerts will not work due to these tuning adjustments, but the vast majority of
 the integration still works and significantly reduces cost by 2-3x compared to the chart's
 default configuration.
-
