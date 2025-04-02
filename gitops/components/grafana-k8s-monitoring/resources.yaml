@@ -238,7 +238,7 @@ spec:
               port: 9411
         # Required for applicationObservability
         alloy-receiver:
-          enabled: true
+          enabled: false
           alloy:
             extraPorts:
               - name: otlp-grpc
