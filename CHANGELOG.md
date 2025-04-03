@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/pelotech/foundation/compare/v2.1.1...v2.2.0) (2025-04-03)
+
+
+### Features
+
+* **components:** grafana-k8s-monitoring app ([#172](https://github.com/pelotech/foundation/issues/172)) ([73ce693](https://github.com/pelotech/foundation/commit/73ce69363c7d6b704557363649130654877fd939))
+
 ## [2.1.1](https://github.com/pelotech/foundation/compare/v2.1.0...v2.1.1) (2025-03-30)
 
 
