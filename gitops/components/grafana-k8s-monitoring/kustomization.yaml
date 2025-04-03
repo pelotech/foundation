@@ -1,0 +1,59 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+replacements:
+- source:
+    version: v1
+    kind: ConfigMap
+    name: kustomize-environment
+    fieldPath: data.CLUSTER_NAME
+  targets:
+    - select:
+        group: argoproj.io
+        version: v1alpha1
+        kind: Application
+        name: grafana-k8s-monitoring
+      fieldPaths:
+        - spec.source.helm.valuesObject.cluster.name
+- source:
+    version: v1
+    kind: ConfigMap
+    name: kustomize-environment
+    fieldPath: data.PROMETHEUS_ENDPOINT
+  targets:
+    - select:
+        group: argoproj.io
+        version: v1alpha1
+        kind: Application
+        name: grafana-k8s-monitoring
+      fieldPaths:
+        - spec.source.helm.valuesObject.destinations.[name=metricsService].url
+- source:
+    version: v1
+    kind: ConfigMap
+    name: kustomize-environment
+    fieldPath: data.LOKI_ENDPOINT
+  targets:
+    - select:
+        group: argoproj.io
+        version: v1alpha1
+        kind: Application
+        name: grafana-k8s-monitoring
+      fieldPaths:
+        - spec.source.helm.valuesObject.destinations.[name=logsService].url
+- source:
+    version: v1
+    kind: ConfigMap
+    name: kustomize-environment
+    fieldPath: data.TEMPO_ENDPOINT
+  targets:
+    - select:
+        group: argoproj.io
+        version: v1alpha1
+        kind: Application
+        name: grafana-k8s-monitoring
+      fieldPaths:
+        - spec.source.helm.valuesObject.destinations.[name=tracesService].url

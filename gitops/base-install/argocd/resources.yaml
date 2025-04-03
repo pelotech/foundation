@@ -105,6 +105,8 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: fluent-bit
       server: https://kubernetes.default.svc
+    - namespace: grafana-k8s-monitoring
+      server: https://kubernetes.default.svc
     - namespace: loki
       server: https://kubernetes.default.svc
   sourceNamespaces:
