@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.3.1](https://github.com/pelotech/foundation/compare/v2.3.0...v2.3.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v1.14.1 ([#179](https://github.com/pelotech/foundation/issues/179)) ([ab7a400](https://github.com/pelotech/foundation/commit/ab7a400810b5ee9bde1ba5f8a71bf585587427ec))
+* **deps:** update helm release cert-manager to v1.17.2 ([#180](https://github.com/pelotech/foundation/issues/180)) ([05ac978](https://github.com/pelotech/foundation/commit/05ac9786a90e9aa172b9214992f865676af79ad0))
+* **deps:** update helm release external-dns to v8 ([#189](https://github.com/pelotech/foundation/issues/189)) ([e90d604](https://github.com/pelotech/foundation/commit/e90d60484c3bf758d9182a96862b54d614db1112))
+* **deps:** update helm release fluent-bit to v0.49.0 ([#183](https://github.com/pelotech/foundation/issues/183)) ([6bab4c6](https://github.com/pelotech/foundation/commit/6bab4c6c2ccd060f70944c327bcc5793db34890a))
+* **deps:** update helm release goldilocks to v9 ([#190](https://github.com/pelotech/foundation/issues/190)) ([ec64ccf](https://github.com/pelotech/foundation/commit/ec64ccfe4d915a71613ad75e5120e6bdc183a75f))
+* **deps:** update helm release loki to v5.48.0 ([#185](https://github.com/pelotech/foundation/issues/185)) ([5128c94](https://github.com/pelotech/foundation/commit/5128c94c0531d99be4b28c3fd922f67e96830b78))
+* **deps:** update helm release loki to v6 ([#191](https://github.com/pelotech/foundation/issues/191)) ([2444506](https://github.com/pelotech/foundation/commit/24445063a8fff25102f4ff575cd3e704170cbb3d))
+* **deps:** update helm release reloader to v2 ([#192](https://github.com/pelotech/foundation/issues/192)) ([68877a6](https://github.com/pelotech/foundation/commit/68877a66cf621c8f6df6445e56a3666a1b59144c))
+
 ## [2.3.0](https://github.com/pelotech/foundation/compare/v2.2.0...v2.3.0) (2025-05-13)
 
 
