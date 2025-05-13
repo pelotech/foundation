@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/pelotech/foundation/compare/v2.2.0...v2.3.0) (2025-05-13)
+
+
+### Features
+
+* upgrade to argocd 3.0 and latest image updater chart ([b6d79f7](https://github.com/pelotech/foundation/commit/b6d79f7220be7ef85bb181269a84a93e313eee51))
+
 ## [2.2.0](https://github.com/pelotech/foundation/compare/v2.1.1...v2.2.0) (2025-04-03)
 
 
