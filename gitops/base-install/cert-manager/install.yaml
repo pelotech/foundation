@@ -21,7 +21,7 @@ spec:
           name: cert-manager
           annotations:
             eks.amazonaws.com/role-arn: CERT_MANAGER_ROLE_ARN
-            eks.amazonaws.com/sts-regional-endpoint: "true"
+            eks.amazonaws.com/sts-regional-endpoint: "'true'"
         extraEnv:
           - name: AWS_REGION
             value: "us-east-1"
@@ -36,7 +36,7 @@ spec:
             memory: "105M"
         webhook:
           hostNetwork: true
-          securePort: '10251'
+          securePort: 10251
           resources:
             requests:
               cpu: "15m"
