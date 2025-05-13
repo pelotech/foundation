@@ -14,7 +14,7 @@ spec:
     targetRevision: v2.3.2 # x-release-please-version
   - chart: aws-ebs-csi-driver
     repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
-    targetRevision: 2.31.0
+    targetRevision: 2.43.0
     helm:
       # TODO: figure out correct roles for controller vs node
       releaseName: aws-ebs-csi-driver
