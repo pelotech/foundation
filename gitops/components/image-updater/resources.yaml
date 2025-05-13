@@ -14,9 +14,9 @@ spec:
   syncPolicy:
     automated: {}
   source:
-    repoURL: https://argoproj.github.io/argo-helm
+    repoURL: oci://ghcr.io/argoproj/argo-helm
     chart: argocd-image-updater
-    targetRevision: 0.13.1
+    targetRevision: 0.12.1
     helm:
       valuesObject:
         # guide: https://github.com/argoproj-labs/argocd-image-updater/issues/112#issuecomment-1058465942
