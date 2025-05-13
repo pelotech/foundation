@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/pelotech/foundation/compare/v2.3.1...v2.3.2) (2025-05-13)
+
+
+### Bug Fixes
+
+* update to get correct port as number as well as annotation value as string instead of bool ([fd8f14d](https://github.com/pelotech/foundation/commit/fd8f14d38ad4b6f41812f93e089f53044d84d88c))
+
 ## [2.3.1](https://github.com/pelotech/foundation/compare/v2.3.0...v2.3.1) (2025-05-13)
 
 
