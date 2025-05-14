@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.3.3](https://github.com/pelotech/foundation/compare/v2.3.2...v2.3.3) (2025-05-14)
+
+
+### Bug Fixes
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.43.0 ([#176](https://github.com/pelotech/foundation/issues/176)) ([7df9396](https://github.com/pelotech/foundation/commit/7df9396943a2b182729ebeb355d83ca9d0116a6a))
+* **deps:** update helm release aws-load-balancer-controller to v1.13.0 ([#178](https://github.com/pelotech/foundation/issues/178)) ([6629126](https://github.com/pelotech/foundation/commit/66291261a2bf7a34cb45dd0608b74bc30e07fcda))
+* **deps:** update helm release k8s-monitoring to v2.0.29 ([#175](https://github.com/pelotech/foundation/issues/175)) ([324a7cd](https://github.com/pelotech/foundation/commit/324a7cd88e1bd48aabef4fbcba3692415f52f6fd))
+* **deps:** update helm release k8s-monitoring to v2.0.30 ([#197](https://github.com/pelotech/foundation/issues/197)) ([245bd32](https://github.com/pelotech/foundation/commit/245bd327d9c30477dafdfd8c9f00bb5e2f4f6fab))
+
 ## [2.3.2](https://github.com/pelotech/foundation/compare/v2.3.1...v2.3.2) (2025-05-13)
 
 
