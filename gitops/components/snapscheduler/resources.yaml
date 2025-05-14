@@ -18,6 +18,6 @@ spec:
   source:
     chart: snapscheduler
     repoURL: https://backube.github.io/helm-charts
-    targetRevision: 3.4.0
+    targetRevision: 3.5.0
     helm:
       releaseName: snapscheduler
