@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.4](https://github.com/pelotech/foundation/compare/v2.3.3...v2.3.4) (2025-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update helm release crossplane to v1.19.1 ([#181](https://github.com/pelotech/foundation/issues/181)) ([ec01dca](https://github.com/pelotech/foundation/commit/ec01dcab1ac3b3717ac2482a3db4e53ce9b55eb4))
+
 ## [2.3.3](https://github.com/pelotech/foundation/compare/v2.3.2...v2.3.3) (2025-05-14)
 
 
