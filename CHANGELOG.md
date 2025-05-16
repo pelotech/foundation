@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.3.5](https://github.com/pelotech/foundation/compare/v2.3.4...v2.3.5) (2025-05-16)
+
+
+### Bug Fixes
+
+* **deps:** update helm release aws-load-balancer-controller to v1.13.1 ([#200](https://github.com/pelotech/foundation/issues/200)) ([2f006d4](https://github.com/pelotech/foundation/commit/2f006d4636ad36617e8da8e6cfe629c3e797b43a))
+* **deps:** update helm release aws-load-balancer-controller to v1.13.2 ([#203](https://github.com/pelotech/foundation/issues/203)) ([fe7db24](https://github.com/pelotech/foundation/commit/fe7db246aa0582f0700d4be41f08ee3c1363f019))
+* **deps:** update helm release k8s-monitoring to v2.1.0 ([#202](https://github.com/pelotech/foundation/issues/202)) ([3040a38](https://github.com/pelotech/foundation/commit/3040a38719afe5597b83f3687484d462775f3a08))
+* **deps:** update helm release kyverno to v3.4.1 ([#184](https://github.com/pelotech/foundation/issues/184)) ([c62ffb0](https://github.com/pelotech/foundation/commit/c62ffb0b87321834a4f0497380076c6a20dae7e6))
+* **deps:** update helm release snapscheduler to v3.5.0 ([#198](https://github.com/pelotech/foundation/issues/198)) ([3717e18](https://github.com/pelotech/foundation/commit/3717e18834fe96eb8cc0da92edbef80c61ab0524))
+
 ## [2.3.4](https://github.com/pelotech/foundation/compare/v2.3.3...v2.3.4) (2025-05-15)
 
 
