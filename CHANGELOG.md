@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.6](https://github.com/pelotech/foundation/compare/v2.3.5...v2.3.6) (2025-05-20)
+
+
+### Bug Fixes
+
+* **deps:** update helm release k8s-monitoring to v2.1.1 ([#204](https://github.com/pelotech/foundation/issues/204)) ([e4f0ebd](https://github.com/pelotech/foundation/commit/e4f0ebd2d749bc9f695aaf6af6fe33dd33cb0b06))
+
 ## [2.3.5](https://github.com/pelotech/foundation/compare/v2.3.4...v2.3.5) (2025-05-16)
 
 
