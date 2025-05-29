@@ -16,6 +16,3 @@
                 operator: NotIn
                 values:
                   - "metal"
-- op: add
-  path: /spec/template/spec/hostNetwork
-  value: true
