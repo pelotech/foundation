@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.3.7](https://github.com/pelotech/foundation/compare/v2.3.6...v2.3.7) (2025-05-29)
+
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v0.12.2 ([#213](https://github.com/pelotech/foundation/issues/213)) ([09c76af](https://github.com/pelotech/foundation/commit/09c76affc5864664065c102f90d938293398fb6e))
+* **deps:** update helm release external-dns to v8.8.3 ([#212](https://github.com/pelotech/foundation/issues/212)) ([d9ec831](https://github.com/pelotech/foundation/commit/d9ec83176ddd24ce840cae2e79ccd6fe5e5a6e2e))
+* **deps:** update helm release k8s-monitoring to v2.1.4 ([#206](https://github.com/pelotech/foundation/issues/206)) ([156fba9](https://github.com/pelotech/foundation/commit/156fba9b1560d327480540ce365aec719ae5cf8b))
+* **deps:** update helm release loki to v6.30.1 ([#209](https://github.com/pelotech/foundation/issues/209)) ([d250efc](https://github.com/pelotech/foundation/commit/d250efc7076639222c3a0f23779096b295105c0b))
+* remove hostnetwork from nidhogg ([#215](https://github.com/pelotech/foundation/issues/215)) ([0e765a5](https://github.com/pelotech/foundation/commit/0e765a5e6aa48dbf4c98a7b016bbae7c44c83da4))
+
 ## [2.3.6](https://github.com/pelotech/foundation/compare/v2.3.5...v2.3.6) (2025-05-20)
 
 
