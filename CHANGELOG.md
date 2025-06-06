@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/pelotech/foundation/compare/v2.3.7...v2.4.0) (2025-06-06)
+
+
+### Features
+
+* upgrade argocd to 3.0.5 ([#219](https://github.com/pelotech/foundation/issues/219)) ([8539d73](https://github.com/pelotech/foundation/commit/8539d73bf5616e70548701fb8d0ba14be3e7e4bb))
+
 ## [2.3.7](https://github.com/pelotech/foundation/compare/v2.3.6...v2.3.7) (2025-05-29)
 
 
