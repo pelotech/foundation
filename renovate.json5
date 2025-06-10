@@ -6,9 +6,8 @@
   dependencyDashboard: true,
   argocd: {
     managerFilePatterns: [
-      '/gitops/base-install/*/install.yaml/',
-      '/gitops/base-install/*/resources.yaml/',
-      '/gitops/components/*/resources.yaml/',
+      '/gitops/**/*/install.yaml',
+      '/gitops/**/*/resources.yaml',
     ],
   },
 }
