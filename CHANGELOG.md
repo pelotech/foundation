@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.5.0](https://github.com/pelotech/foundation/compare/v2.4.0...v2.5.0) (2025-07-08)
+
+
+### Features
+
+* **renovate:** Use terser (and more flexible) config syntax. ([#224](https://github.com/pelotech/foundation/issues/224)) ([ee55bb5](https://github.com/pelotech/foundation/commit/ee55bb5d34b05125057e1669e6de59280ef690de))
+
+
+### Bug Fixes
+
+* **deps:** update helm release fluent-bit to v0.49.1 ([#218](https://github.com/pelotech/foundation/issues/218)) ([e0e71b2](https://github.com/pelotech/foundation/commit/e0e71b2fa9affde37724075eb696e3f71f7f01e1))
+* karpenter upgrade to 1.5.1 ([45b77b9](https://github.com/pelotech/foundation/commit/45b77b9ec87e72a303affd483b9320cf1f9e6efb))
+* **renovate:** Avoid absolute path in `managerFilePatterns`. ([#225](https://github.com/pelotech/foundation/issues/225)) ([6d468b9](https://github.com/pelotech/foundation/commit/6d468b91894580d311c0759129269a2cc9cc8d57))
+
 ## [2.4.0](https://github.com/pelotech/foundation/compare/v2.3.7...v2.4.0) (2025-06-06)
 
 
