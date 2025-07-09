@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.4](https://github.com/pelotech/foundation/compare/v2.6.3...v2.6.4) (2025-07-09)
+
+
+### Bug Fixes
+
+* update replacement for upstream nginx which has controller object ([4052ccf](https://github.com/pelotech/foundation/commit/4052ccf3507fd8eb4f9f74df6a4dd575a725a663))
+
 ## [2.6.3](https://github.com/pelotech/foundation/compare/v2.6.2...v2.6.3) (2025-07-09)
 
 
