@@ -11,12 +11,14 @@ spec:
   source:
     chart: kyverno
     repoURL: https://kyverno.github.io/kyverno
-    targetRevision: 3.4.1
+    targetRevision: 3.4.4
     helm:
       valuesObject:
         features:
           backgroundScan:
             backgroundScanInterval: 1h
+          controllerRuntimeMetrics:
+            bindAddress: ":49150"
         admissionController:
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
