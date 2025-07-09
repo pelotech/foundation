@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.3](https://github.com/pelotech/foundation/compare/v2.6.2...v2.6.3) (2025-07-09)
+
+
+### Bug Fixes
+
+* use upstream ingress nginx instead of bitnami's ([be383e7](https://github.com/pelotech/foundation/commit/be383e7e7904b3e1854f4a25da277cf8a87b7782))
+
 ## [2.6.2](https://github.com/pelotech/foundation/compare/v2.6.1...v2.6.2) (2025-07-09)
 
 
