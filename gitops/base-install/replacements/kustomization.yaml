@@ -94,7 +94,7 @@ replacements:
           kind: Application
           name: ingress-nginx-controller
         fieldPaths:
-          - spec.source.helm.valuesObject.service.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+          - spec.source.helm.valuesObject.controller.service.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
 
   - source:
       version: v1
