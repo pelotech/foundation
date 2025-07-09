@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.5](https://github.com/pelotech/foundation/compare/v2.6.4...v2.6.5) (2025-07-09)
+
+
+### Bug Fixes
+
+* update missed chart version and name with change to upstream ([3575495](https://github.com/pelotech/foundation/commit/35754950ab4cc2e92d1e1d73bce40534e3fc0035))
+
 ## [2.6.4](https://github.com/pelotech/foundation/compare/v2.6.3...v2.6.4) (2025-07-09)
 
 
