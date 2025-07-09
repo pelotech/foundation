@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.2](https://github.com/pelotech/foundation/compare/v2.6.1...v2.6.2) (2025-07-09)
+
+
+### Bug Fixes
+
+* use port 80/443 and publish service enabled ([af75ffe](https://github.com/pelotech/foundation/commit/af75ffe14a8648a91c62934c59ba7dde35007161))
+
 ## [2.6.1](https://github.com/pelotech/foundation/compare/v2.6.0...v2.6.1) (2025-07-09)
 
 
