@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.1](https://github.com/pelotech/foundation/compare/v2.6.0...v2.6.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* oci registry fix and enable-ssl-passthrough fix ([8bdd476](https://github.com/pelotech/foundation/commit/8bdd476353d85e3258fb66525e71a246ed7f232b))
+
 ## [2.6.0](https://github.com/pelotech/foundation/compare/v2.5.0...v2.6.0) (2025-07-09)
 
 
