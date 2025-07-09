@@ -59,7 +59,7 @@ spec:
   project: networking
   source:
     chart: nginx-ingress-controller
-    repoURL: oci://registry-1.docker.io/bitnamicharts/
+    repoURL: registry-1.docker.io/bitnamicharts
     targetRevision: 11.6.27
     helm:
       releaseName: nginx-ingress-controller
@@ -75,7 +75,7 @@ spec:
         ingressClassResource:
           default: true
         extraArgs:
-          - --enable-ssl-passthrough
+          enable-ssl-passthrough: "true"
         config:
           enable-real-ip: "true"
           forwarded-for-header: "proxy_protocol"
