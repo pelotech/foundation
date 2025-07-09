@@ -74,6 +74,11 @@ spec:
             service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing" #TODO: make configurable to internal only
         ingressClassResource:
           default: true
+        containerPorts:
+          http: 80
+          https: 443
+        publishService:
+          enabled: true
         extraArgs:
           enable-ssl-passthrough: "true"
         config:
