@@ -58,11 +58,11 @@ metadata:
 spec:
   project: networking
   source:
-    chart: nginx-ingress-controller
+    chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 11.6.27
+    targetRevision: 4.13.0
     helm:
-      releaseName: nginx-ingress-controller
+      releaseName: ingress-nginx
       valuesObject:
         controller:
           hostNetwork: true
