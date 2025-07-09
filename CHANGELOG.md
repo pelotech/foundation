@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/pelotech/foundation/compare/v2.5.0...v2.6.0) (2025-07-09)
+
+
+### Features
+
+* nginx in a separate argo app and helm vs kustomize ([#227](https://github.com/pelotech/foundation/issues/227)) ([c0e7f30](https://github.com/pelotech/foundation/commit/c0e7f30e98cfcf16a284fad67081a2126932413d))
+
 ## [2.5.0](https://github.com/pelotech/foundation/compare/v2.4.0...v2.5.0) (2025-07-08)
 
 
