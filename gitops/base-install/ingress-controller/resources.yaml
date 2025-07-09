@@ -59,37 +59,37 @@ spec:
   project: networking
   source:
     chart: nginx-ingress-controller
-    repoURL: registry-1.docker.io/bitnamicharts
+    repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 11.6.27
     helm:
       releaseName: nginx-ingress-controller
       valuesObject:
-        hostNetwork: true
-        service:
-          annotations:
-            service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-            service.beta.kubernetes.io/aws-load-balancer-name: NLB_NAME
-            service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
-            service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip" #TODO: might need to be instance
-            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing" #TODO: make configurable to internal only
-        ingressClassResource:
-          default: true
-        containerPorts:
-          http: 80
-          https: 443
-        publishService:
-          enabled: true
-        extraArgs:
-          enable-ssl-passthrough: "true"
-        config:
-          enable-real-ip: "true"
-          forwarded-for-header: "proxy_protocol"
-        resources:
-          limits:
-            memory: "128Mi"
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
+        controller:
+          hostNetwork: true
+          service:
+            annotations:
+              service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+              service.beta.kubernetes.io/aws-load-balancer-name: NLB_NAME
+              service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+              service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip" #TODO: might need to be instance
+              service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing" #TODO: make configurable to internal only
+          ingressClassResource:
+            default: true
+          targetPorts:
+            http: http
+            https: https
+          extraArgs:
+            enable-ssl-passthrough: "" # https://github.com/kubernetes/ingress-nginx/issues/8052
+          config:
+            enable-real-ip: "true" # https://github.com/kubernetes/ingress-nginx/issues/8052
+            forwarded-for-header: "proxy_protocol" # https://github.com/kubernetes/ingress-nginx/issues/8052
+            allow-snippet-annotations: "true"
+          resources:
+            limits:
+              memory: "128Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
   destination:
     namespace: ingress-nginx
     name: in-cluster

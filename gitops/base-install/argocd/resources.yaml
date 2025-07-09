@@ -37,10 +37,11 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   sourceRepos:
-    - https://github.com/pelotech/foundation # issuer, nginx ingress, nidhogg
+    - https://github.com/pelotech/foundation # issuer, nidhogg
     - https://charts.jetstack.io # cert-manager
     - https://charts.bitnami.com/bitnami # external dns
     - https://aws.github.io/eks-charts # alb/nlb
+    - https://kubernetes.github.io/ingress-nginx # ingress-nginx
     - registry-1.docker.io/bitnamicharts # multus
   destinations:
     - namespace: cert-manager
