@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.6](https://github.com/pelotech/foundation/compare/v2.6.5...v2.6.6) (2025-07-09)
+
+
+### Bug Fixes
+
+* remove uneeded target ports ([f694384](https://github.com/pelotech/foundation/commit/f6943849294d4459d84691b575c2f1e969d671d1))
+
 ## [2.6.5](https://github.com/pelotech/foundation/compare/v2.6.4...v2.6.5) (2025-07-09)
 
 
