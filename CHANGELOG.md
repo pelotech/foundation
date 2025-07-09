@@ -1,12 +1,5 @@
 # Changelog
 
-## [2.6.7](https://github.com/pelotech/foundation/compare/v2.6.6...v2.6.7) (2025-07-09)
-
-
-### Bug Fixes
-
-* **kyverno:** update to latest helm chart and bind metrics port to not 8080 ([#235](https://github.com/pelotech/foundation/issues/235)) ([3da6de4](https://github.com/pelotech/foundation/commit/3da6de4da044626aa1b5de35bdd9f6007e16a2ff))
-
 ## [2.6.6](https://github.com/pelotech/foundation/compare/v2.6.5...v2.6.6) (2025-07-09)
 
 
