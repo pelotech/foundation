@@ -18,6 +18,7 @@ spec:
           backgroundScan:
             backgroundScanInterval: 1h
           controllerRuntimeMetrics:
+            # Defaults to port 8080. Setting to this port to avoid conflicts when hostNetwork=true downstream
             bindAddress: ":49150"
         admissionController:
           hostNetwork: true
