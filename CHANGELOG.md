@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.8](https://github.com/pelotech/foundation/compare/v2.6.7...v2.6.8) (2025-07-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency kubernetes-csi/external-snapshotter to v8.3.0 ([#244](https://github.com/pelotech/foundation/issues/244)) ([681f34a](https://github.com/pelotech/foundation/commit/681f34a2b3ae2898e358fc2fad2875b190739d7a))
+* **deps:** update helm release aws-ebs-csi-driver to v2.45.1 ([#208](https://github.com/pelotech/foundation/issues/208)) ([3698d73](https://github.com/pelotech/foundation/commit/3698d734eed8fe0ea199fca9b715d12bb2ff1516))
+* **deps:** update helm release aws-load-balancer-controller to v1.13.3 ([#239](https://github.com/pelotech/foundation/issues/239)) ([9ba07e6](https://github.com/pelotech/foundation/commit/9ba07e6617306151c8a98914cf0b01e1a25c1962))
+* **deps:** update helm release cert-manager to v1.18.2 ([#223](https://github.com/pelotech/foundation/issues/223)) ([59277af](https://github.com/pelotech/foundation/commit/59277afaab40920e9f6f75bff4d50d130cf23d24))
+* **deps:** update helm release external-dns to v8.9.2 ([#217](https://github.com/pelotech/foundation/issues/217)) ([d4ece90](https://github.com/pelotech/foundation/commit/d4ece9030b84837768198cb306860c17c83a023e))
+* **deps:** update helm release reloader to v2.1.5 ([#243](https://github.com/pelotech/foundation/issues/243)) ([236bdb1](https://github.com/pelotech/foundation/commit/236bdb1521ac7cb83c15d357434934cdc7f7eb99))
+
 ## [2.6.7](https://github.com/pelotech/foundation/compare/v2.6.6...v2.6.7) (2025-07-09)
 
 
