@@ -89,11 +89,12 @@ replacements:
       fieldPath: data.CLUSTER_NAME
     targets:
       - select:
-          version: v1
-          kind: Service
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
           name: ingress-nginx-controller
         fieldPaths:
-          - metadata.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+          - spec.source.helm.valuesObject.service.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
 
   - source:
       version: v1

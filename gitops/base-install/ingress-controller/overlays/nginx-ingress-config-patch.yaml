@@ -1,4 +1,0 @@
----
-- {op: replace, path: /data, value: {}} # new version is null so must set to be able to add other values
-- {op: add, path: /data/enable-real-ip,  value: "true"}
-- {op: add, path: /data/forwarded-for-header,  value: "proxy_protocol"} # https://github.com/kubernetes/ingress-nginx/issues/8052

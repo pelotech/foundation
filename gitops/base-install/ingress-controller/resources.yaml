@@ -47,3 +47,48 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx-controller
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: networking
+  source:
+    chart: nginx-ingress-controller
+    repoURL: oci://registry-1.docker.io/bitnamicharts/
+    targetRevision: 11.6.27
+    helm:
+      releaseName: nginx-ingress-controller
+      valuesObject:
+        hostNetwork: true
+        service:
+          annotations:
+            service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+            service.beta.kubernetes.io/aws-load-balancer-name: NLB_NAME
+            service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+            service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip" #TODO: might need to be instance
+            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing" #TODO: make configurable to internal only
+        ingressClassResource:
+          default: true
+        extraArgs:
+          - --enable-ssl-passthrough
+        config:
+          enable-real-ip: "true"
+          forwarded-for-header: "proxy_protocol"
+        resources:
+          limits:
+            memory: "128Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+  destination:
+    namespace: ingress-nginx
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
