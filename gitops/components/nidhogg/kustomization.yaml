@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
-  - https://github.com/pelotech/nidhogg//kustomize?ref=v0.6.6
+  - https://github.com/pelotech/nidhogg//kustomize?ref=v0.7.0
 
 patches:
   - path: overlays/nidhogg-controller-manager.yaml
