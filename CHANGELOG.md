@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.9](https://github.com/pelotech/foundation/compare/v2.6.8...v2.6.9) (2025-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pelotech/nidhogg to v0.7.0 ([#221](https://github.com/pelotech/foundation/issues/221)) ([b10c958](https://github.com/pelotech/foundation/commit/b10c9588e19ac67db66ab82c592dc37fe67c2b19))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v1.15.0 ([#245](https://github.com/pelotech/foundation/issues/245)) ([3f8a0e0](https://github.com/pelotech/foundation/commit/3f8a0e0bb17070260d23d0871a8e20e257f8738d))
+* **deps:** update helm release crossplane to v1.20.0 ([#207](https://github.com/pelotech/foundation/issues/207)) ([c1fcdeb](https://github.com/pelotech/foundation/commit/c1fcdeb5f1ef5e38e7a9c41a5dc44cce7c9e707f))
+* **deps:** update helm release fluent-bit to v0.50.0 ([#246](https://github.com/pelotech/foundation/issues/246)) ([c88c491](https://github.com/pelotech/foundation/commit/c88c49157e0820941027ec0b4076435dc5f626e5))
+* **deps:** update helm release k8s-monitoring to v3 ([#226](https://github.com/pelotech/foundation/issues/226)) ([992c063](https://github.com/pelotech/foundation/commit/992c063fe11091036af103d305cd2242a11e8d6c))
+* **deps:** update helm release loki to v6.31.0 ([#248](https://github.com/pelotech/foundation/issues/248)) ([bb29677](https://github.com/pelotech/foundation/commit/bb29677b0e1cdc0a2a6bf7baa5a5fe036ebbd31c))
+
 ## [2.6.8](https://github.com/pelotech/foundation/compare/v2.6.7...v2.6.8) (2025-07-09)
 
 
