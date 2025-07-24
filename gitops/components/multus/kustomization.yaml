@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: ghcr.io/k8snetworkplumbingwg/multus-cni
-    newTag: v3.9.3
+    newTag: v4.2.2
 
 patches:
   - target:
