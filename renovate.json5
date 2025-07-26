@@ -8,6 +8,7 @@
     managerFilePatterns: [
       'gitops/**/*/install.yaml',
       'gitops/**/*/resources.yaml',
+      'gitops/**/*/kustomization.yaml',
     ],
   },
 }
