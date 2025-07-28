@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.6.10](https://github.com/pelotech/foundation/compare/v2.6.9...v2.6.10) (2025-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.46.0 ([#251](https://github.com/pelotech/foundation/issues/251)) ([15d6362](https://github.com/pelotech/foundation/commit/15d6362ff6e05d3ed9758c8dcbbae9972afa9fa8))
+* **deps:** update helm release external-dns to v9 ([#252](https://github.com/pelotech/foundation/issues/252)) ([78c2ce5](https://github.com/pelotech/foundation/commit/78c2ce50a8051b195ecc01f5803f6596364a85b2))
+* enable prometheusOperatorObjects by default and remove unused components ([#253](https://github.com/pelotech/foundation/issues/253)) ([52d1432](https://github.com/pelotech/foundation/commit/52d1432fb2a4eebb9e0be1fea6ed1633745adbb3))
+* update argocd ingress secret to updated name, fix nginx controller for cert-manager ([54d777e](https://github.com/pelotech/foundation/commit/54d777e7062b6c724a9568f7697b3d1f779b7ccf))
+* upgrade argocd to latest version ([c99b907](https://github.com/pelotech/foundation/commit/c99b907bf4e2a3f4fd51a9e9ee317cd0f1fb9562))
+
 ## [2.6.9](https://github.com/pelotech/foundation/compare/v2.6.8...v2.6.9) (2025-07-11)
 
 
