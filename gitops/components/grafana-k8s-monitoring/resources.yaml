@@ -186,7 +186,7 @@ spec:
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-prometheus-operator-objects
         # Only useful if you have ServiceMonitors/PodMonitors etc in your cluster for the operator to scrape
         prometheusOperatorObjects:
-          enabled: false
+          enabled: true
           global:
             scrapeInterval: 120s
           crds:
