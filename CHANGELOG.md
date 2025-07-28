@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/pelotech/foundation/compare/v2.6.10...v2.7.0) (2025-07-28)
+
+
+### Features
+
+* **multus:** bump version to 4.2.2 ([#255](https://github.com/pelotech/foundation/issues/255)) ([e120f1c](https://github.com/pelotech/foundation/commit/e120f1c75cb1d1417f01147007ad9d0ca759ef07))
+
 ## [2.6.10](https://github.com/pelotech/foundation/compare/v2.6.9...v2.6.10) (2025-07-28)
 
 
