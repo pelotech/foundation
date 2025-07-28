@@ -24,7 +24,7 @@ spec:
                 port:
                   name: https
   tls:
-    - secretName: argocd-secret # do not change, this is provided by Argo CD
+    - secretName: argocd-server-tls # do not change https://argo-cd.readthedocs.io/en/stable/operator-manual/tls/#tls-certificates-used-by-argocd-server
       hosts:
         - ARGOCD_SERVER_HOST
 ---

@@ -78,6 +78,7 @@ spec:
           extraArgs:
             enable-ssl-passthrough: "" # https://github.com/kubernetes/ingress-nginx/issues/8052
           config:
+            strict-validate-path-type: false # https://github.com/kubernetes/ingress-nginx/issues/11176
             enable-real-ip: "true" # https://github.com/kubernetes/ingress-nginx/issues/8052
             forwarded-for-header: "proxy_protocol" # https://github.com/kubernetes/ingress-nginx/issues/8052
             allow-snippet-annotations: "true"
