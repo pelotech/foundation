@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.1](https://github.com/pelotech/foundation/compare/v2.7.0...v2.7.1) (2025-07-29)
+
+
+### Bug Fixes
+
+* multus should have critical priority class ([323b501](https://github.com/pelotech/foundation/commit/323b50109e2616d3eeda6174f28c6c1fddcd6130))
+
 ## [2.7.0](https://github.com/pelotech/foundation/compare/v2.6.10...v2.7.0) (2025-07-28)
 
 
