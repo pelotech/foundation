@@ -6,6 +6,11 @@ spec:
   template:
     spec:
       priorityClassName: system-node-critical
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
       containers:
         - name: kube-multus
           args:
