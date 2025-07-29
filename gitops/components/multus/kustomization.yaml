@@ -14,10 +14,4 @@ patches:
       version: v1
       kind: DaemonSet
       name: kube-multus-ds
-    path: ./overlays/multus-daemonset-tolerations.yaml
-  - target:
-      group: apps
-      version: v1
-      kind: DaemonSet
-      name: kube-multus-ds
-    path: ./overlays/multus-daemonset-container-args.yaml
+    path: overlays/multus-daemonset.yaml
