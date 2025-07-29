@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.2](https://github.com/pelotech/foundation/compare/v2.7.1...v2.7.2) (2025-07-29)
+
+
+### Bug Fixes
+
+* consolidate multus daemonset overlays ([#258](https://github.com/pelotech/foundation/issues/258)) ([ab4efa3](https://github.com/pelotech/foundation/commit/ab4efa3ed684ca8697746c3434f9d348dfe1eec4))
+* **kubevirt/cdi:** bump versions ([#260](https://github.com/pelotech/foundation/issues/260)) ([324933a](https://github.com/pelotech/foundation/commit/324933a1785cad78509d1f096c218094860f571f))
+
 ## [2.7.1](https://github.com/pelotech/foundation/compare/v2.7.0...v2.7.1) (2025-07-29)
 
 
