@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.4](https://github.com/pelotech/foundation/compare/v2.7.3...v2.7.4) (2025-07-31)
+
+
+### Bug Fixes
+
+* bump KubeVirt to 1.6 ([#267](https://github.com/pelotech/foundation/issues/267)) ([84a9b67](https://github.com/pelotech/foundation/commit/84a9b6734d094ab5634e477e103d06a2ac5c3859))
+
 ## [2.7.3](https://github.com/pelotech/foundation/compare/v2.7.2...v2.7.3) (2025-07-31)
 
 
