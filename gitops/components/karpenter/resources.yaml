@@ -18,14 +18,14 @@ spec:
   sources:
     - chart: karpenter-crd
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.5.1
+      targetRevision: 1.3.3
       helm:
         valuesObject:
           webhook:
             serviceNamespace: karpenter
     - chart: karpenter
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.5.1
+      targetRevision: 1.3.3
       helm:
         releaseName: karpenter
         skipCrds: true
@@ -34,8 +34,8 @@ spec:
           controller:
             image:
               repository: ghcr.io/pelotech/karpenter
-              tag: v1.5.1x
-              digest: sha256:89f6e5401376c7bb45b0264560495de0b23649ac367d2915f1725aded1b51c54
+              tag: v1.3.3x
+              digest: sha256:cf08da0b22d1aa4d563a0375e65cdfea4cf9c9abfcd219c580ca1f5b54a6de7e
             env:
               - name: IGNORED_RESOURCE_REQUESTS
                 value: "devices.kubevirt.io/kvm,devices.kubevirt.io/tun,devices.kubevirt.io/vhost-net"
