@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.3](https://github.com/pelotech/foundation/compare/v2.7.2...v2.7.3) (2025-07-31)
+
+
+### Bug Fixes
+
+* **multus:** revert to v3.9.x ([#264](https://github.com/pelotech/foundation/issues/264)) ([39f1dbd](https://github.com/pelotech/foundation/commit/39f1dbd88593897ad342165d27741c8589f2790c))
+* revert Karpenter to v1.3.3x until NodeOverlay ([#263](https://github.com/pelotech/foundation/issues/263)) ([1569cf2](https://github.com/pelotech/foundation/commit/1569cf208b70a5af9fff8accae953ad74d9e0725))
+
 ## [2.7.2](https://github.com/pelotech/foundation/compare/v2.7.1...v2.7.2) (2025-07-29)
 
 
