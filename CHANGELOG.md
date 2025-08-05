@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.6](https://github.com/pelotech/foundation/compare/v2.7.5...v2.7.6) (2025-08-05)
+
+
+### Bug Fixes
+
+* revert "bump Multus to v4.2.2 ([#270](https://github.com/pelotech/foundation/issues/270))" ([#273](https://github.com/pelotech/foundation/issues/273)) ([f16e728](https://github.com/pelotech/foundation/commit/f16e728f52b9ab6de518460f0f827bf051ddc4c1))
+
 ## [2.7.5](https://github.com/pelotech/foundation/compare/v2.7.4...v2.7.5) (2025-08-04)
 
 
