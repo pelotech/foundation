@@ -77,7 +77,7 @@ spec:
       valuesObject:
         acmeIssuerEmail: ACME_ISSUER_EMAIL
         awsRegion: AWS_REGION
-    targetRevision: v2.7.5 # x-release-please-version
+    targetRevision: v2.7.6 # x-release-please-version
   destination:
     namespace: cert-manager
     name: in-cluster
