@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.9](https://github.com/pelotech/foundation/compare/v2.7.8...v2.7.9) (2025-08-10)
+
+
+### Bug Fixes
+
+* revert kyverno till 1.15.1 is out for fix to hook ([7b28bc9](https://github.com/pelotech/foundation/commit/7b28bc9cf309c5b18d0f37d231385cc7396f3799))
+
 ## [2.7.8](https://github.com/pelotech/foundation/compare/v2.7.7...v2.7.8) (2025-08-10)
 
 
