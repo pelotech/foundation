@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.7.8](https://github.com/pelotech/foundation/compare/v2.7.7...v2.7.8) (2025-08-10)
+
+
+### Bug Fixes
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.47.0 ([#278](https://github.com/pelotech/foundation/issues/278)) ([5fb568c](https://github.com/pelotech/foundation/commit/5fb568ca630a5b51efe42006efaf75a9eec4fcd1))
+* **deps:** update helm release aws-load-balancer-controller to v1.13.4 ([#272](https://github.com/pelotech/foundation/issues/272)) ([d79bb09](https://github.com/pelotech/foundation/commit/d79bb098eddffbe9776306693bdebe59c23340d2))
+* **deps:** update helm release crossplane to v1.20.1 ([#280](https://github.com/pelotech/foundation/issues/280)) ([e246f59](https://github.com/pelotech/foundation/commit/e246f598cd30f20c765c57a97745fa5838e5dabd))
+* **deps:** update helm release external-dns to v9.0.2 ([#277](https://github.com/pelotech/foundation/issues/277)) ([2c07c4f](https://github.com/pelotech/foundation/commit/2c07c4fe7dd97fc602e1a73810bd6ab9d99c4d92))
+* **deps:** update helm release goldilocks to v9.2.0 ([#269](https://github.com/pelotech/foundation/issues/269)) ([c771252](https://github.com/pelotech/foundation/commit/c77125214c3f2d2d61c42eabb939763d6f8f6bb6))
+* **deps:** update helm release kyverno to v3.5.0 ([#266](https://github.com/pelotech/foundation/issues/266)) ([dd92463](https://github.com/pelotech/foundation/commit/dd92463b7d7f9b72b11b4e1dd85f3119ee4bb94b))
+* **deps:** update helm release reloader to v2.2.0 ([#262](https://github.com/pelotech/foundation/issues/262)) ([150c72a](https://github.com/pelotech/foundation/commit/150c72a34056e4bf3039a48c91dc841b927e3cd3))
+
 ## [2.7.7](https://github.com/pelotech/foundation/compare/v2.7.6...v2.7.7) (2025-08-05)
 
 
