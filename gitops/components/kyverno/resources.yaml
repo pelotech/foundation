@@ -11,7 +11,7 @@ spec:
   source:
     chart: kyverno
     repoURL: https://kyverno.github.io/kyverno
-    targetRevision: 3.5.0
+    targetRevision: 3.4.4 # wait for https://github.com/kyverno/kyverno/pull/13754 in 1.15.1 before upgrading
     helm:
       valuesObject:
         features:
