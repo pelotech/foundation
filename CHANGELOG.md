@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.1](https://github.com/pelotech/foundation/compare/v2.8.0...v2.8.1) (2025-08-14)
+
+
+### Bug Fixes
+
+* upgrade helm secrets, kubectl, sops, and vals ([6efede6](https://github.com/pelotech/foundation/commit/6efede65e9cb56e8f1ae000ae72def04fbf3b77e))
+
 ## [2.8.0](https://github.com/pelotech/foundation/compare/v2.7.9...v2.8.0) (2025-08-14)
 
 
