@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.8.0](https://github.com/pelotech/foundation/compare/v2.7.9...v2.8.0) (2025-08-14)
+
+
+### Features
+
+* upgrade to argocd 3.1.0 with full oci artifact support ([3a7d7c8](https://github.com/pelotech/foundation/commit/3a7d7c897c7facc383dbc0b488b9a42f52685b72))
+
+
+### Bug Fixes
+
+* **deps:** update actions/checkout action to v5 ([#284](https://github.com/pelotech/foundation/issues/284)) ([1901484](https://github.com/pelotech/foundation/commit/19014842855e45caad3d3a6be0bffcda7a4bba18))
+* **deps:** update helm release external-dns to v9.0.3 ([#287](https://github.com/pelotech/foundation/issues/287)) ([6b55f50](https://github.com/pelotech/foundation/commit/6b55f50f78da57a1eddb9757aedb0eb6e3ff6b47))
+* **deps:** update helm release goldilocks to v10 ([#286](https://github.com/pelotech/foundation/issues/286)) ([d94a97b](https://github.com/pelotech/foundation/commit/d94a97bae20f1cf88fd8731ea62fa96b246f2c5f))
+* **deps:** update helm release ingress-nginx to v4.13.1 ([#285](https://github.com/pelotech/foundation/issues/285)) ([b622aa5](https://github.com/pelotech/foundation/commit/b622aa57cc28dd22688c27df12b45039daf2b336))
+
 ## [2.7.9](https://github.com/pelotech/foundation/compare/v2.7.8...v2.7.9) (2025-08-10)
 
 
