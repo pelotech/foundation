@@ -23,13 +23,13 @@ spec:
           command: [sh, -ec]
           env:
             - name: HELM_SECRETS_VERSION
-              value: "4.6.3"
+              value: "4.6.5"
             - name: KUBECTL_VERSION
-              value: "1.30.2"
+              value: "1.32.8"
             - name: VALS_VERSION
-              value: "0.39.3"
+              value: "0.42.0"
             - name: SOPS_VERSION
-              value: "3.9.4"
+              value: "3.10.2"
           args:
             - |
               mkdir -p /custom-tools/helm-plugins
