@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.8.2](https://github.com/pelotech/foundation/compare/v2.8.1...v2.8.2) (2025-08-28)
+
+
+### Bug Fixes
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.48.0 ([#290](https://github.com/pelotech/foundation/issues/290)) ([77594ba](https://github.com/pelotech/foundation/commit/77594ba98ba32709d47a8d8833e60a9d0f3d3362))
+* switch to sig helm chart instead of bitnami for external-dns ([f75ee2e](https://github.com/pelotech/foundation/commit/f75ee2e03630d6c191503d4dc9d7efd5c7d76311))
+
+
+### Chores
+
+* update to allow most conventional commits into the release notes ([3d06d67](https://github.com/pelotech/foundation/commit/3d06d672c628818f11ca71032af79bea11c03345))
+
 ## [2.8.1](https://github.com/pelotech/foundation/compare/v2.8.0...v2.8.1) (2025-08-14)
 
 
