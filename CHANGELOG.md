@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.5](https://github.com/pelotech/foundation/compare/v2.8.4...v2.8.5) (2025-08-29)
+
+
+### Bug Fixes
+
+* allow for the the mountpoint pods namespace to be created in mount-s3 ([8af1b1d](https://github.com/pelotech/foundation/commit/8af1b1dba8dd23598baf125ef95ef881aa85a5a3))
+
 ## [2.8.4](https://github.com/pelotech/foundation/compare/v2.8.3...v2.8.4) (2025-08-29)
 
 
