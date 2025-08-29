@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.3](https://github.com/pelotech/foundation/compare/v2.8.2...v2.8.3) (2025-08-29)
+
+
+### Bug Fixes
+
+* set AWS_DEFAULT_REGION to us-east-1 for external-dns for cross account config to com from gov ([82702f5](https://github.com/pelotech/foundation/commit/82702f571c425132289a0501db292c5be5f0630a))
+
 ## [2.8.2](https://github.com/pelotech/foundation/compare/v2.8.1...v2.8.2) (2025-08-28)
 
 
