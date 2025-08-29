@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.8.4](https://github.com/pelotech/foundation/compare/v2.8.3...v2.8.4) (2025-08-29)
+
+
+### Chores
+
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2 ([#261](https://github.com/pelotech/foundation/issues/261)) ([4ab12bf](https://github.com/pelotech/foundation/commit/4ab12bf823b2babdb8bf60af63cefd1954d96c4e))
+* **deps:** update helm release goldilocks to v10.1.0 ([#291](https://github.com/pelotech/foundation/issues/291)) ([03056e6](https://github.com/pelotech/foundation/commit/03056e62418bd6d4afac55163f32b6d63d74b5d4))
+* **deps:** update helm release k8s-monitoring to v3.3.2 ([#249](https://github.com/pelotech/foundation/issues/249)) ([5788dc1](https://github.com/pelotech/foundation/commit/5788dc14a4a8a8d5df3e0d39cae3ff07287fbcfe))
+* **deps:** update helm release reloader to v2.2.2 ([#293](https://github.com/pelotech/foundation/issues/293)) ([aacbbd0](https://github.com/pelotech/foundation/commit/aacbbd08b4643394393f24d496dbe88064885ff9))
+
 ## [2.8.3](https://github.com/pelotech/foundation/compare/v2.8.2...v2.8.3) (2025-08-29)
 
 
