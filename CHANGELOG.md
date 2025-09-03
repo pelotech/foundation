@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.6](https://github.com/pelotech/foundation/compare/v2.8.5...v2.8.6) (2025-09-03)
+
+
+### Chores
+
+* **deps:** update helm release ingress-nginx to v4.13.2 ([#297](https://github.com/pelotech/foundation/issues/297)) ([db08f17](https://github.com/pelotech/foundation/commit/db08f17feff1e100e82758e11163ecaa606b46a7))
+
 ## [2.8.5](https://github.com/pelotech/foundation/compare/v2.8.4...v2.8.5) (2025-08-29)
 
 
