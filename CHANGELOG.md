@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.8](https://github.com/pelotech/foundation/compare/v2.8.7...v2.8.8) (2025-09-12)
+
+
+### Bug Fixes
+
+* enabled metrics to ensure ports is on the pod for k8s to schedule correctly ([6a42144](https://github.com/pelotech/foundation/commit/6a421443c1ef9e92daeca9cf4d1f688e78a771a9))
+
 ## [2.8.7](https://github.com/pelotech/foundation/compare/v2.8.6...v2.8.7) (2025-09-12)
 
 
