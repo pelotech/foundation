@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.8.7](https://github.com/pelotech/foundation/compare/v2.8.6...v2.8.7) (2025-09-12)
+
+
+### Chores
+
+* **deps:** update helm release crossplane to v2 ([#281](https://github.com/pelotech/foundation/issues/281)) ([115a1c5](https://github.com/pelotech/foundation/commit/115a1c5c15b4836fe5d59299d25a37c8f96e52ad))
+* **deps:** update helm release external-dns to v1.19.0 ([#300](https://github.com/pelotech/foundation/issues/300)) ([865a694](https://github.com/pelotech/foundation/commit/865a694555304f5ce230028e92a2963961043f51))
+
 ## [2.8.6](https://github.com/pelotech/foundation/compare/v2.8.5...v2.8.6) (2025-09-07)
 
 
