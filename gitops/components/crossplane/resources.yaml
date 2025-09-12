@@ -24,3 +24,5 @@ spec:
       valuesObject:
         hostNetwork: true
         dnsPolicy: "ClusterFirstWithHostNet"
+        metrics:
+          enabled: true # enable to add the port definition to the deployment otherwise it binds to the port but doesn't let k8s know
