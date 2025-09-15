@@ -18,7 +18,7 @@ spec:
   source:
     repoURL: https://stakater.github.io/stakater-charts
     chart: reloader
-    targetRevision: 2.2.2
+    targetRevision: 2.2.3
     helm:
       releaseName: reloader
       valuesObject:
