@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.9.0](https://github.com/pelotech/foundation/compare/v2.8.8...v2.9.0) (2025-09-25)
+
+
+### Features
+
+* Update Karpenter to v1.7.1 and use NodeOverlay instead of IGNORE_RESOURCE_REQUESTS ([#305](https://github.com/pelotech/foundation/issues/305)) ([7fd9732](https://github.com/pelotech/foundation/commit/7fd9732ccd5e25aec011ca698f66bd1bb1124528))
+
+
+### Chores
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.49.1 ([#306](https://github.com/pelotech/foundation/issues/306)) ([4a38301](https://github.com/pelotech/foundation/commit/4a38301987bc59e0320f6aeeabc38fae7dc5fbb7))
+* **deps:** update helm release reloader to v2.2.3 ([#303](https://github.com/pelotech/foundation/issues/303)) ([044b35c](https://github.com/pelotech/foundation/commit/044b35c3d3187932152b94fbc7860e1f08d551f9))
+
 ## [2.8.8](https://github.com/pelotech/foundation/compare/v2.8.7...v2.8.8) (2025-09-12)
 
 
