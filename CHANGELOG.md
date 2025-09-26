@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.9.1](https://github.com/pelotech/foundation/compare/v2.9.0...v2.9.1) (2025-09-26)
+
+
+### Chores
+
+* Update cdi to 1.63.1 ([#312](https://github.com/pelotech/foundation/issues/312)) ([da9dc6d](https://github.com/pelotech/foundation/commit/da9dc6da42c863fe03044455bcfb823d85f37c75))
+* Update kubevirt to 1.6.1 ([#309](https://github.com/pelotech/foundation/issues/309)) ([2229a8c](https://github.com/pelotech/foundation/commit/2229a8c2367a123a2b2ef4e999cf2f16f9577615))
+
 ## [2.9.0](https://github.com/pelotech/foundation/compare/v2.8.8...v2.9.0) (2025-09-25)
 
 
