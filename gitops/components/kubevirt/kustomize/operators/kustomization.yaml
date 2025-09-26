@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - https://github.com/kubevirt/kubevirt/releases/download/v1.6.1/kubevirt-operator.yaml
-  - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.62.0/cdi-operator.yaml
+  - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.63.1/cdi-operator.yaml
 
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "-10"
