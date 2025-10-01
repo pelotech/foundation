@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.2](https://github.com/pelotech/foundation/compare/v2.9.1...v2.9.2) (2025-10-01)
+
+
+### Chores
+
+* **kubevirt:** version bump for solved risky bug ([#314](https://github.com/pelotech/foundation/issues/314)) ([13c4667](https://github.com/pelotech/foundation/commit/13c4667d3d5169c564c86a6404220291635f5688))
+
 ## [2.9.1](https://github.com/pelotech/foundation/compare/v2.9.0...v2.9.1) (2025-09-26)
 
 
