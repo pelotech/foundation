@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.3](https://github.com/pelotech/foundation/compare/v2.9.2...v2.9.3) (2025-10-09)
+
+
+### Bug Fixes
+
+* **karpenter:** re-apply 1.7.1x fork ([#322](https://github.com/pelotech/foundation/issues/322)) ([ebb2c31](https://github.com/pelotech/foundation/commit/ebb2c31464fc581274872701325dd99334cb0506))
+
 ## [2.9.2](https://github.com/pelotech/foundation/compare/v2.9.1...v2.9.2) (2025-10-01)
 
 
