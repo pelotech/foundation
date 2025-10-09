@@ -31,6 +31,15 @@ spec:
         skipCrds: true
         valuesObject:
           hostNetwork: true
+          controller:
+            image:
+              digest: >-
+                sha256:dac90460a132306d9b4d0531ff30eb5180600e49e519b800352fcaf00d008231
+              repository: ghcr.io/pelotech/karpenter
+              tag: v1.7.1x
+            env:
+              - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
+                value: scheduling.node.kubevirt.io/tsc-frequency-*
           serviceAccount:
             create: "true"
             name: "karpenter"
