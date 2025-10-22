@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.9.4](https://github.com/pelotech/foundation/compare/v2.9.3...v2.9.4) (2025-10-19)
+
+
+### Chores
+
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v0.13.0 ([#325](https://github.com/pelotech/foundation/issues/325)) ([561552b](https://github.com/pelotech/foundation/commit/561552bd9f020179f723cf7d0015aef612c5ee57))
+* **deps:** update helm release aws-ebs-csi-driver to v2.50.1 ([#317](https://github.com/pelotech/foundation/issues/317)) ([5b49506](https://github.com/pelotech/foundation/commit/5b49506fae5b7d27d5f7b2f4d2e3bbabcb446116))
+* **deps:** update helm release aws-ebs-csi-driver to v2.51.0 ([#326](https://github.com/pelotech/foundation/issues/326)) ([70a4f92](https://github.com/pelotech/foundation/commit/70a4f92de46162deb8694373b21c0f3f09ec34e3))
+* **deps:** update helm release aws-load-balancer-controller to v1.14.0 ([#318](https://github.com/pelotech/foundation/issues/318)) ([8785062](https://github.com/pelotech/foundation/commit/87850625652ee5f2b410bdcf478421759fbd6d82))
+* **deps:** update helm release aws-load-balancer-controller to v1.14.1 ([#328](https://github.com/pelotech/foundation/issues/328)) ([601a9a8](https://github.com/pelotech/foundation/commit/601a9a856f48426654138e7b971a23c6e460c7ad))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.1.0 ([#316](https://github.com/pelotech/foundation/issues/316)) ([5d32685](https://github.com/pelotech/foundation/commit/5d326856556232a1c922fbd81f4dac92fab8773a))
+* **deps:** update helm release cert-manager to v1.19.0 ([#319](https://github.com/pelotech/foundation/issues/319)) ([e9a991a](https://github.com/pelotech/foundation/commit/e9a991a6c661279f904e18ecd29344ca0830a3b8))
+* **deps:** update helm release cert-manager to v1.19.1 ([#327](https://github.com/pelotech/foundation/issues/327)) ([38fba3e](https://github.com/pelotech/foundation/commit/38fba3e9cadb24a2f595880196d4edb3f49ee5b6))
+* **deps:** update helm release ingress-nginx to v4.13.3 ([#313](https://github.com/pelotech/foundation/issues/313)) ([6bbd1db](https://github.com/pelotech/foundation/commit/6bbd1db8fb996caf51e40c79acb8c4282e21a4be))
+
 ## [2.9.3](https://github.com/pelotech/foundation/compare/v2.9.2...v2.9.3) (2025-10-09)
 
 
