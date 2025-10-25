@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.5](https://github.com/pelotech/foundation/compare/v2.9.4...v2.9.5) (2025-10-25)
+
+
+### Chores
+
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v0.14.0 ([#331](https://github.com/pelotech/foundation/issues/331)) ([32ce460](https://github.com/pelotech/foundation/commit/32ce460052902fa48502c99f74288a1cce15c2c9))
+
 ## [2.9.4](https://github.com/pelotech/foundation/compare/v2.9.3...v2.9.4) (2025-10-19)
 
 
