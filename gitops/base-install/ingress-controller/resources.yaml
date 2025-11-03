@@ -95,3 +95,30 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-haproxy-controller
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: networking
+  source:
+    chart: kubernetes-ingress
+    repoURL: oci://ghcr.io/haproxytech/helm-charts
+    targetRevision: 1.46.0
+    helm:
+      releaseName: ingress-haproxy
+      valuesObject:
+        controller:
+          service:
+            type: LoadBalancer
+  destination:
+    namespace: ingress-haproxy
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
