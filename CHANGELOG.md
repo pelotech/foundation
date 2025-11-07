@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.9.5](https://github.com/pelotech/foundation/compare/v2.9.4...v2.9.5) (2025-11-07)
+
+
+### Chores
+
+* **deps:** update argocd to v3.2.0 ([c176b27](https://github.com/pelotech/foundation/commit/c176b274863734e4f86815e055acd003dbb209a7))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v0.14.0 ([#331](https://github.com/pelotech/foundation/issues/331)) ([32ce460](https://github.com/pelotech/foundation/commit/32ce460052902fa48502c99f74288a1cce15c2c9))
+* **deps:** update helm release aws-ebs-csi-driver to v2.52.1 ([#333](https://github.com/pelotech/foundation/issues/333)) ([c4033fb](https://github.com/pelotech/foundation/commit/c4033fb3a9b63f78d48520a942549bb1dd1fb243))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.2.0 ([#335](https://github.com/pelotech/foundation/issues/335)) ([05046df](https://github.com/pelotech/foundation/commit/05046dfd6768aa4ba96cd45b14546ba14f7ac512))
+* **deps:** update helm release reloader to v2.2.5 ([#339](https://github.com/pelotech/foundation/issues/339)) ([a5699a5](https://github.com/pelotech/foundation/commit/a5699a5be1eb11badf3d50055258359fbbabfcae))
+
 ## [2.9.4](https://github.com/pelotech/foundation/compare/v2.9.3...v2.9.4) (2025-10-19)
 
 
