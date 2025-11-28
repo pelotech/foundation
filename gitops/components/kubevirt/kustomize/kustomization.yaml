@@ -16,6 +16,8 @@ patches:
       - op: add
         path: /spec/template/spec/hostNetwork
         value: true
+      - op: remove
+        path: /spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution
   - target:
       group: apps
       version: v1
