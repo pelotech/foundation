@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.7](https://github.com/pelotech/foundation/compare/v2.9.6...v2.9.7) (2025-11-28)
+
+
+### Bug Fixes
+
+* virt-operator node affinity ([#347](https://github.com/pelotech/foundation/issues/347)) ([c03f855](https://github.com/pelotech/foundation/commit/c03f8556ca61a61d1b5b7d7d049c162fc119a9d7))
+
 ## [2.9.6](https://github.com/pelotech/foundation/compare/v2.9.5...v2.9.6) (2025-11-28)
 
 
