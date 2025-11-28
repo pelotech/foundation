@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.9.6](https://github.com/pelotech/foundation/compare/v2.9.5...v2.9.6) (2025-11-28)
+
+
+### Chores
+
+* **deps:** update actions/checkout action to v6 ([#345](https://github.com/pelotech/foundation/issues/345)) ([274e0c1](https://github.com/pelotech/foundation/commit/274e0c1d8fd6038448d4c8fa293c73cc52ca8fdd))
+* **deps:** update KubeVirt 1.7 + common-instancetypes to v1.5.1 ([#329](https://github.com/pelotech/foundation/issues/329)) ([9e3c9ce](https://github.com/pelotech/foundation/commit/9e3c9ce07b9732a26c32934f3cc2abd701d81982))
+
 ## [2.9.5](https://github.com/pelotech/foundation/compare/v2.9.4...v2.9.5) (2025-11-07)
 
 
