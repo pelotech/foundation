@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.9.8](https://github.com/pelotech/foundation/compare/v2.9.7...v2.9.8) (2025-11-30)
+
+
+### Chores
+
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1 ([#341](https://github.com/pelotech/foundation/issues/341)) ([d7731ef](https://github.com/pelotech/foundation/commit/d7731ef3070300e719dab241cbd84f851d6947f0))
+* **deps:** update helm release aws-ebs-csi-driver to v2.53.0 ([#343](https://github.com/pelotech/foundation/issues/343)) ([addb7b6](https://github.com/pelotech/foundation/commit/addb7b63c3cb67dd907032694b92478adec17047))
+* **deps:** update helm release aws-load-balancer-controller to v1.16.0 ([#344](https://github.com/pelotech/foundation/issues/344)) ([b327ff2](https://github.com/pelotech/foundation/commit/b327ff2bb0db4ac9c00fbafa20a5ce09d46fe4fb))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.2.1 ([#342](https://github.com/pelotech/foundation/issues/342)) ([bda0749](https://github.com/pelotech/foundation/commit/bda074991b123c8ac671ab84e2284a9283a87751))
+* **deps:** update helm release crossplane to v2.1.1 ([#340](https://github.com/pelotech/foundation/issues/340)) ([ded9ede](https://github.com/pelotech/foundation/commit/ded9ede865991e208b98dc310b81b658659af5e8))
+* **deps:** update helm release ingress-nginx to v4.14.0 ([#338](https://github.com/pelotech/foundation/issues/338)) ([562c5d5](https://github.com/pelotech/foundation/commit/562c5d55325e1f7ad2c088dd11d04ba206f6be7b))
+* **deps:** update helm release kyverno to v3.6.0 ([#283](https://github.com/pelotech/foundation/issues/283)) ([3662159](https://github.com/pelotech/foundation/commit/366215982f08cdb9a9b339d0ead3c7f7b1063b46))
+
 ## [2.9.7](https://github.com/pelotech/foundation/compare/v2.9.6...v2.9.7) (2025-11-28)
 
 
