@@ -77,6 +77,12 @@ spec:
             default: true
           extraArgs:
             enable-ssl-passthrough: "" # https://github.com/kubernetes/ingress-nginx/issues/8052
+          extraEnvs:
+            # Note this is a bit belt and suspenders as the default list here:
+            # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#ssl-ciphers
+            # is also a FIPS-140 but this blocks non-FIPS completely.
+            - name: OPENSSL_FIPS
+              value: "1"
           config:
             strict-validate-path-type: false # https://github.com/kubernetes/ingress-nginx/issues/11176
             enable-real-ip: "true" # https://github.com/kubernetes/ingress-nginx/issues/8052
