@@ -5,3 +5,4 @@ metadata:
 data:
   server.insecure: "true"
   server.enable.gzip: "true"
+  controller.diff.server.side: "true"
