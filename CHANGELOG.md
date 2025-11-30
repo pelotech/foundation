@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.9.9](https://github.com/pelotech/foundation/compare/v2.9.8...v2.9.9) (2025-11-30)
+
+
+### Bug Fixes
+
+* upgrade argocd patch version and enabled server side diff by default ([86f6a9b](https://github.com/pelotech/foundation/commit/86f6a9bc42faee72fee8e837dc20470aa3f4c9e3))
+
+
+### Chores
+
+* **deps:** update dependency kubernetes-csi/external-snapshotter to v8.4.0 ([#330](https://github.com/pelotech/foundation/issues/330)) ([8b45cf0](https://github.com/pelotech/foundation/commit/8b45cf0e24f72df4c3f4a119e8c69999b618b98c))
+* **deps:** update ghcr.io/k8snetworkplumbingwg/multus-cni docker tag to v4.2.3 ([#334](https://github.com/pelotech/foundation/issues/334)) ([37e8c1a](https://github.com/pelotech/foundation/commit/37e8c1a42f712f6212c120eb6c8743dea5bb2c30))
+
 ## [2.9.8](https://github.com/pelotech/foundation/compare/v2.9.7...v2.9.8) (2025-11-30)
 
 
