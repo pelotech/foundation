@@ -18,7 +18,7 @@ spec:
   sources:
     - chart: karpenter-crd
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.7.1
+      targetRevision: 1.8.3
       helm:
         valuesObject:
           webhook:
