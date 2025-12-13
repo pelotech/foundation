@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.10](https://github.com/pelotech/foundation/compare/v2.9.9...v2.9.10) (2025-12-13)
+
+
+### Chores
+
+* **karpenter:** bump to v1.8.3x ([#357](https://github.com/pelotech/foundation/issues/357)) ([a9b28b7](https://github.com/pelotech/foundation/commit/a9b28b77d682beda09110cb3266d51e375776a77))
+
 ## [2.9.9](https://github.com/pelotech/foundation/compare/v2.9.8...v2.9.9) (2025-11-30)
 
 
