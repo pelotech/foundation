@@ -32,6 +32,10 @@ spec:
         valuesObject:
           hostNetwork: true
           controller:
+            metrics:
+              port: 7080
+            healthProbe:
+              port: 7081
             image:
               digest: >-
                 sha256:ea11403256b010678d79d41e5e480143b3f455cfba6d5fa49bb81121ee5ec7e0
