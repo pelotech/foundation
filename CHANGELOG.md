@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.11](https://github.com/pelotech/foundation/compare/v2.9.10...v2.9.11) (2025-12-17)
+
+
+### Bug Fixes
+
+* **host-network:** remove famous 8080 where it's needed ([#362](https://github.com/pelotech/foundation/issues/362)) ([5d91b1d](https://github.com/pelotech/foundation/commit/5d91b1dc8bb978cecdc4e294ba44bc3a6bbb092d))
+
 ## [2.9.10](https://github.com/pelotech/foundation/compare/v2.9.9...v2.9.10) (2025-12-13)
 
 
