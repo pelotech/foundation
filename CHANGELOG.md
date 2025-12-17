@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.9.13](https://github.com/pelotech/foundation/compare/v2.9.12...v2.9.13) (2025-12-17)
+
+
+### Chores
+
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.0.3 ([#355](https://github.com/pelotech/foundation/issues/355)) ([e1b6a5a](https://github.com/pelotech/foundation/commit/e1b6a5aa64653bf9c3b7285fd3b5c50a1cd34fdb))
+* **deps:** update helm release aws-ebs-csi-driver to v2.54.1 ([#360](https://github.com/pelotech/foundation/issues/360)) ([a8df22e](https://github.com/pelotech/foundation/commit/a8df22ed8e686804688f371e25b0f719d2e4912a))
+* **deps:** update helm release cert-manager to v1.19.2 ([#354](https://github.com/pelotech/foundation/issues/354)) ([891222d](https://github.com/pelotech/foundation/commit/891222d34c394de2b10a4686e0b6c9f7cd81eb33))
+* **deps:** update helm release crossplane to v2.1.3 ([#351](https://github.com/pelotech/foundation/issues/351)) ([2f271d2](https://github.com/pelotech/foundation/commit/2f271d26d0e38812de59baf3933ee7ae9b00bd92))
+* **deps:** update helm release goldilocks to v10.2.0 ([#361](https://github.com/pelotech/foundation/issues/361)) ([c0011de](https://github.com/pelotech/foundation/commit/c0011de11b26748a95e2e7b1cc96f80dae4785e0))
+* **deps:** update helm release ingress-nginx to v4.14.1 ([#353](https://github.com/pelotech/foundation/issues/353)) ([4e8b9c4](https://github.com/pelotech/foundation/commit/4e8b9c43d833179b6f8da074737e407d9fe93d1f))
+* **deps:** update helm release reloader to v2.2.7 ([#356](https://github.com/pelotech/foundation/issues/356)) ([32907c7](https://github.com/pelotech/foundation/commit/32907c7756960a2aebbe88d7402d1eebd222129b))
+
 ## [2.9.12](https://github.com/pelotech/foundation/compare/v2.9.11...v2.9.12) (2025-12-17)
 
 
