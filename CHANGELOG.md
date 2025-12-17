@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.9.12](https://github.com/pelotech/foundation/compare/v2.9.11...v2.9.12) (2025-12-17)
+
+
+### Chores
+
+* **cdi:** bump to 1.64.0 ([#359](https://github.com/pelotech/foundation/issues/359)) ([2ee2b76](https://github.com/pelotech/foundation/commit/2ee2b760bd2427122a4b4551f02ffb0c890f00bd))
+* **deps:** update helm release kyverno to v3.6.1 ([#352](https://github.com/pelotech/foundation/issues/352)) ([df929e9](https://github.com/pelotech/foundation/commit/df929e9318c6198dc8a43b30ca205f88a4ece2bc))
+
 ## [2.9.11](https://github.com/pelotech/foundation/compare/v2.9.10...v2.9.11) (2025-12-17)
 
 
