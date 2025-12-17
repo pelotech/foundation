@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: oci://ghcr.io/argoproj/argo-helm
     chart: argocd-image-updater
-    targetRevision: 1.0.1
+    targetRevision: 1.0.3
     helm:
       valuesObject:
         # guide: https://github.com/argoproj-labs/argocd-image-updater/issues/112#issuecomment-1058465942
