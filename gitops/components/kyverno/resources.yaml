@@ -37,6 +37,8 @@ spec:
             httpGet:
               port: 9443
         backgroundController:
+          extraArgs:
+            controllerRuntimeMetricsAddress: ":49150" # until https://github.com/kyverno/kyverno/pull/14531 is merged.
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
           server:
