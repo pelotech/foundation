@@ -10,7 +10,7 @@ spec:
   project: storage
   sources:
   - repoURL: 'https://github.com/pelotech/foundation'
-    path: 'gitops/base-install/ebs-csi/snapshot-controller'
+    path: 'gitops/components/ebs-csi/snapshot-controller'
     targetRevision: v2.9.13 # x-release-please-version
   - chart: aws-ebs-csi-driver
     repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
