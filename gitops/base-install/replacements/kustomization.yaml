@@ -100,34 +100,6 @@ replacements:
       version: v1
       kind: ConfigMap
       name: kustomize-environment
-      fieldPath: data.EBS_CSI_ROLE_ARN
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: ebs-csi
-        fieldPaths:
-          - spec.sources.[chart=aws-ebs-csi-driver].helm.valuesObject.controller.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
-
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.CLUSTER_NAME
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: ebs-csi
-        fieldPaths:
-          - spec.sources.[chart=aws-ebs-csi-driver].helm.valuesObject.controller.k8sTagClusterId
-
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
       fieldPath: data.CERT_MANAGER_ROLE_ARN
     targets:
       - select:
