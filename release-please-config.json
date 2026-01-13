@@ -5,7 +5,7 @@
   "tag-separator": "/",
   "release-type": "simple",
   "extra-files": [
-    "gitops/base-install/ebs-csi/install.yaml",
+    "gitops/components/ebs-csi/resources.yaml",
     "gitops/base-install/cert-manager/install.yaml",
     "gitops/components/kubevirt/resources.yaml"
   ],
