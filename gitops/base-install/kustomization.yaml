@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./argocd
   - ./cert-manager/install.yaml
-  - ./ingress-controller
