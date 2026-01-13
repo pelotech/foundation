@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.CLUSTER_NAME
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: alb-controller
+        fieldPaths:
+          - spec.source.helm.valuesObject.clusterName
+
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.ALB_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: alb-controller
+        fieldPaths:
+          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
+
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.CLUSTER_NAME
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: ingress-nginx-controller
+        fieldPaths:
+          - spec.source.helm.valuesObject.controller.service.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
