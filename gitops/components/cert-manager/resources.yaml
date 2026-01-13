@@ -71,7 +71,7 @@ spec:
   project: networking
   source:
     repoURL: 'https://github.com/pelotech/foundation'
-    path: gitops/base-install/cert-manager/create-issuer
+    path: gitops/components/cert-manager/create-issuer
     helm:
       releaseName: create-issuer
       valuesObject:

@@ -9,4 +9,4 @@ rules:
 
 ignore: |
   *.terraform/
-  gitops/base-install/cert-manager/create-issuer/templates/create-issuer.yaml
+  gitops/components/cert-manager/create-issuer/templates/create-issuer.yaml
