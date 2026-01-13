@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.0.0](https://github.com/pelotech/foundation/compare/v2.9.13...v3.0.0) (2026-01-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* move cert-manager to components ([#377](https://github.com/pelotech/foundation/issues/377))
+* move ingress-controller to component ([#376](https://github.com/pelotech/foundation/issues/376))
+* move ebs-csi to components ([#374](https://github.com/pelotech/foundation/issues/374))
+
+### Refactors
+
+* move cert-manager to components ([#377](https://github.com/pelotech/foundation/issues/377)) ([037f0c8](https://github.com/pelotech/foundation/commit/037f0c814f98ee41c21dc299eff0a6ba466594c3))
+* move ebs-csi to components ([#374](https://github.com/pelotech/foundation/issues/374)) ([6401325](https://github.com/pelotech/foundation/commit/6401325869f259b1dd2ae876896ad36e405ba52a))
+* move ingress-controller to component ([#376](https://github.com/pelotech/foundation/issues/376)) ([fb36a21](https://github.com/pelotech/foundation/commit/fb36a2180e3a1cfcf63a595bcbd791e9d191e46d))
+
 ## [2.9.13](https://github.com/pelotech/foundation/compare/v2.9.12...v2.9.13) (2025-12-17)
 
 
