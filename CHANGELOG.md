@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/pelotech/foundation/compare/v3.0.0...v3.0.1) (2026-01-13)
+
+
+### Bug Fixes
+
+* correct release-please versioning for cert-manager ([eeb16a5](https://github.com/pelotech/foundation/commit/eeb16a52cc4214f478ae1968a97d78dc251d64c0))
+
 ## [3.0.0](https://github.com/pelotech/foundation/compare/v2.9.13...v3.0.0) (2026-01-13)
 
 
