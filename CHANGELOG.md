@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.2](https://github.com/pelotech/foundation/compare/v3.0.1...v3.0.2) (2026-01-16)
+
+
+### Chores
+
+* **deps:** update dependency pelotech/nidhogg to v0.8.0 ([#368](https://github.com/pelotech/foundation/issues/368)) ([d249dd5](https://github.com/pelotech/foundation/commit/d249dd573ce25f8d53f9f683253e7dbcd507f943))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.0.4 ([#369](https://github.com/pelotech/foundation/issues/369)) ([15941ed](https://github.com/pelotech/foundation/commit/15941ed721c3f76cfac3a72156389e0d553ee97f))
+* **deps:** update helm release aws-load-balancer-controller to v1.17.1 ([#367](https://github.com/pelotech/foundation/issues/367)) ([f556856](https://github.com/pelotech/foundation/commit/f556856c7584a807ca9a48ef2d14f9a3e404c5a4))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.3.0 ([#366](https://github.com/pelotech/foundation/issues/366)) ([096199d](https://github.com/pelotech/foundation/commit/096199db8cbb9ea742031785092fe4ae225e32b5))
+* **deps:** update helm release external-dns to v1.20.0 ([#370](https://github.com/pelotech/foundation/issues/370)) ([1c09647](https://github.com/pelotech/foundation/commit/1c09647c1b2dc96d6bb4f2cdab69502db7e823e1))
+* **deps:** update helm release kyverno to v3.6.2 ([#371](https://github.com/pelotech/foundation/issues/371)) ([8d1c218](https://github.com/pelotech/foundation/commit/8d1c2188cd340a3377fbf68237ef1dcece23b016))
+
 ## [3.0.1](https://github.com/pelotech/foundation/compare/v3.0.0...v3.0.1) (2026-01-13)
 
 
