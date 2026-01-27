@@ -65,6 +65,8 @@ spec:
       releaseName: ingress-nginx
       valuesObject:
         controller:
+          containerPort:
+            http: 81 # stupid pod identity uses port 80
           hostNetwork: true
           service:
             annotations:
@@ -76,6 +78,7 @@ spec:
           ingressClassResource:
             default: true
           extraArgs:
+            http-port: 81 # stupid pod identity uses port 80
             enable-ssl-passthrough: "" # https://github.com/kubernetes/ingress-nginx/issues/8052
           config:
             strict-validate-path-type: false # https://github.com/kubernetes/ingress-nginx/issues/11176
