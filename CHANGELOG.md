@@ -1,5 +1,25 @@
 # Changelog
 
+## [4.0.0](https://github.com/pelotech/foundation/compare/v3.0.2...v4.0.0) (2026-01-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* switch http node port to 81 to support pod identity on port 80 ([#382](https://github.com/pelotech/foundation/issues/382))
+
+### Features
+
+* switch http node port to 81 to support pod identity on port 80 ([#382](https://github.com/pelotech/foundation/issues/382)) ([1bd26be](https://github.com/pelotech/foundation/commit/1bd26beb25e5cea4af478295a5e3a012d09099bf))
+
+
+### Chores
+
+* **deps:** pin dependencies ([#381](https://github.com/pelotech/foundation/issues/381)) ([6e6734b](https://github.com/pelotech/foundation/commit/6e6734baa5ab06fff579c9b1b5c6e715a285cdaf))
+* **deps:** update helm release aws-ebs-csi-driver to v2.55.0 ([#384](https://github.com/pelotech/foundation/issues/384)) ([a93a5e1](https://github.com/pelotech/foundation/commit/a93a5e1a34218dcaf848da219ddad7aaf996de4e))
+* **deps:** update helm release aws-load-balancer-controller to v3 ([#383](https://github.com/pelotech/foundation/issues/383)) ([ab111cb](https://github.com/pelotech/foundation/commit/ab111cb1714cd107c3910892c0d45ee63a942b89))
+* **deps:** update helm release ingress-nginx to v4.14.2 ([#385](https://github.com/pelotech/foundation/issues/385)) ([8b693c8](https://github.com/pelotech/foundation/commit/8b693c88d83f688dbcebc4bce8d9a7f315c73809))
+* pin github action version renovate ([f56ae21](https://github.com/pelotech/foundation/commit/f56ae21f32f3dfab372b4d659630706b8c8e41e6))
+
 ## [3.0.2](https://github.com/pelotech/foundation/compare/v3.0.1...v3.0.2) (2026-01-16)
 
 
