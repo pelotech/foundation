@@ -2,11 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
-  - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/refs/tags/v4.2.2/deployments/multus-daemonset.yml
+  - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/refs/tags/v4.2.3/deployments/multus-daemonset-thick.yml
 
 images:
   - name: ghcr.io/k8snetworkplumbingwg/multus-cni
-    newTag: v4.2.3
+    newTag: v4.2.3-thick
 
 patches:
   - target:
@@ -15,3 +15,8 @@ patches:
       kind: DaemonSet
       name: kube-multus-ds
     path: overlays/multus-daemonset.yaml
+  - target:
+      version: v1
+      kind: ConfigMap
+      name: multus-daemon-config
+    path: overlays/multus-configmap.yaml

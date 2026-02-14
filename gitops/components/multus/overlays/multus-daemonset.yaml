@@ -13,20 +13,18 @@ spec:
           operator: Exists
       containers:
         - name: kube-multus
-          args:
-            - "--multus-conf-file=auto"
-            - "--multus-log-level=error"
-            - "--multus-log-file=/var/log/multus.log"
-            # Implementations
-            ## kube-ovn
-            - "--cni-version=0.3.1"
-            - "--multus-master-cni-file-name=01-kube-ovn.conflist"
-            - "--readiness-indicator-file=/etc/cni/net.d/01-kube-ovn.conflist"
-            ## AWS
-#            - "--cni-version=1.0.0"
-#            - "--multus-master-cni-file-name=10-aws.conflist"
-#            - "--readiness-indicator-file=/etc/cni/net.d/10-aws.conflist"
-            ## Cilium
-#            - "--cni-version=1.1.0"
-#            - "--multus-master-cni-file-name=05-cilium.conflist"
-#            - "--readiness-indicator-file=/etc/cni/net.d/05-cilium.conflist"
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            # Mount OVS Socket
+            - mountPath: /run/openvswitch
+              name: host-run-ovs
+      volumes:
+        - name: host-run-ovs
+          hostPath:
+            path: /run/openvswitch
