@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/pelotech/foundation/compare/v4.0.0...v4.0.1) (2026-02-14)
+
+
+### Chores
+
+* bump Multus to v4.2.3 thick ([#393](https://github.com/pelotech/foundation/issues/393)) ([b228c90](https://github.com/pelotech/foundation/commit/b228c9089eb12d4eacee3751811bb779258722f1))
+
 ## [4.0.0](https://github.com/pelotech/foundation/compare/v3.0.2...v4.0.0) (2026-01-27)
 
 
