@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/pelotech/foundation/compare/v4.0.1...v4.0.2) (2026-02-19)
+
+
+### Chores
+
+* **multus:** bump memory ([#395](https://github.com/pelotech/foundation/issues/395)) ([63aa597](https://github.com/pelotech/foundation/commit/63aa597621adc76106794403327b7aeacfac56d7))
+
 ## [4.0.1](https://github.com/pelotech/foundation/compare/v4.0.0...v4.0.1) (2026-02-14)
 
 
