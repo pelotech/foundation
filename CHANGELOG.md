@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.0.3](https://github.com/pelotech/foundation/compare/v4.0.2...v4.0.3) (2026-02-21)
+
+
+### Chores
+
+* align multus memory to avoid node-level OOM ([#400](https://github.com/pelotech/foundation/issues/400)) ([8d619ae](https://github.com/pelotech/foundation/commit/8d619ae3191d738c07352b0074ab9967e7aa93b6))
+* **deps:** update actions/checkout digest to de0fac2 ([#391](https://github.com/pelotech/foundation/issues/391)) ([79a36e6](https://github.com/pelotech/foundation/commit/79a36e671f1397d584af1817e2af0f42347498f4))
+* **deps:** update dependency kubernetes-csi/external-snapshotter to v8.5.0 ([#402](https://github.com/pelotech/foundation/issues/402)) ([ebf2539](https://github.com/pelotech/foundation/commit/ebf2539d21b592cdc073cfe426eaf46f7e553237))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.1.1 ([#386](https://github.com/pelotech/foundation/issues/386)) ([6f7c60b](https://github.com/pelotech/foundation/commit/6f7c60b44f505093b004052058690b0e22817860))
+* **deps:** update ghcr.io/k8snetworkplumbingwg/multus-cni docker tag to v4.2.4 ([#398](https://github.com/pelotech/foundation/issues/398)) ([cc85c1c](https://github.com/pelotech/foundation/commit/cc85c1cc7c58d4ca4a2cd5f97d161363e43af4b9))
+* **deps:** update helm release aws-ebs-csi-driver to v2.55.1 ([#399](https://github.com/pelotech/foundation/issues/399)) ([e64e9c0](https://github.com/pelotech/foundation/commit/e64e9c083421095b3d560a3f5bb987f31b2b785d))
+* **deps:** update helm release cert-manager to v1.19.3 ([#389](https://github.com/pelotech/foundation/issues/389)) ([a5486d7](https://github.com/pelotech/foundation/commit/a5486d72229cd992008c6ab435a3ab765eb8089f))
+* **deps:** update helm release ingress-nginx to v4.14.3 ([#390](https://github.com/pelotech/foundation/issues/390)) ([709d305](https://github.com/pelotech/foundation/commit/709d305a68524c6c1b7543d9516610704bee0d86))
+* **deps:** update helm release reloader to v2.2.8 ([#401](https://github.com/pelotech/foundation/issues/401)) ([b4bcceb](https://github.com/pelotech/foundation/commit/b4bcceba75c8adf3f7bdaa6cbbf9fee77adc318e))
+
 ## [4.0.2](https://github.com/pelotech/foundation/compare/v4.0.1...v4.0.2) (2026-02-19)
 
 
