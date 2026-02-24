@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.4](https://github.com/pelotech/foundation/compare/v4.0.3...v4.0.4) (2026-02-24)
+
+
+### Chores
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.56.1 ([#403](https://github.com/pelotech/foundation/issues/403)) ([3d75fd5](https://github.com/pelotech/foundation/commit/3d75fd565eef3b3b50b7d27621dc1a0caff154e3))
+* **deps:** update helm release aws-load-balancer-controller to v3.1.0 ([#406](https://github.com/pelotech/foundation/issues/406)) ([2b1ea88](https://github.com/pelotech/foundation/commit/2b1ea88e9a26d437ac67d8f5fe40d7bf11b51120))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.4.0 ([#405](https://github.com/pelotech/foundation/issues/405)) ([023f491](https://github.com/pelotech/foundation/commit/023f491de1f8f7a207a6fa20a41f7b8b0c7f172b))
+* **deps:** update helm release cert-manager to v1.19.4 ([#404](https://github.com/pelotech/foundation/issues/404)) ([bb0bb84](https://github.com/pelotech/foundation/commit/bb0bb84ca7851a53262eeae4a53bc22217e647d1))
+* **deps:** update helm release goldilocks to v10.3.0 ([#408](https://github.com/pelotech/foundation/issues/408)) ([af80625](https://github.com/pelotech/foundation/commit/af80625050982738dfcf6b7346a7fb5bc6833659))
+
 ## [4.0.3](https://github.com/pelotech/foundation/compare/v4.0.2...v4.0.3) (2026-02-21)
 
 
