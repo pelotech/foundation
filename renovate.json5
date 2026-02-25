@@ -11,4 +11,14 @@
       'gitops/**/*/kustomization.yaml',
     ],
   },
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Update versions embedded in download URLs',
+      managerFilePatterns: ['/^(.*).yaml$/'],
+      matchStrings: [
+        '#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+?)\\s+packageName=(?<packageName>.+?)\\s+.*(?:https?://.+?/)(?<currentValue>v[\\d.]+)',
+      ],
+    }
+  ]
 }
