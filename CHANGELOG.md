@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.1.0](https://github.com/pelotech/foundation/compare/v4.0.4...v4.1.0) (2026-02-25)
+
+
+### Features
+
+* upgrade argocd to 3.3.2 ([7cd69c0](https://github.com/pelotech/foundation/commit/7cd69c0546cbc9cb204b3ce2ea4faa761357372c))
+
+
+### Chores
+
+* add renovate annotations for kubevirt, cdi, and missing multus ([5f5c2f2](https://github.com/pelotech/foundation/commit/5f5c2f2624490c618f19774a91ff0ace62697f23))
+* add renovate pattern to search urls and add annotation to argocd ([2f11f0e](https://github.com/pelotech/foundation/commit/2f11f0e1efc788399cab6b3cfd8cb06efbac2028))
+
 ## [4.0.4](https://github.com/pelotech/foundation/compare/v4.0.3...v4.0.4) (2026-02-24)
 
 
