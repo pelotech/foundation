@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.1.2](https://github.com/pelotech/foundation/compare/v4.1.1...v4.1.2) (2026-03-17)
+
+
+### Bug Fixes
+
+* downgrade s3 csi back to 2.4.0 ([#421](https://github.com/pelotech/foundation/issues/421)) ([8663674](https://github.com/pelotech/foundation/commit/86636747f271ee46491be2d3349bcce925f37151))
+
+
+### Chores
+
+* **deps:** update dependency argoproj/argo-cd to v3.3.4 ([#413](https://github.com/pelotech/foundation/issues/413)) ([7f958e3](https://github.com/pelotech/foundation/commit/7f958e311db867e639082350c5e4dd39becbc4f0))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.1.3 ([#419](https://github.com/pelotech/foundation/issues/419)) ([e938339](https://github.com/pelotech/foundation/commit/e93833923838ec887f150ccabb7b3a6e9920a681))
+* **deps:** update helm release ingress-nginx to v4.15.0 ([#414](https://github.com/pelotech/foundation/issues/414)) ([c2c538e](https://github.com/pelotech/foundation/commit/c2c538ea25cb381c7e0795c07ec6c6adda8a1546))
+* **deps:** update helm release reloader to v2.2.9 ([#412](https://github.com/pelotech/foundation/issues/412)) ([0a737d1](https://github.com/pelotech/foundation/commit/0a737d1eed11718503cfe531ca4a6a325f1e64f7))
+
 ## [4.1.1](https://github.com/pelotech/foundation/compare/v4.1.0...v4.1.1) (2026-03-17)
 
 
