@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.1](https://github.com/pelotech/foundation/compare/v4.1.0...v4.1.1) (2026-03-17)
+
+
+### Chores
+
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.4.1 ([#416](https://github.com/pelotech/foundation/issues/416)) ([dee67be](https://github.com/pelotech/foundation/commit/dee67be9a0236020d798ea60f362979eef9460e0))
+
 ## [4.1.0](https://github.com/pelotech/foundation/compare/v4.0.4...v4.1.0) (2026-02-25)
 
 
