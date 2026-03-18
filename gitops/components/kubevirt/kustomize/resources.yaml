@@ -80,6 +80,9 @@ spec:
       tolerations:
         - key: ot.labs/tenant
           operator: Exists
+        # TODO: remove this once all the existing workloads moved to tenant based placement
+        - key: pelo.tech/kvm
+          operator: Exists
 
   # We need to override nodeSelector because otherwise kubevirt defaults to control-plane/master nodes
   # https://github.com/kubevirt/kubevirt/blob/c1cddaaf7ad6b4e368735c6e34734c81d8658932/pkg/virt-operator/resource/apply/reconcile.go#L147
