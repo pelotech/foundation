@@ -78,7 +78,9 @@ spec:
       nodeSelector:
         karpenter.k8s.aws/instance-size: metal
       tolerations:
-        - key: ot.labs/tenant
+        - key: pelo.tech/tenant
+          operator: Exists
+        - key: pelo.tech/usage
           operator: Exists
         # TODO: remove this once all the existing workloads moved to tenant based placement
         - key: pelo.tech/kvm
