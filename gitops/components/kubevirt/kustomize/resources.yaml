@@ -78,7 +78,7 @@ spec:
       nodeSelector:
         karpenter.k8s.aws/instance-size: metal
       tolerations:
-        - key: pelo.tech/kvm
+        - key: ot.labs/tenant
           operator: Exists
 
   # We need to override nodeSelector because otherwise kubevirt defaults to control-plane/master nodes
