@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.4](https://github.com/pelotech/foundation/compare/v4.1.3...v4.1.4) (2026-03-18)
+
+
+### Chores
+
+* **kubevirt:** make less agressive move to tenant-based ([#425](https://github.com/pelotech/foundation/issues/425)) ([a18532c](https://github.com/pelotech/foundation/commit/a18532c5d620f779e5e5f635904f861ce0ab55f3))
+
 ## [4.1.3](https://github.com/pelotech/foundation/compare/v4.1.2...v4.1.3) (2026-03-18)
 
 
