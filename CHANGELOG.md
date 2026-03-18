@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.5](https://github.com/pelotech/foundation/compare/v4.1.4...v4.1.5) (2026-03-18)
+
+
+### Chores
+
+* **kubevirt:** adjust toleration naming for virt-handler ([#427](https://github.com/pelotech/foundation/issues/427)) ([8287467](https://github.com/pelotech/foundation/commit/8287467541ff0bf7ac28a910e9bdbeedf348b51c))
+
 ## [4.1.4](https://github.com/pelotech/foundation/compare/v4.1.3...v4.1.4) (2026-03-18)
 
 
