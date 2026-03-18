@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.1.3](https://github.com/pelotech/foundation/compare/v4.1.2...v4.1.3) (2026-03-18)
+
+
+### Chores
+
+* **karpenter:** bump to v1.9.0x ([#415](https://github.com/pelotech/foundation/issues/415)) ([a9be419](https://github.com/pelotech/foundation/commit/a9be419f5b0bf76180633a5ed58024efde7a7bf2))
+* **kubevirt:** update to 1.7.2 + ot.labs/tenant toleration ([#424](https://github.com/pelotech/foundation/issues/424)) ([d99bd76](https://github.com/pelotech/foundation/commit/d99bd766c1a679afb821d133ad48693d5e0ef474))
+
 ## [4.1.2](https://github.com/pelotech/foundation/compare/v4.1.1...v4.1.2) (2026-03-17)
 
 
