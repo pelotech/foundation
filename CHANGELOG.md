@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.6](https://github.com/pelotech/foundation/compare/v4.1.5...v4.1.6) (2026-03-19)
+
+
+### Chores
+
+* **grafana:** enable kube_pod_container_status_restarts_total ([#429](https://github.com/pelotech/foundation/issues/429)) ([314ac34](https://github.com/pelotech/foundation/commit/314ac34d33c639af3e9260565dada333ef76ea68))
+
 ## [4.1.5](https://github.com/pelotech/foundation/compare/v4.1.4...v4.1.5) (2026-03-18)
 
 
