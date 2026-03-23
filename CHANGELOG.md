@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.7](https://github.com/pelotech/foundation/compare/v4.1.6...v4.1.7) (2026-03-23)
+
+
+### Chores
+
+* **karpenter:** bump to v1.10.x ([#433](https://github.com/pelotech/foundation/issues/433)) ([d98efc3](https://github.com/pelotech/foundation/commit/d98efc370b0d0e1f935e4a7b1a2350e151c551d2))
+
 ## [4.1.6](https://github.com/pelotech/foundation/compare/v4.1.5...v4.1.6) (2026-03-19)
 
 
