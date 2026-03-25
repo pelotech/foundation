@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.8](https://github.com/pelotech/foundation/compare/v4.1.7...v4.1.8) (2026-03-25)
+
+
+### Chores
+
+* **deps:** update dependency argoproj/argo-cd to v3.3.5 ([#438](https://github.com/pelotech/foundation/issues/438)) ([06c7319](https://github.com/pelotech/foundation/commit/06c73192d90bd54e64a5c90cc5b04c7fabfd6d76))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.1.4 ([#435](https://github.com/pelotech/foundation/issues/435)) ([671888d](https://github.com/pelotech/foundation/commit/671888d37ac409416ec666b4f9fef09f76aab57f))
+* **deps:** update helm release aws-ebs-csi-driver to v2.57.1 ([#432](https://github.com/pelotech/foundation/issues/432)) ([e417bcf](https://github.com/pelotech/foundation/commit/e417bcf0b5dd7e48318539c4f8b4a210142be36c))
+* **deps:** update helm release cert-manager to v1.20.0 ([#420](https://github.com/pelotech/foundation/issues/420)) ([8dbfff5](https://github.com/pelotech/foundation/commit/8dbfff522cb5f9210ad8c3a40acc2edf6cae2e5b))
+* **deps:** update helm release ingress-nginx to v4.15.1 ([#431](https://github.com/pelotech/foundation/issues/431)) ([7d77ddf](https://github.com/pelotech/foundation/commit/7d77ddf65b4d2f2340adabeb081f246115184ae5))
+* **kubevirt:** v1.8 + common-instancetypes 1.6 ([#440](https://github.com/pelotech/foundation/issues/440)) ([37ae26f](https://github.com/pelotech/foundation/commit/37ae26f44e23ffa4268f323772c2a8378a518fc1))
+
 ## [4.1.7](https://github.com/pelotech/foundation/compare/v4.1.6...v4.1.7) (2026-03-23)
 
 
