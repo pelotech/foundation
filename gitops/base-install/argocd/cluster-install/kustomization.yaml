@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 # renovate: datasource=github-releases packageName=argoproj/argo-cd
-- https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.4/manifests/install.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.5/manifests/install.yaml
 
 namespace: argocd
 labels:
