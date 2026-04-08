@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.1](https://github.com/pelotech/foundation/compare/v4.3.0...v4.3.1) (2026-04-08)
+
+
+### Bug Fixes
+
+* use sync wave -1 for eg install and skip dry run check for CRDs ([#451](https://github.com/pelotech/foundation/issues/451)) ([d7e8704](https://github.com/pelotech/foundation/commit/d7e8704a0b5dde80f8d48ae14a7d6acf20dff168))
+
 ## [4.3.0](https://github.com/pelotech/foundation/compare/v4.2.0...v4.3.0) (2026-04-08)
 
 
