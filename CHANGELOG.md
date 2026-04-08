@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/pelotech/foundation/compare/v4.1.8...v4.2.0) (2026-04-08)
+
+
+### Features
+
+* add envoy-gateway as foundation component ([#446](https://github.com/pelotech/foundation/issues/446)) ([f74d474](https://github.com/pelotech/foundation/commit/f74d474bad5438d4c19ab64e8fe1e54a5e229641))
+
 ## [4.1.8](https://github.com/pelotech/foundation/compare/v4.1.7...v4.1.8) (2026-03-25)
 
 
