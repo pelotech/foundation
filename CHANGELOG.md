@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/pelotech/foundation/compare/v4.2.0...v4.3.0) (2026-04-08)
+
+
+### Features
+
+* enable Gateway API support for cert manager ([#447](https://github.com/pelotech/foundation/issues/447)) ([78dfa1f](https://github.com/pelotech/foundation/commit/78dfa1f2284f64ab18b60fcc13e3a48504ab7b44))
+
 ## [4.2.0](https://github.com/pelotech/foundation/compare/v4.1.8...v4.2.0) (2026-04-08)
 
 
