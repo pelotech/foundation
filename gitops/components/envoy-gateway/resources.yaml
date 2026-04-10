@@ -56,5 +56,5 @@ spec:
           # TODO: once nginx ingress migration is complete, EG_NLB_NAME can be replaced with CLUSTER_NAME
           service.beta.kubernetes.io/aws-load-balancer-name: EG_NLB_NAME
           service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
-          service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+          service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
           service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
