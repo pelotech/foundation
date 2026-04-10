@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.2](https://github.com/pelotech/foundation/compare/v4.3.1...v4.3.2) (2026-04-10)
+
+
+### Bug Fixes
+
+* switch EG NLB target type to instance ([#453](https://github.com/pelotech/foundation/issues/453)) ([75c3906](https://github.com/pelotech/foundation/commit/75c39064d3e1aab7b891a0dc633ca6815f7f2e20))
+
 ## [4.3.1](https://github.com/pelotech/foundation/compare/v4.3.0...v4.3.1) (2026-04-08)
 
 
