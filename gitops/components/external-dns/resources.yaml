@@ -27,10 +27,6 @@ spec:
         env:
           - name: AWS_DEFAULT_REGION
             value: us-east-1
-        sources:
-          - service
-          - ingress
-          - gateway-httproute
         policy: sync
         registry: txt
         txtPrefix: xdns-
