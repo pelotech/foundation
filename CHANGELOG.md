@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.3](https://github.com/pelotech/foundation/compare/v4.3.2...v4.3.3) (2026-04-13)
+
+
+### Bug Fixes
+
+* remove gateway API defaults from cert-manager and external-dns ([#456](https://github.com/pelotech/foundation/issues/456)) ([722c53c](https://github.com/pelotech/foundation/commit/722c53cf4412fef5016ee03d4f9472f20f6dfdcb))
+
 ## [4.3.2](https://github.com/pelotech/foundation/compare/v4.3.1...v4.3.2) (2026-04-10)
 
 
