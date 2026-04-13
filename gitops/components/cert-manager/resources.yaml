@@ -16,8 +16,6 @@ spec:
       releaseName: cert-manager
       valuesObject:
         installCRDs: true
-        config:
-          enableGatewayAPI: true
         serviceAccount:
           create: true
           name: cert-manager
