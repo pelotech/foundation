@@ -12,10 +12,17 @@ spec:
   project: networking
   source:
     chart: gateway-helm
-    repoURL: docker.io/envoyproxy
-    targetRevision: v1.7.1
+    repoURL: REPLACE_EG_REPO_URL
+    targetRevision: REPLACE_EG_TARGET_REVISION
     helm:
       releaseName: envoy-gateway
+      valuesObject:
+        global:
+          images:
+            envoyGateway:
+              image: REPLACE_EG_GATEWAY_IMAGE
+            ratelimit:
+              image: REPLACE_EG_RATELIMIT_IMAGE
   destination:
     namespace: envoy-gateway-system
     name: in-cluster

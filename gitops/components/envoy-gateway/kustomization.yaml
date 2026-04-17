@@ -19,3 +19,55 @@ replacements:
           name: eg-proxy
         fieldPaths:
           - spec.provider.kubernetes.envoyService.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.EG_REPO_URL
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: envoy-gateway
+        fieldPaths:
+          - spec.source.repoURL
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.EG_TARGET_REVISION
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: envoy-gateway
+        fieldPaths:
+          - spec.source.targetRevision
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.EG_GATEWAY_IMAGE
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: envoy-gateway
+        fieldPaths:
+          - spec.source.helm.valuesObject.global.images.envoyGateway.image
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.EG_RATELIMIT_IMAGE
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: envoy-gateway
+        fieldPaths:
+          - spec.source.helm.valuesObject.global.images.ratelimit.image
