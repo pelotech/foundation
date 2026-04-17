@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.3.4](https://github.com/pelotech/foundation/compare/v4.3.3...v4.3.4) (2026-04-17)
+
+
+### Chores
+
+* add commit authors to release-please ([ead090e](https://github.com/pelotech/foundation/commit/ead090e3862e38b9bc05f2971a66eca03e94dcd1))
+* **deps:** update googleapis/release-please-action digest to 5c625bf ([#459](https://github.com/pelotech/foundation/issues/459)) ([417389b](https://github.com/pelotech/foundation/commit/417389b5b31134309459ab414311a2d7a29dc620))
+* **deps:** update helm release cert-manager to v1.20.2 ([#444](https://github.com/pelotech/foundation/issues/444)) ([a12ddf9](https://github.com/pelotech/foundation/commit/a12ddf9f88891fb549368b964c9d479d285f28ed))
+
 ## [4.3.3](https://github.com/pelotech/foundation/compare/v4.3.2...v4.3.3) (2026-04-13)
 
 
