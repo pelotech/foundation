@@ -13,7 +13,7 @@ spec:
   source:
     chart: gateway-helm
     repoURL: docker.io/envoyproxy
-    targetRevision: v1.7.1
+    targetRevision: v1.8.0
     helm:
       releaseName: envoy-gateway
   destination:
