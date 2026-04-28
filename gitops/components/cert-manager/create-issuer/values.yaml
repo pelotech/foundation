@@ -1,5 +1,8 @@
 issuerName: letsencrypt
-acmeIssuerServer: https://acme-v02.api.letsencrypt.org/directory
 acmeIssuerEmail: ""
 awsRegion: "us-west-2"
 ingressClassName: nginx
+gateway:
+  enabled: false
+  name: ""
+  namespace: ""
