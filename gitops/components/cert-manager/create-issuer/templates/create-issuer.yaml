@@ -13,8 +13,19 @@ spec:
       name: {{ .Values.issuerName }}
     solvers:
       - http01:
+          {{- if and .Values.ingressClassName (not .Values.gateway.enabled) }}
           ingress:
             class: {{ .Values.ingressClassName }}
+          {{- end }}
+          {{- if .Values.gateway.enabled }}
+          {{- if not (and .Values.gateway.name .Values.gateway.namespace) }}
+          {{- fail ".gateway.name and .gateway.namespace are required when gateway.enabled is true" }}
+          {{- end }}
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: {{ .Values.gateway.name }}
+                namespace: {{ .Values.gateway.namespace }}
+          {{- end }}
       - dns01:
           route53:
             region: {{ .Values.awsRegion }}
