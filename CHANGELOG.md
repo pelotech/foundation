@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.5.1](https://github.com/pelotech/foundation/compare/v4.5.0...v4.5.1) (2026-04-30)
+
+
+### Chores
+
+* **grafana-k8s-monitoring:** remove duplicate cluster label and instance label ([#464](https://github.com/pelotech/foundation/issues/464)) ([688e1b6](https://github.com/pelotech/foundation/commit/688e1b6c97113b6183f93f6a21208f594daa5519))
+
 ## [4.5.0](https://github.com/pelotech/foundation/compare/v4.4.0...v4.5.0) (2026-04-30)
 
 
