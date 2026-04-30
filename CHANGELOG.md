@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.5.0](https://github.com/pelotech/foundation/compare/v4.4.0...v4.5.0) (2026-04-30)
+
+
+### Features
+
+* **cert-manager:** add gateway API http01 solver support to create-issuer ([#463](https://github.com/pelotech/foundation/issues/463)) ([7a773f3](https://github.com/pelotech/foundation/commit/7a773f3fa498f7f6006bad7a2ef6ff68687e78c1))
+
+
+### Chores
+
+* **deps:** update helm release external-dns to v1.21.1 ([#466](https://github.com/pelotech/foundation/issues/466)) ([c341c40](https://github.com/pelotech/foundation/commit/c341c400ff15a3547fb055f9063b8582a3c75199))
+
 ## [4.4.0](https://github.com/pelotech/foundation/compare/v4.3.3...v4.4.0) (2026-04-21)
 
 
