@@ -123,7 +123,7 @@ spec:
     path: _base/overlays/external-dns-patch.yaml
 ```
 
-In Argo (`async-cluster-configuration` application), ensure your `Gateway` object exists and is healthy. You may also want to check the `cert-manager` and `external-dns` applications. 
+In Argo (`async-cluster-configuration` application), ensure your `Gateway` object exists and is healthy. You may also want to check the `cert-manager` and `external-dns` applications.
 
 In AWS, in the EC2 page, ensure your new load balancer exists. If you have a `Listener` on port 80 for Let's Encrypt, you can ensure a `Listener` exists with at least one `Healthy` `Target Group` (it is OK to have unhealthy `Target Groups` as long as one is healthy).
 
