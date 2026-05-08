@@ -147,7 +147,7 @@ You can check your new routes (without flipping weight) by editing your hosts fi
 
 Use the following annotations on `ListenerSets` when using Cert Manager with Let's Encrypt:
 
-* `acme.cert-manager.io/http01-parentreffallback: "true"`
+* `acme.cert-manager.io/http01-parentreffallback: "true"` - Note: use of this annotation will require a version of Cert Manager > `v1.20.2`. As of the time of this writing, a version/image with this functionality has not yet been released
 * `cert-manager.io/cluster-issuer: letsencrypt`
 
 #### External DNS Annotations
