@@ -18,14 +18,14 @@ spec:
   sources:
     - chart: karpenter-crd
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.10.0
+      targetRevision: 1.12.1
       helm:
         valuesObject:
           webhook:
             serviceNamespace: karpenter
     - chart: karpenter
       repoURL: public.ecr.aws/karpenter
-      targetRevision: 1.10.0
+      targetRevision: 1.12.1
       helm:
         releaseName: karpenter
         skipCrds: true
@@ -38,9 +38,9 @@ spec:
               port: 7081
             image:
               digest: >-
-                sha256:cea5d65f57d320f2592e8c0e01f4c20e06fea43acd10c854d3b15624ecb7f011
+                sha256:61e3e416f0c1132e826207cbc2ceb231286b3fc5c3f59a1503782631e4260e83
               repository: ghcr.io/pelotech/karpenter
-              tag: v1.10.0x
+              tag: v1.12.1x
             env:
               - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
                 value: scheduling.node.kubevirt.io/tsc-frequency-*
