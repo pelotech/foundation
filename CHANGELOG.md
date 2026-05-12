@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.5.1](https://github.com/pelotech/foundation/compare/v4.5.0...v4.5.1) (2026-05-12)
+
+
+### Chores
+
+* add Gateway migration doc ([#469](https://github.com/pelotech/foundation/issues/469)) ([40face1](https://github.com/pelotech/foundation/commit/40face19792524bb74fed6f8d7800855023a63c0))
+* **grafana-k8s-monitoring:** remove duplicate cluster label and instance label ([#464](https://github.com/pelotech/foundation/issues/464)) ([688e1b6](https://github.com/pelotech/foundation/commit/688e1b6c97113b6183f93f6a21208f594daa5519))
+* **karpenter:** bump to v1.12.1x ([#470](https://github.com/pelotech/foundation/issues/470)) ([622403b](https://github.com/pelotech/foundation/commit/622403b4338d9fe2d79c8850421d75bd689acb8e))
+* **kubevirt:** v1.8.2 + cdi 1.65.0 ([#471](https://github.com/pelotech/foundation/issues/471)) ([9f86a9d](https://github.com/pelotech/foundation/commit/9f86a9dfe775a901de03e6460f9a4969266766f0))
+
 ## [4.5.0](https://github.com/pelotech/foundation/compare/v4.4.0...v4.5.0) (2026-04-30)
 
 
