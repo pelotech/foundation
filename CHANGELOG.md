@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.5.2](https://github.com/pelotech/foundation/compare/v4.5.1...v4.5.2) (2026-05-13)
+
+
+### Chores
+
+* **deps:** update dependency argoproj/argo-cd to v3.4.2 ([#443](https://github.com/pelotech/foundation/issues/443)) ([c85a1da](https://github.com/pelotech/foundation/commit/c85a1da73a2c7180ceb8259d6e2dc9cea4b2d833))
+
 ## [4.5.1](https://github.com/pelotech/foundation/compare/v4.5.0...v4.5.1) (2026-05-12)
 
 
