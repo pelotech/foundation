@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.5.3](https://github.com/pelotech/foundation/compare/v4.5.2...v4.5.3) (2026-05-13)
+
+
+### Chores
+
+* remove EG_TARGET_REVISION replacement, hardcode stable v1.8.0 ([#468](https://github.com/pelotech/foundation/issues/468)) ([744b1d3](https://github.com/pelotech/foundation/commit/744b1d32d472824598c5fdda36221486abb5eb46))
+
 ## [4.5.2](https://github.com/pelotech/foundation/compare/v4.5.1...v4.5.2) (2026-05-13)
 
 
