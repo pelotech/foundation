@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.5.4](https://github.com/pelotech/foundation/compare/v4.5.3...v4.5.4) (2026-05-14)
+
+
+### Chores
+
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.1.5 ([#462](https://github.com/pelotech/foundation/issues/462)) ([c5a4d85](https://github.com/pelotech/foundation/commit/c5a4d8525c2a9bd57543f4ac3f6d2561ee53d0a9))
+* **deps:** update googleapis/release-please-action action to v5 ([#478](https://github.com/pelotech/foundation/issues/478)) ([66d862f](https://github.com/pelotech/foundation/commit/66d862fb1c74e22147d3f92906af70d81404f805))
+* **deps:** update helm release reloader to v2.2.11 ([#472](https://github.com/pelotech/foundation/issues/472)) ([44baa4b](https://github.com/pelotech/foundation/commit/44baa4b1a0f0e81d55914cdc04d214ac9e197f39))
+
 ## [4.5.3](https://github.com/pelotech/foundation/compare/v4.5.2...v4.5.3) (2026-05-13)
 
 
