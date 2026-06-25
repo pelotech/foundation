@@ -1,8 +1,5 @@
 {
-  extends: [
-    'config:recommended',
-    'helpers:pinGitHubActionDigests'
-  ],
+  extends: ['config:best-practices'],
   dependencyDashboard: true,
   argocd: {
     managerFilePatterns: [
