@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.6.1](https://github.com/pelotech/foundation/compare/v4.6.0...v4.6.1) (2026-06-27)
+
+
+### Chores
+
+* **deps:** update dependency pelotech/nidhogg to v0.8.1 ([#442](https://github.com/pelotech/foundation/issues/442)) ([11e1e11](https://github.com/pelotech/foundation/commit/11e1e11ded71869b057499c3bb4da57074c67e1d))
+* **deps:** update ghcr.io/k8snetworkplumbingwg/multus-cni docker tag to v4.3.0 ([#482](https://github.com/pelotech/foundation/issues/482)) ([8b4a4e0](https://github.com/pelotech/foundation/commit/8b4a4e039cbee6386c27c8af62aee806929e5ab8))
+
 ## [4.6.0](https://github.com/pelotech/foundation/compare/v4.5.3...v4.6.0) (2026-06-27)
 
 
