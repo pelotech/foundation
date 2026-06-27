@@ -1,5 +1,29 @@
 # Changelog
 
+## [4.6.0](https://github.com/pelotech/foundation/compare/v4.5.3...v4.6.0) (2026-06-27)
+
+
+### Features
+
+* remove host network for karpenter since webhooks are no longer needed ([#486](https://github.com/pelotech/foundation/issues/486)) ([bcb3f2f](https://github.com/pelotech/foundation/commit/bcb3f2f75584e1e472d1e11dad7a892b231644b1))
+
+
+### Chores
+
+* add renovate best practice and ping action versions ([e040cac](https://github.com/pelotech/foundation/commit/e040cac9c2ffaf11a07b12479c831705fe8dce70))
+* **deps:** pin ghcr.io/k8snetworkplumbingwg/multus-cni docker tag to 3c20900 ([#484](https://github.com/pelotech/foundation/issues/484)) ([a3fd6f5](https://github.com/pelotech/foundation/commit/a3fd6f5076518eea191f317b5409fe56ec2c91cd))
+* **deps:** update dependency argoproj/argo-cd to v3.4.4 ([#485](https://github.com/pelotech/foundation/issues/485)) ([764bce4](https://github.com/pelotech/foundation/commit/764bce4c75cf0cb457c32cfd4606c75b3ae8b6dc))
+* **deps:** update dependency kubevirt/kubevirt to v1.8.4 ([#487](https://github.com/pelotech/foundation/issues/487)) ([dece760](https://github.com/pelotech/foundation/commit/dece7607ecc0686493e1eccc88fd7d9ff8d6722a))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.1.5 ([#462](https://github.com/pelotech/foundation/issues/462)) ([c5a4d85](https://github.com/pelotech/foundation/commit/c5a4d8525c2a9bd57543f4ac3f6d2561ee53d0a9))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.2.2 ([#479](https://github.com/pelotech/foundation/issues/479)) ([81cc29f](https://github.com/pelotech/foundation/commit/81cc29f1bc7c52469990e850604806f629c8cc5d))
+* **deps:** update googleapis/release-please-action action to v5 ([#478](https://github.com/pelotech/foundation/issues/478)) ([66d862f](https://github.com/pelotech/foundation/commit/66d862fb1c74e22147d3f92906af70d81404f805))
+* **deps:** update helm release aws-ebs-csi-driver to v2.62.0 ([#473](https://github.com/pelotech/foundation/issues/473)) ([7d42798](https://github.com/pelotech/foundation/commit/7d42798d114dbdf4fe220006d97a49e3082c587e))
+* **deps:** update helm release aws-load-balancer-controller to v3.4.0 ([#475](https://github.com/pelotech/foundation/issues/475)) ([4532b8a](https://github.com/pelotech/foundation/commit/4532b8ac978079e67bc0712f78156c1d164764fd))
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.7.0 ([#422](https://github.com/pelotech/foundation/issues/422)) ([0dcddd3](https://github.com/pelotech/foundation/commit/0dcddd3b7b07f2950e8726d64836e3d20dd0b532))
+* **deps:** update helm release kyverno to v3.8.1 ([#388](https://github.com/pelotech/foundation/issues/388)) ([5de8bf8](https://github.com/pelotech/foundation/commit/5de8bf883edabccf8dbdb893594ed08b7201d1c1))
+* **deps:** update helm release reloader to v2.2.11 ([#472](https://github.com/pelotech/foundation/issues/472)) ([44baa4b](https://github.com/pelotech/foundation/commit/44baa4b1a0f0e81d55914cdc04d214ac9e197f39))
+* **deps:** update helm release reloader to v2.2.12 ([#480](https://github.com/pelotech/foundation/issues/480)) ([ddc6267](https://github.com/pelotech/foundation/commit/ddc6267f98383959df2c184d17c1604a65b4cb33))
+
 ## [4.5.3](https://github.com/pelotech/foundation/compare/v4.5.2...v4.5.3) (2026-05-13)
 
 
