@@ -30,12 +30,7 @@ spec:
         releaseName: karpenter
         skipCrds: true
         valuesObject:
-          hostNetwork: true
           controller:
-            metrics:
-              port: 7080
-            healthProbe:
-              port: 7081
             image:
               digest: >-
                 sha256:61e3e416f0c1132e826207cbc2ceb231286b3fc5c3f59a1503782631e4260e83
@@ -57,5 +52,3 @@ spec:
               spotToSpotConsolidation: true
               nodeRepair: true
               nodeOverlay: true
-          webhook:
-            enabled: true
