@@ -61,7 +61,7 @@ spec:
               name: custom-tools
          # Import the private gpg key from the secret into argocd
         - name: import-gpg-key
-          image: argoproj/argocd:v2.5.0
+          image: quay.io/argoproj/argocd:v3.4.5
           command: [ "/bin/sh", "-c" ]
           args:
             - "gpg --import /sops-gpg/sops.asc || true"
