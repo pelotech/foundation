@@ -10,12 +10,19 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: networking
-  source:
-    chart: gateway-helm
-    repoURL: docker.io/envoyproxy
-    targetRevision: v1.8.0
-    helm:
-      releaseName: envoy-gateway
+  sources:
+    - chart: gateway-helm
+      repoURL: docker.io/envoyproxy
+      targetRevision: v1.8.0
+      helm:
+        releaseName: envoy-gateway
+    - repoURL: "https://github.com/pelotech/foundation"
+      path: gitops/components/envoy-gateway/create-gateway
+      targetRevision: v4.5.3 # x-release-please-version
+      helm:
+        releaseName: create-gateway
+        valuesObject:
+          nlbName: EG_NLB_NAME
   destination:
     namespace: envoy-gateway-system
     name: in-cluster
@@ -23,40 +30,5 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - SkipDryRunOnMissingResource=true
     automated: {}
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: GatewayClass
-metadata:
-  name: eg
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-spec:
-  controllerName: gateway.envoyproxy.io/gatewayclass-controller
-  parametersRef:
-    group: gateway.envoyproxy.io
-    kind: EnvoyProxy
-    name: eg-proxy
-    namespace: envoy-gateway-system
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyProxy
-metadata:
-  name: eg-proxy
-  namespace: envoy-gateway-system
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-spec:
-  provider:
-    type: Kubernetes
-    kubernetes:
-      envoyService:
-        annotations:
-          service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-          # TODO: once nginx ingress migration is complete, EG_NLB_NAME can be replaced with CLUSTER_NAME
-          service.beta.kubernetes.io/aws-load-balancer-name: EG_NLB_NAME
-          service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
-          # nlb-target-type: ip requires pod IPs to be registered as EC2 ENIs, which depends
-          # on the CNI and IPAM configuration. Instance mode targets nodes via NodePort instead.
-          service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-          service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
