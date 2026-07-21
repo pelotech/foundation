@@ -13,9 +13,9 @@ replacements:
       fieldPath: data.EG_NLB_NAME
     targets:
       - select:
-          group: gateway.envoyproxy.io
+          group: argoproj.io
           version: v1alpha1
-          kind: EnvoyProxy
-          name: eg-proxy
+          kind: Application
+          name: envoy-gateway
         fieldPaths:
-          - spec.provider.kubernetes.envoyService.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+          - spec.sources.[path=gitops/components/envoy-gateway/create-gateway].helm.valuesObject.nlbName
