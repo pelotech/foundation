@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.6.2](https://github.com/pelotech/foundation/compare/v4.6.1...v4.6.2) (2026-07-22)
+
+
+### Chores
+
+* add pre-commit to renovate ([d4ba7ef](https://github.com/pelotech/foundation/commit/d4ba7ef68870acd4b39fce2858e50b44aa62e919))
+* **deps:** update actions/checkout action to v7.0.1 ([#503](https://github.com/pelotech/foundation/issues/503)) ([986a59d](https://github.com/pelotech/foundation/commit/986a59d3fe6358d0f32cde648ac7d486484febce))
+* **deps:** update dependency argoproj/argo-cd to v3.4.5 ([#501](https://github.com/pelotech/foundation/issues/501)) ([41c18e4](https://github.com/pelotech/foundation/commit/41c18e4835b54d10a503bf286bc8cd66f0451cb0))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.2.4 ([#490](https://github.com/pelotech/foundation/issues/490)) ([f648de4](https://github.com/pelotech/foundation/commit/f648de47e0efb7e87bb846950f85af48ca2bd645))
+* **deps:** update helm release aws-load-balancer-controller to v3.4.2 ([#500](https://github.com/pelotech/foundation/issues/500)) ([bac3d97](https://github.com/pelotech/foundation/commit/bac3d97b6a1e764f3943d587f607f8881201dc9f))
+* **deps:** update helm release cert-manager to v1.20.3 ([#491](https://github.com/pelotech/foundation/issues/491)) ([f976a78](https://github.com/pelotech/foundation/commit/f976a78d89722b4cf39d28b96bb14f08620b3854))
+* **deps:** update helm release cert-manager to v1.21.0 ([#504](https://github.com/pelotech/foundation/issues/504)) ([5cd99fe](https://github.com/pelotech/foundation/commit/5cd99fe03cc60222695cd25a2eb52f7cf9d29a90))
+* **deps:** update helm release crossplane to v2.3.3 ([#392](https://github.com/pelotech/foundation/issues/392)) ([3002e6f](https://github.com/pelotech/foundation/commit/3002e6f301159356fd3a29a2eaed6629908323be))
+* **deps:** update helm release goldilocks to v10.4.1 ([#495](https://github.com/pelotech/foundation/issues/495)) ([1755e54](https://github.com/pelotech/foundation/commit/1755e54718aec26903aa3442ad5f18175391de74))
+* **deps:** update helm release reloader to v2.2.14 ([#497](https://github.com/pelotech/foundation/issues/497)) ([f53890c](https://github.com/pelotech/foundation/commit/f53890c615c9a53ce293825fa0a2eea59063fd01))
+* **deps:** update pre-commit hook adrienverge/yamllint to v1.38.0 ([#505](https://github.com/pelotech/foundation/issues/505)) ([ea37296](https://github.com/pelotech/foundation/commit/ea372963889ada6081259cc3665fa712518f5772))
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.26.0 ([#506](https://github.com/pelotech/foundation/issues/506)) ([324b6e1](https://github.com/pelotech/foundation/commit/324b6e17ae189b99d3226d91b34fd9a5eecfbe9b))
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 ([#507](https://github.com/pelotech/foundation/issues/507)) ([7d786b1](https://github.com/pelotech/foundation/commit/7d786b1d9c17186099515cacf8c883a47d539e85))
+
 ## [4.6.1](https://github.com/pelotech/foundation/compare/v4.6.0...v4.6.1) (2026-06-27)
 
 
