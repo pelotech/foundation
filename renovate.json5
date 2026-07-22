@@ -8,6 +8,9 @@
       'gitops/**/*/kustomization.yaml',
     ],
   },
+  "pre-commit": {
+    enabled: true,
+  },
   customManagers: [
     {
       customType: 'regex',
