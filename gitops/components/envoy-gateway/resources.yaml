@@ -13,9 +13,19 @@ spec:
   source:
     chart: gateway-helm
     repoURL: docker.io/envoyproxy
-    targetRevision: v1.8.0
+    targetRevision: 1.8.2
     helm:
       releaseName: envoy-gateway
+      valuesObject:
+        deployment:
+          envoyGateway:
+            image:
+              repository: reg.mini.dev/envoy-gateway-fips
+              tag: v1.8.2@sha256:019b315b6146b12134ba728563e9e2277b7a5a18de8415252dc96ed51c00a298
+        global:
+          images:
+            envoyProxy:
+              image: reg.mini.dev/envoy-fips:v1.38.3@sha256:927961da527b050a8732eae59f3813c510569a06b7202743c454cb7e2f4330e5
   destination:
     namespace: envoy-gateway-system
     name: in-cluster
