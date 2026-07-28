@@ -9,6 +9,16 @@ application from Ingress to Gateway API is **optional and per-app** — this
 document covers enabling the Gateway API stack on a cluster and, for apps that
 want it, the cutover choreography.
 
+> ⚠️ **Maturity: switch cautiously.** While the Gateway API resources this
+> platform uses (`Gateway`, `HTTPRoute`, `ListenerSet`) are GA in the spec,
+> key integrations are still **beta**: cert-manager's Gateway support is
+> officially a beta feature (its `ListenerSet` support only since `v1.20`,
+> gated behind feature flags), and external-dns's TLS/TCP/UDP route sources
+> ride deprecated alpha APIs. Ingress remains the battle-tested default path.
+> Move apps one at a time, keep the weighted-DNS rollback in place until a
+> host has proven itself, and treat certificate issuance and DNS record
+> creation as the things to verify — they cross the beta surfaces.
+
 ## Initial Per-Cluster Steps
 
 Each numbered step should be a discrete PR.
@@ -109,6 +119,42 @@ Use the following annotations on `HTTPRoutes` when using AWS Route53 and Weighte
 
 * `external-dns.alpha.kubernetes.io/aws-weight: "0"`
 * `external-dns.alpha.kubernetes.io/set-identifier: unique-name` (be sure to use a real unique name and not `unique-name`)
+
+Placement matters: these must be on the **Route** (or `Ingress`) object, never
+the `Gateway` — external-dns reads only the `target` annotation from Gateway
+objects and silently ignores routing-policy annotations placed there
+([a documented common mistake](https://kubernetes-sigs.github.io/external-dns/v0.21.0/docs/annotations/annotations/)).
+
+#### Certificates During Weighted Cutover (use dns01)
+
+**http01 does not work reliably while a host's DNS is split between two data
+planes.** Let's Encrypt validates from multiple network vantage points
+([Multi-Perspective Issuance Corroboration](https://letsencrypt.org/2025/02/20/first-mpic-request/),
+mandatory for all CAs since 2025), and each vantage point resolves DNS
+independently — under a weighted split they land on different NLBs, but
+cert-manager presents each challenge through only one solver/data plane, so
+the corroboration quorum fails. There is also a chicken-and-egg at weight `0`:
+Route53 never returns a zero-weight record, so the ListenerSet's new
+Certificate (a separate cert/secret from the Ingress-side one) cannot issue
+via http01 *before* traffic shifts — you would cut over to a listener with no
+certificate.
+
+The supported pattern is the **dns01 solver**, which is independent of where
+traffic lands:
+
+1. When creating the `ListenerSet`, add the label
+   `use-dns01-solver: "true"` (alongside the `cert-manager.io/cluster-issuer`
+   annotation). The Certificate inherits the label and issues via Route53
+   immediately — at weight `0`, before any traffic moves.
+2. Verify the certificate is issued and the AWS listener healthy, then start
+   shifting weights. Renewals during the weighted window also use dns01 and
+   are unaffected by the split.
+3. Once the host is at 100% on the Gateway, optionally remove the label to
+   fall back to the gateway http01 solver (`use-gateway-solver: "true"`).
+
+The traefik/ingress-nginx publishService switch is **not** affected by any of
+this: both controllers serve the same solver `Ingress` objects (class
+`nginx`), so http01 challenges answer on either NLB throughout that cutover.
 
 You can prepare a [cutover from Ingress -> Gateway](https://www.pelotech.com/post/ingress-nginx-migration) by annotating `Ingress` objects with `100` weight and the new `HTTPRoutes` with `0` weight, and then flip weights once ready.
 

@@ -15,7 +15,7 @@ solvers:
     #   matchLabels:
     #     use-traefik-solver: "true"
   # http01 solved via HTTPRoute attached to a Gateway (requires cert-manager
-  # config.enableGatewayAPI - see docs/GATEWAY-MIGRATION.md)
+  # config.enableGatewayAPI - see docs/GATEWAY-ADOPTION.md)
   gateway: []
   # - name: eg
   #   namespace: envoy-gateway-system

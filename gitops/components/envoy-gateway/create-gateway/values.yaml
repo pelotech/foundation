@@ -11,5 +11,5 @@ gateway:
   acmeSolver: true
   # Additional Gateway listeners, appended verbatim (Gateway API listener
   # schema). Most per-host TLS config should use ListenerSets instead — see
-  # docs/GATEWAY-MIGRATION.md.
+  # docs/GATEWAY-ADOPTION.md.
   extraListeners: []

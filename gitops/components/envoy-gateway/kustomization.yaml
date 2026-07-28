@@ -38,7 +38,7 @@ patches:
   # Ingress solver remains the selector-less default; Certificates opt in by
   # carrying the use-gateway-solver label (set it on the Gateway/ListenerSet —
   # shim-created Certificates inherit its labels). parentRefs assume the
-  # conventional `eg` Gateway in envoy-gateway-system (see GATEWAY-MIGRATION.md).
+  # conventional `eg` Gateway in envoy-gateway-system (see GATEWAY-ADOPTION.md).
   - target:
       group: argoproj.io
       version: v1alpha1
