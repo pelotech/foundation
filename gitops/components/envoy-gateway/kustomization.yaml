@@ -4,7 +4,100 @@ kind: Component
 resources:
   - ./resources.yaml
 
+# Enabling this component automatically turns on Gateway API support in
+# cert-manager (gateway-shim + ListenerSets) and external-dns (gateway-httproute
+# source). Both controllers crash-loop if these are enabled without the Gateway
+# API CRDs — which ship with the envoy-gateway chart — hence the toggles live
+# here, not in their own components.
+# ORDERING MATTERS: the cert-manager and external-dns components must be listed
+# BEFORE envoy-gateway in the consumer's `components:` array. If one is missing
+# or listed after, kustomize SILENTLY SKIPS that patch — gateway certificates
+# won't issue / gateway DNS records won't publish.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: cert-manager
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: cert-manager
+      spec:
+        source:
+          helm:
+            valuesObject:
+              config:
+                gatewayAPI:
+                  enabled: true
+                  enableListenerSet: true
+                featureGates:
+                  ListenerSets: true
+  # Adds a labeled gateway solver to the letsencrypt ClusterIssuer. The
+  # Ingress solver remains the selector-less default; Certificates opt in by
+  # carrying the use-gateway-solver label (set it on the Gateway/ListenerSet —
+  # shim-created Certificates inherit its labels). parentRefs assume the
+  # conventional `eg` Gateway in envoy-gateway-system (see GATEWAY-MIGRATION.md).
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: create-issuer
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: create-issuer
+      spec:
+        source:
+          helm:
+            valuesObject:
+              solvers:
+                gateway:
+                  - name: eg
+                    namespace: envoy-gateway-system
+                    matchLabels:
+                      use-gateway-solver: "true"
+  # Publish DNS records for all Gateway API route types (traversing
+  # ListenerSets to the parent Gateway's address). Safe to enable together:
+  # every route CRD ships with this component's gateway-helm chart, at the API
+  # versions external-dns watches (HTTPRoute/GRPCRoute v1; TLS/TCP/UDP routes
+  # v1alpha2). Notes: TCP/UDP routes carry no hostnames — records for them
+  # require the external-dns.alpha.kubernetes.io/hostname annotation on the
+  # route; external-dns's v1alpha2 route support is deprecated upstream and a
+  # future chart bump may retire those sources (fails loudly at rollout).
+  # `sources` is a whole-list replacement in helm, so the defaults
+  # (service, ingress) must be restated here; the chart regenerates
+  # external-dns's RBAC from this list automatically.
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: external-dns
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: external-dns
+      spec:
+        source:
+          helm:
+            valuesObject:
+              sources:
+                - service
+                - ingress
+                - gateway-httproute
+                - gateway-grpcroute
+                - gateway-tlsroute
+                - gateway-tcproute
+                - gateway-udproute
+              enableGatewayListenerSets: true
+
 replacements:
+  # The EnvoyProxy now lives in the create-gateway chart (rendered by ArgoCD at
+  # sync time), so the NLB name is substituted into the Application's chart
+  # values rather than the EnvoyProxy object itself.
   - source:
       version: v1
       kind: ConfigMap
@@ -13,9 +106,9 @@ replacements:
       fieldPath: data.EG_NLB_NAME
     targets:
       - select:
-          group: gateway.envoyproxy.io
+          group: argoproj.io
           version: v1alpha1
-          kind: EnvoyProxy
-          name: eg-proxy
+          kind: Application
+          name: envoy-gateway
         fieldPaths:
-          - spec.provider.kubernetes.envoyService.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+          - spec.sources.[path=gitops/components/envoy-gateway/create-gateway].helm.valuesObject.nlbName

@@ -44,6 +44,7 @@ spec:
     - https://kubernetes.github.io/ingress-nginx # ingress-nginx
     - registry-1.docker.io/bitnamicharts # multus
     - docker.io/envoyproxy # envoy gateway
+    - ghcr.io/traefik/helm # traefik
   destinations:
     - namespace: cert-manager
       server: https://kubernetes.default.svc
@@ -54,6 +55,8 @@ spec:
     - namespace: ingress-nginx
       server: https://kubernetes.default.svc
     - namespace: envoy-gateway-system
+      server: https://kubernetes.default.svc
+    - namespace: traefik
       server: https://kubernetes.default.svc
     - namespace: kube-system # multus
       server: https://kubernetes.default.svc

@@ -25,105 +25,39 @@ In Argo (`argocd` application), check the  `infrastructure` `AppProject` is heal
 
 In Argo (`argocd` application), ensure your `GatewayClass` and `EnvoyProxy` objects exist and are healthy. You may also want to check the updated `ConfigMap` and `ClusterRole`.
 
-3. Create a Gateway and update controllers (these could be split up into multiple PRs if desired)
-    * Add `async-cluster-configuration/resources/envoy-gateway.yaml`
+3. Update controllers (these could be split up into multiple PRs if desired)
 
-``` yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: eg
-  namespace: envoy-gateway-system
-spec:
-  gatewayClassName: eg
-  allowedListeners:
-    namespaces:
-      from: All
-  # keep this placeholder until https://github.com/kubernetes-sigs/gateway-api/issues/4425 is resolved
-  listeners:
-    - name: placeholder
-      port: 65535
-      protocol: HTTP
-      hostname: placeholder.invalid
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              placeholder: placeholder
-```
+The `Gateway` itself (name `eg`, namespace `envoy-gateway-system`) is created
+**automatically** by the component's `create-gateway` chart, including an
+`acme-solver` listener on port 80 for the Let's Encrypt http01 solver. No
+per-cluster Gateway YAML is needed.
 
 #### Gateway Certificate Challenge (ACME Solver)
 
-If you are using Let's Encrypt for certificates and are planning to use [`gatewayHTTPRoute`](https://github.com/pelotech/foundation/blob/688e1b6c97113b6183f93f6a21208f594daa5519/gitops/components/cert-manager/create-issuer/templates/create-issuer.yaml#L24) for your solver, listeners should be replaced with the following:
+The `acme-solver` listener is on by default. If a cluster must not expose port
+80 (e.g. dns01-only), disable it by patching the `envoy-gateway` Application's
+`create-gateway` source values with `gateway.acmeSolver: false` — a
+placeholder listener is rendered instead (a Gateway currently requires at
+least one listener; see
+[gateway-api#4425](https://github.com/kubernetes-sigs/gateway-api/issues/4425)).
+Extra cluster-level listeners can be added via `gateway.extraListeners`;
+per-host TLS should use `ListenerSets`.
 
-``` yaml
-  listeners:
-    - name: acme-solver
-      port: 80
-      protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: All
-```
+* cert-manager's Gateway API + ListenerSet support and external-dns's Gateway
+  API route sources (`gateway-httproute`, `gateway-grpcroute`,
+  `gateway-tlsroute`, `gateway-tcproute`, `gateway-udproute`, with ListenerSet
+  traversal) are enabled **automatically** by the envoy-gateway component — no
+  cert-manager or external-dns patches are needed. **Ordering matters**: the
+  cert-manager and external-dns components must be listed *before*
+  `envoy-gateway` in your `components:` array; if one is missing or listed
+  after, kustomize silently skips that patch — gateway certificates won't
+  issue / gateway DNS records won't publish. Notes: TCP/UDP routes carry no
+  hostnames, so their records require the
+  `external-dns.alpha.kubernetes.io/hostname` annotation on the route; the
+  external-dns patch replaces the whole `sources` list, so clusters with
+  custom sources should re-patch the full list after the component.
 
-* Add `- resources/envoy-gateway.yaml` to the `resources` array in `async-cluster-configuration/kustomization.yaml`:
-
-* Create `_base/overlays/cert-manager-patch.yaml` with the following values:
-
-
-``` yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cert-manager
-spec:
-  source:
-    helm:
-      valuesObject:
-        config:
-          enableGatewayAPI: true
-          enableGatewayAPIListenerSet: true
-          featureGates:
-            ListenerSets: true
-```
-
-* Create `_base/overlays/external-dns-patch.yaml` with the following values:
-
-``` yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: external-dns
-spec:
-  source:
-    helm:
-      valuesObject:
-        sources:
-          - service
-          - ingress
-          - gateway-httproute
-        enableGatewayListenerSets: true
-```
-
-* In `kustomization.yaml`, add the following to the `patches` array:
-
-``` yaml
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: Application
-      name: cert-manager
-    path: _base/overlays/cert-manager-patch.yaml
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: Application
-      name: external-dns
-    path: _base/overlays/external-dns-patch.yaml
-```
-
-In Argo (`async-cluster-configuration` application), ensure your `Gateway` object exists and is healthy. You may also want to check the `cert-manager` and `external-dns` applications.
+In Argo (`envoy-gateway` application), ensure your `Gateway` object exists and is healthy. You may also want to check the `cert-manager` and `external-dns` applications.
 
 In AWS, in the EC2 page, ensure your new load balancer exists. If you have a `Listener` on port 80 for Let's Encrypt, you can ensure a `Listener` exists with at least one `Healthy` `Target Group` (it is OK to have unhealthy `Target Groups` as long as one is healthy).
 
@@ -150,6 +84,16 @@ Use the following annotations on `ListenerSets` when using Cert Manager with Let
 * `acme.cert-manager.io/http01-parentreffallback: "true"` - Note: use of this annotation will require a version of Cert Manager > `v1.20.2`. As of the time of this writing, a version/image with this functionality has not yet been released
 * `cert-manager.io/cluster-issuer: letsencrypt`
 
+If the ClusterIssuer defines a labeled gateway solver (see the
+[create-issuer README](https://github.com/pelotech/foundation/blob/main/gitops/components/cert-manager/create-issuer/README.md)),
+also add the matching **label** (not annotation) so Certificates created from
+the ListenerSet select the gateway solver instead of the default Ingress
+solver:
+
+* `use-gateway-solver: "true"` — Certificates inherit labels from the
+  annotated ListenerSet/Gateway, and cert-manager picks solvers by label
+  match, never by which controller requested the cert.
+
 #### External DNS Annotations
 
 Use the following annotations on `HTTPRoutes` when using AWS Route53 and Weighted Routing:
@@ -161,37 +105,19 @@ You can prepare a [cutover from Ingress -> Gateway](https://www.pelotech.com/pos
 
 ### Cert Manager Gateway Issuer
 
-An important late migration step is to ensure Cert Manager uses Gateway to issue Let's Encrypt certs. The `gateway` values are not wired up as replacements in the component, so you need to patch the `create-issuer` ArgoCD Application directly.
+The envoy-gateway component **automatically** adds a labeled gateway solver to
+the `letsencrypt` ClusterIssuer (`parentRefs: eg/envoy-gateway-system`,
+selected by the `use-gateway-solver: "true"` label — see the
+[ListenerSet annotations](#cert-manager-annotations) above). The Ingress
+solver remains the default; no `create-issuer` patch is needed. The same
+ordering rule applies: the cert-manager component must be listed *before*
+`envoy-gateway`, or the patch is silently skipped.
 
-Create `_base/overlays/create-issuer-patch.yaml`:
-
-``` yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: create-issuer
-spec:
-  source:
-    helm:
-      valuesObject:
-        gateway:
-          enabled: true
-          name: eg
-          namespace: envoy-gateway-system
-```
-
-Then add the patch to the `patches` array in `kustomization.yaml`:
-
-``` yaml
-  - target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: Application
-      name: create-issuer
-    path: _base/overlays/create-issuer-patch.yaml
-```
-
-See the [create-issuer values](https://github.com/pelotech/foundation/blob/688e1b6c97113b6183f93f6a21208f594daa5519/gitops/components/cert-manager/create-issuer/values.yaml#L6-L8) for all available gateway options.
+Once all `Ingress` are gone from a cluster, patch the `create-issuer`
+Application to drop the Ingress solver (making the gateway solver the
+default). See the
+[create-issuer README](https://github.com/pelotech/foundation/blob/main/gitops/components/cert-manager/create-issuer/README.md)
+for all available solver options and combinations.
 
 Also be sure your Gateway has a [Listener for the challenge/solver on port 80](#gateway-certificate-challenge-acme-solver).
 
