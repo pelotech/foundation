@@ -1,4 +1,13 @@
-# Gateway Migration Steps
+# Gateway API Adoption
+
+The platform supports **both the Ingress API and the Gateway API for the
+foreseeable future**: Ingress is served by the [`traefik`
+component](../gitops/components/traefik/README.md) (nginx-compatible,
+replacing the retired ingress-nginx controller), and the Gateway API by the
+[`envoy-gateway` component](../gitops/components/envoy-gateway/). Moving an
+application from Ingress to Gateway API is **optional and per-app** — this
+document covers enabling the Gateway API stack on a cluster and, for apps that
+want it, the cutover choreography.
 
 ## Initial Per-Cluster Steps
 
@@ -14,7 +23,7 @@ Each numbered step should be a discrete PR.
 In Argo (`argocd` application), check the  `infrastructure` `AppProject` is healthy and updated.
 
 2. Install Envoy Gateway
-    * In `kustomization.yaml`, add `https://github.com/pelotech/foundation//gitops/components/envoy-gateway?ref=v4.3.3` to the `components` array, replacing the version with the current version
+    * In `kustomization.yaml`, add `https://github.com/pelotech/foundation//gitops/components/envoy-gateway?ref=v4.3.3` to the `components` array, replacing the version with the current version. **Order matters**: list it *after* the `cert-manager` and `external-dns` components — the envoy-gateway component patches both, and kustomize silently skips patches whose targets aren't accumulated yet
     * In `_base/environment.yaml` add `EG_NLB_NAME: "eg-CLUSTER-NAME"` (subbing in your `CLUSTER-NAME`, e.g. `eg-foundation-nonprod`) to the `kustomize-environment` `ConfigMap`
     * In `rbac.yaml` in the `viewonly-access` `ClusterRole`, add the following values to the `rules.apiGroups` array:
 
@@ -25,7 +34,7 @@ In Argo (`argocd` application), check the  `infrastructure` `AppProject` is heal
 
 In Argo (`argocd` application), ensure your `GatewayClass` and `EnvoyProxy` objects exist and are healthy. You may also want to check the updated `ConfigMap` and `ClusterRole`.
 
-3. Update controllers (these could be split up into multiple PRs if desired)
+3. Verify the Gateway API stack (no manual controller changes are needed)
 
 The `Gateway` itself (name `eg`, namespace `envoy-gateway-system`) is created
 **automatically** by the component's `create-gateway` chart, including an
@@ -81,7 +90,7 @@ You can check your new routes (without flipping weight) by editing your hosts fi
 
 Use the following annotations on `ListenerSets` when using Cert Manager with Let's Encrypt:
 
-* `acme.cert-manager.io/http01-parentreffallback: "true"` - Note: use of this annotation will require a version of Cert Manager > `v1.20.2`. As of the time of this writing, a version/image with this functionality has not yet been released
+* `acme.cert-manager.io/http01-parentreffallback: "true"` - requires cert-manager `v1.21+` (the cert-manager component ships `v1.21.0`)
 * `cert-manager.io/cluster-issuer: letsencrypt`
 
 If the ClusterIssuer defines a labeled gateway solver (see the
@@ -113,14 +122,24 @@ solver remains the default; no `create-issuer` patch is needed. The same
 ordering rule applies: the cert-manager component must be listed *before*
 `envoy-gateway`, or the patch is silently skipped.
 
-Once all `Ingress` are gone from a cluster, patch the `create-issuer`
-Application to drop the Ingress solver (making the gateway solver the
-default). See the
+Both solvers coexist indefinitely — the Ingress solver serves Ingress-based
+apps, the labeled gateway solver serves Gateway API apps. (Only in the
+unlikely case a cluster retires the Ingress API entirely would you patch
+`create-issuer` to drop the Ingress solver.) See the
 [create-issuer README](https://github.com/pelotech/foundation/blob/main/gitops/components/cert-manager/create-issuer/README.md)
 for all available solver options and combinations.
 
 Also be sure your Gateway has a [Listener for the challenge/solver on port 80](#gateway-certificate-challenge-acme-solver).
 
-### Final Steps
+### Per-App Cleanup
 
-Once all `Ingress` are cutover, you will need to ensure those are deleted, and the Ingress Controller is uninstalled from the cluster.
+Once an app's traffic has fully cut over to its `HTTPRoute`, delete that app's
+old `Ingress` object so external-dns doesn't manage competing records for the
+hostname.
+
+There is **no requirement to move every app**: the Ingress API remains a
+supported, first-class surface served by the maintained
+[`traefik` component](../gitops/components/traefik/README.md). What must be
+retired is only the EOL **ingress-nginx controller** — that happens via the
+traefik component's publishService switch and is independent of any app's
+Ingress-vs-Gateway choice (see the traefik README's cutover section).

@@ -55,7 +55,7 @@ Controller) to reconcile the LoadBalancer Service into an NLB.
    (edit `/etc/hosts` or `curl --resolve`) — Ingresses are already live on it.
 2. Optionally shift per-host with Route53 weighted records
    (`external-dns.alpha.kubernetes.io/aws-weight` + `set-identifier`), as in
-   [GATEWAY-MIGRATION.md](../../../docs/GATEWAY-MIGRATION.md).
+   [GATEWAY-ADOPTION.md](../../../docs/GATEWAY-ADOPTION.md).
 3. Flip the switch: `TRAEFIK_PUBLISH_SERVICE: "true"` +
    `NGINX_PUBLISH_SERVICE: "false"` — Ingress statuses (and external-dns
    records) move to the Traefik NLB. Rollback is flipping the pair back. Once

@@ -59,7 +59,7 @@ ConfigMap (`ACME_ISSUER_EMAIL`, `AWS_REGION`) by the cert-manager component.
 * **Envoy Gateway only** — a single selector-less gateway entry
   (`ingress: []`, `dns01.enabled` as desired). Requires cert-manager's
   `config.enableGatewayAPI` — see
-  [GATEWAY-MIGRATION.md](../../../../docs/GATEWAY-MIGRATION.md).
+  [GATEWAY-ADOPTION.md](../../../../docs/GATEWAY-ADOPTION.md).
 * **Native-Traefik class** — only when running Traefik's native provider
   (not the nginx-compat mode this repo defaults to): `- class: traefik`.
 * **dns01 routing** — label Certificates `use-dns01-solver: "true"` (as
