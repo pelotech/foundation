@@ -18,7 +18,7 @@ spec:
         releaseName: envoy-gateway
     - repoURL: "https://github.com/pelotech/foundation"
       path: gitops/components/envoy-gateway/create-gateway
-      targetRevision: v4.6.2 # x-release-please-version
+      targetRevision: feat/traefik-ingress-component # x-release-please-version
       helm:
         releaseName: create-gateway
         valuesObject:
