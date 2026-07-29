@@ -57,7 +57,7 @@ spec:
     {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- if and (not .Values.gateway.acmeSolver) (not .Values.gateway.extraListeners) }}
-    # a Gateway must carry at least one listener even when all real listeners
+    # HACK: a Gateway must carry at least one listener even when all real listeners
     # live in ListenerSets; drop this once
     # https://github.com/kubernetes-sigs/gateway-api/issues/4425 is resolved
     - name: placeholder
