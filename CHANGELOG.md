@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.7.0](https://github.com/pelotech/foundation/compare/v4.6.2...v4.7.0) (2026-07-30)
+
+
+### Features
+
+* add traefik ingress replacement with automated gateway integrations ([#509](https://github.com/pelotech/foundation/issues/509)) ([a4403d6](https://github.com/pelotech/foundation/commit/a4403d62e198388872758ce691e0ec922c57beb6))
+
 ## [4.6.2](https://github.com/pelotech/foundation/compare/v4.6.1...v4.6.2) (2026-07-22)
 
 
