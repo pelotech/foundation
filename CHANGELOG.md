@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.7.1](https://github.com/pelotech/foundation/compare/v4.7.0...v4.7.1) (2026-07-30)
+
+
+### Bug Fixes
+
+* add missing envoy-gateway to release-please ([9ef3629](https://github.com/pelotech/foundation/commit/9ef3629b7927af34af7c89cfa0314d80cd8515e2))
+
 ## [4.7.0](https://github.com/pelotech/foundation/compare/v4.6.2...v4.7.0) (2026-07-30)
 
 
