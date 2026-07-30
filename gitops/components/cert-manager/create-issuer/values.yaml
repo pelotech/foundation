@@ -17,7 +17,7 @@ solvers:
   # http01 solved via HTTPRoute attached to a Gateway (requires cert-manager
   # config.enableGatewayAPI - see docs/GATEWAY-ADOPTION.md)
   gateway: []
-  # - name: eg
+  # - name: external
   #   namespace: envoy-gateway-system
   #   matchLabels:
   #     use-gateway-solver: "true"

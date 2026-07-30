@@ -36,9 +36,10 @@ patches:
                   ListenerSets: true
   # Adds a labeled gateway solver to the letsencrypt ClusterIssuer. The
   # Ingress solver remains the selector-less default; Certificates opt in by
-  # carrying the use-gateway-solver label (set it on the Gateway/ListenerSet —
+  # carrying the use-gateway-solver label (set it on the ListenerSet —
   # shim-created Certificates inherit its labels). parentRefs assume the
-  # conventional `eg` Gateway in envoy-gateway-system (see GATEWAY-ADOPTION.md).
+  # `external` Gateway created by this component's create-gateway chart
+  # (see GATEWAY-ADOPTION.md).
   - target:
       group: argoproj.io
       version: v1alpha1
@@ -55,7 +56,7 @@ patches:
             valuesObject:
               solvers:
                 gateway:
-                  - name: eg
+                  - name: external
                     namespace: envoy-gateway-system
                     matchLabels:
                       use-gateway-solver: "true"

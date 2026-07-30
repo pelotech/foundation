@@ -1,8 +1,11 @@
 ---
+# Role-based names (external), per Gateway API convention: the class/gateway
+# name the platform offers, not the implementation. A future internal gateway
+# is the symmetric triple (GatewayClass/EnvoyProxy/Gateway `internal`).
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
-  name: eg
+  name: external
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
@@ -10,13 +13,13 @@ spec:
   parametersRef:
     group: gateway.envoyproxy.io
     kind: EnvoyProxy
-    name: eg-proxy
+    name: external
     namespace: envoy-gateway-system
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: eg-proxy
+  name: external
   namespace: envoy-gateway-system
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
@@ -35,12 +38,19 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: eg
+  name: external
   namespace: envoy-gateway-system
+  # Intent-free by design: no cert-manager issuer annotation and no solver
+  # label. Certificate intent lives on each app's ListenerSet (issuer
+  # annotation + use-gateway-solver label). If a TLS listener is ever added
+  # here via gateway.extraListeners, choose its Certificate's solver
+  # deliberately at that time — labels inherited from this Gateway feed
+  # cert-manager's solver selection, and wildcards require the dns01 solver
+  # (use-dns01-solver label or dnsZones).
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  gatewayClassName: eg
+  gatewayClassName: external
   allowedListeners:
     namespaces:
       from: All

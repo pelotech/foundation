@@ -27,7 +27,7 @@ solvers:
                           # nginx-compat provider serves class `nginx`.
                           # `- class: traefik` only for a native-provider Traefik.
   gateway:                # shipped default is [] - the envoy-gateway component
-    - name: eg            # ADDS THIS ENTRY AUTOMATICALLY (with the label below);
+    - name: external      # ADDS THIS ENTRY AUTOMATICALLY (with the label below);
       namespace: envoy-gateway-system  # only configure it by hand to override.
       matchLabels:
         use-gateway-solver: "true"

@@ -13,7 +13,7 @@ spec:
   sources:
     - chart: gateway-helm
       repoURL: docker.io/envoyproxy
-      targetRevision: v1.8.0
+      targetRevision: v1.8.3
       helm:
         releaseName: envoy-gateway
     - repoURL: "https://github.com/pelotech/foundation"

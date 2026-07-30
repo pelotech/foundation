@@ -46,7 +46,7 @@ In Argo (`argocd` application), ensure your `GatewayClass` and `EnvoyProxy` obje
 
 3. Verify the Gateway API stack (no manual controller changes are needed)
 
-The `Gateway` itself (name `eg`, namespace `envoy-gateway-system`) is created
+The `Gateway` itself (name `external`, namespace `envoy-gateway-system`) is created
 **automatically** by the component's `create-gateway` chart, including an
 `acme-solver` listener on port 80 for the Let's Encrypt http01 solver. No
 per-cluster Gateway YAML is needed.
@@ -161,7 +161,7 @@ You can prepare a [cutover from Ingress -> Gateway](https://www.pelotech.com/pos
 ### Cert Manager Gateway Issuer
 
 The envoy-gateway component **automatically** adds a labeled gateway solver to
-the `letsencrypt` ClusterIssuer (`parentRefs: eg/envoy-gateway-system`,
+the `letsencrypt` ClusterIssuer (`parentRefs: external/envoy-gateway-system`,
 selected by the `use-gateway-solver: "true"` label — see the
 [ListenerSet annotations](#cert-manager-annotations) above). The Ingress
 solver remains the default; no `create-issuer` patch is needed. The same
