@@ -3,6 +3,32 @@ kind: Component
 
 resources:
   - ./resources.yaml
+  - ./ingress-class.yaml
+
+# Transfers ownership of the `nginx` IngressClass from the ingress-nginx chart
+# to this component (see ingress-class.yaml): the chart stops rendering the
+# object, and since the nginx Application syncs without prune, the existing
+# object persists until this component's copy adopts it — the class is never
+# absent. Silently skipped once ingress-nginx is removed (same cross-component
+# pattern and ordering rule as the publishService replacement below).
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: ingress-nginx-controller
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: ingress-nginx-controller
+      spec:
+        source:
+          helm:
+            valuesObject:
+              controller:
+                ingressClassResource:
+                  enabled: false
 
 replacements:
   - source:

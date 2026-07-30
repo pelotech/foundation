@@ -48,6 +48,14 @@ Controller) to reconcile the LoadBalancer Service into an NLB.
   only.
 * No hostNetwork/hostPort, so nginx's port-81 pod-identity workaround is not
   needed.
+* This component **owns the `nginx` IngressClass**
+  ([ingress-class.yaml](ingress-class.yaml)) and patches the ingress-nginx
+  chart to stop creating its copy — one owner throughout coexistence, and the
+  object survives nginx's removal. Without it, deleting the nginx chart
+  deletes the class and the AWS Load Balancer Controller's webhook then
+  **denies every write** to class-`nginx` Ingresses ("invalid ingress class
+  ... not found"), failing ArgoCD syncs and cert-manager http01 solver
+  creation (traffic keeps flowing — Traefik matches the class by name).
 
 ## Cutover (per cluster, when ready)
 
@@ -64,10 +72,6 @@ Controller) to reconcile the LoadBalancer Service into an NLB.
 4. Delete nginx's leftover admission webhook, or Ingress writes will fail
    against the dead webhook service:
    `kubectl delete validatingwebhookconfiguration ingress-nginx-admission`.
-   Note the nginx chart's removal also deletes the `nginx` IngressClass —
-   Traefik matches the class by name so existing Ingresses keep working, but
-   recreate an `nginx` IngressClass (marked default) if consumers create
-   class-less Ingresses.
 5. Delete the old NLB; hunt orphans via
    [CLEANUP.md](../../../docs/CLEANUP.md) tags. `TRAEFIK_NLB_NAME` can then be
    replaced with `CLUSTER_NAME`.
