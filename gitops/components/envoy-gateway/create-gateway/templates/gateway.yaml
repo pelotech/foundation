@@ -1,0 +1,83 @@
+---
+# Role-based names (external), per Gateway API convention: the class/gateway
+# name the platform offers, not the implementation. A future internal gateway
+# is the symmetric triple (GatewayClass/EnvoyProxy/Gateway `internal`).
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: external
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: external
+    namespace: envoy-gateway-system
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: external
+  namespace: envoy-gateway-system
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+          service.beta.kubernetes.io/aws-load-balancer-name: "{{ .Values.nlbName }}"
+          service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+          service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
+          service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: external
+  namespace: envoy-gateway-system
+  # Intent-free by design: no cert-manager issuer annotation and no solver
+  # label. Certificate intent lives on each app's ListenerSet (issuer
+  # annotation + use-gateway-solver label). If a TLS listener is ever added
+  # here via gateway.extraListeners, choose its Certificate's solver
+  # deliberately at that time — labels inherited from this Gateway feed
+  # cert-manager's solver selection, and wildcards require the dns01 solver
+  # (use-dns01-solver label or dnsZones).
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  gatewayClassName: external
+  allowedListeners:
+    namespaces:
+      from: All
+  listeners:
+    {{- if .Values.gateway.acmeSolver }}
+    - name: acme-solver
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    {{- end }}
+    {{- with .Values.gateway.extraListeners }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- if and (not .Values.gateway.acmeSolver) (not .Values.gateway.extraListeners) }}
+    # HACK: a Gateway must carry at least one listener even when all real listeners
+    # live in ListenerSets; drop this once
+    # https://github.com/kubernetes-sigs/gateway-api/issues/4425 is resolved
+    - name: placeholder
+      port: 65535
+      protocol: HTTP
+      hostname: placeholder.invalid
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              placeholder: placeholder
+    {{- end }}

@@ -1,3 +1,4 @@
+{{- include "create-issuer.validate" . -}}
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -12,23 +13,23 @@ spec:
     privateKeySecretRef:
       name: {{ .Values.issuerName }}
     solvers:
+      {{- range .Values.solvers.ingress }}
       - http01:
-          {{- if and .Values.ingressClassName (not .Values.gateway.enabled) }}
           ingress:
-            class: {{ .Values.ingressClassName }}
-          {{- end }}
-          {{- if .Values.gateway.enabled }}
-          {{- if not (and .Values.gateway.name .Values.gateway.namespace) }}
-          {{- fail ".gateway.name and .gateway.namespace are required when gateway.enabled is true" }}
-          {{- end }}
+            class: {{ required "solvers.ingress entries require class" .class }}
+        {{- with include "create-issuer.solverSelector" . }}{{ . | trim | nindent 8 }}{{- end }}
+      {{- end }}
+      {{- range .Values.solvers.gateway }}
+      - http01:
           gatewayHTTPRoute:
             parentRefs:
-              - name: {{ .Values.gateway.name }}
-                namespace: {{ .Values.gateway.namespace }}
-          {{- end }}
+              - name: {{ required "solvers.gateway entries require name" .name }}
+                namespace: {{ required "solvers.gateway entries require namespace" .namespace }}
+        {{- with include "create-issuer.solverSelector" . }}{{ . | trim | nindent 8 }}{{- end }}
+      {{- end }}
+      {{- if .Values.solvers.dns01.enabled }}
       - dns01:
           route53:
             region: {{ .Values.awsRegion }}
-        selector:
-          matchLabels:
-            "use-dns01-solver": "true"
+        {{- with include "create-issuer.solverSelector" .Values.solvers.dns01 }}{{ . | trim | nindent 8 }}{{- end }}
+      {{- end }}

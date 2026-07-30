@@ -2,55 +2,6 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: alb-controller
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: networking
-  source:
-    chart: aws-load-balancer-controller
-    repoURL: https://aws.github.io/eks-charts
-    targetRevision: 3.4.2
-    helm:
-      releaseName: aws-load-balancer-controller
-      valuesObject:
-        hostNetwork: true
-        metricsBindAddr: ':8085'
-        serviceAccount:
-          create: "true"
-          name: "aws-load-balancer-controller"
-          annotations:
-            eks.amazonaws.com/role-arn: ALB_ROLE_ARN
-            eks.amazonaws.com/sts-regional-endpoints: "true"
-        clusterName: CLUSTER_NAME
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "100m"
-            memory: "128Mi"
-        tolerations:
-          - key: CriticalAddonsOnly
-            operator: Exists
-#        watchNamespace: ingress-nginx # NOTE: Currently disabled however may need to bring back to limit aws lb controller.
-  ignoreDifferences:
-    - kind: Secret
-      name: aws-load-balancer-tls
-      jqPathExpressions:
-        - .data
-  destination:
-    namespace: alb
-    name: in-cluster
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated: {}
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: ingress-nginx-controller
   namespace: argocd
   finalizers:
@@ -63,6 +14,13 @@ spec:
     targetRevision: 4.15.1
     helm:
       releaseName: ingress-nginx
+      # publishService controls whether nginx writes Ingress .status.loadBalancer
+      # (where external-dns points DNS). Default "true" preserves standalone
+      # behavior; when the traefik component is enabled, its NGINX_PUBLISH_SERVICE
+      # replacement overrides this to coordinate the status-ownership switch.
+      parameters:
+        - name: controller.publishService.enabled
+          value: "true"
       valuesObject:
         controller:
           containerPort:

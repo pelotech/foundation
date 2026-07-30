@@ -1,0 +1,81 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+  - ./ingress-class.yaml
+
+# Transfers ownership of the `nginx` IngressClass from the ingress-nginx chart
+# to this component (see ingress-class.yaml): the chart stops rendering the
+# object, and since the nginx Application syncs without prune, the existing
+# object persists until this component's copy adopts it — the class is never
+# absent. Silently skipped once ingress-nginx is removed (same cross-component
+# pattern and ordering rule as the publishService replacement below).
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: ingress-nginx-controller
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: ingress-nginx-controller
+      spec:
+        source:
+          helm:
+            valuesObject:
+              controller:
+                ingressClassResource:
+                  enabled: false
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      # TODO: once nginx ingress migration is complete, TRAEFIK_NLB_NAME can be replaced with CLUSTER_NAME
+      fieldPath: data.TRAEFIK_NLB_NAME
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: traefik
+        fieldPaths:
+          - spec.source.helm.valuesObject.service.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+
+  # Ingress-status ownership switch: EXACTLY ONE of TRAEFIK_PUBLISH_SERVICE /
+  # NGINX_PUBLISH_SERVICE may be "true" (see resources.yaml comment). Flipping
+  # the pair moves external-dns records between the two NLBs — in either
+  # direction — without touching any Ingress.
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.TRAEFIK_PUBLISH_SERVICE
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: traefik
+        fieldPaths:
+          - spec.source.helm.parameters.[name=providers.kubernetesIngressNGINX.publishService.enabled].value
+  # Cross-component: targets the ingress-nginx Application when it is present
+  # (list ingress-nginx/aws-alb-nginx BEFORE traefik in `components:`).
+  # Silently skips once nginx is removed from the cluster.
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.NGINX_PUBLISH_SERVICE
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: ingress-nginx-controller
+        fieldPaths:
+          - spec.source.helm.parameters.[name=controller.publishService.enabled].value

@@ -1,0 +1,19 @@
+---
+# The `nginx` IngressClass, owned by the traefik component. While ingress-nginx
+# is still installed, this component patches its chart to stop creating the
+# same-named object (see kustomization.yaml), so there is exactly one owner —
+# and removing nginx later never deletes the class. That matters because the
+# AWS Load Balancer Controller's validating webhook (vingress.elbv2.k8s.aws)
+# resolves the IngressClass of every Ingress write and DENIES the request when
+# the object is missing (breaking ArgoCD syncs and cert-manager http01 solver
+# creation). Both controllers serve the class: ingress-nginx claims it via
+# spec.controller, traefik's nginx-compat provider matches it by name.
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: nginx
+  annotations:
+    # nginx was the cluster default; preserve class-less Ingress behavior
+    ingressclass.kubernetes.io/is-default-class: "true"
+spec:
+  controller: k8s.io/ingress-nginx

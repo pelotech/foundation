@@ -1,5 +1,11 @@
 # Cluster Ingress controller
 
+> **Deprecated aggregate**: this component has been split into
+> [`aws-alb`](../aws-alb/README.md) (AWS Load Balancer Controller, shared by
+> all ingress data planes) and [`ingress-nginx`](../ingress-nginx/README.md)
+> (EOL, migration window only). It is kept as a backwards-compatible aggregate
+> of both. New clusters should use `aws-alb` + [`traefik`](../traefik/README.md).
+
 This directory defines a configuration to provide Ingress support on the
 cluster. This configuration is specific to an AWS environment where TLS
 termination is handled by Nginx on the cluster (as opposed to terminating TLS

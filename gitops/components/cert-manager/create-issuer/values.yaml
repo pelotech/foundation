@@ -1,8 +1,29 @@
 issuerName: letsencrypt
 acmeIssuerEmail: ""
 awsRegion: "us-west-2"
-ingressClassName: nginx
-gateway:
-  enabled: false
-  name: ""
-  namespace: ""
+
+# Each entry below becomes one ACME solver on the ClusterIssuer. cert-manager
+# picks the MOST SPECIFIC matching solver per Certificate (matchLabels /
+# dnsZones); at most ONE entry across all solver types may omit selectors —
+# that entry is the default/catch-all.
+solvers:
+  # http01 solved via Ingress objects (served by whichever controller claims
+  # the class — nginx and the traefik nginx-compat provider both serve `nginx`)
+  ingress:
+    - class: nginx # no matchLabels/dnsZones -> default solver
+    # - class: traefik
+    #   matchLabels:
+    #     use-traefik-solver: "true"
+  # http01 solved via HTTPRoute attached to a Gateway (requires cert-manager
+  # config.enableGatewayAPI - see docs/GATEWAY-ADOPTION.md)
+  gateway: []
+  # - name: external
+  #   namespace: envoy-gateway-system
+  #   matchLabels:
+  #     use-gateway-solver: "true"
+  # dns01 via route53 (region from awsRegion above)
+  dns01:
+    enabled: true
+    matchLabels:
+      use-dns01-solver: "true"
+    # dnsZones: []

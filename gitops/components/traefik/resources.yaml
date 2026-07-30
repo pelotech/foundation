@@ -1,0 +1,95 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: networking
+  source:
+    chart: traefik
+    repoURL: ghcr.io/traefik/helm
+    targetRevision: 41.0.2
+    helm:
+      releaseName: traefik
+      # publishService controls which controller writes Ingress .status.loadBalancer
+      # (and therefore where external-dns points DNS). Wired as a helm parameter —
+      # not valuesObject — because kustomize replacements copy strings and --set
+      # coerces "true"/"false" into the booleans the chart schema requires.
+      # Replaced from TRAEFIK_PUBLISH_SERVICE; flip it (and NGINX_PUBLISH_SERVICE)
+      # to switch status ownership between the controllers. EXACTLY ONE of the two
+      # must be "true": both true -> external-dns flaps between NLBs; both false ->
+      # external-dns (policy: sync) DELETES the records.
+      parameters:
+        - name: providers.kubernetesIngressNGINX.publishService.enabled
+          value: "false"
+      valuesObject:
+        providers:
+          kubernetesIngressNGINX:
+            # Serves existing `ingressClassName: nginx` Ingresses verbatim,
+            # including nginx.ingress.kubernetes.io/* annotations:
+            # https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress-nginx/
+            enabled: true
+            ingressClass: nginx
+            controllerClass: k8s.io/ingress-nginx
+            # nginx is the cluster default IngressClass today; also serve class-less Ingresses
+            watchIngressWithoutClass: true
+            # parity with nginx's strict-validate-path-type=false: without this, Traefik
+            # rejects an ENTIRE Ingress whose Prefix/Exact path contains regex characters
+            strictValidatePathType: false
+            # publishService.enabled is set via spec.source.helm.parameters above
+            # Parity with nginx's allow-snippet-annotations=true. Traefik parses a
+            # subset of directives (add_header, proxy_set_header, more_set_headers,
+            # set, if, return, ...) — it never executes raw nginx config.
+            allowSnippetAnnotations: true
+          kubernetesIngress:
+            enabled: false # nginx-compat provider only; no second ingress class
+          # kubernetesGateway stays disabled: envoy-gateway owns the Gateway API
+        ingressClass:
+          # The chart would otherwise create a `traefik` IngressClass marked default —
+          # two defaults (nginx is default today) makes the API server reject any new
+          # class-less Ingress. The nginx-compat provider matches class `nginx` by name.
+          enabled: false
+        ports:
+          # No hostNetwork/hostPort, so the pod-identity port-80 conflict that forced
+          # nginx onto containerPort 81 does not apply here.
+          # trustedIPs 0.0.0.0/0 matches nginx's proxy-real-ip-cidr default: clients
+          # can't spoof through the NLB (it prepends its own PROXY header), and direct
+          # pod connections are only reachable from inside the VPC.
+          web:
+            proxyProtocol:
+              trustedIPs:
+                - "0.0.0.0/0"
+            forwardedHeaders:
+              trustedIPs:
+                - "0.0.0.0/0"
+          websecure:
+            proxyProtocol:
+              trustedIPs:
+                - "0.0.0.0/0"
+            forwardedHeaders:
+              trustedIPs:
+                - "0.0.0.0/0"
+        service:
+          annotations:
+            service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+            service.beta.kubernetes.io/aws-load-balancer-name: TRAEFIK_NLB_NAME
+            service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+            service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
+            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+            service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: proxy_protocol_v2.enabled=true
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
+  destination:
+    namespace: traefik
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}

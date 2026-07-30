@@ -1,0 +1,15 @@
+nlbName: "EG_NLB_NAME"
+
+gateway:
+  # Renders a real HTTP :80 listener for cert-manager's http01 gatewayHTTPRoute
+  # solver (allowedRoutes from All — cert-manager creates challenge HTTPRoutes
+  # in the app's namespace). This also satisfies the Gateway API's >=1 listener
+  # requirement. Disable only on clusters that must not expose port 80
+  # (e.g. dns01-only): a placeholder listener is rendered instead until
+  # https://github.com/kubernetes-sigs/gateway-api/issues/4425 allows
+  # listener-less Gateways.
+  acmeSolver: true
+  # Additional Gateway listeners, appended verbatim (Gateway API listener
+  # schema). Most per-host TLS config should use ListenerSets instead — see
+  # docs/GATEWAY-ADOPTION.md.
+  extraListeners: []
