@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.7.2](https://github.com/pelotech/foundation/compare/v4.7.1...v4.7.2) (2026-07-31)
+
+
+### Bug Fixes
+
+* modify default proxy read timeout to 1800 instead of 60 ([e4a473a](https://github.com/pelotech/foundation/commit/e4a473a723a0dafc9ac718b940868e2754df7fb8))
+
 ## [4.7.1](https://github.com/pelotech/foundation/compare/v4.7.0...v4.7.1) (2026-07-30)
 
 
