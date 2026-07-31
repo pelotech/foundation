@@ -44,6 +44,8 @@ spec:
             # subset of directives (add_header, proxy_set_header, more_set_headers,
             # set, if, return, ...) — it never executes raw nginx config.
             allowSnippetAnnotations: true
+            # changes the proxy read timeout from 60 to 1800
+            proxyReadTimeout: 1800
           kubernetesIngress:
             enabled: false # nginx-compat provider only; no second ingress class
           # kubernetesGateway stays disabled: envoy-gateway owns the Gateway API
