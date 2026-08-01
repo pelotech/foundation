@@ -10,7 +10,7 @@ spec:
   project: storage
   sources:
   - repoURL: 'https://github.com/pelotech/foundation'
-    path: 'gitops/components/ebs-csi/snapshot-controller'
+    path: 'gitops/components/aws/ebs-csi/snapshot-controller'
     targetRevision: v4.7.2 # x-release-please-version
   - chart: aws-ebs-csi-driver
     repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
@@ -22,11 +22,10 @@ spec:
         controller:
           k8sTagClusterId: CLUSTER_NAME
           serviceAccount:
+            # Pod-identity-ready by default: no IRSA annotations. Clusters
+            # using IRSA use the aws/ebs-csi-irsa component instead (requires EBS_CSI_ROLE_ARN).
             create: true
             name: ebs-csi-driver
-            annotations:
-              eks.amazonaws.com/role-arn: EBS_CSI_ROLE_ARN
-              eks.amazonaws.com/sts-regional-endpoints: "true"
           resources:
             requests:
               cpu: "100m"

@@ -14,32 +14,26 @@ spec:
     targetRevision: 41.0.2
     helm:
       releaseName: traefik
-      # publishService controls which controller writes Ingress .status.loadBalancer
-      # (and therefore where external-dns points DNS). Wired as a helm parameter —
-      # not valuesObject — because kustomize replacements copy strings and --set
-      # coerces "true"/"false" into the booleans the chart schema requires.
-      # Replaced from TRAEFIK_PUBLISH_SERVICE; flip it (and NGINX_PUBLISH_SERVICE)
-      # to switch status ownership between the controllers. EXACTLY ONE of the two
-      # must be "true": both true -> external-dns flaps between NLBs; both false ->
-      # external-dns (policy: sync) DELETES the records.
-      parameters:
-        - name: providers.kubernetesIngressNGINX.publishService.enabled
-          value: "false"
       valuesObject:
         providers:
           kubernetesIngressNGINX:
-            # Serves existing `ingressClassName: nginx` Ingresses verbatim,
-            # including nginx.ingress.kubernetes.io/* annotations:
+            # Serves `ingressClassName: nginx` Ingresses (the class the retired
+            # ingress-nginx controller owned), including the
+            # nginx.ingress.kubernetes.io/* annotations:
             # https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress-nginx/
             enabled: true
             ingressClass: nginx
             controllerClass: k8s.io/ingress-nginx
-            # nginx is the cluster default IngressClass today; also serve class-less Ingresses
+            # nginx is the cluster default IngressClass (see ingress-class.yaml);
+            # also serve class-less Ingresses
             watchIngressWithoutClass: true
-            # parity with nginx's strict-validate-path-type=false: without this, Traefik
-            # rejects an ENTIRE Ingress whose Prefix/Exact path contains regex characters
+            # parity with historical nginx strict-validate-path-type=false: without
+            # this, Traefik rejects an ENTIRE Ingress whose Prefix/Exact path
+            # contains regex characters
             strictValidatePathType: false
-            # publishService.enabled is set via spec.source.helm.parameters above
+            # writes Ingress .status.loadBalancer so external-dns publishes records
+            publishService:
+              enabled: true
             # Parity with nginx's allow-snippet-annotations=true. Traefik parses a
             # subset of directives (add_header, proxy_set_header, more_set_headers,
             # set, if, return, ...) — it never executes raw nginx config.

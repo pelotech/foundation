@@ -79,7 +79,7 @@ components:
   # This is required for setting variables from environment.yaml
   - https://github.com/pelotech/foundation//gitops/base-install/replacements?ref=v0.0.85
   # Add any optional components from foundation below
-  - https://github.com/pelotech/foundation//gitops/components/karpenter?ref=v0.0.85
+  - https://github.com/pelotech/foundation//gitops/components/aws/karpenter?ref=v0.0.85
 
 commonLabels:
   app.kubernetes.io/managed-by: foundation-gitops

@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the ebs-csi base component itself. Use this
+# INSTEAD of the plain ebs-csi component (including both fails with a
+# duplicate-resource error).
+components:
+  - ../ebs-csi
+
+# Opt-in IRSA for the EBS CSI driver: adds the IAM role annotations and
+# requires EBS_CSI_ROLE_ARN in kustomize-environment. Omit on clusters using
+# EKS Pod Identity — the annotation must be absent there.
+# The ebs-csi Application is multi-source, so a strategic-merge patch would
+# replace the whole sources list; a JSON6902 add op targets the chart source
+# by index instead (index 1 = the aws-ebs-csi-driver chart).
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: ebs-csi
+    patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controller/serviceAccount/annotations
+        value:
+          eks.amazonaws.com/role-arn: EBS_CSI_ROLE_ARN
+          eks.amazonaws.com/sts-regional-endpoints: "true"
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.EBS_CSI_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: ebs-csi
+        fieldPaths:
+          - spec.sources.[chart=aws-ebs-csi-driver].helm.valuesObject.controller.serviceAccount.annotations.[eks.amazonaws.com/role-arn]

@@ -23,8 +23,7 @@ spec:
       releaseName: aws-mountpoint-s3-csi-driver
       valuesObject:
         node:
+          # Pod-identity-ready by default: no IRSA annotations. Clusters using
+          # IRSA use the aws/s3-csi-irsa component instead (requires S3_CSI_ROLE_ARN).
           serviceAccount:
             name: "s3-csi-driver"
-            annotations:
-              eks.amazonaws.com/role-arn: S3_CSI_ROLE_ARN
-              eks.amazonaws.com/sts-regional-endpoints: "true"

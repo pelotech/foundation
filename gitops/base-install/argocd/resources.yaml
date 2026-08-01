@@ -41,7 +41,6 @@ spec:
     - https://charts.jetstack.io # cert-manager
     - https://kubernetes-sigs.github.io/external-dns # external dns
     - https://aws.github.io/eks-charts # alb/nlb
-    - https://kubernetes.github.io/ingress-nginx # ingress-nginx
     - registry-1.docker.io/bitnamicharts # multus
     - docker.io/envoyproxy # envoy gateway
     - ghcr.io/traefik/helm # traefik
@@ -51,8 +50,6 @@ spec:
     - namespace: external-dns
       server: https://kubernetes.default.svc
     - namespace: alb
-      server: https://kubernetes.default.svc
-    - namespace: ingress-nginx
       server: https://kubernetes.default.svc
     - namespace: envoy-gateway-system
       server: https://kubernetes.default.svc

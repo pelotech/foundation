@@ -40,11 +40,10 @@ spec:
               - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
                 value: scheduling.node.kubevirt.io/tsc-frequency-*
           serviceAccount:
+            # Pod-identity-ready by default: no IRSA annotations. Clusters
+            # using IRSA use the aws/karpenter-irsa component instead (requires KARPENTER_ROLE_ARN).
             create: "true"
             name: "karpenter"
-            annotations:
-              eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
-              eks.amazonaws.com/sts-regional-endpoints: "true"
           settings:
             clusterName: CLUSTER_NAME
             interruptionQueue: CLUSTER_NAME

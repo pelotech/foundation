@@ -152,9 +152,6 @@ traffic lands:
 3. Once the host is at 100% on the Gateway, optionally remove the label to
    fall back to the gateway http01 solver (`use-gateway-solver: "true"`).
 
-The traefik/ingress-nginx publishService switch is **not** affected by any of
-this: both controllers serve the same solver `Ingress` objects (class
-`nginx`), so http01 challenges answer on either NLB throughout that cutover.
 
 You can prepare a [cutover from Ingress -> Gateway](https://www.pelotech.com/post/ingress-nginx-migration) by annotating `Ingress` objects with `100` weight and the new `HTTPRoutes` with `0` weight, and then flip weights once ready.
 
@@ -186,6 +183,5 @@ hostname.
 There is **no requirement to move every app**: the Ingress API remains a
 supported, first-class surface served by the maintained
 [`traefik` component](../gitops/components/traefik/README.md). What must be
-retired is only the EOL **ingress-nginx controller** — that happens via the
-traefik component's publishService switch and is independent of any app's
-Ingress-vs-Gateway choice (see the traefik README's cutover section).
+retired was only the EOL **ingress-nginx controller**, replaced by the
+traefik component independently of any app's Ingress-vs-Gateway choice.

@@ -9,12 +9,12 @@ replacements:
       version: v1
       kind: ConfigMap
       name: kustomize-environment
-      fieldPath: data.S3_CSI_ROLE_ARN
+      fieldPath: data.CLUSTER_NAME
     targets:
       - select:
           group: argoproj.io
           version: v1alpha1
           kind: Application
-          name: s3-csi
+          name: ebs-csi
         fieldPaths:
-          - spec.source.helm.valuesObject.node.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
+          - spec.sources.[chart=aws-ebs-csi-driver].helm.valuesObject.controller.k8sTagClusterId

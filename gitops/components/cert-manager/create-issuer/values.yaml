@@ -7,8 +7,8 @@ awsRegion: "us-west-2"
 # dnsZones); at most ONE entry across all solver types may omit selectors —
 # that entry is the default/catch-all.
 solvers:
-  # http01 solved via Ingress objects (served by whichever controller claims
-  # the class — nginx and the traefik nginx-compat provider both serve `nginx`)
+  # http01 solved via Ingress objects (class `nginx` is served by the traefik
+  # component's nginx-compat provider)
   ingress:
     - class: nginx # no matchLabels/dnsZones -> default solver
     # - class: traefik

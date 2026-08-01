@@ -16,12 +16,12 @@ spec:
       releaseName: external-dns
       valuesObject:
         txtOwnerId: CLUSTER_NAME
+        # Pod-identity-ready by default: no IRSA annotations. Clusters using
+        # IRSA for external-dns use the aws/external-dns-irsa component instead, which
+        # includes this one, adds the annotations, and requires EXTERNAL_DNS_ROLE_ARN.
         serviceAccount:
           create: true
           name: external-dns-controller
-          annotations:
-            eks.amazonaws.com/role-arn: EXTERNAL_DNS_ROLE_ARN
-            eks.amazonaws.com/sts-regional-endpoints: "true"
         provider:
           name: aws
         env:
