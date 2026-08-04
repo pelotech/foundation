@@ -8,8 +8,8 @@ components:
   - ../ebs-csi
 
 # Opt-in IRSA for the EBS CSI driver: adds the IAM role annotations and
-# requires EBS_CSI_ROLE_ARN in kustomize-environment. Omit on clusters using
-# EKS Pod Identity — the annotation must be absent there.
+# requires EBS_CSI_ROLE_ARN in kustomize-environment.
+# Safe to keep when migrating to or from EKS Pod Identity.
 # The ebs-csi Application is multi-source, so a strategic-merge patch would
 # replace the whole sources list; a JSON6902 add op targets the chart source
 # by index instead (index 1 = the aws-ebs-csi-driver chart).

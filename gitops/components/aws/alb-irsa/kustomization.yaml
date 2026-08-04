@@ -8,8 +8,8 @@ components:
   - ../alb
 
 # Opt-in IRSA for the AWS Load Balancer Controller: adds the IAM role
-# annotations and requires ALB_ROLE_ARN in kustomize-environment. Omit on
-# clusters using EKS Pod Identity — the annotation must be absent there.
+# annotations and requires ALB_ROLE_ARN in kustomize-environment.
+# Safe to keep when migrating to or from EKS Pod Identity.
 patches:
   - target:
       group: argoproj.io
