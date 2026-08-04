@@ -23,9 +23,9 @@ One reference example — every solver type together:
 ```yaml
 solvers:
   ingress:                # shipped default: serves all unlabeled Certificates.
-    - class: nginx        # covers traefik clusters too - the traefik component's
-                          # nginx-compat provider serves class `nginx`.
-                          # `- class: traefik` only for a native-provider Traefik.
+    - class: nginx        # served by the traefik component's nginx-compat
+                          # provider (`- class: traefik` only for a
+                          # native-provider Traefik).
   gateway:                # shipped default is [] - the envoy-gateway component
     - name: external      # ADDS THIS ENTRY AUTOMATICALLY (with the label below);
       namespace: envoy-gateway-system  # only configure it by hand to override.

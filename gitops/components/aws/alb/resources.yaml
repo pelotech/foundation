@@ -17,12 +17,11 @@ spec:
       valuesObject:
         hostNetwork: true
         metricsBindAddr: ':8085'
+        # Pod-identity-ready by default: no IRSA annotations. Clusters using
+        # IRSA use the aws/alb-irsa component instead (requires ALB_ROLE_ARN).
         serviceAccount:
           create: "true"
           name: "aws-load-balancer-controller"
-          annotations:
-            eks.amazonaws.com/role-arn: ALB_ROLE_ARN
-            eks.amazonaws.com/sts-regional-endpoints: "true"
         clusterName: CLUSTER_NAME
         resources:
           requests:

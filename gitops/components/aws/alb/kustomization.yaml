@@ -15,6 +15,6 @@ replacements:
           group: argoproj.io
           version: v1alpha1
           kind: Application
-          name: ingress-nginx-controller
+          name: alb-controller
         fieldPaths:
-          - spec.source.helm.valuesObject.controller.service.annotations.[service.beta.kubernetes.io/aws-load-balancer-name]
+          - spec.source.helm.valuesObject.clusterName

@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the karpenter base component itself. Use this
+# INSTEAD of the plain karpenter component (including both fails with a
+# duplicate-resource error).
+components:
+  - ../karpenter
+
+# Opt-in IRSA for Karpenter: adds the IAM role annotations and requires
+# KARPENTER_ROLE_ARN in kustomize-environment. Omit on clusters using EKS Pod
+# Identity — the annotation must be absent there.
+# The karpenter Application is multi-source, so a strategic-merge patch would
+# replace the whole sources list; a JSON6902 add op targets the chart source
+# by index instead (index 1 = the karpenter chart).
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: karpenter
+    patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/serviceAccount/annotations
+        value:
+          eks.amazonaws.com/role-arn: KARPENTER_ROLE_ARN
+          eks.amazonaws.com/sts-regional-endpoints: "true"
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.KARPENTER_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: karpenter
+        fieldPaths:
+          - spec.sources.[chart=karpenter].helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]

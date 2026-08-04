@@ -6,7 +6,7 @@
   "tag-separator": "/",
   "release-type": "simple",
   "extra-files": [
-    "gitops/components/ebs-csi/resources.yaml",
+    "gitops/components/aws/ebs-csi/resources.yaml",
     "gitops/components/cert-manager/resources.yaml",
     "gitops/components/kubevirt/resources.yaml",
     "gitops/components/envoy-gateway/resources.yaml"

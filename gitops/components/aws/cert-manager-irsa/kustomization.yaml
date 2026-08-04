@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the cert-manager base component itself. Use this
+# INSTEAD of the plain cert-manager component (including both fails with a
+# duplicate-resource error).
+components:
+  - ../../cert-manager
+
+# Opt-in IRSA for cert-manager: adds the IAM role annotations to the
+# ServiceAccount and requires CERT_MANAGER_ROLE_ARN in kustomize-environment.
+# Omit this component on clusters using EKS Pod Identity — the annotation must
+# be absent there (a leftover role-arn annotation sits earlier in the SDK
+# credential chain and can break auth).
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: cert-manager
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: cert-manager
+      spec:
+        source:
+          helm:
+            valuesObject:
+              serviceAccount:
+                annotations:
+                  eks.amazonaws.com/role-arn: CERT_MANAGER_ROLE_ARN
+                  eks.amazonaws.com/sts-regional-endpoints: "true"
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.CERT_MANAGER_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cert-manager
+        fieldPaths:
+          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]

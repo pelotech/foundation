@@ -52,8 +52,6 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: nidhogg-system
       server: https://kubernetes.default.svc
-    - namespace: ingress-nginx
-      server: https://kubernetes.default.svc
   sourceNamespaces:
     - argocd
   clusterResourceWhitelist:

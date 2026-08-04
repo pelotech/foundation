@@ -12,7 +12,7 @@ A Foundation cluster comes with the following base components installed:
 * [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatic DNS record management
 * [cert-manager](https://cert-manager.io/): Automatic TLS certificate management
 * [EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver): Support persistent storage using AWS EBS volumes
-* [NGINX Ingress controller](https://kubernetes.github.io/ingress-nginx/): NGINX Ingress controller paired with AWS NLB
+* [Traefik](https://doc.traefik.io/traefik/): Ingress controller (nginx-annotation compatible) paired with an AWS NLB
 * [Reloader: automatically reload](https://github.com/stakater/Reloader): Automatically reload deployments when secrets/configmaps change
 
 Additionally the following optional components can be installed:

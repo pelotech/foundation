@@ -1,0 +1,46 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the aws-alb base component itself. Use this
+# INSTEAD of the plain aws/alb component (including both fails with a
+# duplicate-resource error).
+components:
+  - ../alb
+
+# Opt-in IRSA for the AWS Load Balancer Controller: adds the IAM role
+# annotations and requires ALB_ROLE_ARN in kustomize-environment. Omit on
+# clusters using EKS Pod Identity — the annotation must be absent there.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: alb-controller
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: alb-controller
+      spec:
+        source:
+          helm:
+            valuesObject:
+              serviceAccount:
+                annotations:
+                  eks.amazonaws.com/role-arn: ALB_ROLE_ARN
+                  eks.amazonaws.com/sts-regional-endpoints: "true"
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.ALB_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: alb-controller
+        fieldPaths:
+          - spec.source.helm.valuesObject.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
