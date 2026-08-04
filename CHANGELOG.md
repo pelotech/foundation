@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/pelotech/foundation/compare/v4.7.2...v5.0.0) (2026-08-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove ingress-nginx, add IRSA flavors, group AWS components ([#514](https://github.com/pelotech/foundation/issues/514))
+
+### Features
+
+* remove ingress-nginx, add IRSA flavors, group AWS components ([#514](https://github.com/pelotech/foundation/issues/514)) ([65c4b9c](https://github.com/pelotech/foundation/commit/65c4b9cef4a9347fd7ad4c27b5a3d1af0612f97c))
+
 ## [4.7.2](https://github.com/pelotech/foundation/compare/v4.7.1...v4.7.2) (2026-07-31)
 
 
