@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.2](https://github.com/pelotech/foundation/compare/v5.0.1...v5.0.2) (2026-08-05)
+
+
+### Chores
+
+* **deps:** update helm release aws-ebs-csi-driver to v2.63.1 ([#525](https://github.com/pelotech/foundation/issues/525)) ([5d18855](https://github.com/pelotech/foundation/commit/5d188552832f4963225af5ab8a313692f2f0228f))
+
 ## [5.0.1](https://github.com/pelotech/foundation/compare/v5.0.0...v5.0.1) (2026-08-05)
 
 
