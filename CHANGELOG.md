@@ -1,5 +1,27 @@
 # Changelog
 
+## [5.0.1](https://github.com/pelotech/foundation/compare/v5.0.0...v5.0.1) (2026-08-05)
+
+
+### Chores
+
+* **deps:** update dependency argoproj/argo-cd to v3.5.0 ([#518](https://github.com/pelotech/foundation/issues/518)) ([f8345b9](https://github.com/pelotech/foundation/commit/f8345b97d38b6eebdbc2b477d0e0f9d22b65afd0))
+* **deps:** update dependency k8snetworkplumbingwg/multus-cni to v4.3.0 ([#492](https://github.com/pelotech/foundation/issues/492)) ([fc71ca9](https://github.com/pelotech/foundation/commit/fc71ca900a8e4995bb7f72d44e9fb476526cce43))
+* **deps:** update dependency kubevirt/common-instancetypes to v1.7.0 ([#494](https://github.com/pelotech/foundation/issues/494)) ([b91e471](https://github.com/pelotech/foundation/commit/b91e4718d9713446cd8e19323e4f7602ecf84aaf))
+* **deps:** update dependency kubevirt/containerized-data-importer to v1.66.0 ([#524](https://github.com/pelotech/foundation/issues/524)) ([a74dd99](https://github.com/pelotech/foundation/commit/a74dd993dd47b84f13945f09f854b653cdbd86c9))
+* **deps:** update dependency kubevirt/kubevirt to v1.9.0 ([#519](https://github.com/pelotech/foundation/issues/519)) ([cf4a0ee](https://github.com/pelotech/foundation/commit/cf4a0ee1e4388be6b5d1f82d16d653cfadf01de3))
+* **deps:** update helm release aws-ebs-csi-driver to v2.63.1 ([#508](https://github.com/pelotech/foundation/issues/508)) ([cac792b](https://github.com/pelotech/foundation/commit/cac792b6351203bb0a28ca509eb93f4f6a6cdbd8))
+* **deps:** update helm release cert-manager to v1.21.1 ([#516](https://github.com/pelotech/foundation/issues/516)) ([546b86b](https://github.com/pelotech/foundation/commit/546b86b1e76e624ab76fc7973905913a57a74640))
+* **deps:** update helm release crossplane to v2.3.4 ([#517](https://github.com/pelotech/foundation/issues/517)) ([4401ce3](https://github.com/pelotech/foundation/commit/4401ce39cadda4b7261e4acf10dc8a5e3cf85799))
+* **deps:** update helm release goldilocks to v10.5.0 ([#521](https://github.com/pelotech/foundation/issues/521)) ([d5bf486](https://github.com/pelotech/foundation/commit/d5bf486e1b32f279071b685e0686958c874994b9))
+* **deps:** update helm release kyverno to v3.8.2 ([#502](https://github.com/pelotech/foundation/issues/502)) ([c69fe7c](https://github.com/pelotech/foundation/commit/c69fe7c712e9c38676065d40f53d393fe7bfc601))
+* **karpenter:** bump to v1.14.0x ([#523](https://github.com/pelotech/foundation/issues/523)) ([80c2d33](https://github.com/pelotech/foundation/commit/80c2d33a7eeb71d9aca6b2ee6c4418a526949998))
+
+
+### Docs
+
+* cleanup comments ([75e43fd](https://github.com/pelotech/foundation/commit/75e43fddd8d21abac30f08d5342df719c0e6f822))
+
 ## [5.0.0](https://github.com/pelotech/foundation/compare/v4.7.2...v5.0.0) (2026-08-04)
 
 
