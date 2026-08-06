@@ -32,7 +32,7 @@ spec:
               value: "1.32.8"
             # renovate: datasource=github-releases packageName=helmfile/vals
             - name: VALS_VERSION
-              value: "0.42.0"
+              value: "0.45.0"
             # renovate: datasource=github-releases packageName=getsops/sops
             - name: SOPS_VERSION
               value: "3.13.3"
