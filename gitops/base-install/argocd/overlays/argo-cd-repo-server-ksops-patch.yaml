@@ -35,7 +35,7 @@ spec:
               value: "0.42.0"
             # renovate: datasource=github-releases packageName=getsops/sops
             - name: SOPS_VERSION
-              value: "3.10.2"
+              value: "3.13.3"
             # Install plugins into the shared emptyDir, not the init container's HOME
             - name: HELM_PLUGINS
               value: /custom-tools/helm-plugins
