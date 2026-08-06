@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.0.4](https://github.com/pelotech/foundation/compare/v5.0.3...v5.0.4) (2026-08-06)
+
+
+### Bug Fixes
+
+* **kubevirt:** new virt-template-apiserver on host network ([#532](https://github.com/pelotech/foundation/issues/532)) ([39bd717](https://github.com/pelotech/foundation/commit/39bd71741d84de90af49b2797245e0cbe9d682c6))
+
+
+### Chores
+
+* **deps:** update alpine/helm docker tag to v4.2.3 ([#534](https://github.com/pelotech/foundation/issues/534)) ([a463072](https://github.com/pelotech/foundation/commit/a463072a668ec631517ba54245fc89e5643a61d2))
+* **deps:** update dependency getsops/sops to v3.13.3 ([#535](https://github.com/pelotech/foundation/issues/535)) ([a8231d8](https://github.com/pelotech/foundation/commit/a8231d886b4cd7d36539a7cf459430da8ea56509))
+
 ## [5.0.3](https://github.com/pelotech/foundation/compare/v5.0.2...v5.0.3) (2026-08-06)
 
 
