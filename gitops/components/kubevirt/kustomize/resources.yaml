@@ -71,6 +71,10 @@ spec:
         resourceName: virt-api
         patch: '{"spec":{"template":{"spec": {"hostNetwork": true}}}}'
         type: strategic
+      - resourceType: Deployment
+        resourceName: virt-template-apiserver
+        patch: '{"spec":{"template":{"spec": {"hostNetwork": true}}}}'
+        type: strategic
   imagePullPolicy: IfNotPresent
   workloadUpdateStrategy: {}
   workloads:
