@@ -18,18 +18,29 @@ spec:
       # 2. Use an init container to download/copy custom binaries into the emptyDir
       initContainers:
         - name: install-custom-tools
-          image: alpine:latest
+          # Alpine-based Helm image: keeps busybox wget/tar for the binary downloads
+          # below and adds a helm binary so helm-secrets can be installed the way
+          # upstream documents it. Track ArgoCD's bundled Helm major version
+          # (hack/tool-versions.sh in argoproj/argo-cd) — Helm 4 here, Helm 4 there.
+          image: alpine/helm:4.2.1
           imagePullPolicy: IfNotPresent
           command: [sh, -ec]
           env:
+            # renovate: datasource=github-releases packageName=jkroepke/helm-secrets
             - name: HELM_SECRETS_VERSION
-              value: "4.6.5"
+              value: "4.7.7"
+            # renovate: datasource=github-releases packageName=kubernetes/kubernetes
             - name: KUBECTL_VERSION
               value: "1.32.8"
+            # renovate: datasource=github-releases packageName=helmfile/vals
             - name: VALS_VERSION
               value: "0.42.0"
+            # renovate: datasource=github-releases packageName=getsops/sops
             - name: SOPS_VERSION
               value: "3.10.2"
+            # Install plugins into the shared emptyDir, not the init container's HOME
+            - name: HELM_PLUGINS
+              value: /custom-tools/helm-plugins
           args:
             - |
               mkdir -p /custom-tools/helm-plugins
@@ -41,10 +52,16 @@ spec:
               wget -qO /custom-tools/kubectl https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/${GO_ARCH}/kubectl
               wget -qO /custom-tools/sops https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.${GO_ARCH}
               wget -qO- https://github.com/helmfile/vals/releases/download/v${VALS_VERSION}/vals_${VALS_VERSION}_linux_${GO_ARCH}.tar.gz | tar zxv -C /custom-tools vals
-              wget -qO- https://github.com/jkroepke/helm-secrets/releases/download/v${HELM_SECRETS_VERSION}/helm-secrets.tar.gz | tar -C /custom-tools/helm-plugins -xzf-
 
+              # Helm 4 (ArgoCD >= 3.5) dropped all-in-one plugins per HIP-0026, so the
+              # legacy helm-secrets.tar.gz no longer registers a `secrets` subcommand.
+              # helm-secrets >= 4.7.0 ships three typed plugins instead; install each.
+              for plugin in secrets secrets-getter secrets-post-renderer; do
+                helm plugin install oci://ghcr.io/jkroepke/helm-secrets/${plugin}:${HELM_SECRETS_VERSION}
+              done
+
+              cp /custom-tools/helm-plugins/secrets/scripts/wrapper/helm.sh /custom-tools/helm
               chmod +x /custom-tools/*
-              cp /custom-tools/helm-plugins/helm-secrets/scripts/wrapper/helm.sh /custom-tools/helm
           volumeMounts:
             - mountPath: /custom-tools
               name: custom-tools
@@ -61,7 +78,7 @@ spec:
               name: custom-tools
          # Import the private gpg key from the secret into argocd
         - name: import-gpg-key
-          image: quay.io/argoproj/argocd:v3.4.5
+          image: quay.io/argoproj/argocd:v3.5.0
           command: [ "/bin/sh", "-c" ]
           args:
             - "gpg --import /sops-gpg/sops.asc || true"

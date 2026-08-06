@@ -11,6 +11,11 @@
   "pre-commit": {
     enabled: true,
   },
+  // Track `image:` tags in the ArgoCD repo-server overlays (argocd, alpine/helm,
+  // ksops). Scoped narrowly so chart-value `image:` keys elsewhere stay untouched.
+  kubernetes: {
+    managerFilePatterns: ['/^gitops/base-install/argocd/overlays/.*\\.yaml$/'],
+  },
   customManagers: [
     {
       customType: 'regex',
@@ -19,6 +24,23 @@
       matchStrings: [
         '#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+?)\\s+packageName=(?<packageName>.+?)\\s+.*(?:https?://.+?/)(?<currentValue>v[\\d.]+)',
       ],
-    }
-  ]
+    },
+    {
+      customType: 'regex',
+      description: 'Update bare tool versions held in container env vars',
+      managerFilePatterns: ['/^(.*).yaml$/'],
+      matchStrings: [
+        '#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+?)\\s+packageName=(?<packageName>\\S+)\\s+- name:\\s*\\S+\\s+value:\\s*"(?<currentValue>[^"]+)"',
+      ],
+      // Values are stored without the leading `v` that the upstream tags carry.
+      extractVersionTemplate: '^v?(?<version>.+)$',
+    },
+  ],
+  packageRules: [
+    {
+      description: 'ArgoCD version lives in two install URLs and one init-container image — bump them together',
+      matchPackageNames: ['argoproj/argo-cd', 'quay.io/argoproj/argocd'],
+      groupName: 'argo-cd',
+    },
+  ],
 }
