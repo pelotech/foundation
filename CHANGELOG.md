@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.0.3](https://github.com/pelotech/foundation/compare/v5.0.2...v5.0.3) (2026-08-06)
+
+
+### Bug Fixes
+
+* support Helm 4 in argocd 3.5 repo-server ([#528](https://github.com/pelotech/foundation/issues/528)) ([fd4039e](https://github.com/pelotech/foundation/commit/fd4039e68c633d3742bbabd9823aca11698858e9))
+
+
+### Chores
+
+* **deps:** pin dependencies ([#530](https://github.com/pelotech/foundation/issues/530)) ([187fbe1](https://github.com/pelotech/foundation/commit/187fbe1ac8b586906b6c29353724813f98e4527c))
+* **deps:** pin quay.io/argoproj/argocd docker tag to c298ced ([#531](https://github.com/pelotech/foundation/issues/531)) ([090a4b2](https://github.com/pelotech/foundation/commit/090a4b2dad2ca32e051a3720aaa9bffca0df1f4d))
+
 ## [5.0.2](https://github.com/pelotech/foundation/compare/v5.0.1...v5.0.2) (2026-08-05)
 
 
