@@ -43,6 +43,10 @@ spec:
               value: /custom-tools/helm-plugins
           args:
             - |
+              # Start from a clean plugin dir. Init containers re-run when a pod
+              # restarts but the emptyDir survives, and `helm plugin install` has no
+              # --force, so a leftover dir aborts the run with "plugin already exists".
+              rm -rf /custom-tools/helm-plugins
               mkdir -p /custom-tools/helm-plugins
 
               GO_ARCH=$(uname -m | sed -e 's/x86_64/amd64/')
