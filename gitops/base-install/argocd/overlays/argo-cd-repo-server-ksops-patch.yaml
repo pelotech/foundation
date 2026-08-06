@@ -56,8 +56,15 @@ spec:
               # Helm 4 (ArgoCD >= 3.5) dropped all-in-one plugins per HIP-0026, so the
               # legacy helm-secrets.tar.gz no longer registers a `secrets` subcommand.
               # helm-secrets >= 4.7.0 ships three typed plugins instead; install each.
+              #
+              # --verify=false: Helm 4 defaults --verify=true and reads a GPG keyring
+              # from $HOME/.gnupg/pubring.gpg, which this image does not carry. Skipping
+              # keeps the same trust posture as the tarball extraction this replaced
+              # (HTTPS from a pinned version, no signature check). To verify instead,
+              # import the jkroepke signing key into a legacy keyring and pass --keyring.
               for plugin in secrets secrets-getter secrets-post-renderer; do
-                helm plugin install oci://ghcr.io/jkroepke/helm-secrets/${plugin}:${HELM_SECRETS_VERSION}
+                helm plugin install --verify=false \
+                  oci://ghcr.io/jkroepke/helm-secrets/${plugin}:${HELM_SECRETS_VERSION}
               done
 
               cp /custom-tools/helm-plugins/secrets/scripts/wrapper/helm.sh /custom-tools/helm
