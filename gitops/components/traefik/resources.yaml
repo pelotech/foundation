@@ -11,7 +11,7 @@ spec:
   source:
     chart: traefik
     repoURL: ghcr.io/traefik/helm
-    targetRevision: 41.0.2
+    targetRevision: 41.2.0
     helm:
       releaseName: traefik
       valuesObject:
