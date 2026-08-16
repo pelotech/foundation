@@ -2,9 +2,9 @@
 
 ## Overview
 
-In principle we seperate out items into 3 types of components
+In principle we separate out items into 3 types of components
 1. Cloud/On-Prem provider - This is all Terraform on equiv to setup the base infrastructure primitives to provide and k8s cluster - The terraform folder in the repo has an example
-2. Kustomize (Cluster bootstrap) - Kustomize install of Argocd for declaritive setup
+2. Kustomize (Cluster bootstrap) - Kustomize install of Argocd for declarative setup
 3. Environment add-ons - All the extras the Organization needs
 
 A Foundation cluster comes with the following base components installed:

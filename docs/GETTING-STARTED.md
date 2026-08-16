@@ -17,7 +17,7 @@ metadata:
 data:
   CLUSTER_NAME: "# name of your EKS cluster"
   AWS_REGION: "# AWS region of your EKS cluster"
-  ARGOCD_SERVER_HOST: "# hostname for the cluster's ArgoCD web interace, e.g. argocd.example-cluster.com"
+  ARGOCD_SERVER_HOST: "# hostname for the cluster's ArgoCD web interface, e.g. argocd.example-cluster.com"
   ACME_ISSUER_EMAIL: "# email used by cert-manager for ACME/letsencrypt requests"
   VPC_CIDR_BLOCK: "# the CIDR block of your cluster's VPC i.e. '172.16.0.0/16'"
 
