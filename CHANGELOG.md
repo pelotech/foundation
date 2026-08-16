@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.0.5](https://github.com/pelotech/foundation/compare/v5.0.4...v5.0.5) (2026-08-16)
+
+
+### Chores
+
+* **deps:** update helm release reloader to v2.2.16 ([#539](https://github.com/pelotech/foundation/issues/539)) ([2cdf614](https://github.com/pelotech/foundation/commit/2cdf614932f509c3596cada84b00462a32d80a8e))
+
+
+### Docs
+
+* typo fixes ([#545](https://github.com/pelotech/foundation/issues/545)) ([27407f5](https://github.com/pelotech/foundation/commit/27407f5660dde8395f81e1d3391d28b6bdfc95dd))
+
 ## [5.0.4](https://github.com/pelotech/foundation/compare/v5.0.3...v5.0.4) (2026-08-06)
 
 
