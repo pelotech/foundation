@@ -74,7 +74,7 @@ spec:
             - name: custom-tools
               mountPath: /custom-tools
         - name: install-ksops
-          image: viaductoss/ksops:v4.1.1@sha256:1707bd0f84124680cb17927f13b3b1c34f6aa9f07e0a6a6705980aaab75995f4
+          image: viaductoss/ksops:v4.5.1@sha256:4def9fdd4e2f850265740ebe9592c5455d19b76891e88e602df8b52d74b95334
           command: ["/bin/sh", "-c"]
           args:
             - |
