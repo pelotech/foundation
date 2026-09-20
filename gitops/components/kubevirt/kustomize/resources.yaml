@@ -7,6 +7,10 @@ spec:
   config:
     featureGates:
       - HonorWaitForFirstConsumer
+    # Scratch otherwise inherits the import PVC's class. With gp3-immediate it
+    # could be provisioned in a different AZ than the data volume, leaving the
+    # importer pod unschedulable. gp3 (WaitForFirstConsumer) follows the pod.
+    scratchSpaceStorageClass: gp3
   customizeComponents:
     patches:
       - resourceType: Deployment
@@ -23,6 +27,22 @@ spec:
   workload:
     nodeSelector:
       kubernetes.io/os: linux
+---
+# For CDI imports whose volume only exists to be snapshotted (disk image caches).
+# With a WaitForFirstConsumer class the scheduler writes a selected-node annotation
+# on the PVC, and CDI populators copy it into the importer pod's spec.nodeName. A
+# retried importer then bypasses the scheduler and stays pinned to a node that may
+# be gone or full. Immediate binding never sets that annotation.
+# Not for VM disks: each disk of a multi-disk VM could land in a different AZ.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gp3-immediate
+provisioner: ebs.csi.aws.com
+parameters:
+  type: gp3
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
