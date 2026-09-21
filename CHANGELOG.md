@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.1](https://github.com/pelotech/foundation/compare/v5.1.0...v5.1.1) (2026-09-21)
+
+
+### Bug Fixes
+
+* **argocd:** use ksops install in the distroless ksops init container ([#554](https://github.com/pelotech/foundation/issues/554)) ([e5c9519](https://github.com/pelotech/foundation/commit/e5c9519b06ed0862adb1fd381d46a9f413fedc7f))
+
 ## [5.1.0](https://github.com/pelotech/foundation/compare/v5.0.4...v5.1.0) (2026-09-21)
 
 
