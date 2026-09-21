@@ -1,5 +1,38 @@
 # Changelog
 
+## [5.1.0](https://github.com/pelotech/foundation/compare/v5.0.4...v5.1.0) (2026-09-21)
+
+
+### Features
+
+* **kubevirt:** add gp3-immediate storage class for CDI image imports ([#551](https://github.com/pelotech/foundation/issues/551)) ([152ab23](https://github.com/pelotech/foundation/commit/152ab23f0be5e1a07fd13e5b669e1ce67252db33))
+
+
+### Chores
+
+* **deps:** update alpine/helm docker tag to v4.3.0 ([#541](https://github.com/pelotech/foundation/issues/541)) ([9ad14c1](https://github.com/pelotech/foundation/commit/9ad14c1ea9004c79da4fa0a3b3f023ef3abff740))
+* **deps:** update argo-cd to v3.5.3 ([#540](https://github.com/pelotech/foundation/issues/540)) ([e7196f6](https://github.com/pelotech/foundation/commit/e7196f6f01a1681fa49391c212d7b459764f2d1e))
+* **deps:** update dependency helmfile/vals to v0.47.0 ([#536](https://github.com/pelotech/foundation/issues/536)) ([a2bd32b](https://github.com/pelotech/foundation/commit/a2bd32b53b7b6bd1c608857c846375012657b4c5))
+* **deps:** update dependency k8snetworkplumbingwg/multus-cni to v4.3.1 ([#546](https://github.com/pelotech/foundation/issues/546)) ([05178b0](https://github.com/pelotech/foundation/commit/05178b028b05096ad58708018d15f78b2919e073))
+* **deps:** update dependency kubernetes-csi/external-snapshotter to v8.6.0 ([#493](https://github.com/pelotech/foundation/issues/493)) ([994cd81](https://github.com/pelotech/foundation/commit/994cd817a2ad212e8deccd1531e7b9c75402ed0e))
+* **deps:** update dependency kubernetes/kubernetes to v1.37.0 ([#537](https://github.com/pelotech/foundation/issues/537)) ([5409ee1](https://github.com/pelotech/foundation/commit/5409ee1d3ed5280f75f64f2aac5fdeca4a5a887a))
+* **deps:** update dependency kubevirt/containerized-data-importer to v1.66.1 ([#547](https://github.com/pelotech/foundation/issues/547)) ([e441b91](https://github.com/pelotech/foundation/commit/e441b913e84c919aa180b617461db64edb856eac))
+* **deps:** update docker.io/envoyproxy/gateway-helm docker tag to v1.9.1 ([#544](https://github.com/pelotech/foundation/issues/544)) ([ac6ac8f](https://github.com/pelotech/foundation/commit/ac6ac8f6c15801d0fc8b17de2c5314afcba12070))
+* **deps:** update ghcr.io/k8snetworkplumbingwg/multus-cni docker tag to v4.3.1 ([#548](https://github.com/pelotech/foundation/issues/548)) ([28a11b5](https://github.com/pelotech/foundation/commit/28a11b510371132998b2d28d94ee7415af05d423))
+* **deps:** update ghcr.io/traefik/helm/traefik docker tag to v41.6.0 ([#520](https://github.com/pelotech/foundation/issues/520)) ([2db7b40](https://github.com/pelotech/foundation/commit/2db7b4039fb6d0b5a05efe78ac835b86fcb3cf06))
+* **deps:** update helm release aws-ebs-csi-driver to v2.66.0 ([#549](https://github.com/pelotech/foundation/issues/549)) ([a3a155d](https://github.com/pelotech/foundation/commit/a3a155dab9d2078e52d68967045900a440ee7eda))
+* **deps:** update helm release aws-load-balancer-controller to v3.5.0 ([#511](https://github.com/pelotech/foundation/issues/511)) ([caad528](https://github.com/pelotech/foundation/commit/caad5286034cc12884b9d7156e1b313efa4d2113))
+* **deps:** update helm release cert-manager to v1.21.2 ([#552](https://github.com/pelotech/foundation/issues/552)) ([de54e86](https://github.com/pelotech/foundation/commit/de54e862437bc835c77f9c502d4902bcd32aadbb))
+* **deps:** update helm release kyverno to v3.9.1 ([#550](https://github.com/pelotech/foundation/issues/550)) ([17f3307](https://github.com/pelotech/foundation/commit/17f330735cb496dc9fec53d28116a29dbe3b01ce))
+* **deps:** update helm release reloader to v2.2.16 ([#539](https://github.com/pelotech/foundation/issues/539)) ([2cdf614](https://github.com/pelotech/foundation/commit/2cdf614932f509c3596cada84b00462a32d80a8e))
+* **deps:** update helm release reloader to v2.2.17 ([#553](https://github.com/pelotech/foundation/issues/553)) ([ef6bc50](https://github.com/pelotech/foundation/commit/ef6bc508d81475b3fb5c0d31cfa72ce372945008))
+* **deps:** update viaductoss/ksops docker tag to v4.5.1 ([#538](https://github.com/pelotech/foundation/issues/538)) ([91f53e4](https://github.com/pelotech/foundation/commit/91f53e41c485287bae50b96e19147cef978a638f))
+
+
+### Docs
+
+* typo fixes ([#545](https://github.com/pelotech/foundation/issues/545)) ([27407f5](https://github.com/pelotech/foundation/commit/27407f5660dde8395f81e1d3391d28b6bdfc95dd))
+
 ## [5.0.4](https://github.com/pelotech/foundation/compare/v5.0.3...v5.0.4) (2026-08-06)
 
 
