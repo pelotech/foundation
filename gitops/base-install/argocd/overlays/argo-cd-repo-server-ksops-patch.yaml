@@ -75,11 +75,10 @@ spec:
               mountPath: /custom-tools
         - name: install-ksops
           image: viaductoss/ksops:v4.5.1@sha256:4def9fdd4e2f850265740ebe9592c5455d19b76891e88e602df8b52d74b95334
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              mv ksops /custom-tools/
-              mv $GOPATH/bin/kustomize /custom-tools/
+          # The image is distroless since ksops v4.4.0 (no /bin/sh); `ksops install`
+          # copies the binaries itself. --with-kustomize is required: the repo-server
+          # subPath-mounts /custom-tools/kustomize, and without the flag only ksops lands.
+          command: ["/usr/local/bin/ksops", "install", "--with-kustomize", "/custom-tools"]
           volumeMounts:
             - name: custom-tools
               mountPath: /custom-tools
