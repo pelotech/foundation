@@ -20,7 +20,7 @@ spec:
           # below and adds a helm binary so helm-secrets can be installed the way
           # upstream documents it. Track ArgoCD's bundled Helm major version
           # (hack/tool-versions.sh in argoproj/argo-cd) — Helm 4 here, Helm 4 there.
-          image: alpine/helm:4.2.3@sha256:b97ba4f9b27fe7af16ee3d37e6815783c9d4a51289b6240a9024ec471611ae9b
+          image: alpine/helm:4.3.0@sha256:a6cf54599ccb99d90cf0712b30f03fdb3cab062e6b94e0418cc4db7e8a1464b2
           imagePullPolicy: IfNotPresent
           command: [sh, -ec]
           env:
