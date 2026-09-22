@@ -42,5 +42,13 @@
       matchPackageNames: ['argoproj/argo-cd', 'quay.io/argoproj/argocd'],
       groupName: 'argo-cd',
     },
+    {
+      description: 'karpenter chart and crds',
+      matchPackageNames: [
+        'public.ecr.aws/karpenter/karpenter',
+        'public.ecr.aws/karpenter/karpenter-crd',
+      ],
+      groupName: 'karpenter',
+    },
   ],
 }
