@@ -30,6 +30,9 @@ spec:
         releaseName: karpenter
         skipCrds: true
         valuesObject:
+          # Resolve AWS endpoints through the VPC resolver, not coredns, so Karpenter can still
+          # launch nodes when cluster DNS is down (https://karpenter.sh/docs/troubleshooting/).
+          dnsPolicy: Default
           controller:
             image:
               digest: >-
