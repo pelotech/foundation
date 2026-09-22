@@ -1,5 +1,19 @@
 # Changelog
 
+## [5.1.2](https://github.com/pelotech/foundation/compare/v5.1.1...v5.1.2) (2026-09-22)
+
+
+### Bug Fixes
+
+* **karpenter:** resolve AWS endpoints through the VPC resolver ([#558](https://github.com/pelotech/foundation/issues/558)) ([1364676](https://github.com/pelotech/foundation/commit/1364676e4bdcd424ec31de8f7cadd3c5bcc4bdb1))
+
+
+### Chores
+
+* **deps:** update helm release aws-mountpoint-s3-csi-driver to v2.8.0 ([#560](https://github.com/pelotech/foundation/issues/560)) ([8c03038](https://github.com/pelotech/foundation/commit/8c0303862f03b929e365b1490be6ef1058215b33))
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.27.0 ([#566](https://github.com/pelotech/foundation/issues/566)) ([78c7565](https://github.com/pelotech/foundation/commit/78c75659c3196bb22f8b3e51b68b33ae619c6215))
+* **renovate:** group karpenter and crds together ([#565](https://github.com/pelotech/foundation/issues/565)) ([8c92247](https://github.com/pelotech/foundation/commit/8c922478a8c4c97a9c0cf5ddbda338a50999ec9a))
+
 ## [5.1.1](https://github.com/pelotech/foundation/compare/v5.1.0...v5.1.1) (2026-09-21)
 
 
