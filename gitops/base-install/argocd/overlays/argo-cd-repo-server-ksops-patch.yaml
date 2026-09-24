@@ -26,7 +26,7 @@ spec:
           env:
             # renovate: datasource=github-releases packageName=jkroepke/helm-secrets
             - name: HELM_SECRETS_VERSION
-              value: "4.7.7"
+              value: "4.7.8"
             # renovate: datasource=github-releases packageName=kubernetes/kubernetes
             - name: KUBECTL_VERSION
               value: "1.37.0"
