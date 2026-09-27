@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.4](https://github.com/pelotech/foundation/compare/v5.1.3...v5.1.4) (2026-09-27)
+
+
+### Bug Fixes
+
+* **image-updater:** give the controller room for its start-up warm-up ([#574](https://github.com/pelotech/foundation/issues/574)) ([8b6cdf9](https://github.com/pelotech/foundation/commit/8b6cdf9023eb5352403da23776c3353844077f79))
+* **k8s-monitoring:** apply the 120s scrape interval ([#573](https://github.com/pelotech/foundation/issues/573)) ([d3c43c4](https://github.com/pelotech/foundation/commit/d3c43c48056d153074e96a9ff73f163a63c2059c))
+
 ## [5.1.3](https://github.com/pelotech/foundation/compare/v5.1.2...v5.1.3) (2026-09-27)
 
 
