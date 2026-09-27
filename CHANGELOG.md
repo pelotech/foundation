@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.1.3](https://github.com/pelotech/foundation/compare/v5.1.2...v5.1.3) (2026-09-27)
+
+
+### Chores
+
+* **deps:** update dependency jkroepke/helm-secrets to v4.7.8 ([#570](https://github.com/pelotech/foundation/issues/570)) ([0f184b5](https://github.com/pelotech/foundation/commit/0f184b5326debc7b9dd3e8c8c65c8bd33258d634))
+* **deps:** update dependency kubernetes/kubernetes to v1.37.1 ([#571](https://github.com/pelotech/foundation/issues/571)) ([8079c26](https://github.com/pelotech/foundation/commit/8079c269e2953133545c64dd3536f11e177c2e5a))
+* **deps:** update ghcr.io/argoproj/argo-helm/argocd-image-updater docker tag to v1.3.1 ([#559](https://github.com/pelotech/foundation/issues/559)) ([a3088e5](https://github.com/pelotech/foundation/commit/a3088e517611a9082c76ddcd626d53d8dd54e7f3))
+* **deps:** update helm release crossplane to v2.4.2 ([#561](https://github.com/pelotech/foundation/issues/561)) ([b74a41a](https://github.com/pelotech/foundation/commit/b74a41a13861e60dc2d03f6b3163e758ca8b98ac))
+* **deps:** update helm release external-dns to v1.22.0 ([#562](https://github.com/pelotech/foundation/issues/562)) ([8846276](https://github.com/pelotech/foundation/commit/88462768e4f5b3798ad142b21197cc6f445194ae))
+* **deps:** update helm release goldilocks to v10.6.0 ([#563](https://github.com/pelotech/foundation/issues/563)) ([3d45efa](https://github.com/pelotech/foundation/commit/3d45efa22452dce15e079a5aed81d96029ab58d4))
+* **deps:** update helm release k8s-monitoring to v3.8.13 ([#564](https://github.com/pelotech/foundation/issues/564)) ([c2101b6](https://github.com/pelotech/foundation/commit/c2101b656a5faa9844593fb887279b35ab829800))
+
 ## [5.1.2](https://github.com/pelotech/foundation/compare/v5.1.1...v5.1.2) (2026-09-22)
 
 
