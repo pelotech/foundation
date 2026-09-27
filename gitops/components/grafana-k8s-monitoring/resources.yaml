@@ -25,6 +25,9 @@ spec:
       valuesObject:
         cluster:
           name: CLUSTER_NAME
+        # The chart's own global wins over a feature's global block, so the interval is set once here for every feature
+        global:
+          scrapeInterval: 120s
         destinations:
           - name: metricsService
             type: prometheus
@@ -79,8 +82,6 @@ spec:
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-metrics#feature-cluster-metrics
         clusterMetrics:
           enabled: true
-          global:
-            scrapeInterval: 120s
           kube-state-metrics:
             metricsTuning:
               excludeMetrics:
@@ -193,8 +194,6 @@ spec:
         # Only useful if you have ServiceMonitors/PodMonitors etc in your cluster for the operator to scrape
         prometheusOperatorObjects:
           enabled: true
-          global:
-            scrapeInterval: 120s
           crds:
             deploy: true
           podMonitors:
