@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.5](https://github.com/pelotech/foundation/compare/v5.1.4...v5.1.5) (2026-09-27)
+
+
+### Bug Fixes
+
+* **image-updater:** source the chart from the argo-helm HTTPS repo ([#576](https://github.com/pelotech/foundation/issues/576)) ([368799b](https://github.com/pelotech/foundation/commit/368799b404b78c1131e188646c652ebadba237d3))
+
 ## [5.1.4](https://github.com/pelotech/foundation/compare/v5.1.3...v5.1.4) (2026-09-27)
 
 
