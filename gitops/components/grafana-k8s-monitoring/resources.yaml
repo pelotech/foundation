@@ -70,6 +70,9 @@ spec:
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-pod-logs
         podLogs:
           enabled: true
+          # Read positions live in the pod, so without this every restart re-sends up to 7 days of logs and hits Loki's stream limit
+          volumeGatherSettings:
+            onlyGatherNewLogLines: true
         # Required for podLogs
         alloy-logs:
           enabled: true
