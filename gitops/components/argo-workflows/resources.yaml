@@ -1,0 +1,49 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-workflows
+    targetRevision: 2.0.8
+    helm:
+      releaseName: argo-workflows
+      valuesObject:
+        controller:
+          # Consumers create the service accounts and RBAC for their own workflow namespaces
+          workflowNamespaces: []
+          workflowDefaults:
+            spec:
+              ttlStrategy:
+                secondsAfterSuccess: 86400
+                secondsAfterFailure: 259200
+              podGC:
+                strategy: OnPodSuccess
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              memory: 256Mi
+        server:
+          authModes:
+            - server
+          resources:
+            requests:
+              cpu: 15m
+              memory: 128Mi
+            limits:
+              memory: 128Mi
+  destination:
+    namespace: argo-workflows
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
