@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Azure Disk storage settings for KubeVirt CDI: the `premium-lrs` (default) and
+# `premium-lrs-immediate` StorageClasses, and CDI scratch space on premium-lrs.
+# Requires the azure/disk-csi component (it installs the disk.csi.azure.com
+# driver these classes provision with).
+resources:
+  - ./storage-classes.yaml
+
+patches:
+  # Scratch otherwise inherits the import PVC's class. With premium-lrs-immediate
+  # it could be provisioned in a different zone than the data volume, leaving
+  # the importer pod unschedulable. premium-lrs (WaitForFirstConsumer) follows
+  # the pod.
+  - target:
+      group: cdi.kubevirt.io
+      version: v1beta1
+      kind: CDI
+      name: cdi
+    patch: |-
+      apiVersion: cdi.kubevirt.io/v1beta1
+      kind: CDI
+      metadata:
+        name: cdi
+      spec:
+        config:
+          scratchSpaceStorageClass: premium-lrs

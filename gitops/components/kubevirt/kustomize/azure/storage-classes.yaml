@@ -1,0 +1,36 @@
+---
+# Default class, the Azure counterpart of gp3 (which aws/ebs-csi creates on AWS).
+# The AKS-managed disk driver is disabled, so AKS does not provide a default
+# class. It lives here, so Azure clusters without KubeVirt have no default class.
+# Restores from snapshots request more than the snapshot size, so expansion
+# must be allowed. WaitForFirstConsumer provisions the zonal (LRS) disk in the
+# zone the pod is scheduled to.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-lrs
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: Premium_LRS
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+# For CDI imports whose volume only exists to be snapshotted (disk image caches).
+# With a WaitForFirstConsumer class the scheduler writes a selected-node annotation
+# on the PVC, and CDI populators copy it into the importer pod's spec.nodeName. A
+# retried importer then bypasses the scheduler and stays pinned to a node that may
+# be gone or full. Immediate binding never sets that annotation.
+# Not for VM disks: each disk of a multi-disk VM could land in a different zone.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-lrs-immediate
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: Premium_LRS
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

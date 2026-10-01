@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# AWS settings for KubeVirt: EBS storage for CDI and Karpenter node placement.
+# Requires the aws/ebs-csi component (it owns the WaitForFirstConsumer `gp3`
+# class) and the aws/karpenter component (it provides the node labels).
+resources:
+  - ./storage-class.yaml
+
+patches:
+  # Scratch otherwise inherits the import PVC's class. With gp3-immediate it
+  # could be provisioned in a different AZ than the data volume, leaving the
+  # importer pod unschedulable. gp3 (WaitForFirstConsumer) follows the pod.
+  - target:
+      group: cdi.kubevirt.io
+      version: v1beta1
+      kind: CDI
+      name: cdi
+    patch: |-
+      apiVersion: cdi.kubevirt.io/v1beta1
+      kind: CDI
+      metadata:
+        name: cdi
+      spec:
+        config:
+          scratchSpaceStorageClass: gp3
+  # VMs run on bare-metal instances; the KubeVirt control plane runs on the
+  # Karpenter spot pool.
+  - target:
+      group: kubevirt.io
+      version: v1
+      kind: KubeVirt
+      name: kubevirt
+    patch: |-
+      apiVersion: kubevirt.io/v1
+      kind: KubeVirt
+      metadata:
+        name: kubevirt
+        namespace: kubevirt
+      spec:
+        workloads:
+          nodePlacement:
+            nodeSelector:
+              karpenter.k8s.aws/instance-size: metal
+        infra:
+          nodePlacement:
+            nodeSelector:
+              karpenter.sh/nodepool: spot

@@ -7,11 +7,11 @@ In principle we separate out items into 3 types of components
 2. Kustomize (Cluster bootstrap) - Kustomize install of Argocd for declarative setup
 3. Environment add-ons - All the extras the Organization needs
 
+### Base Install
 A Foundation cluster comes with the following base components installed:
 * [ArgoCD](https://argo-cd.readthedocs.io/en/stable/): GitOps agent (installed with [declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/))
 * [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatic DNS record management
 * [cert-manager](https://cert-manager.io/): Automatic TLS certificate management
-* [EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver): Support persistent storage using AWS EBS volumes
 * [Traefik](https://doc.traefik.io/traefik/): Ingress controller (nginx-annotation compatible) paired with an AWS NLB
 * [Reloader: automatically reload](https://github.com/stakater/Reloader): Automatically reload deployments when secrets/configmaps change
 
@@ -22,3 +22,11 @@ Additionally the following optional components can be installed:
 * [Cluster Autoscaler:](https://github.com/kubernetes/autoscaler): Cluster node scaling
 * [Goldilocks](https://goldilocks.docs.fairwinds.com/): Initial recommendations for setting resource requests and limits
 * [Tailscale](https://tailscale.com): VPN access within the cluster
+
+### AWS clusters
+On AWS clusters, the following components are also installed:
+* [EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver): Support persistent storage using AWS EBS volumes
+
+### Azure clusters
+On Azure clusters, the following components are also installed:
+* [Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver): Support persistent storage using Azure Disks. First, disable the managed disk driver and snapshot controller on AKS clusters.

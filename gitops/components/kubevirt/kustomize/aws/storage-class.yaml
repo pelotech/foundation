@@ -1,0 +1,16 @@
+---
+# For CDI imports whose volume only exists to be snapshotted (disk image caches).
+# With a WaitForFirstConsumer class the scheduler writes a selected-node annotation
+# on the PVC, and CDI populators copy it into the importer pod's spec.nodeName. A
+# retried importer then bypasses the scheduler and stays pinned to a node that may
+# be gone or full. Immediate binding never sets that annotation.
+# Not for VM disks: each disk of a multi-disk VM could land in a different AZ.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gp3-immediate
+provisioner: ebs.csi.aws.com
+parameters:
+  type: gp3
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
