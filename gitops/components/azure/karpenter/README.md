@@ -3,9 +3,8 @@
 Deploys the AKS Karpenter provider chart from MCR with the pelotech controller image
 (`ghcr.io/pelotech/karpenter-azure`). Use it with `terraform-azure-foundation` and `karpenter.mode = "self-hosted"`.
 
-Provisioning mode is the controller default (`aksscriptless`). The component installs the chart and one `default`
-`AKSNodeClass` (AzureLinux, 100 GB OS disk, 110 pods). `NodePool`s and any extra node classes stay in the cluster's
-own overlay.
+Provisioning mode is the controller default (`aksscriptless`). The component installs the chart only. The
+`AKSNodeClass` and `NodePool`s live in the cluster's own overlay, as the `EC2NodeClass` does on AWS.
 
 ## Required `kustomize-environment` keys
 

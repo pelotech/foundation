@@ -70,18 +70,3 @@ spec:
           settings:
             clusterName: CLUSTER_NAME
             clusterEndpoint: CLUSTER_ENDPOINT
----
-# Default node class. The subnet comes from the controller's VNET_SUBNET_ID. Override fields from the cluster
-# overlay with a kustomize patch, or add more classes beside it.
-apiVersion: karpenter.azure.com/v1beta1
-kind: AKSNodeClass
-metadata:
-  name: default
-  annotations:
-    # Applied after the karpenter Application is healthy, so its CRDs exist.
-    argocd.argoproj.io/sync-wave: "1"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-spec:
-  imageFamily: AzureLinux
-  osDiskSizeGB: 100
-  maxPods: 110
