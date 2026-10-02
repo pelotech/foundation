@@ -1,0 +1,12 @@
+---
+apiVersion: karpenter.azure.com/v1beta1
+kind: AKSNodeClass
+metadata:
+  name: default
+  annotations:
+    # The CRD ships with the karpenter-crd chart in the same Application.
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  imageFamily: {{ .Values.nodeClass.imageFamily }}
+  osDiskSizeGB: {{ .Values.nodeClass.osDiskSizeGB }}
+  maxPods: {{ .Values.nodeClass.maxPods }}

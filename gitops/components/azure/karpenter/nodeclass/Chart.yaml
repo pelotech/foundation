@@ -1,0 +1,5 @@
+apiVersion: v2
+name: karpenter-nodeclass
+description: Default AKSNodeClass for the Karpenter component, matching the terraform-azure-foundation node pools
+type: application
+version: 0.1.0

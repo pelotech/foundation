@@ -54,3 +54,10 @@ spec:
               spotToSpotConsolidation: true
               nodeRepair: true
               nodeOverlay: true
+    - repoURL: "https://github.com/pelotech/foundation"
+      path: gitops/components/aws/karpenter/nodeclass
+      targetRevision: v5.1.5 # x-release-please-version
+      helm:
+        releaseName: karpenter-nodeclass
+        valuesObject:
+          clusterName: CLUSTER_NAME

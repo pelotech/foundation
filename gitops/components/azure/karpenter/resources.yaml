@@ -70,3 +70,8 @@ spec:
           settings:
             clusterName: CLUSTER_NAME
             clusterEndpoint: CLUSTER_ENDPOINT
+    - repoURL: "https://github.com/pelotech/foundation"
+      path: gitops/components/azure/karpenter/nodeclass
+      targetRevision: v5.1.5 # x-release-please-version
+      helm:
+        releaseName: karpenter-nodeclass

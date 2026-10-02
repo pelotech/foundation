@@ -1,0 +1,27 @@
+---
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: default
+  annotations:
+    # The CRD ships with the karpenter-crd chart in the same Application.
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  amiFamily: {{ .Values.nodeClass.amiFamily }}
+  amiSelectorTerms:
+    - alias: {{ .Values.nodeClass.amiAlias }}
+  kubelet:
+    maxPods: {{ .Values.nodeClass.maxPods }}
+  blockDeviceMappings:
+    - deviceName: /dev/xvda
+      ebs:
+        volumeSize: {{ .Values.nodeClass.volumeSize }}
+        volumeType: {{ .Values.nodeClass.volumeType }}
+        encrypted: true
+  role: KarpenterNodeRole-{{ .Values.clusterName }}
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: {{ .Values.clusterName | quote }}
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: {{ .Values.clusterName | quote }}
