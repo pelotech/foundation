@@ -38,9 +38,20 @@ replacements:
       fieldPath: data.CLUSTER_NAME
     targets:
       - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: karpenter
+          group: karpenter.k8s.aws
+          version: v1
+          kind: EC2NodeClass
+          name: default
         fieldPaths:
-          - spec.sources.[path=gitops/components/aws/karpenter/nodeclass].helm.valuesObject.clusterName
+          - spec.subnetSelectorTerms.0.tags.[karpenter.sh/discovery]
+          - spec.securityGroupSelectorTerms.0.tags.[karpenter.sh/discovery]
+      - select:
+          group: karpenter.k8s.aws
+          version: v1
+          kind: EC2NodeClass
+          name: default
+        fieldPaths:
+          - spec.role
+        options:
+          delimiter: "-"
+          index: 1

@@ -1,5 +1,0 @@
-# The subnet comes from the controller's VNET_SUBNET_ID, so the class carries only image and node settings.
-nodeClass:
-  imageFamily: AzureLinux
-  osDiskSizeGB: 100
-  maxPods: 110

@@ -1,5 +1,0 @@
-apiVersion: v2
-name: karpenter-nodeclass
-description: Default EC2NodeClass for the Karpenter component, wired to the terraform-foundation-aws-stack outputs
-type: application
-version: 0.1.0
