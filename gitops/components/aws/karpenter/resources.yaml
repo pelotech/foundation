@@ -36,9 +36,9 @@ spec:
           controller:
             image:
               digest: >-
-                sha256:ac251f53edb10f5953a0d6dda807cc4ce76a63c4c77998a5efa01ddaa510b336
-              repository: ghcr.io/pelotech/karpenter
-              tag: v1.14.0x
+                sha256:4b779589dcc7d837d24775f5ef185e7f93645945e5531925240d70814c1a9348
+              repository: ghcr.io/pelotech/karpenter-aws
+              tag: v1.14.1x
             env:
               - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
                 value: scheduling.node.kubevirt.io/tsc-frequency-*
