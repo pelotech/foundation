@@ -31,27 +31,3 @@ replacements:
           name: karpenter
         fieldPaths:
           - spec.sources.[chart=karpenter].helm.valuesObject.settings.interruptionQueue
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.CLUSTER_NAME
-    targets:
-      - select:
-          group: karpenter.k8s.aws
-          version: v1
-          kind: EC2NodeClass
-          name: default
-        fieldPaths:
-          - spec.subnetSelectorTerms.0.tags.[karpenter.sh/discovery]
-          - spec.securityGroupSelectorTerms.0.tags.[karpenter.sh/discovery]
-      - select:
-          group: karpenter.k8s.aws
-          version: v1
-          kind: EC2NodeClass
-          name: default
-        fieldPaths:
-          - spec.role
-        options:
-          delimiter: "-"
-          index: 1

@@ -54,33 +54,3 @@ spec:
               spotToSpotConsolidation: true
               nodeRepair: true
               nodeOverlay: true
----
-# Default node class. Override fields from the cluster overlay with a kustomize patch, or add more classes beside it.
-apiVersion: karpenter.k8s.aws/v1
-kind: EC2NodeClass
-metadata:
-  name: default
-  annotations:
-    # Applied after the karpenter Application is healthy, so its CRDs exist.
-    argocd.argoproj.io/sync-wave: "1"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-spec:
-  amiFamily: AL2023
-  # Karpenter rolls nodes when a new AMI ships under this alias; pin a version in production overlays.
-  amiSelectorTerms:
-    - alias: al2023@latest
-  kubelet:
-    maxPods: 110
-  blockDeviceMappings:
-    - deviceName: /dev/xvda
-      ebs:
-        volumeSize: 100Gi
-        volumeType: gp3
-        encrypted: true
-  role: KarpenterNodeRole-CLUSTER_NAME
-  subnetSelectorTerms:
-    - tags:
-        karpenter.sh/discovery: CLUSTER_NAME
-  securityGroupSelectorTerms:
-    - tags:
-        karpenter.sh/discovery: CLUSTER_NAME
