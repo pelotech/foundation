@@ -1,0 +1,60 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: utils
+    patch: |-
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: argo-workflows
+          server: https://kubernetes.default.svc
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.ARGO_WORKFLOWS_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: argo-workflows
+        fieldPaths:
+          - spec.source.helm.valuesObject.server.ingress.hosts.0
+          - spec.source.helm.valuesObject.server.ingress.tls.0.hosts.0
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: argo-workflows
+        fieldPaths:
+          - spec.source.helm.valuesObject.server.sso.redirectUrl
+        options:
+          delimiter: '/'
+          index: 2
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.ARGOCD_SERVER_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: argo-workflows
+        fieldPaths:
+          - spec.source.helm.valuesObject.server.sso.issuer
+        options:
+          delimiter: '/'
+          index: 2
