@@ -137,6 +137,7 @@ spec:
     - https://argoproj.github.io/argo-helm
     - https://kyverno.github.io/kyverno
     - public.ecr.aws/karpenter
+    - mcr.microsoft.com/aks/karpenter
   destinations:
     - namespace: reloader
       server: https://kubernetes.default.svc
