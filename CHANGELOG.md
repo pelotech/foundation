@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.7](https://github.com/pelotech/foundation/compare/v5.1.6...v5.1.7) (2026-10-02)
+
+
+### Chores
+
+* **deps:** update helm release argo-workflows to v2.0.9 ([#586](https://github.com/pelotech/foundation/issues/586)) ([e83d609](https://github.com/pelotech/foundation/commit/e83d609f8d4c0180c5e9174d2e074db21179a982))
+* **deps:** update karpenter to v1.14.1 ([#568](https://github.com/pelotech/foundation/issues/568)) ([4798d58](https://github.com/pelotech/foundation/commit/4798d588c75a553a8bf34e3e108844f61e247435))
+
 ## [5.1.6](https://github.com/pelotech/foundation/compare/v5.1.5...v5.1.6) (2026-10-02)
 
 
