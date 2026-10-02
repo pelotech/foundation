@@ -72,3 +72,19 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated: {}
+---
+# The chart's admin and view roles cover Argo resources only; the UI reads step logs from the workflow pods
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-workflows-sso-pod-logs
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - pods
+      - pods/log
+    verbs:
+      - get
+      - list
+      - watch

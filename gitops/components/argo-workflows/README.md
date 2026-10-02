@@ -34,5 +34,6 @@ in two namespaces:
 Every login maps to a ServiceAccount in `argo-workflows` whose `workflows.argoproj.io/rbac-rule` expression matches
 the user's Dex groups; a user who matches none cannot log in. Each of these ServiceAccounts needs a token secret named
 `<service-account>.service-account-token`. The chart's `argo-workflows-admin` and `argo-workflows-view` ClusterRoles
-cover Argo resources only, so also grant `pods` and `pods/log` read for the UI to show step logs.
+cover Argo resources only, so also bind the component's `argo-workflows-sso-pod-logs` ClusterRole (`pods` and
+`pods/log` read) with a `RoleBinding` in each workflow namespace for the UI to show step logs.
 See [SSO RBAC](https://argo-workflows.readthedocs.io/en/latest/argo-server-sso/#sso-rbac).
