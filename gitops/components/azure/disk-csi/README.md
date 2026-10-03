@@ -67,6 +67,10 @@ VolumeSnapshotClass for the driver.
   `/etc/kubernetes/azure.json` on the node (present on AKS nodes). The
   identity in that config needs `Contributor` on the resource group that
   holds the disks (on AKS, the node resource group).
+* Clusters from [`terraform-azure-foundation`](https://github.com/pelotech/terraform-azure-foundation)
+  meet both requirements by default: `storage_drivers` turns every
+  AKS-managed driver off, and the module then grants the kubelet identity
+  `Contributor` on the node resource group.
 * No `kustomize-environment` keys are needed.
 
 ## References
