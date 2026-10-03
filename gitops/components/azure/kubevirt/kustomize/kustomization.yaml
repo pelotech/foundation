@@ -1,10 +1,26 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
-# Azure entrypoint for the kubevirt Application (see ../kustomization.yaml):
-# the cloud-neutral base plus the Azure storage settings.
+# Azure entrypoint for the kubevirt Application: the cloud-neutral base plus the
+# `premium-v2` (default), `premium-lrs` and `premium-v2-immediate`
+# StorageClasses, and CDI scratch space on premium-v2.
 resources:
-  - ../../../kubevirt/kustomize/base
-
-components:
-  - ../../../kubevirt/kustomize/azure
+  - ../../../kubevirt/kustomize
+  - ./storage-classes.yaml
+patches:
+  # Scratch otherwise inherits the import PVC's class. With premium-v2-immediate
+  # it could be provisioned in a different zone than the data volume, leaving
+  # the importer pod unschedulable. premium-v2 (WaitForFirstConsumer) follows
+  # the pod.
+  - target:
+      group: cdi.kubevirt.io
+      version: v1beta1
+      kind: CDI
+      name: cdi
+    patch: |-
+      apiVersion: cdi.kubevirt.io/v1beta1
+      kind: CDI
+      metadata:
+        name: cdi
+      spec:
+        config:
+          scratchSpaceStorageClass: premium-v2

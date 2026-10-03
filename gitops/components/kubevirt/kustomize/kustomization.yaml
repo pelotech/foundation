@@ -1,14 +1,30 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
-# Entrypoint for the `kubevirt` component's Argo CD Application
-# (gitops/components/kubevirt/resources.yaml). It renders the cloud-neutral
-# base plus the AWS storage settings, so AWS clusters keep the exact
-# resources they had before the base was split out. Other clouds use their
-# own flavor (e.g. gitops/components/azure/kubevirt), which points the
-# Application at a different entrypoint over the same ./base.
+# Cloud-neutral KubeVirt and CDI: the `kubevirt` Application's entrypoint. The
+# aws/kubevirt and azure/kubevirt flavors include this and add storage classes,
+# CDI scratch space and node placement. Use a flavor on a real cluster.
 resources:
-  - ./base
-
-components:
-  - ./aws
+  - ./operators
+  - ./resources.yaml
+  - https://github.com/kubevirt/common-instancetypes//VirtualMachineClusterPreferences?ref=v1.7.0
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: virt-operator
+    patch: |-
+      - op: add
+        path: /spec/template/spec/hostNetwork
+        value: true
+      - op: remove
+        path: /spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: cdi-operator
+    patch: |-
+      - op: add
+        path: /spec/template/spec/hostNetwork
+        value: true

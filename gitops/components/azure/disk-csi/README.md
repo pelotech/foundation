@@ -39,9 +39,9 @@ Chart settings:
 | Name | Kind | Where | Settings | AWS counterpart |
 |---|---|---|---|---|
 | `azure-disk-snapshot` | VolumeSnapshotClass | this component (`snapshot-class/`) | `deletionPolicy: Delete`, **default** snapshot class | `ebs-snapshot` (`aws/ebs-csi`) |
-| `premium-v2` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `PremiumV2_LRS`, `cachingMode: None`, `WaitForFirstConsumer`, expansion allowed, `Delete`, **default** class | `gp3` (`aws/ebs-csi`) |
-| `premium-lrs` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `Premium_LRS`, `WaitForFirstConsumer`, expansion allowed, `Delete`; for volumes that need host caching, or regions where v2 is nonzonal only | none |
-| `premium-lrs-immediate` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `Premium_LRS`, `Immediate`, expansion allowed, `Delete` | `gp3-immediate` (`kubevirt/kustomize/aws`) |
+| `premium-v2` | StorageClass | [`azure/kubevirt`](../kubevirt) | `PremiumV2_LRS`, `cachingMode: None`, `WaitForFirstConsumer`, expansion allowed, `Delete`, **default** class | `gp3` (`aws/ebs-csi`) |
+| `premium-lrs` | StorageClass | [`azure/kubevirt`](../kubevirt) | `Premium_LRS`, `WaitForFirstConsumer`, expansion allowed, `Delete`; for volumes that need host caching, or regions where v2 is nonzonal only | none |
+| `premium-v2-immediate` | StorageClass | [`azure/kubevirt`](../kubevirt) | `PremiumV2_LRS`, `cachingMode: None`, `Immediate`, expansion allowed, `Delete` | `gp3-immediate` (`aws/kubevirt`) |
 
 The chart creates no StorageClasses (unlike `aws-ebs-csi-driver`'s
 `storageClasses` value), and both Azure StorageClasses come from the KubeVirt

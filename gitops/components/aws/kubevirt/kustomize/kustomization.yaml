@@ -1,12 +1,10 @@
-apiVersion: kustomize.config.k8s.io/v1alpha1
-kind: Component
-
-# AWS settings for KubeVirt: EBS storage for CDI and Karpenter node placement.
-# Requires the aws/ebs-csi component (it owns the WaitForFirstConsumer `gp3`
-# class) and the aws/karpenter component (it provides the node labels).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# AWS entrypoint for the kubevirt Application: the cloud-neutral base plus EBS
+# storage for CDI and Karpenter node placement.
 resources:
+  - ../../../kubevirt/kustomize
   - ./storage-class.yaml
-
 patches:
   # Scratch otherwise inherits the import PVC's class. With gp3-immediate it
   # could be provisioned in a different AZ than the data volume, leaving the

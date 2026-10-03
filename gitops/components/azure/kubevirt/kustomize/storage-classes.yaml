@@ -44,10 +44,11 @@ allowVolumeExpansion: true
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: premium-lrs-immediate
+  name: premium-v2-immediate
 provisioner: disk.csi.azure.com
 parameters:
-  skuName: Premium_LRS
+  skuName: PremiumV2_LRS
+  cachingMode: None
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 allowVolumeExpansion: true

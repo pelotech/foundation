@@ -8,14 +8,13 @@ through an Argo CD Application (`kubevirt`, project `utils`).
 
 | Path | Purpose |
 |---|---|
-| [`kustomize/base`](kustomize/base) | Cloud-neutral operators, `CDI`, `KubeVirt` and cluster preferences. |
-| [`kustomize/aws`](kustomize/aws) | AWS settings: the `gp3-immediate` class for CDI image imports, CDI scratch space on `gp3`, and Karpenter node placement (VMs on `metal` instances, the KubeVirt control plane on the `spot` node pool). Requires `aws/ebs-csi` and `aws/karpenter`. |
-| [`kustomize/azure`](kustomize/azure) | Azure storage settings: the default `premium-v2` class (Premium SSD v2, VM disks and CDI scratch space), `premium-lrs` for volumes that need host caching, the `premium-lrs-immediate` class for CDI image imports, and CDI scratch space on `premium-v2`. Requires `azure/disk-csi`. |
-| [`kustomize`](kustomize) | The Application's default entrypoint: `base` + `aws`. |
+| [`kustomize`](kustomize) | Cloud-neutral operators, `CDI`, `KubeVirt` and cluster preferences. The `kubevirt` Application's entrypoint. |
+| [`aws/kubevirt`](../aws/kubevirt) | AWS flavor: includes this component and points the Application at `aws/kubevirt/kustomize`, which adds the `gp3-immediate` class for CDI image imports, CDI scratch space on `gp3`, and Karpenter node placement (VMs on `metal` instances, the KubeVirt control plane on the `spot` node pool). Requires `aws/ebs-csi` and `aws/karpenter`. |
+| [`azure/kubevirt`](../azure/kubevirt) | Azure flavor: includes this component and points the Application at `azure/kubevirt/kustomize`, which adds the default `premium-v2` class (Premium SSD v2, VM disks and CDI scratch space), `premium-lrs` for volumes that need host caching, the `premium-v2-immediate` class for CDI image imports, and CDI scratch space on `premium-v2`. Requires `azure/disk-csi`. |
 
-This component renders the AWS settings by default. On AKS use the
-[`azure/kubevirt`](../azure/kubevirt) flavor **instead of** this component;
-it points the Application at an Azure entrypoint (`base` + `azure`).
+On a real cluster list one flavor, `aws/kubevirt` or `azure/kubevirt`, and not
+this component. The base alone sets no storage classes, no CDI scratch class
+and no VM node placement.
 
 CDI scratch space must use a `WaitForFirstConsumer` class, so it follows the
 importer pod's node and zone.
