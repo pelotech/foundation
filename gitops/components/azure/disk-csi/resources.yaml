@@ -25,6 +25,12 @@ spec:
     helm:
       releaseName: azuredisk-csi-driver
       valuesObject:
+        # The published chart 1.36.0 defaults to k8s/csi/azuredisk-csi:latest, a newer build that
+        # rejects the chart's own --feature-gates flag; v1.36.0 only exists under oss/v2.
+        image:
+          azuredisk:
+            repository: /oss/v2/kubernetes-csi/azuredisk-csi
+            tag: v1.36.0
         # The chart's bundled external-snapshotter CRDs and snapshot-controller are
         # off: the shared snapshot-controller source above provides them, as for
         # aws/ebs-csi. The driver's csi-snapshotter sidecar is always deployed.
