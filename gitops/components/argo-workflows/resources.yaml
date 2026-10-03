@@ -1,0 +1,90 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-workflows
+    targetRevision: 2.0.9
+    helm:
+      releaseName: argo-workflows
+      valuesObject:
+        controller:
+          # Consumers create the service accounts and RBAC for their own workflow namespaces
+          workflowNamespaces: []
+          workflowDefaults:
+            spec:
+              ttlStrategy:
+                secondsAfterSuccess: 86400
+                secondsAfterFailure: 259200
+              podGC:
+                strategy: OnPodSuccess
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              memory: 256Mi
+        server:
+          authModes:
+            - sso
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+            hosts:
+              - ARGO_WORKFLOWS_HOST
+            tls:
+              - secretName: argo-workflows-tls
+                hosts:
+                  - ARGO_WORKFLOWS_HOST
+          sso:
+            enabled: true
+            issuer: https://ARGOCD_SERVER_HOST/api/dex
+            clientId:
+              name: argo-workflows-sso
+              key: client-id
+            clientSecret:
+              name: argo-workflows-sso
+              key: client-secret
+            redirectUrl: https://ARGO_WORKFLOWS_HOST/oauth2/callback
+            scopes:
+              - groups
+            rbac:
+              enabled: true
+          resources:
+            requests:
+              cpu: 15m
+              memory: 128Mi
+            limits:
+              memory: 128Mi
+  destination:
+    namespace: argo-workflows
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
+---
+# The chart's admin and view roles cover Argo resources only; the UI reads step logs from the workflow pods
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-workflows-sso-pod-logs
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - pods
+      - pods/log
+    verbs:
+      - get
+      - list
+      - watch

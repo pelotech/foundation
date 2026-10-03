@@ -13,12 +13,12 @@ spec:
   sources:
     - chart: gateway-helm
       repoURL: docker.io/envoyproxy
-      targetRevision: 1.9.1
+      targetRevision: 1.9.2
       helm:
         releaseName: envoy-gateway
     - repoURL: "https://github.com/pelotech/foundation"
       path: gitops/components/envoy-gateway/create-gateway
-      targetRevision: v5.1.5 # x-release-please-version
+      targetRevision: v5.1.7 # x-release-please-version
       helm:
         releaseName: create-gateway
         valuesObject:

@@ -1,5 +1,29 @@
 # Changelog
 
+## [5.1.7](https://github.com/pelotech/foundation/compare/v5.1.6...v5.1.7) (2026-10-02)
+
+
+### Chores
+
+* **deps:** update helm release argo-workflows to v2.0.9 ([#586](https://github.com/pelotech/foundation/issues/586)) ([e83d609](https://github.com/pelotech/foundation/commit/e83d609f8d4c0180c5e9174d2e074db21179a982))
+* **deps:** update karpenter to v1.14.1 ([#568](https://github.com/pelotech/foundation/issues/568)) ([4798d58](https://github.com/pelotech/foundation/commit/4798d588c75a553a8bf34e3e108844f61e247435))
+
+## [5.1.6](https://github.com/pelotech/foundation/compare/v5.1.5...v5.1.6) (2026-10-02)
+
+
+### Bug Fixes
+
+* **k8s-monitoring:** only gather new pod log lines after a restart ([#578](https://github.com/pelotech/foundation/issues/578)) ([905bc6c](https://github.com/pelotech/foundation/commit/905bc6ce2017d043bea5df7078276ea053b6175b))
+
+
+### Chores
+
+* **argo-workflows:** add Argo Workflows component ([#580](https://github.com/pelotech/foundation/issues/580)) ([dee31bb](https://github.com/pelotech/foundation/commit/dee31bb402a7a81c707b64fbda80e22f01a917e1))
+* **deps:** update docker.io/envoyproxy/gateway-helm docker tag to v1.9.2 ([#581](https://github.com/pelotech/foundation/issues/581)) ([2e56050](https://github.com/pelotech/foundation/commit/2e56050ba63b53607d9662a7eca0679afb395264))
+* **deps:** update ghcr.io/traefik/helm/traefik docker tag to v41.6.1 ([#584](https://github.com/pelotech/foundation/issues/584)) ([49f039c](https://github.com/pelotech/foundation/commit/49f039c24189688997642f87eeb6a83db4c4bf1c))
+* **deps:** update helm release external-dns to v1.23.0 ([#585](https://github.com/pelotech/foundation/issues/585)) ([d6b83b8](https://github.com/pelotech/foundation/commit/d6b83b8bcc15b406525ec331e9a6806f3dae2d37))
+* **deps:** update helm release reloader to v2.2.18 ([#582](https://github.com/pelotech/foundation/issues/582)) ([2f846d3](https://github.com/pelotech/foundation/commit/2f846d3af56766ffe1a375afbf5218ad80ff3e8e))
+
 ## [5.1.5](https://github.com/pelotech/foundation/compare/v5.1.4...v5.1.5) (2026-09-27)
 
 

@@ -1,0 +1,72 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: karpenter
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  destination:
+    namespace: karpenter
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
+  sources:
+    - chart: karpenter-crd
+      repoURL: mcr.microsoft.com/aks/karpenter
+      targetRevision: 1.14.3
+    - chart: karpenter
+      repoURL: mcr.microsoft.com/aks/karpenter
+      targetRevision: 1.14.3
+      helm:
+        releaseName: karpenter
+        skipCrds: true
+        valuesObject:
+          controller:
+            image:
+              digest: >-
+                sha256:d45382cf156994f63b919e5d07721de330d42c4ae3a1c10653fa01a7e3f39e28
+              repository: ghcr.io/pelotech/karpenter-azure
+              tag: v1.14.3x
+            env:
+              - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
+                value: scheduling.node.kubevirt.io/tsc-frequency-*
+              - name: KUBELET_BOOTSTRAP_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: karpenter-kubelet-bootstrap
+                    key: token
+              - name: AZURE_SUBSCRIPTION_ID
+                value: AZURE_SUBSCRIPTION_ID
+              - name: LOCATION
+                value: AZURE_LOCATION
+              - name: AZURE_NODE_RESOURCE_GROUP
+                value: AZURE_NODE_RESOURCE_GROUP
+              - name: VNET_SUBNET_ID
+                value: VNET_SUBNET_ID
+              - name: KUBELET_IDENTITY_CLIENT_ID
+                value: KUBELET_IDENTITY_CLIENT_ID
+              - name: NODE_IDENTITIES
+                value: KUBELET_IDENTITY_ID
+              - name: NETWORK_PLUGIN
+                value: NETWORK_PLUGIN
+              - name: NETWORK_PLUGIN_MODE
+                value: NETWORK_PLUGIN_MODE
+              - name: NETWORK_DATAPLANE
+                value: NETWORK_DATAPLANE
+              - name: SSH_PUBLIC_KEY
+                value: SSH_PUBLIC_KEY
+          serviceAccount:
+            create: "true"
+            name: "karpenter"
+            annotations:
+              azure.workload.identity/client-id: KARPENTER_CLIENT_ID
+          podLabels:
+            azure.workload.identity/use: "true"
+          settings:
+            clusterName: CLUSTER_NAME
+            clusterEndpoint: CLUSTER_ENDPOINT
