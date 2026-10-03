@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - ./volume-snapshot-class.yaml
+  - ./aks-default-storage-class.yaml

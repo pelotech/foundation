@@ -1,0 +1,21 @@
+---
+# AKS seeds this class on every cluster and marks it default, even with its managed
+# CSI drivers disabled. Mirroring it with the annotation off leaves the flavor's class
+# as the only default, whatever syncs first. The spec must match what AKS creates:
+# provisioner and parameters are immutable, and AKS only recreates the object if it
+# is missing (addonmanager mode EnsureExists).
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: default
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+    kubernetes.io/cluster-service: "true"
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: disk.csi.azure.com
+parameters:
+  skuname: StandardSSD_ZRS
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true

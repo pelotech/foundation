@@ -39,6 +39,7 @@ Chart settings:
 | Name | Kind | Where | Settings | AWS counterpart |
 |---|---|---|---|---|
 | `azure-disk-snapshot` | VolumeSnapshotClass | this component (`snapshot-class/`) | `deletionPolicy: Delete`, **default** snapshot class | `ebs-snapshot` (`aws/ebs-csi`) |
+| `default` | StorageClass | this component (`snapshot-class/`), mirrors the class AKS seeds | `StandardSSD_ZRS`, `WaitForFirstConsumer`, expansion allowed, `Delete`; default annotation set to `"false"` | none |
 | `premium-v2` | StorageClass | [`azure/kubevirt`](../kubevirt) | `PremiumV2_LRS`, `cachingMode: None`, `WaitForFirstConsumer`, expansion allowed, `Delete`, **default** class | `gp3` (`aws/ebs-csi`) |
 | `premium-lrs` | StorageClass | [`azure/kubevirt`](../kubevirt) | `Premium_LRS`, `WaitForFirstConsumer`, expansion allowed, `Delete`; for volumes that need host caching, or regions where v2 is nonzonal only | none |
 | `premium-v2-immediate` | StorageClass | [`azure/kubevirt`](../kubevirt) | `PremiumV2_LRS`, `cachingMode: None`, `Immediate`, expansion allowed, `Delete` | `gp3-immediate` (`aws/kubevirt`) |
@@ -52,12 +53,17 @@ StorageClass.
 throughput independently of size with a gp3-like baseline, costs less per GB
 than v1, and is zonal in East US and US Gov Virginia (US Gov Arizona has it
 nonzonal only; prefer `premium-lrs` there). It needs `cachingMode: None` and
-zonal nodes. A default class is needed because, with the managed disk driver
-disabled, AKS provides none. If AKS still creates its built-in classes
-(`default`, `managed-csi`, ...), it marks `default` as default too; with two
-defaults Kubernetes uses the newest one, so remove one of the annotations.
-Snapshots that name no class fail when there is more than one default
-VolumeSnapshotClass for the driver.
+zonal nodes. AKS seeds `default` (`StandardSSD_ZRS`) and
+`managed-csi-premium-v2` on every cluster through its addon manager, even with
+the managed disk driver disabled, and marks `default` as default. With two
+defaults Kubernetes uses the newest one, so a claim created before the
+KubeVirt component synced landed on `StandardSSD_ZRS`. This component applies
+a `default` StorageClass that mirrors the seeded spec with the annotation set
+to `"false"`: the addon manager only recreates a missing object (mode
+`EnsureExists`), so the mirror holds, and `premium-v2` is the only default
+whatever syncs first. If AKS changes the seeded spec, the sync fails on an
+immutable field; update the mirror then. Snapshots that name no class fail
+when there is more than one default VolumeSnapshotClass for the driver.
 
 ## Requirements
 
