@@ -34,6 +34,7 @@ spec:
           # launch nodes when cluster DNS is down (https://karpenter.sh/docs/troubleshooting/).
           dnsPolicy: Default
           controller:
+            # The pelotech build only adds IGNORED_NODE_SELECTOR_REQUIREMENTS, for the KubeVirt TSC pin that lab-netspec 4.2.0 removed on 2026-10-03; switch to the upstream image and drop the env once labs launched before then have rotated out (7-14 day TTL), as azure/karpenter did.
             image:
               digest: >-
                 sha256:4b779589dcc7d837d24775f5ef185e7f93645945e5531925240d70814c1a9348
