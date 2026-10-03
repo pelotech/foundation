@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the cert-manager base component itself. Use this
-# INSTEAD of the plain cert-manager component (including both fails with a
-# duplicate-resource error).
+# Flavor component: includes the aws/cert-manager flavor (and through it the
+# base). Use this INSTEAD of cert-manager or aws/cert-manager (including two of
+# them fails with a duplicate-resource error).
 components:
-  - ../../cert-manager
+  - ../cert-manager
 
 # Opt-in IRSA for cert-manager: adds the IAM role annotations to the
 # ServiceAccount and requires CERT_MANAGER_ROLE_ARN in kustomize-environment.

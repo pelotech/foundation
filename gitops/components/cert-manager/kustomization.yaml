@@ -19,17 +19,3 @@ replacements:
           name: create-issuer
         fieldPaths:
           - spec.source.helm.valuesObject.acmeIssuerEmail
-
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.AWS_REGION
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: create-issuer
-        fieldPaths:
-          - spec.source.helm.valuesObject.awsRegion

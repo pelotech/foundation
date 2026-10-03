@@ -27,9 +27,24 @@ spec:
                 namespace: {{ required "solvers.gateway entries require namespace" .namespace }}
         {{- with include "create-issuer.solverSelector" . }}{{ . | trim | nindent 8 }}{{- end }}
       {{- end }}
-      {{- if .Values.solvers.dns01.enabled }}
+      {{- with .Values.solvers.dns01.route53 }}
+      {{- if .enabled }}
       - dns01:
           route53:
-            region: {{ .Values.awsRegion }}
-        {{- with include "create-issuer.solverSelector" .Values.solvers.dns01 }}{{ . | trim | nindent 8 }}{{- end }}
+            region: {{ required "solvers.dns01.route53 requires region" .region }}
+        {{- with include "create-issuer.solverSelector" . }}{{ . | trim | nindent 8 }}{{- end }}
+      {{- end }}
+      {{- end }}
+      {{- with .Values.solvers.dns01.azureDNS }}
+      {{- if .enabled }}
+      - dns01:
+          azureDNS:
+            subscriptionID: {{ required "solvers.dns01.azureDNS requires subscriptionID" .subscriptionID }}
+            resourceGroupName: {{ required "solvers.dns01.azureDNS requires resourceGroupName" .resourceGroupName }}
+            hostedZoneName: {{ required "solvers.dns01.azureDNS requires hostedZoneName" .hostedZoneName }}
+            environment: {{ .environment }}
+            managedIdentity:
+              clientID: {{ required "solvers.dns01.azureDNS requires clientID" .clientID }}
+        {{- with include "create-issuer.solverSelector" . }}{{ . | trim | nindent 8 }}{{- end }}
+      {{- end }}
       {{- end }}

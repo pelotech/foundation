@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the external-dns base component itself. Use this
+# INSTEAD of the plain external-dns component (including both fails with a
+# duplicate-resource error). Sets the route53 provider. Clusters on IRSA use
+# aws/external-dns-irsa, which includes this one.
+components:
+  - ../../external-dns
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: external-dns
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: external-dns
+      spec:
+        source:
+          helm:
+            valuesObject:
+              provider:
+                name: aws
+              env:
+                - name: AWS_DEFAULT_REGION
+                  value: us-east-1

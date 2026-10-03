@@ -1,0 +1,57 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the external-dns base component itself. Use this
+# INSTEAD of the plain external-dns component (including both fails with a
+# duplicate-resource error). Sets the Azure DNS provider and binds the
+# controller to its Azure workload identity. Requires EXTERNAL_DNS_CLIENT_ID in
+# kustomize-environment and the Secret `external-dns-azure` (key `azure.json`)
+# in the external-dns namespace, see README.md.
+components:
+  - ../../external-dns
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: external-dns
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: external-dns
+      spec:
+        source:
+          helm:
+            valuesObject:
+              provider:
+                name: azure
+              podLabels:
+                azure.workload.identity/use: "true"
+              serviceAccount:
+                annotations:
+                  azure.workload.identity/client-id: EXTERNAL_DNS_CLIENT_ID
+              extraVolumes:
+                - name: azure-config-file
+                  secret:
+                    secretName: external-dns-azure
+              extraVolumeMounts:
+                - name: azure-config-file
+                  mountPath: /etc/kubernetes
+                  readOnly: true
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.EXTERNAL_DNS_CLIENT_ID
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: external-dns
+        fieldPaths:
+          - spec.source.helm.valuesObject.serviceAccount.annotations.[azure.workload.identity/client-id]

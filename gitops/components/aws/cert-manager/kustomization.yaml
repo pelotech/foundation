@@ -1,0 +1,63 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Flavor component: includes the cert-manager base component itself. Use this
+# INSTEAD of the plain cert-manager component (including both fails with a
+# duplicate-resource error). Adds the route53 dns01 solver and requires
+# AWS_REGION in kustomize-environment. Clusters on IRSA use
+# aws/cert-manager-irsa, which includes this one.
+components:
+  - ../../cert-manager
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: cert-manager
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: cert-manager
+      spec:
+        source:
+          helm:
+            valuesObject:
+              extraEnv:
+                - name: AWS_REGION
+                  value: "us-east-1"
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: create-issuer
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: create-issuer
+      spec:
+        source:
+          helm:
+            valuesObject:
+              solvers:
+                dns01:
+                  route53:
+                    enabled: true
+                    region: AWS_REGION
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AWS_REGION
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: create-issuer
+        fieldPaths:
+          - spec.source.helm.valuesObject.solvers.dns01.route53.region

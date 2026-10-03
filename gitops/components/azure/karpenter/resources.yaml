@@ -70,3 +70,5 @@ spec:
           settings:
             clusterName: CLUSTER_NAME
             clusterEndpoint: CLUSTER_ENDPOINT
+            featureGates:
+              nodeOverlay: true

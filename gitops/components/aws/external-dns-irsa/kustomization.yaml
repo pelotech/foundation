@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the external-dns base component itself. Use this
-# INSTEAD of the plain external-dns component (including both fails with a
-# duplicate-resource error).
+# Flavor component: includes the aws/external-dns flavor (and through it the
+# base). Use this INSTEAD of external-dns or aws/external-dns (including two of
+# them fails with a duplicate-resource error).
 components:
-  - ../../external-dns
+  - ../external-dns
 
 # Opt-in IRSA for external-dns: adds the IAM role annotations to the
 # ServiceAccount and requires EXTERNAL_DNS_ROLE_ARN in kustomize-environment.

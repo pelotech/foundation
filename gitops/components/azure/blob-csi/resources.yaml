@@ -1,0 +1,26 @@
+---
+# Requires the AKS-managed Azure Blob CSI driver to be disabled: this
+# Application installs it from the upstream chart.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: azure-blob-csi
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: storage
+  source:
+    chart: blob-csi-driver
+    repoURL: https://kubernetes-sigs.github.io/blob-csi-driver
+    targetRevision: 1.27.11
+    helm:
+      releaseName: blob-csi-driver
+      valuesObject:
+        controller:
+          replicas: 1
+  destination:
+    namespace: kube-system
+    name: in-cluster
+  syncPolicy:
+    automated: {}

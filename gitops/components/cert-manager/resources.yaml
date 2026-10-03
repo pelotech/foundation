@@ -22,9 +22,6 @@ spec:
         serviceAccount:
           create: true
           name: cert-manager
-        extraEnv:
-          - name: AWS_REGION
-            value: "us-east-1"
         securityContext:
           fsGroup: 1001
         resources:
@@ -76,7 +73,6 @@ spec:
       releaseName: create-issuer
       valuesObject:
         acmeIssuerEmail: ACME_ISSUER_EMAIL
-        awsRegion: AWS_REGION
     targetRevision: v5.1.7 # x-release-please-version
   destination:
     namespace: cert-manager
