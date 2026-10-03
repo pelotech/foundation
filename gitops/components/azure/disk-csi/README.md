@@ -39,7 +39,8 @@ Chart settings:
 | Name | Kind | Where | Settings | AWS counterpart |
 |---|---|---|---|---|
 | `azure-disk-snapshot` | VolumeSnapshotClass | this component (`snapshot-class/`) | `deletionPolicy: Delete`, **default** snapshot class | `ebs-snapshot` (`aws/ebs-csi`) |
-| `premium-lrs` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `Premium_LRS`, `WaitForFirstConsumer`, expansion allowed, `Delete`, **default** class | `gp3` (`aws/ebs-csi`) |
+| `premium-v2` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `PremiumV2_LRS`, `cachingMode: None`, `WaitForFirstConsumer`, expansion allowed, `Delete`, **default** class | `gp3` (`aws/ebs-csi`) |
+| `premium-lrs` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `Premium_LRS`, `WaitForFirstConsumer`, expansion allowed, `Delete`; for volumes that need host caching, or regions where v2 is nonzonal only | none |
 | `premium-lrs-immediate` | StorageClass | [`kubevirt/kustomize/azure`](../../kubevirt/kustomize/azure) | `Premium_LRS`, `Immediate`, expansion allowed, `Delete` | `gp3-immediate` (`kubevirt/kustomize/aws`) |
 
 The chart creates no StorageClasses (unlike `aws-ebs-csi-driver`'s
@@ -47,7 +48,11 @@ The chart creates no StorageClasses (unlike `aws-ebs-csi-driver`'s
 component. An Azure cluster without `azure/kubevirt` has no default
 StorageClass.
 
-`premium-lrs` is the default class because, with the managed disk driver
+`premium-v2` is the default class: Premium SSD v2 provisions IOPS and
+throughput independently of size with a gp3-like baseline, costs less per GB
+than v1, and is zonal in East US and US Gov Virginia (US Gov Arizona has it
+nonzonal only; prefer `premium-lrs` there). It needs `cachingMode: None` and
+zonal nodes. A default class is needed because, with the managed disk driver
 disabled, AKS provides none. If AKS still creates its built-in classes
 (`default`, `managed-csi`, ...), it marks `default` as default too; with two
 defaults Kubernetes uses the newest one, so remove one of the annotations.

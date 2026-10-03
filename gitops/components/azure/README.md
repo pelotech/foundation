@@ -11,8 +11,8 @@ Components in this directory are **meaningful only on Azure/AKS**:
   [`kubevirt`](../kubevirt) component. It includes the base component and
   points its Argo CD Application at an Azure entrypoint that renders the
   same cloud-neutral KubeVirt/CDI base with Azure storage settings (the
-  default `premium-lrs` and the `premium-lrs-immediate` StorageClasses, CDI
-  scratch space on `premium-lrs`) instead of the AWS ones. Use it **instead
+  default `premium-v2`, `premium-lrs` and `premium-lrs-immediate` StorageClasses,
+  CDI scratch space on `premium-v2`) instead of the AWS ones. Use it **instead
   of** `kubevirt`, never both (including both fails with a duplicate-resource
   error), and include `azure/disk-csi` alongside it.
 

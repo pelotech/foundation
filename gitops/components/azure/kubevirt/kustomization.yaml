@@ -4,7 +4,7 @@ kind: Component
 # Flavor component: includes the kubevirt base component itself. Use this
 # INSTEAD of the plain kubevirt component (including both fails with a
 # duplicate-resource error). Requires the azure/disk-csi component, which
-# owns the `premium-lrs` class used for CDI scratch space.
+# owns the `premium-v2` class used for CDI scratch space.
 components:
   - ../../kubevirt
 

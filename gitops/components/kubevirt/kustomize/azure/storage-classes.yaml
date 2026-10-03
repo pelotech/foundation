@@ -1,16 +1,33 @@
 ---
 # Default class, the Azure counterpart of gp3 (which aws/ebs-csi creates on AWS).
+# Premium SSD v2 provisions IOPS and throughput independently of size, with a
+# 3000 IOPS / 125 MB/s baseline like gp3. It is zonal only and supports no host
+# caching, so cachingMode must be None and the nodes must run in zones.
 # The AKS-managed disk driver is disabled, so AKS does not provide a default
 # class. It lives here, so Azure clusters without KubeVirt have no default class.
 # Restores from snapshots request more than the snapshot size, so expansion
-# must be allowed. WaitForFirstConsumer provisions the zonal (LRS) disk in the
-# zone the pod is scheduled to.
+# must be allowed. WaitForFirstConsumer provisions the zonal disk in the zone
+# the pod is scheduled to.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-v2
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: PremiumV2_LRS
+  cachingMode: None
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+# Premium SSD v1 for volumes that need host caching, or in regions where v2 is
+# only nonzonal (US Gov Arizona). IOPS scale with disk size.
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: premium-lrs
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: disk.csi.azure.com
 parameters:
   skuName: Premium_LRS
