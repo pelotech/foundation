@@ -81,3 +81,10 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated: {}
+    # On a first install the cert-manager webhook has no endpoints yet when the issuer syncs.
+    retry:
+      limit: 5
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 5m
