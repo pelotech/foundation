@@ -1,12 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the cert-manager base component itself. Use this
-# INSTEAD of the plain cert-manager component (including both fails with a
-# duplicate-resource error). Binds cert-manager to its Azure workload identity
-# and adds the Azure DNS dns01 solver. Requires CERT_MANAGER_CLIENT_ID,
-# AZURE_SUBSCRIPTION_ID, AZURE_DNS_RESOURCE_GROUP and AZURE_DNS_ZONE in
-# kustomize-environment.
 components:
   - ../../cert-manager
 

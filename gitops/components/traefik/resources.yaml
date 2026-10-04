@@ -68,9 +68,7 @@ spec:
             forwardedHeaders:
               trustedIPs:
                 - "0.0.0.0/0"
-        # No cloud annotations on the Service here: aws/traefik adds the NLB
-        # ones. The entry points accept connections with or without a PROXY
-        # header, so a cloud load balancer without it needs no flavor.
+        # The entry points accept a PROXY header or none, so they work behind any load balancer.
         resources:
           requests:
             cpu: "100m"

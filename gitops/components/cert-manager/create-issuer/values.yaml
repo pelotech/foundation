@@ -20,8 +20,7 @@ solvers:
   #   namespace: envoy-gateway-system
   #   matchLabels:
   #     use-gateway-solver: "true"
-  # dns01, one provider per cloud. The cloud flavors (aws/cert-manager,
-  # azure/cert-manager) turn theirs on; the base turns none on.
+  # dns01 solvers, one per cloud. Each cloud flavor turns its own on.
   dns01:
     route53:
       enabled: false
@@ -29,7 +28,7 @@ solvers:
       matchLabels:
         use-dns01-solver: "true"
       # dnsZones: []
-    # Authenticates as the cert-manager workload identity (clientID).
+    # Authenticates with the cert-manager workload identity through clientID.
     azureDNS:
       enabled: false
       subscriptionID: ""

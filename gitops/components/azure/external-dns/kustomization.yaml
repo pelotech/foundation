@@ -1,12 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the external-dns base component itself. Use this
-# INSTEAD of the plain external-dns component (including both fails with a
-# duplicate-resource error). Sets the Azure DNS provider and binds the
-# controller to its Azure workload identity. Requires EXTERNAL_DNS_CLIENT_ID in
-# kustomize-environment and the Secret `external-dns-azure` (key `azure.json`)
-# in the external-dns namespace, see README.md.
+# Needs the external-dns-azure Secret in the external-dns namespace, see README.md.
 components:
   - ../../external-dns
 

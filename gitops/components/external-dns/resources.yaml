@@ -16,9 +16,7 @@ spec:
       releaseName: external-dns
       valuesObject:
         txtOwnerId: CLUSTER_NAME
-        # No cloud settings here, and the chart defaults the provider to aws:
-        # always list a flavor (aws/external-dns, aws/external-dns-irsa,
-        # azure/external-dns) instead of this component.
+        # Each cloud flavor sets the provider, which the chart defaults to aws.
         serviceAccount:
           create: true
           name: external-dns-controller

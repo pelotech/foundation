@@ -1,9 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the aws/cert-manager flavor (and through it the
-# base). Use this INSTEAD of cert-manager or aws/cert-manager (including two of
-# them fails with a duplicate-resource error).
 components:
   - ../cert-manager
 

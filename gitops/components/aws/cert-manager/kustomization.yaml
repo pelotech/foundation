@@ -1,11 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the cert-manager base component itself. Use this
-# INSTEAD of the plain cert-manager component (including both fails with a
-# duplicate-resource error). Adds the route53 dns01 solver and requires
-# AWS_REGION in kustomize-environment. Clusters on IRSA use
-# aws/cert-manager-irsa, which includes this one.
+# Works alone with Pod Identity. aws/cert-manager-irsa includes it for IRSA clusters, so list one or the other.
 components:
   - ../../cert-manager
 

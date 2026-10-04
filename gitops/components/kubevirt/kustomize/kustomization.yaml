@@ -27,7 +27,7 @@ patches:
       - op: add
         path: /spec/template/spec/hostNetwork
         value: true
-  # cdi-operator serves only v1beta1 and prunes v1alpha1 from the live CRD; the test op fails loudly if an upstream bump reorders the versions.
+  # cdi-operator serves only v1beta1 and prunes v1alpha1 from the live CRD. The test op fails if a CDI bump reorders the versions.
   - target:
       group: apiextensions.k8s.io
       version: v1
