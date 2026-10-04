@@ -8,9 +8,10 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: utils
+  # server, not name: clusters that installed CNPG themselves set server, and a server-side apply keeps it.
   destination:
     namespace: cnpg-system
-    name: in-cluster
+    server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
