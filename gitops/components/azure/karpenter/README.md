@@ -1,7 +1,13 @@
 # Karpenter on Azure (self-hosted)
 
-Deploys the AKS Karpenter provider chart from MCR with the pelotech controller image
-(`ghcr.io/pelotech/karpenter-azure`). Use it with `terraform-azure-foundation` and `karpenter.mode = "self-hosted"`.
+Deploys the AKS Karpenter provider chart and its controller image from MCR. Use it with `terraform-azure-foundation`
+and `karpenter.mode = "self-hosted"`.
+
+The image is upstream, without the pelotech fork's `IGNORED_NODE_SELECTOR_REQUIREMENTS`. Karpenter therefore cannot
+create a node for a KubeVirt VM pinned to a TSC frequency (the `scheduling.node.kubevirt.io/tsc-frequency-*` node
+selector). KubeVirt adds that pin when the VM enables Hyper-V `reenlightenment`, which the Windows cluster preferences
+of `kubevirt/common-instancetypes` do. Remove `reenlightenment` from those preferences on clusters that run Windows VMs
+without live migration.
 
 Provisioning mode is the controller default (`aksscriptless`). The component installs the chart only. The
 `AKSNodeClass` and `NodePool`s live in the cluster's own overlay, as the `EC2NodeClass` does on AWS.

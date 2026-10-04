@@ -16,7 +16,8 @@ metadata:
   namespace: argocd
 data:
   CLUSTER_NAME: "# name of your EKS cluster"
-  AWS_REGION: "# AWS region of your EKS cluster"
+  AWS_REGION: "# AWS region of your EKS cluster (aws/cert-manager)"
+  TRAEFIK_NLB_NAME: "# name of the NLB fronting Traefik (aws/traefik)"
   ARGOCD_SERVER_HOST: "# hostname for the cluster's ArgoCD web interface, e.g. argocd.example-cluster.com"
   ACME_ISSUER_EMAIL: "# email used by cert-manager for ACME/letsencrypt requests"
   VPC_CIDR_BLOCK: "# the CIDR block of your cluster's VPC i.e. '172.16.0.0/16'"

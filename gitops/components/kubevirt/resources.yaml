@@ -14,7 +14,15 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      # First install: the instancetype objects reference CRDs the operator in the same sync creates.
+      - SkipDryRunOnMissingResource=true
     automated: {}
+    retry:
+      limit: 10
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 5m
   source:
     repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/kubevirt/kustomize'

@@ -68,14 +68,7 @@ spec:
             forwardedHeaders:
               trustedIPs:
                 - "0.0.0.0/0"
-        service:
-          annotations:
-            service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-            service.beta.kubernetes.io/aws-load-balancer-name: TRAEFIK_NLB_NAME
-            service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
-            service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-            service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: proxy_protocol_v2.enabled=true
+        # The entry points accept a PROXY header or none, so they work behind any load balancer.
         resources:
           requests:
             cpu: "100m"

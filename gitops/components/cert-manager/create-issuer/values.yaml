@@ -1,6 +1,5 @@
 issuerName: letsencrypt
 acmeIssuerEmail: ""
-awsRegion: "us-west-2"
 
 # Each entry below becomes one ACME solver on the ClusterIssuer. cert-manager
 # picks the MOST SPECIFIC matching solver per Certificate (matchLabels /
@@ -21,9 +20,22 @@ solvers:
   #   namespace: envoy-gateway-system
   #   matchLabels:
   #     use-gateway-solver: "true"
-  # dns01 via route53 (region from awsRegion above)
+  # dns01 solvers, one per cloud. Each cloud flavor turns its own on.
   dns01:
-    enabled: true
-    matchLabels:
-      use-dns01-solver: "true"
-    # dnsZones: []
+    route53:
+      enabled: false
+      region: ""
+      matchLabels:
+        use-dns01-solver: "true"
+      # dnsZones: []
+    # Authenticates with the cert-manager workload identity through clientID.
+    azureDNS:
+      enabled: false
+      subscriptionID: ""
+      resourceGroupName: ""
+      hostedZoneName: ""
+      environment: AzurePublicCloud
+      clientID: ""
+      matchLabels:
+        use-dns01-solver: "true"
+      # dnsZones: []
