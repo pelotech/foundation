@@ -1,0 +1,43 @@
+---
+# Default class, the Azure counterpart of gp3: Premium SSD v2 with a 3000 IOPS and 125 MB/s baseline.
+# Premium SSD v2 is zonal and has no host caching, so cachingMode is None and the nodes must run in zones.
+# Snapshot restores request more than the snapshot size, so the class allows expansion.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-v2
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: PremiumV2_LRS
+  cachingMode: None
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+# Premium SSD v1, for volumes that need host caching or regions where v2 is not zonal, like US Gov Arizona.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-lrs
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: Premium_LRS
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+# For CDI imports that only feed a snapshot. With WaitForFirstConsumer, a retried importer stays on the PVC's selected node, even when that node is gone or full.
+# Not for VM disks: the disks of one VM could land in different zones.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-v2-immediate
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: PremiumV2_LRS
+  cachingMode: None
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

@@ -8,6 +8,9 @@ Components in this directory are **meaningful only on AWS/EKS**:
   base component (which may live at the top level, e.g.
   `aws/cert-manager-irsa` includes `../../cert-manager`) and adds the IAM role
   annotations. Use a flavor **instead of** its base, never both.
+* [`kubevirt`](kubevirt): the AWS flavor of the top-level
+  [`kubevirt`](../kubevirt) component: EBS storage for CDI and Karpenter node
+  placement over the cloud-neutral base. Use it **instead of** `kubevirt`.
 
 ## Generic components with AWS config (and the future multi-cloud shape)
 
