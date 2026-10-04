@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  destination:
+    namespace: cnpg-system
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      # The Cluster and Pooler CRDs exceed the 256 KiB annotation limit of a client-side apply.
+      - Replace=true
+    automated: {}
+    # On a first install, cert-manager may not serve the plugin's Certificate kind yet.
+    retry:
+      limit: 5
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 5m
+  sources:
+    - repoURL: https://cloudnative-pg.github.io/charts
+      chart: cloudnative-pg
+      targetRevision: 0.29.1
+      helm:
+        releaseName: cloudnative-pg
+        valuesObject:
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          # The default metrics port 8080 clashes with other host-network pods.
+          additionalArgs:
+            - --metrics-bind-address=:8575
+    - repoURL: https://cloudnative-pg.github.io/charts
+      chart: plugin-barman-cloud
+      targetRevision: 0.8.1
+      helm:
+        releaseName: barman-cloud

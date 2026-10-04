@@ -31,6 +31,23 @@ and `AWS_REGION` stay required, now by the flavors.
 * A patch on the `kubevirt` Application keeps working: the flavor only
   changes `spec.source.path`.
 
+## CloudNativePG
+
+The new `components/cnpg` installs the CloudNativePG operator and the Barman
+Cloud plugin from their Helm charts. It needs cert-manager for the plugin's
+certificates. A cluster that installs CNPG itself switches in one commit:
+
+1. Delete the cluster's own `cnpg` Application and list `components/cnpg`.
+   Both use the name `cnpg`, so ArgoCD updates the Application in place.
+2. Remove the CNPG charts repository and the `cnpg-system` namespace from the
+   cluster's own AppProject. The `utils` project allows them now.
+3. Prune the old plugin objects once the new plugin runs. The chart renames the
+   plugin Deployment, service account, RBAC and Issuer, and the Application
+   does not prune on its own.
+
+The plugin moves to v0.15.1. Where an ObjectStore is in use, read the plugin
+release notes from the current version first.
+
 ## Verify before merging
 
 Build the cluster on the new tag and diff it against the current tag:

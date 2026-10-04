@@ -140,6 +140,7 @@ spec:
     - https://kyverno.github.io/kyverno
     - public.ecr.aws/karpenter
     - mcr.microsoft.com/aks/karpenter
+    - https://cloudnative-pg.github.io/charts
   destinations:
     - namespace: reloader
       server: https://kubernetes.default.svc
@@ -160,6 +161,8 @@ spec:
     - namespace: cdi
       server: https://kubernetes.default.svc
     - namespace: kyverno
+      server: https://kubernetes.default.svc
+    - namespace: cnpg-system
       server: https://kubernetes.default.svc
   sourceNamespaces:
     - argocd
