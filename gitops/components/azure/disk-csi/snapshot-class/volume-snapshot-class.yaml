@@ -1,6 +1,5 @@
 ---
-# The chart's VolumeSnapshotClass cannot be marked default, so this one is
-# marked default for VolumeSnapshots that don't specify.
+# Default VolumeSnapshotClass, because the chart's class cannot carry the default annotation.
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:

@@ -1,6 +1,5 @@
 ---
-# Requires the AKS-managed Azure Disk CSI driver and snapshot controller to be
-# disabled: this Application installs both from the upstream chart.
+# Disable the AKS-managed Disk CSI driver and snapshot controller first: this Application installs both.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -14,8 +13,7 @@ spec:
   - repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/snapshot-controller'
     targetRevision: v5.1.5 # x-release-please-version
-  # The VolumeSnapshotClass lives with the snapshot CRDs, so the sync wave on the
-  # CRDs applies them first in the same sync.
+  # The sync wave applies the snapshot CRDs before the VolumeSnapshotClass that uses them.
   - repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/azure/disk-csi/snapshot-class'
     targetRevision: v5.1.5 # x-release-please-version
@@ -25,19 +23,15 @@ spec:
     helm:
       releaseName: azuredisk-csi-driver
       valuesObject:
-        # The published chart 1.36.0 defaults to k8s/csi/azuredisk-csi:latest, a newer build that
-        # rejects the chart's own --feature-gates flag; v1.36.0 only exists under oss/v2.
+        # Chart 1.36.0 defaults to azuredisk-csi:latest, which rejects the chart's --feature-gates flag. The v1.36.0 tag exists only under oss/v2.
         image:
           azuredisk:
             repository: /oss/v2/kubernetes-csi/azuredisk-csi
             tag: v1.36.0
-        # The chart's bundled external-snapshotter CRDs and snapshot-controller are
-        # off: the shared snapshot-controller source above provides them, as for
-        # aws/ebs-csi. The driver's csi-snapshotter sidecar is always deployed.
+        # Off: the shared snapshot-controller source above provides the snapshot CRDs and controller, as for aws/ebs-csi.
         snapshot:
           enabled: false
-          # The chart's VolumeSnapshotClass is a helm post-install hook and has no
-          # default-class annotation; snapshot-class/ provides azure-disk-snapshot.
+          # The chart's VolumeSnapshotClass is a Helm hook without the default annotation. snapshot-class/ provides azure-disk-snapshot instead.
           VolumeSnapshotClass:
             enabled: false
         windows:

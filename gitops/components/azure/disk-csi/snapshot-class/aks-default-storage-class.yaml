@@ -1,9 +1,6 @@
 ---
-# AKS seeds this class on every cluster and marks it default, even with its managed
-# CSI drivers disabled. Mirroring it with the annotation off leaves the flavor's class
-# as the only default, whatever syncs first. The spec must match what AKS creates:
-# provisioner and parameters are immutable, and AKS only recreates the object if it
-# is missing (addonmanager mode EnsureExists).
+# AKS creates this class as the default on every cluster, and recreates it only when it is missing.
+# This copy turns the default annotation off. Keep the spec as AKS writes it: provisioner and parameters are immutable.
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:

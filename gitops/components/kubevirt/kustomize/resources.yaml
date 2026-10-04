@@ -7,8 +7,7 @@ spec:
   config:
     featureGates:
       - HonorWaitForFirstConsumer
-    # scratchSpaceStorageClass is cloud-specific: each cloud flavor sets it to a
-    # WaitForFirstConsumer class (aws/kubevirt, azure/kubevirt).
+    # Each cloud flavor sets scratchSpaceStorageClass to its WaitForFirstConsumer class.
   customizeComponents:
     patches:
       - resourceType: Deployment
@@ -80,8 +79,7 @@ spec:
   imagePullPolicy: IfNotPresent
   workloadUpdateStrategy: {}
   workloads:
-    # nodeSelector is cloud-specific: VMs need nodes that support (nested)
-    # virtualization (set by the cloud flavors).
+    # Each cloud flavor sets the nodeSelector to nodes that can run VMs.
     nodePlacement:
       tolerations:
         - key: pelo.tech/tenant
@@ -92,11 +90,8 @@ spec:
         - key: pelo.tech/kvm
           operator: Exists
 
-  # infra.nodePlacement must be set: when it is unset, kubevirt requires
-  # control-plane/master nodes for virt-api and virt-controller
+  # Must stay set: without it, KubeVirt requires control-plane nodes for virt-api and virt-controller.
   # https://github.com/kubevirt/kubevirt/blob/v1.9.0/pkg/virt-operator/resource/placement/placement.go#L46
-  # kubevirt adds kubernetes.io/os: linux to these pods anyway. The cloud
-  # flavors add their own selectors on top.
   infra:
     nodePlacement:
       nodeSelector:

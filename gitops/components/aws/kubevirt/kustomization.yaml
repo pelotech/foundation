@@ -1,13 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-# Flavor component: includes the kubevirt base component itself. Use this
-# INSTEAD of the plain kubevirt component (including both fails with a
-# duplicate-resource error). Requires aws/ebs-csi (it owns the gp3 class used
-# for CDI scratch space) and aws/karpenter (it provides the node labels).
+# Needs aws/ebs-csi for the gp3 class and aws/karpenter for the node labels.
 components:
   - ../../kubevirt
-# Point the kubevirt Application at the AWS entrypoint: the base plus EBS
-# storage and Karpenter node placement.
 patches:
   - target:
       group: argoproj.io
