@@ -15,8 +15,8 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      # The Cluster and Pooler CRDs exceed the 256 KiB annotation limit of a client-side apply.
-      - Replace=true
+      # The CRDs exceed the client-side apply annotation limit, and a replace would wipe the webhook CA the operator injects.
+      - ServerSideApply=true
     automated: {}
     # On a first install, cert-manager may not serve the plugin's Certificate kind yet.
     retry:
