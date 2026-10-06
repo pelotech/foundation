@@ -335,4 +335,4 @@ spec:
   source:
     repoURL: 'https://prometheus-community.github.io/helm-charts'
     chart: prometheus-operator-crds
-    targetRevision: 32.0.0
+    targetRevision: 32.0.1
