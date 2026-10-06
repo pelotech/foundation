@@ -1,5 +1,28 @@
 # Changelog
 
+## [6.1.0](https://github.com/pelotech/foundation/compare/v6.0.0...v6.1.0) (2026-10-06)
+
+
+### Features
+
+* **k8s-monitoring:** upgrade the chart to v4 with the values in the v4 layout ([#441](https://github.com/pelotech/foundation/issues/441)) ([876af3c](https://github.com/pelotech/foundation/commit/876af3c2a7b0b074823009a48a5b136ea9715bb5))
+
+
+### Bug Fixes
+
+* **cert-manager:** give cainjector 256M, 105M OOM-kills it on clusters with many CRDs ([#594](https://github.com/pelotech/foundation/issues/594)) ([0331fea](https://github.com/pelotech/foundation/commit/0331feabe639768728c8f3fbede1142984f4a5ab))
+
+
+### Chores
+
+* **deps:** update helm release aws-load-balancer-controller to v3.6.0 ([#591](https://github.com/pelotech/foundation/issues/591)) ([5d6abe0](https://github.com/pelotech/foundation/commit/5d6abe029d05e8ae2969b4f59d74a2c3bc793f91))
+* **deps:** update helm release goldilocks to v11 ([#569](https://github.com/pelotech/foundation/issues/569)) ([f5649e2](https://github.com/pelotech/foundation/commit/f5649e232c03bd736cdabb1b7eee34cc21b17cf9))
+
+
+### Docs
+
+* **aws:** say why the cert-manager and external-dns region is not the cluster region ([#593](https://github.com/pelotech/foundation/issues/593)) ([5683dea](https://github.com/pelotech/foundation/commit/5683dea038f949dd917b757f7b1c032c8e89b2bc))
+
 ## [6.0.0](https://github.com/pelotech/foundation/compare/v5.1.7...v6.0.0) (2026-10-06)
 
 

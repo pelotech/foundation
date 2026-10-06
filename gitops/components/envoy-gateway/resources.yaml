@@ -18,7 +18,7 @@ spec:
         releaseName: envoy-gateway
     - repoURL: "https://github.com/pelotech/foundation"
       path: gitops/components/envoy-gateway/create-gateway
-      targetRevision: v6.0.0 # x-release-please-version
+      targetRevision: v6.1.0 # x-release-please-version
       helm:
         releaseName: create-gateway
         valuesObject:

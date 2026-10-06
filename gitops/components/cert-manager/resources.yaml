@@ -73,7 +73,7 @@ spec:
       releaseName: create-issuer
       valuesObject:
         acmeIssuerEmail: ACME_ISSUER_EMAIL
-    targetRevision: v6.0.0 # x-release-please-version
+    targetRevision: v6.1.0 # x-release-please-version
   destination:
     namespace: cert-manager
     name: in-cluster
