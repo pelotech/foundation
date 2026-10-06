@@ -41,14 +41,15 @@ spec:
             limits:
               cpu: "15m"
               memory: "105M"
+        # cainjector caches every CRD and webhook; 105M OOM-kills it on clusters with ~175 CRDs.
         cainjector:
           resources:
             requests:
               cpu: "15m"
-              memory: "105M"
+              memory: "256M"
             limits:
               cpu: "15m"
-              memory: "105M"
+              memory: "256M"
   destination:
     namespace: cert-manager
     name: in-cluster
