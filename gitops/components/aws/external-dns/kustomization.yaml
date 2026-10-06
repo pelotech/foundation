@@ -22,6 +22,7 @@ patches:
             valuesObject:
               provider:
                 name: aws
+              # Not the cluster region: the SDK derives the STS endpoint from it, and a GovCloud pod must call commercial STS to assume a Route53 role in a commercial account.
               env:
                 - name: AWS_DEFAULT_REGION
                   value: us-east-1
