@@ -108,6 +108,7 @@ spec:
     - https://aws-observability.github.io/aws-otel-helm-charts
     - https://fluent.github.io/helm-charts
     - https://grafana.github.io/helm-charts
+    - https://prometheus-community.github.io/helm-charts
   destinations:
     - namespace: adot
       server: https://kubernetes.default.svc

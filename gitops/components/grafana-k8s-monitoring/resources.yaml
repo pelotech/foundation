@@ -19,7 +19,7 @@ spec:
   source:
     repoURL: 'https://grafana.github.io/helm-charts'
     chart: k8s-monitoring
-    targetRevision: 3.8.13
+    targetRevision: 4.5.2
     helm:
       releaseName: grafana-k8s-monitoring
       valuesObject:
@@ -29,7 +29,7 @@ spec:
         global:
           scrapeInterval: 120s
         destinations:
-          - name: metricsService
+          metricsService:
             type: prometheus
             url: PROMETHEUS_ENDPOINT
             auth:
@@ -39,7 +39,7 @@ spec:
               name: prometheus
               namespace: grafana-k8s-monitoring
             clusterLabels: [cluster] # https://github.com/grafana/k8s-monitoring-helm/issues/1308#issuecomment-2898457019
-          - name: logsService
+          logsService:
             type: loki
             url: LOKI_ENDPOINT
             auth:
@@ -49,7 +49,7 @@ spec:
               name: loki
               namespace: grafana-k8s-monitoring
             clusterLabels: [cluster]
-          - name: tracesService
+          tracesService:
             type: otlp
             protocol: grpc
             metrics:
@@ -67,15 +67,17 @@ spec:
               namespace: grafana-k8s-monitoring
             clusterLabels: [cluster]
 
-        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-pod-logs
-        podLogs:
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-pod-logs-via-loki
+        podLogsViaLoki:
           enabled: true
+          collector: alloy-logs
           # Read positions live in the pod, so without this every restart re-sends up to 7 days of logs and hits Loki's stream limit
-          volumeGatherSettings:
-            onlyGatherNewLogLines: true
-        # Required for podLogs
-        alloy-logs:
-          enabled: true
+          onlyGatherNewLogLines: true
+          # The chart sets these as labels, and without this every container gets one Loki stream per output stream
+          extraLogProcessingStages: |-
+            stage.label_drop {
+              values = ["flags", "stream"]
+            }
 
         #######################################################################
         # The below metrics tuning is based on getting down to minimal
@@ -85,12 +87,21 @@ spec:
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-metrics#feature-cluster-metrics
         clusterMetrics:
           enabled: true
+          collector: alloy-metrics
           kube-state-metrics:
+            # Endpoints discovery also returns the pod's telemetry port, so keep only the port that serves the metrics
+            extraDiscoveryRules: |-
+              rule {
+                source_labels = ["__meta_kubernetes_pod_container_port_name"]
+                regex = "http"
+                action = "keep"
+              }
             metricsTuning:
               excludeMetrics:
+                - kube_configmap_.*
                 - kube_deployment_metadata_generation
                 - kube_deployment_status_condition
-                - kube_job.*
+                - kube_job_(annotations|labels|info|created|complete|spec_.*|status_succeeded|status_failed|status_completion_time|status_suspended)
                 - kube_node_labels
                 - kube_persistentvolume_status_phase
                 - kube_persistentvolumeclaim_info
@@ -102,6 +113,7 @@ spec:
                 - kube_replicaset_metadata_generation
                 - kube_replicaset_spec_replicas
                 - kube_replicaset_status.*
+                - kube_secret_metadata_resource_version
             extraMetricProcessingRules: |-
               rule {
                 action = "labeldrop"
@@ -151,13 +163,6 @@ spec:
                 action = "labeldrop"
                 regex = "uid"
               }
-          node-exporter:
-            metricsTuning:
-              excludeMetrics:
-                - node_cpu_scaling_governor
-                - node_cpu_seconds_total
-                - node_filesystem.*
-                - node_network.*
           kubelet:
             metricsTuning:
               excludeMetrics:
@@ -182,23 +187,37 @@ spec:
                 action = "labeldrop"
                 regex = "id"
               }
-        # Required for clusterMetrics
-        alloy-metrics:
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-host-metrics
+        hostMetrics:
           enabled: true
+          collector: alloy-metrics
+          linuxHosts:
+            enabled: true
+            metricsTuning:
+              excludeMetrics:
+                - node_cpu_scaling_governor
+                - node_cpu_seconds_total
+                - node_filesystem_[^as].*
+                - node_network.*
+
+        # The chart no longer deploys these unless asked, and clusterMetrics and hostMetrics scrape them
+        telemetryServices:
+          kube-state-metrics:
+            deploy: true
+          node-exporter:
+            deploy: true
 
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-cluster-events
         clusterEvents:
           enabled: true
-        # Required for clusterEvents
-        alloy-singleton:
-          enabled: true
+          collector: alloy-singleton
 
         # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-prometheus-operator-objects
         # Only useful if you have ServiceMonitors/PodMonitors etc in your cluster for the operator to scrape
         prometheusOperatorObjects:
           enabled: true
-          crds:
-            deploy: true
+          collector: alloy-metrics
           podMonitors:
             metricsTuning:
               excludeMetrics:
@@ -207,6 +226,8 @@ spec:
                 - client_go.*
                 - controller_runtime.*
                 - workqueue.*
+                # cloudnative-pg sends one series per Postgres setting
+                - cnpg_pg_settings_.*
           probes:
             metricsTuning:
               excludeMetrics:
@@ -233,6 +254,7 @@ spec:
         # Only useful if your applications emit otlp metrics
         applicationObservability:
           enabled: false
+          collector: alloy-receiver
           receivers:
             otlp:
               grpc:
@@ -244,20 +266,73 @@ spec:
             zipkin:
               enabled: true
               port: 9411
-        # Required for applicationObservability
-        alloy-receiver:
-          enabled: false
+
+        # https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-integrations
+        integrations:
+          collector: alloy-metrics
           alloy:
-            extraPorts:
-              - name: otlp-grpc
-                port: 4317
-                targetPort: 4317
-                protocol: TCP
-              - name: otlp-http
-                port: 4318
-                targetPort: 4318
-                protocol: TCP
-              - name: zipkin
-                port: 9411
-                targetPort: 9411
-                protocol: TCP
+            instances:
+              - name: alloy
+                labelSelectors:
+                  app.kubernetes.io/name: [alloy-metrics, alloy-logs, alloy-singleton, alloy-receiver]
+                metrics:
+                  tuning:
+                    # Only what shows that a collector drops or fails to send data
+                    useDefaultAllowList: false
+                    includeMetrics:
+                      - alloy_build_info
+                      - loki_write_dropped_entries_total
+                      - loki_write_sent_entries_total
+                      - prometheus_remote_storage_samples_failed_total
+                      - prometheus_remote_storage_samples_total
+
+        # https://github.com/grafana/k8s-monitoring-helm/blob/main/charts/k8s-monitoring/docs/collectors/README.md
+        collectors:
+          alloy-metrics:
+            presets: [clustered, statefulset]
+          alloy-logs:
+            presets: [filesystem-log-reader, daemonset]
+          alloy-singleton:
+            presets: [singleton]
+          # Required for applicationObservability
+          alloy-receiver:
+            enabled: false
+            # Not the daemonset preset, which also adds a toleration for every NoSchedule taint
+            controller:
+              type: daemonset
+            alloy:
+              extraPorts:
+                - name: otlp-grpc
+                  port: 4317
+                  targetPort: 4317
+                  protocol: TCP
+                - name: otlp-http
+                  port: 4318
+                  targetPort: 4318
+                  protocol: TCP
+                - name: zipkin
+                  port: 9411
+                  targetPort: 9411
+                  protocol: TCP
+---
+# The k8s-monitoring chart no longer ships these CRDs, and prometheusOperatorObjects needs them
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-operator-crds
+  namespace: argocd
+  # No resources finalizer, so deleting this Application leaves the CRDs and their objects in place
+spec:
+  project: observability
+  destination:
+    namespace: grafana-k8s-monitoring
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    automated: {}
+  source:
+    repoURL: 'https://prometheus-community.github.io/helm-charts'
+    chart: prometheus-operator-crds
+    targetRevision: 32.0.0
