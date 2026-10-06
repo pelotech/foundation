@@ -45,10 +45,10 @@ spec:
           resources:
             requests:
               cpu: "15m"
-              memory: "105M"
+              memory: "256M"
             limits:
               cpu: "15m"
-              memory: "105M"
+              memory: "256M"
   destination:
     namespace: cert-manager
     name: in-cluster
