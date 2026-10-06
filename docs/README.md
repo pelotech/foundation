@@ -8,6 +8,7 @@ Foundation is our repository of base, reusable manifests for setting up GitOps k
 #### [Getting Started](./GETTING-STARTED.md)
 #### [Architecture](./ARCHITECTURE.md)
 #### [Tools](./TOOLS.md)
+#### [Upgrading to 6](./UPGRADING-6.md)
 
 
 ## bootstrap application

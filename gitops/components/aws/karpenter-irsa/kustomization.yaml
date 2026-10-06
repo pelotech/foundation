@@ -1,9 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the karpenter base component itself. Use this
-# INSTEAD of the plain karpenter component (including both fails with a
-# duplicate-resource error).
 components:
   - ../karpenter
 

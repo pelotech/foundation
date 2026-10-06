@@ -1,10 +1,11 @@
 # create-issuer
 
 Renders the `letsencrypt` `ClusterIssuer` with **composable ACME solvers**:
-any mix of http01-via-Ingress, http01-via-Gateway, and dns01 (route53) —
-simultaneously or alone. `acmeIssuerEmail` and `awsRegion` are wired from the
-`kustomize-environment` ConfigMap (`ACME_ISSUER_EMAIL`, `AWS_REGION`) by the
-cert-manager component.
+any mix of http01-via-Ingress, http01-via-Gateway, and dns01 (route53 or
+Azure DNS) — simultaneously or alone. `acmeIssuerEmail` is wired from the
+`kustomize-environment` ConfigMap (`ACME_ISSUER_EMAIL`) by the cert-manager
+component; the dns01 provider settings are wired by the cloud flavor
+(`aws/cert-manager`, `azure/cert-manager`).
 
 ## How solver selection works
 
@@ -31,10 +32,18 @@ solvers:
       namespace: envoy-gateway-system  # only configure it by hand to override.
       matchLabels:
         use-gateway-solver: "true"
-  dns01:                  # shipped default: route53, label-selected. Required
-    enabled: true         # during weighted cutovers - see GATEWAY-ADOPTION.md.
-    matchLabels:
-      use-dns01-solver: "true"
+  dns01:                  # one provider per cloud, off in the base; the cloud
+    route53:              # flavor turns its own on, label-selected. Required
+      enabled: true       # during weighted cutovers - see GATEWAY-ADOPTION.md.
+      region: us-east-1
+      matchLabels:
+        use-dns01-solver: "true"
+    azureDNS:
+      enabled: false
+      subscriptionID: ""
+      resourceGroupName: ""
+      hostedZoneName: ""
+      clientID: ""        # workload identity of the cert-manager pods
 ```
 
 Notes:

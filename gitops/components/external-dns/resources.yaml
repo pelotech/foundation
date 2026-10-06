@@ -16,17 +16,10 @@ spec:
       releaseName: external-dns
       valuesObject:
         txtOwnerId: CLUSTER_NAME
-        # Pod-identity-ready by default: no IRSA annotations. Clusters using
-        # IRSA for external-dns use the aws/external-dns-irsa component instead, which
-        # includes this one, adds the annotations, and requires EXTERNAL_DNS_ROLE_ARN.
+        # Each cloud flavor sets the provider, which the chart defaults to aws.
         serviceAccount:
           create: true
           name: external-dns-controller
-        provider:
-          name: aws
-        env:
-          - name: AWS_DEFAULT_REGION
-            value: us-east-1
         policy: sync
         registry: txt
         txtPrefix: xdns-

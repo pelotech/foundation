@@ -6,12 +6,15 @@ data:
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
   exec.enabled: "true"
   url: "https://ARGOCD_SERVER_HOST"
+  # The second expression drops the two namespaceSelector entries AKS's admissions enforcer adds to every webhook.
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
     jqPathExpressions:
     - '.webhooks[]?.clientConfig.caBundle'
+    - '.webhooks[]?.namespaceSelector.matchExpressions[]? | select(.key == "kubernetes.azure.com/managedby" or .key == "control-plane")'
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration: |
     jqPathExpressions:
     - '.webhooks[]?.clientConfig.caBundle'
+    - '.webhooks[]?.namespaceSelector.matchExpressions[]? | select(.key == "kubernetes.azure.com/managedby" or .key == "control-plane")'
   helm.valuesFileSchemes: >-
     secrets+gpg-import, secrets+gpg-import-kubernetes,
     secrets+age-import, secrets+age-import-kubernetes,

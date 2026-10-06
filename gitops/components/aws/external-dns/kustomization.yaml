@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# Works alone with Pod Identity. aws/external-dns-irsa includes it for IRSA clusters, so list one or the other.
+components:
+  - ../../external-dns
+
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: external-dns
+    patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: external-dns
+      spec:
+        source:
+          helm:
+            valuesObject:
+              provider:
+                name: aws
+              env:
+                - name: AWS_DEFAULT_REGION
+                  value: us-east-1

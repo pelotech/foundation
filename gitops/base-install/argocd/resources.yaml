@@ -78,6 +78,8 @@ spec:
   sourceRepos:
     - https://github.com/pelotech/foundation
     - https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+    - https://kubernetes-sigs.github.io/azuredisk-csi-driver
+    - https://kubernetes-sigs.github.io/blob-csi-driver
     - https://awslabs.github.io/mountpoint-s3-csi-driver
     - https://backube.github.io/helm-charts
   destinations:
@@ -138,6 +140,7 @@ spec:
     - https://kyverno.github.io/kyverno
     - public.ecr.aws/karpenter
     - mcr.microsoft.com/aks/karpenter
+    - https://cloudnative-pg.github.io/charts
   destinations:
     - namespace: reloader
       server: https://kubernetes.default.svc
@@ -158,6 +161,8 @@ spec:
     - namespace: cdi
       server: https://kubernetes.default.svc
     - namespace: kyverno
+      server: https://kubernetes.default.svc
+    - namespace: cnpg-system
       server: https://kubernetes.default.svc
   sourceNamespaces:
     - argocd
