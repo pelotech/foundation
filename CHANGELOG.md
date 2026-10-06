@@ -1,5 +1,22 @@
 # Changelog
 
+## [6.0.0](https://github.com/pelotech/foundation/compare/v5.1.7...v6.0.0) (2026-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* split cert-manager, external-dns and traefik into cloud-neutral bases with aws and azure flavors ([#588](https://github.com/pelotech/foundation/issues/588))
+
+### Features
+
+* **azure-disk-csi:** add Azure Disk storage and snapshot classes for Open Terrain [sc-2819] ([#583](https://github.com/pelotech/foundation/issues/583)) ([55bc552](https://github.com/pelotech/foundation/commit/55bc552ab74648edb0727cd1a6e358866a080dfc))
+* split cert-manager, external-dns and traefik into cloud-neutral bases with aws and azure flavors ([#588](https://github.com/pelotech/foundation/issues/588)) ([d000c12](https://github.com/pelotech/foundation/commit/d000c1229ee0b7194f0c34f59409ef9b2bdf868c))
+
+
+### Chores
+
+* **deps:** update helm release argo-workflows to v2.0.11 ([#589](https://github.com/pelotech/foundation/issues/589)) ([93e7713](https://github.com/pelotech/foundation/commit/93e77136055d1138def7a1e9eabca4a588c3babb))
+
 ## [5.1.7](https://github.com/pelotech/foundation/compare/v5.1.6...v5.1.7) (2026-10-02)
 
 
