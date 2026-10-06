@@ -40,6 +40,10 @@ data:
 Metrics, cluster events, and logs are enabled by default. Application monitoring and the
 Prometheus Operator are disabled by default, but default values for them are present for convenience.
 
+## Prometheus Operator CRDs
+The chart no longer ships the Prometheus Operator CRDs that `prometheusOperatorObjects` needs, so this component
+installs them with a second Application, `prometheus-operator-crds`.
+
 ## Metrics Tuning
 The helm values in this component include metrics tuning that minimize metrics cost.  *Some*
 dashboards and alerts will not work due to these tuning adjustments, but the vast majority of
