@@ -1,0 +1,18 @@
+---
+# AKS creates this class as the default on every cluster, and recreates it only when it is missing.
+# This copy turns the default annotation off. Keep the spec as AKS writes it: provisioner and parameters are immutable.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: default
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+    kubernetes.io/cluster-service: "true"
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: disk.csi.azure.com
+parameters:
+  skuname: StandardSSD_ZRS
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true

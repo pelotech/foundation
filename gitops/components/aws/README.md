@@ -8,6 +8,9 @@ Components in this directory are **meaningful only on AWS/EKS**:
   (route53 dns01 solver, `AWS_REGION`), `aws/external-dns` (`provider: aws`)
   and `aws/traefik` (NLB annotations, `TRAEFIK_NLB_NAME`). Each includes its
   base (`../../cert-manager`, ...) and layers the AWS settings on it.
+* [`kubevirt`](kubevirt): the AWS flavor of the top-level
+  [`kubevirt`](../kubevirt) component: EBS storage for CDI and Karpenter node
+  placement over the cloud-neutral base.
 * The `*-irsa` flavor components — IRSA is an AWS mechanism. Each includes the
   AWS flavor above (e.g. `aws/cert-manager-irsa` includes `../cert-manager`)
   and adds the IAM role annotations.

@@ -1,0 +1,43 @@
+---
+# Disable the AKS-managed Disk CSI driver and snapshot controller first: this Application installs both.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: azure-disk-csi
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: storage
+  sources:
+  - repoURL: 'https://github.com/pelotech/foundation'
+    path: 'gitops/components/snapshot-controller'
+    targetRevision: v5.1.5 # x-release-please-version
+  # The sync wave applies the snapshot CRDs before the VolumeSnapshotClass that uses them.
+  - repoURL: 'https://github.com/pelotech/foundation'
+    path: 'gitops/components/azure/disk-csi/snapshot-class'
+    targetRevision: v5.1.5 # x-release-please-version
+  - chart: azuredisk-csi-driver
+    repoURL: https://kubernetes-sigs.github.io/azuredisk-csi-driver
+    targetRevision: 1.36.0
+    helm:
+      releaseName: azuredisk-csi-driver
+      valuesObject:
+        # Chart 1.36.0 defaults to azuredisk-csi:latest, which rejects the chart's --feature-gates flag. The v1.36.0 tag exists only under oss/v2.
+        image:
+          azuredisk:
+            repository: /oss/v2/kubernetes-csi/azuredisk-csi
+            tag: v1.36.0
+        # Off: the shared snapshot-controller source above provides the snapshot CRDs and controller, as for aws/ebs-csi.
+        snapshot:
+          enabled: false
+          # The chart's VolumeSnapshotClass is a Helm hook without the default annotation. snapshot-class/ provides azure-disk-snapshot instead.
+          VolumeSnapshotClass:
+            enabled: false
+        windows:
+          enabled: false
+  destination:
+    namespace: kube-system
+    name: in-cluster
+  syncPolicy:
+    automated: {}

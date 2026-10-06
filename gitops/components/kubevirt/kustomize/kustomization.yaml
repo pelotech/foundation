@@ -1,11 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
+# Cloud-neutral KubeVirt and CDI. Each <cloud>/kubevirt flavor builds its entrypoint on this one.
 resources:
   - ./operators
   - ./resources.yaml
   - https://github.com/kubevirt/common-instancetypes//VirtualMachineClusterPreferences?ref=v1.7.0
-
 patches:
   - target:
       group: apps

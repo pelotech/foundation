@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# Azure entrypoint of the kubevirt Application: the base, the Azure Disk storage classes and CDI scratch space.
+resources:
+  - ../../../kubevirt/kustomize
+  - ./storage-classes.yaml
+patches:
+  # CDI scratch space on premium-v2, a WaitForFirstConsumer class, so it lands in the importer pod's zone.
+  - target:
+      group: cdi.kubevirt.io
+      version: v1beta1
+      kind: CDI
+      name: cdi
+    patch: |-
+      apiVersion: cdi.kubevirt.io/v1beta1
+      kind: CDI
+      metadata:
+        name: cdi
+      spec:
+        config:
+          scratchSpaceStorageClass: premium-v2

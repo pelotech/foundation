@@ -1,0 +1,12 @@
+---
+# For CDI imports that only feed a snapshot. With WaitForFirstConsumer, a retried importer stays on the PVC's selected node, even when that node is gone or full.
+# Not for VM disks: the disks of one VM could land in different AZs.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gp3-immediate
+provisioner: ebs.csi.aws.com
+parameters:
+  type: gp3
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

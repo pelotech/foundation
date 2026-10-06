@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# AWS entrypoint of the kubevirt Application: the base, EBS storage for CDI and Karpenter node placement.
+resources:
+  - ../../../kubevirt/kustomize
+  - ./storage-class.yaml
+patches:
+  # CDI scratch space on gp3, a WaitForFirstConsumer class, so it lands in the importer pod's AZ.
+  - target:
+      group: cdi.kubevirt.io
+      version: v1beta1
+      kind: CDI
+      name: cdi
+    patch: |-
+      apiVersion: cdi.kubevirt.io/v1beta1
+      kind: CDI
+      metadata:
+        name: cdi
+      spec:
+        config:
+          scratchSpaceStorageClass: gp3
+  # VMs run on bare-metal nodes. The KubeVirt control plane runs on the Karpenter spot pool.
+  - target:
+      group: kubevirt.io
+      version: v1
+      kind: KubeVirt
+      name: kubevirt
+    patch: |-
+      apiVersion: kubevirt.io/v1
+      kind: KubeVirt
+      metadata:
+        name: kubevirt
+        namespace: kubevirt
+      spec:
+        workloads:
+          nodePlacement:
+            nodeSelector:
+              karpenter.k8s.aws/instance-size: metal
+        infra:
+          nodePlacement:
+            nodeSelector:
+              karpenter.sh/nodepool: spot
