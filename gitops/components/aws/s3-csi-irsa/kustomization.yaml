@@ -1,9 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-# Flavor component: includes the s3-csi base component itself. Use this
-# INSTEAD of the plain s3-csi component (including both fails with a
-# duplicate-resource error).
 components:
   - ../s3-csi
 

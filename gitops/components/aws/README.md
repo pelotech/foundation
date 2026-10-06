@@ -4,27 +4,25 @@ Components in this directory are **meaningful only on AWS/EKS**:
 
 * Pure-AWS infrastructure: [`alb`](alb/README.md) (AWS Load Balancer
   Controller), `ebs-csi`, `s3-csi`, and `karpenter`.
-* The `*-irsa` flavor components — IRSA is an AWS mechanism. Each includes its
-  base component (which may live at the top level, e.g.
-  `aws/cert-manager-irsa` includes `../../cert-manager`) and adds the IAM role
-  annotations. Use a flavor **instead of** its base, never both.
+* The AWS flavors of the generic top-level controllers: `aws/cert-manager`
+  (route53 dns01 solver, `AWS_REGION`), `aws/external-dns` (`provider: aws`)
+  and `aws/traefik` (NLB annotations, `TRAEFIK_NLB_NAME`). Each includes its
+  base (`../../cert-manager`, ...) and layers the AWS settings on it.
 * [`kubevirt`](kubevirt): the AWS flavor of the top-level
   [`kubevirt`](../kubevirt) component: EBS storage for CDI and Karpenter node
-  placement over the cloud-neutral base. Use it **instead of** `kubevirt`.
+  placement over the cloud-neutral base.
+* The `*-irsa` flavor components — IRSA is an AWS mechanism. Each includes the
+  AWS flavor above (e.g. `aws/cert-manager-irsa` includes `../cert-manager`)
+  and adds the IAM role annotations.
 
-## Generic components with AWS config (and the future multi-cloud shape)
+Use one flavor **instead of** its base, never both: including two of them
+fails with a duplicate-resource error.
 
-Top-level components like `external-dns`, `cert-manager`, `traefik`,
-and `envoy-gateway` are generic controllers that currently
-carry their AWS configuration inline (route53 solvers, NLB service
-annotations, `provider: aws`). This is deliberate: splitting them into
-cloud-neutral bases before a second cloud consumer exists would create base
-components that cannot run anywhere on their own, and would guess at seams
-that only real requirements can define.
+## Generic components and the flavor shape
 
-When a non-AWS (e.g. GKE) cluster becomes concrete, the intended shape is the
-**flavor pattern proven by the `*-irsa` components**: the generic base loses
-its inline cloud config, and per-cloud sibling flavors (`aws/external-dns`,
-`gke/external-dns`, ...) include the base and layer the cloud specifics —
-one-line consumption, duplicate-include errors instead of silent
-misconfiguration, no ordering traps.
+Top-level `external-dns`, `cert-manager` and `traefik` carry no cloud settings.
+A base alone is not a working deployment on any cloud (external-dns would even
+fall back to the chart's `aws` default), so a cluster always lists one flavor:
+`aws/<component>` here or `azure/<component>` in [`../azure`](../azure/README.md).
+`envoy-gateway` still carries its AWS configuration inline and follows the same
+pattern when a second cloud needs it.

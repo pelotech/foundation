@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
+# Works alone with http01. The <cloud>/cert-manager flavors include it and add dns01, so list one or the other.
 resources:
   - ./resources.yaml
 
@@ -19,17 +20,3 @@ replacements:
           name: create-issuer
         fieldPaths:
           - spec.source.helm.valuesObject.acmeIssuerEmail
-
-  - source:
-      version: v1
-      kind: ConfigMap
-      name: kustomize-environment
-      fieldPath: data.AWS_REGION
-    targets:
-      - select:
-          group: argoproj.io
-          version: v1alpha1
-          kind: Application
-          name: create-issuer
-        fieldPaths:
-          - spec.source.helm.valuesObject.awsRegion

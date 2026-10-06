@@ -27,14 +27,7 @@ spec:
         skipCrds: true
         valuesObject:
           controller:
-            image:
-              digest: >-
-                sha256:d45382cf156994f63b919e5d07721de330d42c4ae3a1c10653fa01a7e3f39e28
-              repository: ghcr.io/pelotech/karpenter-azure
-              tag: v1.14.3x
             env:
-              - name: IGNORED_NODE_SELECTOR_REQUIREMENTS
-                value: scheduling.node.kubevirt.io/tsc-frequency-*
               - name: KUBELET_BOOTSTRAP_TOKEN
                 valueFrom:
                   secretKeyRef:
@@ -70,3 +63,5 @@ spec:
           settings:
             clusterName: CLUSTER_NAME
             clusterEndpoint: CLUSTER_ENDPOINT
+            featureGates:
+              nodeOverlay: true

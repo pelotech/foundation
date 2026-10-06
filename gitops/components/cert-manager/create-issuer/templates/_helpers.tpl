@@ -20,11 +20,13 @@ configured, and at most one entry across all solver types may omit selectors
 */}}
 {{- define "create-issuer.validate" -}}
 {{- $entries := concat (.Values.solvers.ingress | default list) (.Values.solvers.gateway | default list) -}}
-{{- if .Values.solvers.dns01.enabled -}}
-{{- $entries = append $entries .Values.solvers.dns01 -}}
+{{- range $provider := list .Values.solvers.dns01.route53 .Values.solvers.dns01.azureDNS -}}
+{{- if $provider.enabled -}}
+{{- $entries = append $entries $provider -}}
+{{- end -}}
 {{- end -}}
 {{- if not $entries -}}
-{{- fail "no solvers configured: set at least one of solvers.ingress, solvers.gateway, solvers.dns01.enabled" -}}
+{{- fail "no solvers configured: set at least one of solvers.ingress, solvers.gateway, solvers.dns01.<provider>.enabled" -}}
 {{- end -}}
 {{- $defaults := 0 -}}
 {{- range $entries -}}

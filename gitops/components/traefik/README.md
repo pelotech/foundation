@@ -12,16 +12,18 @@ verbatim.
 Gateway API is deliberately **not** enabled here; the `envoy-gateway`
 component owns that surface.
 
-## Required `kustomize-environment` keys
+## Flavors
 
-| Key | Purpose |
-|---|---|
-| `TRAEFIK_NLB_NAME` | Name of the NLB fronting Traefik (e.g. `traefik-CLUSTER-NAME`), kept distinct per data plane (envoy-gateway has its own via `EG_NLB_NAME`). |
+This base carries no cloud settings. On AWS list [`aws/traefik`](../aws/traefik)
+instead: it adds the NLB annotations and requires `TRAEFIK_NLB_NAME` in
+`kustomize-environment` (e.g. `traefik-CLUSTER-NAME`, kept distinct per data
+plane; envoy-gateway has its own via `EG_NLB_NAME`) and the
+[`aws/alb`](../aws/alb/README.md) component to reconcile the LoadBalancer
+Service into an NLB. On Azure the base is enough: AKS gives the Service a
+public Standard Load Balancer with no annotations.
 
 The `networking` AppProject must allow `ghcr.io/traefik/helm` in `sourceRepos`
-and the `traefik` namespace in `destinations`. Requires the
-[`aws/alb`](../aws/alb/README.md) component (AWS Load Balancer Controller) to
-reconcile the LoadBalancer Service into an NLB.
+and the `traefik` namespace in `destinations`.
 
 ## Design notes
 
