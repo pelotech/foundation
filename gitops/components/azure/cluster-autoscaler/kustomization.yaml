@@ -1,0 +1,97 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+# The utils project must allow the chart repository.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: utils
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://kubernetes.github.io/autoscaler
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.CLUSTER_NAME
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.valuesObject.autoDiscovery.clusterName
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.SERVER_IDENTITY_CLIENT_ID
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.valuesObject.azureUserAssignedIdentityID
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AZURE_NODE_RESOURCE_GROUP
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.valuesObject.azureResourceGroup
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AZURE_SUBSCRIPTION_ID
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.valuesObject.azureSubscriptionID
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AZURE_TENANT_ID
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.valuesObject.azureTenantID
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.AZURE_ENVIRONMENT
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: cluster-autoscaler
+        fieldPaths:
+          - spec.source.helm.valuesObject.extraEnv.ARM_CLOUD
