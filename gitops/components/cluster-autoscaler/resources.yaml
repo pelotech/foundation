@@ -15,7 +15,10 @@ spec:
     targetRevision: 9.59.0
     helm:
       releaseName: cluster-autoscaler
-      valuesObject: {}
+      valuesObject:
+        image:
+          # 1.35.0 lacks the Azure v7 sizes in its instance list, so a pool at zero never scales. Drop with the next chart.
+          tag: v1.35.2
   destination:
     namespace: kube-system
     name: in-cluster
