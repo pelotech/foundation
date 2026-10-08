@@ -4,6 +4,23 @@ kind: Component
 resources:
   - ./resources.yaml
 
+# The utils project must allow the chart repository and the namespace.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: utils
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://azure.github.io/azure-workload-identity/charts
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: azure-workload-identity-system
+          server: https://kubernetes.default.svc
+
 replacements:
   - source:
       version: v1
