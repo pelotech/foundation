@@ -27,7 +27,7 @@ spec:
           name: CLUSTER_NAME
         # The chart's own global wins over a feature's global block, so the interval is set once here for every feature
         global:
-          scrapeInterval: 120s
+          scrapeInterval: 60s
         destinations:
           metricsService:
             type: prometheus
