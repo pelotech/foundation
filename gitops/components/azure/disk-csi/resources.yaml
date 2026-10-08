@@ -12,11 +12,11 @@ spec:
   sources:
   - repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/snapshot-controller'
-    targetRevision: v6.1.0 # x-release-please-version
+    targetRevision: v6.2.0 # x-release-please-version
   # The sync wave applies the snapshot CRDs before the VolumeSnapshotClass that uses them.
   - repoURL: 'https://github.com/pelotech/foundation'
     path: 'gitops/components/azure/disk-csi/snapshot-class'
-    targetRevision: v6.1.0 # x-release-please-version
+    targetRevision: v6.2.0 # x-release-please-version
   - chart: azuredisk-csi-driver
     repoURL: https://kubernetes-sigs.github.io/azuredisk-csi-driver
     targetRevision: 1.36.0
