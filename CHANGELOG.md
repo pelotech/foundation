@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.2.0](https://github.com/pelotech/foundation/compare/v6.1.0...v6.2.0) (2026-10-08)
+
+
+### Features
+
+* **azure:** add the cluster-autoscaler component ([#601](https://github.com/pelotech/foundation/issues/601)) ([b849d21](https://github.com/pelotech/foundation/commit/b849d214217a69205d904fb2e8ff9bc663092538))
+
+
+### Bug Fixes
+
+* **azure:** add the workload identity webhook component ([#600](https://github.com/pelotech/foundation/issues/600)) ([b76c18c](https://github.com/pelotech/foundation/commit/b76c18cca426258c403c3540f5bade13db394cb2))
+
 ## [6.1.0](https://github.com/pelotech/foundation/compare/v6.0.0...v6.1.0) (2026-10-06)
 
 
