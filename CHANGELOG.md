@@ -1,5 +1,24 @@
 # Changelog
 
+## [6.2.1](https://github.com/pelotech/foundation/compare/v6.2.0...v6.2.1) (2026-10-08)
+
+
+### Bug Fixes
+
+* **azure:** ignore the namespaceSelector the AKS admissions enforcer adds to the webhook ([#606](https://github.com/pelotech/foundation/issues/606)) ([8cc660e](https://github.com/pelotech/foundation/commit/8cc660e460e53de245c1f66a5465913d7ba2af5a))
+* **cluster-autoscaler:** run 1.36.1 so pools on Azure v7 sizes scale from zero ([#608](https://github.com/pelotech/foundation/issues/608)) ([a31fc8b](https://github.com/pelotech/foundation/commit/a31fc8bc8af63565054492b2fcb269c4d4940195))
+* **kyverno:** run two admission controller replicas ([#604](https://github.com/pelotech/foundation/issues/604)) ([dac5098](https://github.com/pelotech/foundation/commit/dac5098c681e0522ccfc4e9928cd188ea76ca988))
+
+
+### Chores
+
+* **deps:** update argo-cd to v3.5.4 ([#597](https://github.com/pelotech/foundation/issues/597)) ([cccf416](https://github.com/pelotech/foundation/commit/cccf416c69bbf58e42ae536b1a821922bf3bbffa))
+* **deps:** update dependency jkroepke/helm-secrets to v4.7.9 ([#598](https://github.com/pelotech/foundation/issues/598)) ([014bb0e](https://github.com/pelotech/foundation/commit/014bb0e914bac90eb7a98081d16ff106c8274b96))
+* **deps:** update ghcr.io/traefik/helm/traefik docker tag to v41.7.0 ([#605](https://github.com/pelotech/foundation/issues/605)) ([7a22888](https://github.com/pelotech/foundation/commit/7a2288800c4d84b446d08a4dd3430f30748aa606))
+* **deps:** update helm release aws-ebs-csi-driver to v2.66.1 ([#607](https://github.com/pelotech/foundation/issues/607)) ([c767622](https://github.com/pelotech/foundation/commit/c76762283aa4fb06e3b69df2d8eeefaa2d8d19ec))
+* **deps:** update helm release k8s-monitoring to v4.5.3 ([#599](https://github.com/pelotech/foundation/issues/599)) ([5d8d1a1](https://github.com/pelotech/foundation/commit/5d8d1a1c62461999b774b29ec518126034576777))
+* **deps:** update helm release prometheus-operator-crds to v32.0.1 ([#596](https://github.com/pelotech/foundation/issues/596)) ([2ef8792](https://github.com/pelotech/foundation/commit/2ef8792f6f791a56108dd701f05cc3d4503c6e1a))
+
 ## [6.2.0](https://github.com/pelotech/foundation/compare/v6.1.0...v6.2.0) (2026-10-08)
 
 
