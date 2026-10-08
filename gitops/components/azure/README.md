@@ -6,6 +6,9 @@ Components in this directory are **meaningful only on Azure/AKS**:
   gives labelled pods a token for their workload identity. AKS ships it as an add-on, which
   `terraform-azure-foundation` turns off by default; RKE2 never had it.
 * [`karpenter`](karpenter/README.md): the self-hosted AKS Karpenter provider.
+* [`cluster-autoscaler`](cluster-autoscaler/README.md): the Azure flavor of the top-level
+  [`cluster-autoscaler`](../cluster-autoscaler), for clusters whose agent pools are scale sets tagged
+  for it. AKS clusters use Karpenter instead.
 * [`disk-csi`](disk-csi/README.md): the upstream Azure Disk CSI driver Helm
   chart, the shared [`snapshot-controller`](../snapshot-controller/README.md),
   and the default VolumeSnapshotClass. The Azure counterpart of
@@ -38,7 +41,9 @@ size that supports nested virtualization.
 | Key                         | Used by                     | Source (`terraform-azure-foundation`) |
 |-----------------------------|-----------------------------|---------------------------------------|
 | `AZURE_SUBSCRIPTION_ID`     | karpenter, cert-manager     | subscription of the cluster           |
-| `AZURE_TENANT_ID`           | workload-identity-webhook   | `tenant_id`                           |
+| `AZURE_TENANT_ID`           | workload-identity-webhook, cluster-autoscaler | `tenant_id`         |
+| `AZURE_NODE_RESOURCE_GROUP` | karpenter, cluster-autoscaler | `node_resource_group_name`          |
+| `SERVER_IDENTITY_CLIENT_ID` | cluster-autoscaler          | `server_identity_client_id` (RKE2)    |
 | `AZURE_ENVIRONMENT`         | workload-identity-webhook   | `AzurePublicCloud` or `AzureUSGovernmentCloud` |
 | `AZURE_DNS_RESOURCE_GROUP`  | cert-manager                | resource group of the DNS zone        |
 | `AZURE_DNS_ZONE`            | cert-manager                | DNS zone name                         |
@@ -61,4 +66,5 @@ components:
   - https://github.com/pelotech/foundation//gitops/components/azure/blob-csi?ref=vX.Y.Z
   - https://github.com/pelotech/foundation//gitops/components/azure/kubevirt?ref=vX.Y.Z
   - https://github.com/pelotech/foundation//gitops/components/azure/karpenter?ref=vX.Y.Z
+  - https://github.com/pelotech/foundation//gitops/components/azure/cluster-autoscaler?ref=vX.Y.Z
 ```
