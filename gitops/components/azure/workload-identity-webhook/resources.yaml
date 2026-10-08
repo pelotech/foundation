@@ -28,4 +28,11 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
     automated: {}
+  # The AKS admissions enforcer adds a namespaceSelector to every webhook; without this the app never syncs there.
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jsonPointers:
+        - /webhooks/0/namespaceSelector
