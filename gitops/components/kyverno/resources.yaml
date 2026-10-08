@@ -21,6 +21,8 @@ spec:
             # Defaults to port 8080. Setting to this port to avoid conflicts when hostNetwork=true downstream
             bindAddress: ":49150"
         admissionController:
+          # One replica blocks every admission call while its node is down; two keep the fail-closed webhook answering.
+          replicas: 2
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
           webhookServer:
