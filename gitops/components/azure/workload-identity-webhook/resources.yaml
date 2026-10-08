@@ -1,0 +1,31 @@
+---
+# Injects the client id and the projected token into pods that carry the label azure.workload.identity/use.
+# AKS ships it as an add-on; here the GitOps layer runs it on every Azure cluster.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: azure-workload-identity-webhook
+  namespace: argocd
+  annotations:
+    # Before the controllers that carry the label, so their first pods are mutated.
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  source:
+    chart: workload-identity-webhook
+    repoURL: https://azure.github.io/azure-workload-identity/charts
+    targetRevision: 1.6.1
+    helm:
+      releaseName: workload-identity-webhook
+      valuesObject:
+        azureTenantID: AZURE_TENANT_ID
+        azureEnvironment: AZURE_ENVIRONMENT
+  destination:
+    namespace: azure-workload-identity-system
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}

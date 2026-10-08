@@ -2,6 +2,9 @@
 
 Components in this directory are **meaningful only on Azure/AKS**:
 
+* [`workload-identity-webhook`](workload-identity-webhook/README.md): the mutating webhook that
+  gives labelled pods a token for their workload identity. AKS ships it as an add-on, which
+  `terraform-azure-foundation` turns off by default; RKE2 never had it.
 * [`karpenter`](karpenter/README.md): the self-hosted AKS Karpenter provider.
 * [`disk-csi`](disk-csi/README.md): the upstream Azure Disk CSI driver Helm
   chart, the shared [`snapshot-controller`](../snapshot-controller/README.md),
@@ -35,6 +38,8 @@ size that supports nested virtualization.
 | Key                         | Used by                     | Source (`terraform-azure-foundation`) |
 |-----------------------------|-----------------------------|---------------------------------------|
 | `AZURE_SUBSCRIPTION_ID`     | karpenter, cert-manager     | subscription of the cluster           |
+| `AZURE_TENANT_ID`           | workload-identity-webhook   | `tenant_id`                           |
+| `AZURE_ENVIRONMENT`         | workload-identity-webhook   | `AzurePublicCloud` or `AzureUSGovernmentCloud` |
 | `AZURE_DNS_RESOURCE_GROUP`  | cert-manager                | resource group of the DNS zone        |
 | `AZURE_DNS_ZONE`            | cert-manager                | DNS zone name                         |
 | `CERT_MANAGER_CLIENT_ID`    | cert-manager                | `cert_manager_client_id`              |
@@ -49,6 +54,7 @@ Karpenter's own keys are listed in its README. The workload identities need
 ```yaml
 components:
   - https://github.com/pelotech/foundation//gitops/components/traefik?ref=vX.Y.Z
+  - https://github.com/pelotech/foundation//gitops/components/azure/workload-identity-webhook?ref=vX.Y.Z
   - https://github.com/pelotech/foundation//gitops/components/azure/cert-manager?ref=vX.Y.Z
   - https://github.com/pelotech/foundation//gitops/components/azure/external-dns?ref=vX.Y.Z
   - https://github.com/pelotech/foundation//gitops/components/azure/disk-csi?ref=vX.Y.Z
