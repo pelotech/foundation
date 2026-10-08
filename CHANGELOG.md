@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.2](https://github.com/pelotech/foundation/compare/v6.2.1...v6.2.2) (2026-10-08)
+
+
+### Bug Fixes
+
+* **grafana-k8s-monitoring:** scrape every 60s instead of 120s ([#610](https://github.com/pelotech/foundation/issues/610)) ([6c72d5e](https://github.com/pelotech/foundation/commit/6c72d5e7c252a9a7ed1b3c6d141710b62e7f12e8))
+
 ## [6.2.1](https://github.com/pelotech/foundation/compare/v6.2.0...v6.2.1) (2026-10-08)
 
 
