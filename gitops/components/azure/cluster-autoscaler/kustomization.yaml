@@ -1,20 +1,44 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-resources:
-  - ./resources.yaml
+components:
+  - ../../cluster-autoscaler
 
-# The utils project must allow the chart repository.
 patches:
   - target:
       group: argoproj.io
       version: v1alpha1
-      kind: AppProject
-      name: utils
+      kind: Application
+      name: cluster-autoscaler
     patch: |-
-      - op: add
-        path: /spec/sourceRepos/-
-        value: https://kubernetes.github.io/autoscaler
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: cluster-autoscaler
+      spec:
+        source:
+          helm:
+            valuesObject:
+              cloudProvider: azure
+              azureVMType: vmss
+              azureUseManagedIdentityExtension: true
+              azureUserAssignedIdentityID: SERVER_IDENTITY_CLIENT_ID
+              azureResourceGroup: AZURE_NODE_RESOURCE_GROUP
+              azureSubscriptionID: AZURE_SUBSCRIPTION_ID
+              azureTenantID: AZURE_TENANT_ID
+              # Discovers the scale sets tagged cluster-autoscaler-enabled and cluster-autoscaler-name=<cluster>.
+              autoDiscovery:
+                clusterName: CLUSTER_NAME
+              # The chart has no value for the cloud; the provider reads it from this variable.
+              extraEnv:
+                ARM_CLOUD: AZURE_ENVIRONMENT
+              # On the control plane nodes, which carry the identity the values name.
+              nodeSelector:
+                node-role.kubernetes.io/control-plane: "true"
+              tolerations:
+                - key: CriticalAddonsOnly
+                  operator: Exists
+                  effect: NoSchedule
 
 replacements:
   - source:

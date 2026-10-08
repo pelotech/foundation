@@ -6,8 +6,9 @@ Components in this directory are **meaningful only on Azure/AKS**:
   gives labelled pods a token for their workload identity. AKS ships it as an add-on, which
   `terraform-azure-foundation` turns off by default; RKE2 never had it.
 * [`karpenter`](karpenter/README.md): the self-hosted AKS Karpenter provider.
-* [`cluster-autoscaler`](cluster-autoscaler/README.md): scales the agent pools of an RKE2 cluster
-  between the tags of their scale sets. Karpenter builds AKS nodes only, so RKE2 uses this instead.
+* [`cluster-autoscaler`](cluster-autoscaler/README.md): the Azure flavor of the top-level
+  [`cluster-autoscaler`](../cluster-autoscaler), for clusters whose agent pools are scale sets tagged
+  for it. AKS clusters use Karpenter instead.
 * [`disk-csi`](disk-csi/README.md): the upstream Azure Disk CSI driver Helm
   chart, the shared [`snapshot-controller`](../snapshot-controller/README.md),
   and the default VolumeSnapshotClass. The Azure counterpart of
