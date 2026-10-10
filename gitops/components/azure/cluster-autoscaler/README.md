@@ -6,9 +6,11 @@ whose agent pools are virtual machine scale sets. It discovers every scale set t
 `min` and `max` tags of the scale set. `terraform-rke2-foundation` sets those tags on every pool that has
 `min_count` and `max_count`; AKS clusters use Karpenter instead.
 
-The controller runs on the control plane nodes and authenticates through the managed identity extension with
-the identity those nodes carry, so no credential enters the cluster. That identity needs Contributor on the
-node resource group, which the module grants.
+The controller runs on the control plane nodes, as upstream recommends for self-managed control planes: it
+stays clear of tenant workloads and keeps a place to run when the agents scale to zero. It tolerates both
+server taints of `terraform-rke2-foundation`, `CriticalAddonsOnly` and `node-role.kubernetes.io/control-plane`.
+It authenticates through the managed identity extension with the identity those nodes carry, so no credential
+enters the cluster. That identity needs Contributor on the node resource group, which the module grants.
 
 Scaling is per pool: declare one pool per size class, with `min_count = 0` where a pool may be empty, and the
 autoscaler picks the pool that fits a pending pod.

@@ -35,11 +35,15 @@ patches:
               # With several pools, a pending pod lands in the pool that fits it tightest.
               extraArgs:
                 expander: least-waste
-              # On the control plane nodes, which carry the identity the values name.
+              # On the control plane nodes, which carry the identity the values name and keep running when
+              # the agents scale to zero. terraform-rke2-foundation taints them with both keys.
               nodeSelector:
                 node-role.kubernetes.io/control-plane: "true"
               tolerations:
                 - key: CriticalAddonsOnly
+                  operator: Exists
+                  effect: NoSchedule
+                - key: node-role.kubernetes.io/control-plane
                   operator: Exists
                   effect: NoSchedule
 
