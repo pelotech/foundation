@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.3.1](https://github.com/pelotech/foundation/compare/v6.3.0...v6.3.1) (2026-10-10)
+
+
+### Bug Fixes
+
+* DNS01 solver follows the cloud environment of the cluster ([#616](https://github.com/pelotech/foundation/issues/616)) ([370845c](https://github.com/pelotech/foundation/commit/370845ced7b3875ca0a2aa584cb12b9c84312654))
+
 ## [6.3.0](https://github.com/pelotech/foundation/compare/v6.2.1...v6.3.0) (2026-10-10)
 
 
