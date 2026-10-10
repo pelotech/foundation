@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.3.0](https://github.com/pelotech/foundation/compare/v6.2.1...v6.3.0) (2026-10-10)
+
+
+### Features
+
+* cluster-autoscaler tolerates the control-plane taint ([#615](https://github.com/pelotech/foundation/issues/615)) ([e825bf7](https://github.com/pelotech/foundation/commit/e825bf7d233f6890aa563f2326431654b2d8ea12))
+
+
+### Bug Fixes
+
+* **grafana-k8s-monitoring:** scrape every 60s instead of 120s ([#610](https://github.com/pelotech/foundation/issues/610)) ([6c72d5e](https://github.com/pelotech/foundation/commit/6c72d5e7c252a9a7ed1b3c6d141710b62e7f12e8))
+
+
+### Chores
+
+* **deps:** update ghcr.io/traefik/helm/traefik docker tag to v41.7.1 ([#612](https://github.com/pelotech/foundation/issues/612)) ([77c5131](https://github.com/pelotech/foundation/commit/77c5131cf704312b3624e0a041fb1398f9003d44))
+* **deps:** update helm release argo-workflows to v2.0.12 ([#613](https://github.com/pelotech/foundation/issues/613)) ([ad77dbb](https://github.com/pelotech/foundation/commit/ad77dbb43db66e8cb6b88cf9ead09fd3312fd498))
+
 ## [6.2.1](https://github.com/pelotech/foundation/compare/v6.2.0...v6.2.1) (2026-10-08)
 
 
