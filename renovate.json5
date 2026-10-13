@@ -50,5 +50,13 @@
       ],
       groupName: 'karpenter',
     },
+    {
+      description: 'azure karpenter chart and crds',
+      matchPackageNames: [
+        'mcr.microsoft.com/aks/karpenter/karpenter',
+        'mcr.microsoft.com/aks/karpenter/karpenter-crd',
+      ],
+      groupName: 'karpenter-azure',
+    },
   ],
 }
