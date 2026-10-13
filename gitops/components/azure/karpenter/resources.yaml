@@ -18,10 +18,10 @@ spec:
   sources:
     - chart: karpenter-crd
       repoURL: mcr.microsoft.com/aks/karpenter
-      targetRevision: 1.14.3
+      targetRevision: 1.14.5
     - chart: karpenter
       repoURL: mcr.microsoft.com/aks/karpenter
-      targetRevision: 1.14.3
+      targetRevision: 1.14.5
       helm:
         releaseName: karpenter
         skipCrds: true
