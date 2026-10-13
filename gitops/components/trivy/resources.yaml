@@ -1,0 +1,76 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: trivy-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  sources:
+    - chart: trivy-operator
+      # ghcr.io/aquasecurity/helm-charts stopped publishing after 0.32.1; the HTTPS repo is current.
+      repoURL: https://aquasecurity.github.io/helm-charts
+      targetRevision: 0.37.0
+      helm:
+        releaseName: trivy-operator
+        valuesObject:
+          targetNamespaces: TRIVY_TARGET_NAMESPACES
+          trivy:
+            ignoreUnfixed: true
+            # Large images from slow registries need well over the 5m default.
+            timeout: 30m0s
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                cpu: "1"
+                memory: 1Gi
+          operator:
+            # One shared trivy server instead of a per-container cache in every scan pod;
+            # Standalone mode deadlocks on the cache lock in multi-container pods.
+            builtInTrivyServer: true
+            scanJobTimeout: 30m
+            clusterComplianceEnabled: false
+            configAuditScannerEnabled: false
+            exposedSecretScannerEnabled: false
+            infraAssessmentScannerEnabled: false
+            rbacAssessmentScannerEnabled: false
+    - chart: trivy-operator-dashboard
+      repoURL: ghcr.io/raoulx24/charts
+      targetRevision: 1.9.0
+      helm:
+        releaseName: trivy-operator-dashboard
+        valuesObject:
+          history:
+            enabled: false
+          ingress:
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+              nginx.ingress.kubernetes.io/auth-type: basic
+              nginx.ingress.kubernetes.io/auth-secret: basic-auth
+              nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - trivy'
+            hosts:
+              - host: TRIVY_DASHBOARD_HOST
+                paths:
+                  - path: /
+                    pathType: ImplementationSpecific
+            tls:
+              - secretName: trivy-operator-dashboard-tls
+                hosts:
+                  - TRIVY_DASHBOARD_HOST
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              memory: 256Mi
+  destination:
+    namespace: trivy-system
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}

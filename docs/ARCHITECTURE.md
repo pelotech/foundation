@@ -21,6 +21,7 @@ Additionally the following optional components can be installed:
 * [Loki: Open source](https://grafana.com/oss/loki/): Log aggregator from Grafana Labs with S3 log persistence
 * [Cluster Autoscaler:](https://github.com/kubernetes/autoscaler): Cluster node scaling
 * [Goldilocks](https://goldilocks.docs.fairwinds.com/): Initial recommendations for setting resource requests and limits
+* [Trivy Operator](https://aquasecurity.github.io/trivy-operator/latest/): Vulnerability scanning of running workloads, with a dashboard
 * [Tailscale](https://tailscale.com): VPN access within the cluster
 
 ### AWS clusters

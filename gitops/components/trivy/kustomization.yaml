@@ -1,0 +1,54 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+# The utils project must allow the chart repositories and the namespace.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: utils
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://aquasecurity.github.io/helm-charts
+      - op: add
+        path: /spec/sourceRepos/-
+        value: ghcr.io/raoulx24/charts
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: trivy-system
+          server: https://kubernetes.default.svc
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.TRIVY_TARGET_NAMESPACES
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: trivy-operator
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.targetNamespaces
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.TRIVY_DASHBOARD_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: trivy-operator
+        fieldPaths:
+          - spec.sources.1.helm.valuesObject.ingress.hosts.0.host
+          - spec.sources.1.helm.valuesObject.ingress.tls.0.hosts.0
