@@ -12,7 +12,8 @@ container keeps its own cache, and multi-container pods deadlock on the cache lo
 30 minutes, enough for 1 GiB images pulled from slow registries.
 
 ## Required kustomize-environment vars
-* `TRIVY_TARGET_NAMESPACES`: comma-separated namespaces to scan, e.g. `my-app-prod,my-app-staging`
+* `TRIVY_TARGET_NAMESPACES`: comma-separated namespaces to scan, e.g. `my-app-prod,my-app-staging`. The key must be
+  present; set it to `""` to scan every namespace
 * `TRIVY_DASHBOARD_HOST`: hostname of the dashboard, e.g. `trivy.my-cluster.example.com`
 
 ## Required secrets
