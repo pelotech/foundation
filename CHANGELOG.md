@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.4.0](https://github.com/pelotech/foundation/compare/v6.3.1...v6.4.0) (2026-10-13)
+
+
+### Features
+
+* **components:** add trivy-operator component ([#624](https://github.com/pelotech/foundation/issues/624)) ([f8be556](https://github.com/pelotech/foundation/commit/f8be55637a75af0403f88159deb623aafeb6394b))
+
+
+### Chores
+
+* **deps:** update argo-cd to v3.5.5 ([#620](https://github.com/pelotech/foundation/issues/620)) ([5813d6e](https://github.com/pelotech/foundation/commit/5813d6e78f02bdf6abe737c70b702ea1cdf37b13))
+* **deps:** update dependency kubevirt/kubevirt to v1.9.1 ([#621](https://github.com/pelotech/foundation/issues/621)) ([446e9d0](https://github.com/pelotech/foundation/commit/446e9d0c70f205accafa45b6f87eada66ebd3c86))
+* **deps:** update helm release argocd-image-updater to v1.3.2 ([#622](https://github.com/pelotech/foundation/issues/622)) ([282f52c](https://github.com/pelotech/foundation/commit/282f52c883482cf8ca9f72240ccf853dc5f04335))
+* **deps:** update karpenter-azure to v1.14.5 ([#628](https://github.com/pelotech/foundation/issues/628)) ([e39e72c](https://github.com/pelotech/foundation/commit/e39e72cfc636c2040addbf27145756fea181e4eb))
+* **renovate:** group azure karpenter chart and crd updates ([#625](https://github.com/pelotech/foundation/issues/625)) ([e6599b5](https://github.com/pelotech/foundation/commit/e6599b5aad8df65350e839a134a7e48f2868381a))
+
 ## [6.3.1](https://github.com/pelotech/foundation/compare/v6.3.0...v6.3.1) (2026-10-10)
 
 
