@@ -5,7 +5,7 @@ components:
   - ../../harbor
 
 # AWS flavor of harbor: registry images on S3 through IRSA, Postgres backups on S3 through IRSA.
-# Needs HARBOR_S3_BUCKET, HARBOR_S3_ROLE_ARN, HARBOR_BACKUP_S3_PATH, HARBOR_BACKUP_ROLE_ARN and AWS_REGION.
+# Needs HARBOR_S3_REGION, HARBOR_S3_BUCKET, HARBOR_S3_ROLE_ARN, HARBOR_BACKUP_S3_PATH and HARBOR_BACKUP_ROLE_ARN.
 patches:
   - target:
       group: argoproj.io
@@ -18,10 +18,10 @@ patches:
         value:
           type: s3
           s3:
-            region: AWS_REGION
+            region: HARBOR_S3_REGION
             # The bundled docker/distribution driver validates regions against a static
             # list that predates us-gov-east-1; an explicit endpoint skips that check.
-            regionendpoint: https://s3.AWS_REGION.amazonaws.com
+            regionendpoint: https://s3.HARBOR_S3_REGION.amazonaws.com
             bucket: HARBOR_S3_BUCKET
             encrypt: true
             secure: true
@@ -47,7 +47,7 @@ patches:
         value:
           - name: aws-creds-refresh
             restartPolicy: Always
-            image: amazon/aws-cli:2.37.4@sha256:fdd8d1fcbea9c371678dee5a40df8b178c7a781b4586605756ee28114c97ead6
+            image: amazon/aws-cli:2.38.0@sha256:ed3233c28ad56d6a66e9e7623a495ab2d7eb08d425f8eea0fdbdfacb12de2ba8
             env:
               - name: HOME
                 value: /storage
@@ -100,7 +100,7 @@ replacements:
       version: v1
       kind: ConfigMap
       name: kustomize-environment
-      fieldPath: data.AWS_REGION
+      fieldPath: data.HARBOR_S3_REGION
     targets:
       - select:
           group: argoproj.io

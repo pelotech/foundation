@@ -5,7 +5,7 @@ registry:
 
 postgres:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
   storageSize: 25Gi
   resources:
     requests:
@@ -23,19 +23,3 @@ postgres:
     credentials: {}
     retentionPolicy: 30d
     schedule: "0 0 0 * * *"
-
-# The crossplane sub-component turns this on: provider-harbor, its ProviderConfig and the
-# instance-wide jobs below.
-crossplane:
-  enabled: false
-  provider:
-    package: xpkg.upbound.io/globallogicuki/provider-harbor:v3.11.2
-    # Secret in the harbor namespace with a `credentials` key holding the provider-harbor JSON.
-    credentialsSecret: crossplane-harbor-admin-creds
-  garbageCollection:
-    schedule: "0 0 3 * * 0"
-  auditLogPurge:
-    schedule: "0 0 4 * * 0"
-    retentionHours: 2160
-  scanner:
-    schedule: "0 0 2 * * 3"

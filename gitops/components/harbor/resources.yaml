@@ -57,7 +57,7 @@ spec:
               - database
           trivy:
             replicas: 2
-    # Postgres and the registry ServiceAccount. Cloud flavors and the crossplane sub-component fill valuesObject.
+    # Postgres and the registry ServiceAccount. Cloud flavors fill valuesObject.
     - repoURL: https://github.com/pelotech/foundation
       path: gitops/components/harbor/cluster-resources
       targetRevision: v6.4.0 # x-release-please-version

@@ -7,7 +7,8 @@ AWS flavor of the [`harbor`](../../harbor/README.md) component. Includes the bas
   the CNPG cluster ServiceAccount. Retention 30 days.
 
 ## Required kustomize-environment vars
-* `AWS_REGION`: region of the bucket. Also sets the S3 endpoint, `https://s3.<AWS_REGION>.amazonaws.com`.
+* `HARBOR_S3_REGION`: region of the bucket, which need not be the cluster region. Also sets the S3 endpoint,
+  `https://s3.<HARBOR_S3_REGION>.amazonaws.com`.
 * `HARBOR_S3_BUCKET`: bucket for registry data, e.g. `my-org-harbor-prod`.
 * `HARBOR_S3_ROLE_ARN`: IAM role with read and write on that bucket, trusted by `harbor:harbor-registry`.
 * `HARBOR_BACKUP_S3_PATH`: Barman destination, e.g. `s3://my-org-backups/harbor/`.
