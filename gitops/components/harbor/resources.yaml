@@ -57,7 +57,7 @@ spec:
               - database
           trivy:
             replicas: 2
-    # Postgres, the registry ServiceAccount and the Crossplane provider. Cloud flavors fill valuesObject.
+    # Postgres and the registry ServiceAccount. Cloud flavors and the crossplane sub-component fill valuesObject.
     - repoURL: https://github.com/pelotech/foundation
       path: gitops/components/harbor/cluster-resources
       targetRevision: v6.4.0 # x-release-please-version
@@ -71,8 +71,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-      # provider-harbor CRDs land after the Provider syncs.
-      - SkipDryRunOnMissingResource=true
     retry:
       limit: 10
       backoff:
@@ -80,9 +78,3 @@ spec:
         maxDuration: 5m
         factor: 2
     automated: {}
-  ignoreDifferences:
-    # Crossplane resolves *Ref fields and writes the resolved value back into the literal field.
-    - group: robotaccount.harbor.crossplane.io
-      kind: RobotAccount
-      jqPathExpressions:
-        - .spec.forProvider.permissions[].namespace

@@ -1,3 +1,4 @@
+{{- if .Values.crossplane.enabled }}
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
@@ -6,7 +7,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
-  package: {{ .Values.provider.package }}
+  package: {{ .Values.crossplane.provider.package }}
   packagePullPolicy: IfNotPresent
   revisionActivationPolicy: Automatic
   revisionHistoryLimit: 1
@@ -20,5 +21,6 @@ spec:
     source: Secret
     secretRef:
       namespace: {{ .Release.Namespace }}
-      name: {{ .Values.provider.credentialsSecret }}
+      name: {{ .Values.crossplane.provider.credentialsSecret }}
       key: credentials
+{{- end }}
