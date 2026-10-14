@@ -1,0 +1,35 @@
+---
+apiVersion: garbagecollection.harbor.crossplane.io/v1alpha1
+kind: GarbageCollection
+metadata:
+  name: harbor-gc
+spec:
+  forProvider:
+    schedule: {{ .Values.garbageCollection.schedule | quote }}
+    deleteUntagged: true
+    workers: 1
+  providerConfigRef:
+    name: harbor
+---
+apiVersion: purgeauditlog.harbor.crossplane.io/v1alpha1
+kind: PurgeAuditLog
+metadata:
+  name: harbor-purge-audit-log
+spec:
+  forProvider:
+    schedule: {{ .Values.auditLogPurge.schedule | quote }}
+    auditRetentionHour: {{ .Values.auditLogPurge.retentionHours }}
+    includeEventTypes: "create,pull,delete"
+  providerConfigRef:
+    name: harbor
+---
+apiVersion: interrogationservices.harbor.crossplane.io/v1alpha1
+kind: InterrogationServices
+metadata:
+  name: harbor-interrogation-services
+spec:
+  forProvider:
+    defaultScanner: "Trivy"
+    vulnerabilityScanPolicy: {{ .Values.scanner.schedule | quote }}
+  providerConfigRef:
+    name: harbor

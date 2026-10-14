@@ -1,0 +1,39 @@
+registry:
+  serviceAccount:
+    # Cloud flavors add the identity annotation that grants bucket access.
+    annotations: {}
+
+postgres:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie
+  storageSize: 25Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 1Gi
+    limits:
+      memory: 1Gi
+  # Cloud flavors add the identity annotation that grants backup bucket access.
+  serviceAccountAnnotations: {}
+  backup:
+    # Object store URL for WAL archiving and base backups, e.g. s3://bucket/harbor/.
+    # Empty disables the Barman Cloud plugin, the ObjectStore and the ScheduledBackup.
+    destinationPath: ""
+    # Credentials block of the Barman ObjectStore, e.g. s3Credentials or azureCredentials.
+    credentials: {}
+    retentionPolicy: 30d
+    schedule: "0 0 0 * * *"
+
+provider:
+  package: xpkg.upbound.io/globallogicuki/provider-harbor:v3.11.2
+  # Secret in the harbor namespace with a `credentials` key holding the provider-harbor JSON.
+  credentialsSecret: crossplane-harbor-admin-creds
+
+# Instance-wide Harbor jobs, applied through the provider.
+garbageCollection:
+  schedule: "0 0 3 * * 0"
+auditLogPurge:
+  schedule: "0 0 4 * * 0"
+  retentionHours: 2160
+scanner:
+  schedule: "0 0 2 * * 3"

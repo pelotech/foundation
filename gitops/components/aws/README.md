@@ -11,6 +11,9 @@ Components in this directory are **meaningful only on AWS/EKS**:
 * [`kubevirt`](kubevirt): the AWS flavor of the top-level
   [`kubevirt`](../kubevirt) component: EBS storage for CDI and Karpenter node
   placement over the cloud-neutral base.
+* [`harbor-s3`](harbor-s3/README.md): the AWS flavor of the top-level
+  [`harbor`](../harbor/README.md) component: S3 registry storage and S3 Postgres
+  backups, both through IRSA.
 * The `*-irsa` flavor components — IRSA is an AWS mechanism. Each includes the
   AWS flavor above (e.g. `aws/cert-manager-irsa` includes `../cert-manager`)
   and adds the IAM role annotations.

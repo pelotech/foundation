@@ -1,0 +1,88 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: harbor
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  sources:
+    - chart: harbor
+      repoURL: https://helm.goharbor.io
+      targetRevision: 1.19.2
+      helm:
+        releaseName: harbor
+        valuesObject:
+          expose:
+            type: ingress
+            tls:
+              enabled: true
+              certSource: secret
+              secret:
+                secretName: harbor-tls
+            ingress:
+              hosts:
+                core: HARBOR_HOST
+              className: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt
+          externalURL: https://HARBOR_HOST
+          existingSecretAdminPassword: harbor-admin-password
+          existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
+          persistence:
+            enabled: true
+            resourcePolicy: keep
+          database:
+            type: external
+            external:
+              host: harbor-postgres-rw
+              port: 5432
+              username: harbor
+              coreDatabase: registry
+              existingSecret: harbor-postgres-app
+              sslmode: require
+          core:
+            replicas: 2
+          portal:
+            replicas: 2
+          registry:
+            replicas: 2
+            serviceAccountName: harbor-registry
+            automountServiceAccountToken: true
+          jobservice:
+            replicas: 2
+            jobLoggers:
+              - database
+          trivy:
+            replicas: 2
+    # Postgres, the registry ServiceAccount and the Crossplane provider. Cloud flavors fill valuesObject.
+    - repoURL: https://github.com/pelotech/foundation
+      path: gitops/components/harbor/cluster-resources
+      targetRevision: v6.4.0 # x-release-please-version
+      helm:
+        releaseName: harbor-cluster-resources
+        valuesObject: {}
+  destination:
+    namespace: harbor
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      # provider-harbor CRDs land after the Provider syncs.
+      - SkipDryRunOnMissingResource=true
+    retry:
+      limit: 10
+      backoff:
+        duration: 10s
+        maxDuration: 5m
+        factor: 2
+    automated: {}
+  ignoreDifferences:
+    # Crossplane resolves *Ref fields and writes the resolved value back into the literal field.
+    - group: robotaccount.harbor.crossplane.io
+      kind: RobotAccount
+      jqPathExpressions:
+        - .spec.forProvider.permissions[].namespace
