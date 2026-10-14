@@ -55,4 +55,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-    automated: {}
+    # Set explicitly: Argo CD server-side diff renders a move from a set automated block to {} as
+    # null in its dry-run apply, and the Application CRD rejects it, so an app adopted from a
+    # hand-written install with these fields set never syncs.
+    automated:
+      prune: true
+      selfHeal: true
