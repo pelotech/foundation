@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.5.0](https://github.com/pelotech/foundation/compare/v6.4.0...v6.5.0) (2026-10-14)
+
+
+### Features
+
+* **components:** add dex component ([#629](https://github.com/pelotech/foundation/issues/629)) ([7e28c4c](https://github.com/pelotech/foundation/commit/7e28c4cb5bc304190b2cc7d4ad3adf7661775904))
+* **components:** add harbor component with an aws s3 flavor ([#630](https://github.com/pelotech/foundation/issues/630)) ([5c1083a](https://github.com/pelotech/foundation/commit/5c1083a69f71d6674b3385d5c1729028b4dadd0d))
+
+
+### Chores
+
+* **deps:** update helm release argo-workflows to v2.0.13 ([#631](https://github.com/pelotech/foundation/issues/631)) ([777f9c0](https://github.com/pelotech/foundation/commit/777f9c0678d7b4073abf1d09fdbde572bbbd078e))
+
 ## [6.4.0](https://github.com/pelotech/foundation/compare/v6.3.1...v6.4.0) (2026-10-13)
 
 
