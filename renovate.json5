@@ -35,6 +35,20 @@
       // Values are stored without the leading `v` that the upstream tags carry.
       extractVersionTemplate: '^v?(?<version>.+)$',
     },
+    {
+      customType: 'regex',
+      description: 'Update container images named in chart values files (imageName: repo:tag)',
+      managerFilePatterns: ['/^gitops/components/.*/values\\.yaml$/'],
+      matchStrings: ['imageName:\\s*(?<depName>[^\\s:@]+):(?<currentValue>[^\\s@]+)'],
+      datasourceTemplate: 'docker',
+    },
+    {
+      customType: 'regex',
+      description: 'Update sidecar images pinned by tag and digest inside Application valuesObject blocks',
+      managerFilePatterns: ['/^gitops/components/.*/kustomization\\.yaml$/'],
+      matchStrings: ['image:\\s*(?<depName>[^\\s:@]+):(?<currentValue>[^\\s@]+)@(?<currentDigest>sha256:[a-f0-9]{64})'],
+      datasourceTemplate: 'docker',
+    },
   ],
   packageRules: [
     {
