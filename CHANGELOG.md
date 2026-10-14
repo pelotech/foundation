@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.5.1](https://github.com/pelotech/foundation/compare/v6.5.0...v6.5.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* **components:** set prune and selfHeal on the trivy, dex and harbor Applications ([#633](https://github.com/pelotech/foundation/issues/633)) ([c4f0c85](https://github.com/pelotech/foundation/commit/c4f0c85115c887bd8dcb62750fa28f1065938581))
+
 ## [6.5.0](https://github.com/pelotech/foundation/compare/v6.4.0...v6.5.0) (2026-10-14)
 
 

@@ -60,7 +60,7 @@ spec:
     # Postgres and the registry ServiceAccount. Cloud flavors fill valuesObject.
     - repoURL: https://github.com/pelotech/foundation
       path: gitops/components/harbor/cluster-resources
-      targetRevision: v6.5.0 # x-release-please-version
+      targetRevision: v6.5.1 # x-release-please-version
       helm:
         releaseName: harbor-cluster-resources
         valuesObject: {}
