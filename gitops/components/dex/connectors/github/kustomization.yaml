@@ -1,0 +1,59 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# GitHub connector for the dex component. List it after ../.. in components.
+# Needs DEX_GITHUB_ORG in kustomize-environment and GITHUB_CLIENT_ID and
+# GITHUB_CLIENT_SECRET in the dex-secrets Secret.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: dex
+    patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/config/connectors/-
+        value:
+          type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: $GITHUB_CLIENT_ID
+            clientSecret: $GITHUB_CLIENT_SECRET
+            redirectURI: https://DEX_HOST/callback
+            orgs:
+              - name: DEX_GITHUB_ORG
+            loadAllGroups: true
+            teamNameField: slug
+            useLoginAsID: true
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.DEX_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: dex
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.config.connectors.[id=github].config.redirectURI
+        options:
+          delimiter: '/'
+          index: 2
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.DEX_GITHUB_ORG
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: dex
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.config.connectors.[id=github].config.orgs.0.name

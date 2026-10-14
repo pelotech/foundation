@@ -1,0 +1,58 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dex
+  namespace: argocd
+  annotations:
+    # Apps that log in through Dex sync after it.
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: utils
+  # A list so consumers can append a source for the dex-secrets Secret.
+  sources:
+    - chart: dex
+      repoURL: https://charts.dexidp.io
+      targetRevision: 0.26.0
+      helm:
+        releaseName: dex
+        valuesObject:
+          config:
+            issuer: https://DEX_HOST
+            storage:
+              type: kubernetes
+              config:
+                inCluster: true
+            enablePasswordDB: false
+            oauth2:
+              skipApprovalScreen: true
+            # Connector sub-components append here.
+            connectors: []
+          envFrom:
+            - secretRef:
+                name: dex-secrets
+          ingress:
+            enabled: true
+            className: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+            hosts:
+              - host: DEX_HOST
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - secretName: dex-tls
+                hosts:
+                  - DEX_HOST
+          replicaCount: 1
+  destination:
+    namespace: dex
+    name: in-cluster
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    automated: {}

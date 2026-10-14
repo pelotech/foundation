@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+# The utils project must allow the chart repository and the namespace.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: utils
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://charts.dexidp.io
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: dex
+          server: https://kubernetes.default.svc
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.DEX_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: dex
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.config.issuer
+        options:
+          delimiter: '/'
+          index: 2
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: dex
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.ingress.hosts.0.host
+          - spec.sources.0.helm.valuesObject.ingress.tls.0.hosts.0
