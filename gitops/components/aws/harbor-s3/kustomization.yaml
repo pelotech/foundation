@@ -1,0 +1,173 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+components:
+  - ../../harbor
+
+# AWS flavor of harbor: registry images on S3 through IRSA, Postgres backups on S3 through IRSA.
+# Needs HARBOR_S3_REGION, HARBOR_S3_BUCKET, HARBOR_S3_ROLE_ARN, HARBOR_BACKUP_S3_PATH and HARBOR_BACKUP_ROLE_ARN.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application
+      name: harbor
+    patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/persistence/imageChartStorage
+        value:
+          type: s3
+          s3:
+            region: HARBOR_S3_REGION
+            # The bundled docker/distribution driver validates regions against a static
+            # list that predates us-gov-east-1; an explicit endpoint skips that check.
+            regionendpoint: https://s3.HARBOR_S3_REGION.amazonaws.com
+            bucket: HARBOR_S3_BUCKET
+            encrypt: true
+            secure: true
+            v4auth: true
+      # registry-photon's aws-sdk-go v1 has no WebIdentity or Pod Identity provider
+      # (goharbor/harbor#12888). A sidecar with a current aws-cli writes the IRSA
+      # session as a credentials file the old SDK can read. Drop it once Harbor
+      # ships a registry built on distribution v3.
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/registry/registry
+        value:
+          extraEnvVars:
+            - name: AWS_SHARED_CREDENTIALS_FILE
+              value: /storage/aws-creds/credentials
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/registry/controller
+        value:
+          extraEnvVars:
+            - name: AWS_SHARED_CREDENTIALS_FILE
+              value: /storage/aws-creds/credentials
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/registry/initContainers
+        value:
+          - name: aws-creds-refresh
+            restartPolicy: Always
+            image: amazon/aws-cli:2.38.0@sha256:ed3233c28ad56d6a66e9e7623a495ab2d7eb08d425f8eea0fdbdfacb12de2ba8
+            env:
+              - name: HOME
+                value: /storage
+            command:
+              - sh
+              - -c
+              - |
+                set -eu
+                mkdir -p /storage/aws-creds
+                while true; do
+                  eval "$(aws configure export-credentials --format env-no-export)"
+                  cat > /storage/aws-creds/credentials.tmp <<EOT
+                [default]
+                aws_access_key_id = $AWS_ACCESS_KEY_ID
+                aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+                aws_session_token = $AWS_SESSION_TOKEN
+                EOT
+                  mv /storage/aws-creds/credentials.tmp /storage/aws-creds/credentials
+                  sleep 1800
+                done
+            startupProbe:
+              exec:
+                command: ['test', '-f', '/storage/aws-creds/credentials']
+              periodSeconds: 1
+              failureThreshold: 30
+            volumeMounts:
+              - name: registry-data
+                mountPath: /storage
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/registry
+        value:
+          serviceAccount:
+            annotations:
+              eks.amazonaws.com/role-arn: HARBOR_S3_ROLE_ARN
+              eks.amazonaws.com/sts-regional-endpoints: "true"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/postgres
+        value:
+          serviceAccountAnnotations:
+            eks.amazonaws.com/role-arn: HARBOR_BACKUP_ROLE_ARN
+            eks.amazonaws.com/sts-regional-endpoints: "true"
+          backup:
+            destinationPath: HARBOR_BACKUP_S3_PATH
+            credentials:
+              s3Credentials:
+                inheritFromIAMRole: true
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.HARBOR_S3_REGION
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.[chart=harbor].helm.valuesObject.persistence.imageChartStorage.s3.region
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.[chart=harbor].helm.valuesObject.persistence.imageChartStorage.s3.regionendpoint
+        options:
+          delimiter: '.'
+          index: 1
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.HARBOR_S3_BUCKET
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.[chart=harbor].helm.valuesObject.persistence.imageChartStorage.s3.bucket
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.HARBOR_S3_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.[path=gitops/components/harbor/cluster-resources].helm.valuesObject.registry.serviceAccount.annotations.[eks.amazonaws.com/role-arn]
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.HARBOR_BACKUP_ROLE_ARN
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.[path=gitops/components/harbor/cluster-resources].helm.valuesObject.postgres.serviceAccountAnnotations.[eks.amazonaws.com/role-arn]
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.HARBOR_BACKUP_S3_PATH
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.[path=gitops/components/harbor/cluster-resources].helm.valuesObject.postgres.backup.destinationPath

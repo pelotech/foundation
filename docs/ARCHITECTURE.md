@@ -23,6 +23,7 @@ Additionally the following optional components can be installed:
 * [Goldilocks](https://goldilocks.docs.fairwinds.com/): Initial recommendations for setting resource requests and limits
 * [Trivy Operator](https://aquasecurity.github.io/trivy-operator/latest/): Vulnerability scanning of running workloads, with a dashboard
 * [Dex](https://dexidp.io/): OpenID Connect provider that delegates login to an upstream identity provider such as GitHub
+* [Harbor](https://goharbor.io/): OCI registry with object storage and Postgres on CloudNativePG
 * [Tailscale](https://tailscale.com): VPN access within the cluster
 
 ### AWS clusters

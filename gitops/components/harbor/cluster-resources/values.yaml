@@ -1,0 +1,25 @@
+registry:
+  serviceAccount:
+    # Cloud flavors add the identity annotation that grants bucket access.
+    annotations: {}
+
+postgres:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
+  storageSize: 25Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 1Gi
+    limits:
+      memory: 1Gi
+  # Cloud flavors add the identity annotation that grants backup bucket access.
+  serviceAccountAnnotations: {}
+  backup:
+    # Object store URL for WAL archiving and base backups, e.g. s3://bucket/harbor/.
+    # Empty disables the Barman Cloud plugin, the ObjectStore and the ScheduledBackup.
+    destinationPath: ""
+    # Credentials block of the Barman ObjectStore, e.g. s3Credentials or azureCredentials.
+    credentials: {}
+    retentionPolicy: 30d
+    schedule: "0 0 0 * * *"

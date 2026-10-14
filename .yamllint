@@ -11,3 +11,4 @@ ignore: |
   *.terraform/
   gitops/components/cert-manager/create-issuer/templates/create-issuer.yaml
   gitops/components/envoy-gateway/create-gateway/templates/gateway.yaml
+  gitops/components/harbor/cluster-resources/templates/

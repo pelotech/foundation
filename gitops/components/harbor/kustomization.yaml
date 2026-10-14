@@ -1,0 +1,47 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ./resources.yaml
+
+# The utils project must allow the chart repository and the namespace.
+patches:
+  - target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: AppProject
+      name: utils
+    patch: |-
+      - op: add
+        path: /spec/sourceRepos/-
+        value: https://helm.goharbor.io
+      - op: add
+        path: /spec/destinations/-
+        value:
+          namespace: harbor
+          server: https://kubernetes.default.svc
+
+replacements:
+  - source:
+      version: v1
+      kind: ConfigMap
+      name: kustomize-environment
+      fieldPath: data.HARBOR_HOST
+    targets:
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.expose.ingress.hosts.core
+      - select:
+          group: argoproj.io
+          version: v1alpha1
+          kind: Application
+          name: harbor
+        fieldPaths:
+          - spec.sources.0.helm.valuesObject.externalURL
+        options:
+          delimiter: '/'
+          index: 2

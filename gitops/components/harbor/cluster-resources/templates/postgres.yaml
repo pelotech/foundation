@@ -1,0 +1,59 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: harbor-postgres
+spec:
+  instances: {{ .Values.postgres.instances }}
+  imageName: {{ .Values.postgres.imageName }}
+  bootstrap:
+    initdb:
+      database: registry
+      owner: harbor
+  {{- if .Values.postgres.backup.destinationPath }}
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: harbor-postgres
+  {{- end }}
+  {{- with .Values.postgres.serviceAccountAnnotations }}
+  serviceAccountTemplate:
+    metadata:
+      annotations:
+        {{- toYaml . | nindent 8 }}
+  {{- end }}
+  resources:
+    {{- toYaml .Values.postgres.resources | nindent 4 }}
+  storage:
+    size: {{ .Values.postgres.storageSize }}
+{{- if .Values.postgres.backup.destinationPath }}
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: harbor-postgres
+spec:
+  configuration:
+    destinationPath: {{ .Values.postgres.backup.destinationPath }}
+    {{- with .Values.postgres.backup.credentials }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    wal:
+      compression: bzip2
+  retentionPolicy: {{ .Values.postgres.backup.retentionPolicy }}
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: harbor-postgres
+spec:
+  backupOwnerReference: cluster
+  cluster:
+    name: harbor-postgres
+  immediate: true
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  schedule: {{ .Values.postgres.backup.schedule | quote }}
+{{- end }}

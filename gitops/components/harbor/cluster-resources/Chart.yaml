@@ -1,0 +1,5 @@
+apiVersion: v2
+name: harbor-cluster-resources
+description: Postgres, registry ServiceAccount and Crossplane provider for the harbor component
+type: application
+version: 0.1.0
