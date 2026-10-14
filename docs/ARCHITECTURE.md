@@ -22,6 +22,7 @@ Additionally the following optional components can be installed:
 * [Cluster Autoscaler:](https://github.com/kubernetes/autoscaler): Cluster node scaling
 * [Goldilocks](https://goldilocks.docs.fairwinds.com/): Initial recommendations for setting resource requests and limits
 * [Trivy Operator](https://aquasecurity.github.io/trivy-operator/latest/): Vulnerability scanning of running workloads, with a dashboard
+* [Dex](https://dexidp.io/): OpenID Connect provider that delegates login to an upstream identity provider such as GitHub
 * [Tailscale](https://tailscale.com): VPN access within the cluster
 
 ### AWS clusters
