@@ -72,5 +72,10 @@
       ],
       groupName: 'karpenter-azure',
     },
+    {
+      description: 'One PR for everything under the harbor component: chart, Postgres image, sidecar',
+      matchFileNames: ['gitops/components/harbor/**', 'gitops/components/aws/harbor-s3/**'],
+      groupName: 'harbor',
+    },
   ],
 }
