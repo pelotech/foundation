@@ -28,6 +28,8 @@ spec:
             enablePasswordDB: false
             oauth2:
               skipApprovalScreen: true
+            # Connector sub-components append here.
+            connectors: []
           envFrom:
             - secretRef:
                 name: dex-secrets

@@ -7,7 +7,8 @@ an OpenID Connect provider: services such as Harbor or Argo Workflows log in thr
 to an upstream connector such as GitHub.
 
 The component ships the chart, the in-cluster Kubernetes storage, the ingress and the `dex-secrets` environment
-Secret. Connectors and clients differ per deployment, so the consumer adds them with a patch.
+Secret. Connectors are sub-components the consumer picks. Clients differ per deployment, so the consumer adds them
+with a patch.
 
 ## Required kustomize-environment vars
 * `DEX_HOST`: hostname of the ingress, e.g. `dex.my-cluster.example.com`. The issuer is `https://<DEX_HOST>`.
@@ -19,22 +20,26 @@ the config as `$KEY` in connectors and as `secretEnv: KEY` in static clients, so
 The Secret can come from a second source on the Application, e.g. a ksops directory in the consumer's repo. The
 `utils` project must then allow that repo in `spec.sourceRepos`.
 
-## Required patch
-Dex needs at least one connector. Add connectors and static clients to `spec.sources.0.helm.valuesObject.config`:
+## Connectors
+Dex needs at least one connector. Each one is a sub-component that appends to `config.connectors`, so list it after
+the base:
 
 ```yaml
-- op: add
-  path: /spec/sources/0/helm/valuesObject/config/connectors
-  value:
-    - type: github
-      id: github
-      name: GitHub
-      config:
-        clientID: $GITHUB_CLIENT_ID
-        clientSecret: $GITHUB_CLIENT_SECRET
-        redirectURI: https://dex.my-cluster.example.com/callback
-        orgs:
-          - name: my-org
+components:
+  - https://github.com/pelotech/foundation//gitops/components/dex?ref=<version>
+  - https://github.com/pelotech/foundation//gitops/components/dex/connectors/github?ref=<version>
+```
+
+| Connector | Vars | `dex-secrets` keys |
+|-----------|------|--------------------|
+| `connectors/github` | `DEX_GITHUB_ORG`: GitHub org whose members may log in; teams come back as groups by slug | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` from a GitHub OAuth app with callback `https://<DEX_HOST>/callback` |
+
+A connector that is not here yet can still be added with a patch on `/spec/sources/0/helm/valuesObject/config/connectors/-`.
+
+## Required patch
+Add the static clients of the apps that log in through Dex:
+
+```yaml
 - op: add
   path: /spec/sources/0/helm/valuesObject/config/staticClients
   value:
