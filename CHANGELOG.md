@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.5.2](https://github.com/pelotech/foundation/compare/v6.5.1...v6.5.2) (2026-10-17)
+
+
+### Chores
+
+* **deps:** update alpine/helm docker tag to v4.3.1 ([#635](https://github.com/pelotech/foundation/issues/635)) ([fe7a9e8](https://github.com/pelotech/foundation/commit/fe7a9e8204478f94291f4c3fcef25df21b1dfc10))
+* **deps:** update dependency kubernetes-csi/external-snapshotter to v8.7.0 ([#626](https://github.com/pelotech/foundation/issues/626)) ([ebd41b2](https://github.com/pelotech/foundation/commit/ebd41b29589bf1dc3800f4d3a6caf0d16001cfa8))
+* **deps:** update dependency kubevirt/common-instancetypes to v1.8.0 ([#637](https://github.com/pelotech/foundation/issues/637)) ([5347cb6](https://github.com/pelotech/foundation/commit/5347cb6435a6a1ac90bae8e2f14f470fe683c793))
+* **deps:** update dependency pelotech/nidhogg to v0.8.2 ([#638](https://github.com/pelotech/foundation/issues/638)) ([2ec09af](https://github.com/pelotech/foundation/commit/2ec09afc1374dbbd011e16107e78ce8c526ae390))
+* **deps:** update ghcr.io/traefik/helm/traefik docker tag to v42 ([#636](https://github.com/pelotech/foundation/issues/636)) ([59feb35](https://github.com/pelotech/foundation/commit/59feb35b44773808f92c3164b31ae1c34afc4492))
+* **deps:** update helm release aws-ebs-csi-driver to v2.67.0 ([#623](https://github.com/pelotech/foundation/issues/623)) ([66810c1](https://github.com/pelotech/foundation/commit/66810c1bb79a9a2b6fb57104581351a7a41fd166))
+
 ## [6.5.1](https://github.com/pelotech/foundation/compare/v6.5.0...v6.5.1) (2026-10-14)
 
 
