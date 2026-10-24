@@ -40,6 +40,9 @@ spec:
             allowSnippetAnnotations: true
             # changes the proxy read timeout from 60 to 1800
             proxyReadTimeout: 1800
+            # the send timeout (default 60) 504s registry blob uploads that stream
+            # longer than a minute, e.g. multi-GB KubeVirt containerDisk layers
+            proxySendTimeout: 1800
           kubernetesIngress:
             enabled: false # nginx-compat provider only; no second ingress class
           # kubernetesGateway stays disabled: envoy-gateway owns the Gateway API
