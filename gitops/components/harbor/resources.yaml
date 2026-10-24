@@ -28,6 +28,11 @@ spec:
               className: nginx
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt
+                # Multi-GB blob uploads stream longer than the ingress default 60s read timeout and get 504s.
+                nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+                nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+                # Stream uploads instead of spooling them to the controller disk.
+                nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
           externalURL: https://HARBOR_HOST
           existingSecretAdminPassword: harbor-admin-password
           existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
