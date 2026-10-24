@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.5.4](https://github.com/pelotech/foundation/compare/v6.5.3...v6.5.4) (2026-10-24)
+
+
+### Bug Fixes
+
+* **traefik:** disable the websecure entrypoint request read timeout ([#654](https://github.com/pelotech/foundation/issues/654)) ([a213f95](https://github.com/pelotech/foundation/commit/a213f95a020de500f28ce284946b899bcada48cf))
+
+
+### Chores
+
+* **deps:** update karpenter to v1.15.1 ([#614](https://github.com/pelotech/foundation/issues/614)) ([5417f1b](https://github.com/pelotech/foundation/commit/5417f1b9fd26b0ce1732f99cec2820e0b89763de))
+
 ## [6.5.3](https://github.com/pelotech/foundation/compare/v6.5.2...v6.5.3) (2026-10-24)
 
 
