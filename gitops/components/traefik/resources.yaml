@@ -71,6 +71,11 @@ spec:
             forwardedHeaders:
               trustedIPs:
                 - "0.0.0.0/0"
+            # nginx parity: nginx never capped total request-read time, but Traefik v3
+            # defaults this to 60s, which 504s any upload that streams longer.
+            transport:
+              respondingTimeouts:
+                readTimeout: 0
         # The entry points accept a PROXY header or none, so they work behind any load balancer.
         resources:
           requests:
