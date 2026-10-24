@@ -1,5 +1,28 @@
 # Changelog
 
+## [6.5.3](https://github.com/pelotech/foundation/compare/v6.5.2...v6.5.3) (2026-10-24)
+
+
+### Bug Fixes
+
+* **traefik:** raise nginx-provider send timeout for large blob uploads ([#651](https://github.com/pelotech/foundation/issues/651)) ([5ca705d](https://github.com/pelotech/foundation/commit/5ca705dbf8458c1457a18e6f69470f2d8a25cd79))
+
+
+### Chores
+
+* **deps:** update argo-cd to v3.5.6 ([#642](https://github.com/pelotech/foundation/issues/642)) ([e6efc48](https://github.com/pelotech/foundation/commit/e6efc48af1acd6f450c74ca592afa00816c798b9))
+* **deps:** update dependency helmfile/vals to v0.50.0 ([#644](https://github.com/pelotech/foundation/issues/644)) ([d046692](https://github.com/pelotech/foundation/commit/d046692e101120a28d870a5a22f18e5466217d70))
+* **deps:** update ghcr.io/traefik/helm/traefik docker tag to v42.1.3 ([#641](https://github.com/pelotech/foundation/issues/641)) ([57ab8f7](https://github.com/pelotech/foundation/commit/57ab8f799d9875df3e866b25e005a1ca6a5ff779))
+* **deps:** update harbor (amazon/aws-cli, harbor) ([#653](https://github.com/pelotech/foundation/issues/653)) ([2c29e98](https://github.com/pelotech/foundation/commit/2c29e98565b9240dcb938fd78bf257dd9f955b57))
+* **deps:** update helm release argo-workflows to v2.0.14 ([#646](https://github.com/pelotech/foundation/issues/646)) ([740024a](https://github.com/pelotech/foundation/commit/740024a2d81e08408f85b422fd78e58cee8118b8))
+* **deps:** update helm release aws-ebs-csi-driver to v2.67.1 ([#640](https://github.com/pelotech/foundation/issues/640)) ([105a912](https://github.com/pelotech/foundation/commit/105a9122076c36fc825154b898636734ceaf6d28))
+* **deps:** update helm release aws-load-balancer-controller to v3.6.1 ([#645](https://github.com/pelotech/foundation/issues/645)) ([f59c254](https://github.com/pelotech/foundation/commit/f59c254ef8549c92e339fb49a2eba51954b18ab7))
+* **deps:** update helm release cert-manager to v1.21.3 ([#650](https://github.com/pelotech/foundation/issues/650)) ([5da0058](https://github.com/pelotech/foundation/commit/5da00582d6291a4c5ea2df8e8e6ef2ed5937147c))
+* **deps:** update helm release crossplane to v2.4.3 ([#647](https://github.com/pelotech/foundation/issues/647)) ([d46898e](https://github.com/pelotech/foundation/commit/d46898e460e73fdbd02606ce3eb070c04e7ea358))
+* **deps:** update helm release k8s-monitoring to v4.5.5 ([#648](https://github.com/pelotech/foundation/issues/648)) ([9aba84d](https://github.com/pelotech/foundation/commit/9aba84dcd9e660e7295fc97466a5299e80ac7c8d))
+* **deps:** update helm release kyverno to v3.9.2 ([#643](https://github.com/pelotech/foundation/issues/643)) ([4b862c9](https://github.com/pelotech/foundation/commit/4b862c92d680e4ae963a27633df853dcdcdc8e84))
+* **deps:** update helm release prometheus-operator-crds to v32.0.2 ([#652](https://github.com/pelotech/foundation/issues/652)) ([1f2a44e](https://github.com/pelotech/foundation/commit/1f2a44e5dfdcf8459f882eaa40a9f8c5649285c2))
+
 ## [6.5.2](https://github.com/pelotech/foundation/compare/v6.5.1...v6.5.2) (2026-10-17)
 
 
